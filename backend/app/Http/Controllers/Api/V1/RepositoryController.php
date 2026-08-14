@@ -8,14 +8,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StoreRepositoryRequest;
 use App\Http\Requests\Api\V1\UpdateRepositoryRequest;
 use App\Http\Resources\RepositoryResource;
+use App\Jobs\DeleteRepositoryStorage;
 use App\Models\Repository;
+use App\Services\Git\RepositoryStorageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Throwable;
 
 class RepositoryController extends Controller
 {
+    public function __construct(
+        private readonly RepositoryStorageService $storage,
+    ) {}
+
     /**
      * List repositories visible to the authenticated user.
      */
@@ -40,26 +48,53 @@ class RepositoryController extends Controller
     }
 
     /**
-     * Create repository metadata for the authenticated owner.
+     * Create metadata and managed bare Git storage atomically.
      */
     public function store(
         StoreRepositoryRequest $request,
     ): JsonResponse {
         Gate::authorize('create', Repository::class);
 
-        $repository = $request
-            ->user()
-            ->repositories()
-            ->create([
-                ...$request->safe()->only([
-                    'name',
-                    'slug',
-                    'description',
-                    'visibility',
-                ]),
-                'status' => RepositoryStatus::Active,
-                'default_branch' => null,
-            ]);
+        $repository = null;
+
+        DB::beginTransaction();
+
+        try {
+            $repository = $request
+                ->user()
+                ->repositories()
+                ->create([
+                    ...$request->safe()->only([
+                        'name',
+                        'slug',
+                        'description',
+                        'visibility',
+                    ]),
+                    'status' => RepositoryStatus::Active,
+                    'default_branch' => null,
+                ]);
+
+            $this->storage->initialize($repository);
+
+            DB::commit();
+        } catch (Throwable $exception) {
+            if (DB::transactionLevel() > 0) {
+                DB::rollBack();
+            }
+
+            if (
+                $repository instanceof Repository
+                && $this->storage->exists($repository)
+            ) {
+                try {
+                    $this->storage->delete($repository);
+                } catch (Throwable $cleanupException) {
+                    report($cleanupException);
+                }
+            }
+
+            throw $exception;
+        }
 
         $repository->load('owner');
 
@@ -148,17 +183,25 @@ class RepositoryController extends Controller
     }
 
     /**
-     * Mark a repository for coordinated metadata and storage deletion.
+     * Schedule coordinated storage and metadata deletion.
      */
     public function destroy(Repository $repository): JsonResponse
     {
         Gate::authorize('delete', $repository);
 
-        $repository->update([
-            'status' => RepositoryStatus::DeletionPending,
-            'deletion_requested_at' => now(),
-            'deletion_failure_reason' => null,
-        ]);
+        DB::transaction(
+            static function () use ($repository): void {
+                $repository->update([
+                    'status' => RepositoryStatus::DeletionPending,
+                    'deletion_requested_at' => now(),
+                    'deletion_failure_reason' => null,
+                ]);
+
+                DeleteRepositoryStorage::dispatch(
+                    $repository->id,
+                )->afterCommit();
+            },
+        );
 
         return response()->json([
             'message' => 'Repository deletion scheduled.',
