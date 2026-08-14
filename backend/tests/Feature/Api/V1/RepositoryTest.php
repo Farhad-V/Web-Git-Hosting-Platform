@@ -4,15 +4,54 @@ namespace Tests\Feature\Api\V1;
 
 use App\Enums\RepositoryStatus;
 use App\Enums\RepositoryVisibility;
+use App\Jobs\DeleteRepositoryStorage;
 use App\Models\Repository;
 use App\Models\User;
+use App\Services\Git\RepositoryStorageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class RepositoryTest extends TestCase
 {
     use RefreshDatabase;
+
+    private string $temporaryStorageRoot;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->temporaryStorageRoot = sys_get_temp_dir()
+            .DIRECTORY_SEPARATOR
+            .'git-hosting-platform-api-tests-'
+            .Str::uuid();
+
+        config([
+            'git.binary' => 'git',
+            'git.timeout_seconds' => 10,
+            'git.storage_root' => $this->temporaryStorageRoot,
+            'git.repositories_directory' => 'repositories',
+            'git.initial_branch' => 'main',
+        ]);
+    }
+
+    protected function tearDown(): void
+    {
+        if (
+            isset($this->temporaryStorageRoot)
+            && File::isDirectory($this->temporaryStorageRoot)
+        ) {
+            File::deleteDirectory(
+                $this->temporaryStorageRoot,
+            );
+        }
+
+        parent::tearDown();
+    }
 
     public function test_authenticated_user_can_create_repository(): void
     {
@@ -70,6 +109,43 @@ class RepositoryTest extends TestCase
             "repositories/{$repository->storage_uuid}.git",
             $repository->storageRelativePath(),
         );
+
+        $this->assertTrue(
+            app(RepositoryStorageService::class)
+                ->exists($repository),
+        );
+    }
+
+    public function test_failed_storage_creation_rolls_back_metadata(): void
+    {
+        config([
+            'git.initial_branch' => 'invalid..branch',
+        ]);
+
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $this->postJson(
+            route('api.v1.repositories.store'),
+            [
+                'name' => 'Broken-Repository',
+                'visibility' => 'private',
+            ],
+        )->assertInternalServerError();
+
+        $this->assertDatabaseCount('repositories', 0);
+
+        $repositoriesDirectory = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'repositories';
+
+        if (File::isDirectory($repositoriesDirectory)) {
+            $this->assertCount(
+                0,
+                File::directories($repositoriesDirectory),
+            );
+        }
     }
 
     public function test_repository_name_must_be_unique_within_owner_namespace(): void
@@ -330,6 +406,8 @@ class RepositoryTest extends TestCase
 
     public function test_owner_can_schedule_repository_deletion(): void
     {
+        Queue::fake();
+
         $owner = User::factory()->create();
 
         $repository = Repository::factory()->create([
@@ -361,6 +439,13 @@ class RepositoryTest extends TestCase
             'id' => $repository->id,
             'deleted_at' => null,
         ]);
+
+        Queue::assertPushed(
+            DeleteRepositoryStorage::class,
+            fn (DeleteRepositoryStorage $job): bool => (
+                $job->repositoryId === $repository->id
+            ),
+        );
     }
 
     public function test_unauthenticated_user_cannot_manage_repositories(): void
