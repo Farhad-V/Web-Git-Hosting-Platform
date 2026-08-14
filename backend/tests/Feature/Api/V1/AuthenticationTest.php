@@ -15,6 +15,7 @@ class AuthenticationTest extends TestCase
     {
         $response = $this->postJson(route('api.v1.auth.register'), [
             'name' => 'Farhad Valizadegan',
+            'username' => '  FARHAD-VALIZADEGAN  ',
             'email' => '  FARHAD@example.com  ',
             'password' => 'StrongPassword!123',
             'password_confirmation' => 'StrongPassword!123',
@@ -28,6 +29,7 @@ class AuthenticationTest extends TestCase
                 'token_type' => 'Bearer',
                 'user' => [
                     'name' => 'Farhad Valizadegan',
+                    'username' => 'farhad-valizadegan',
                     'email' => 'farhad@example.com',
                 ],
             ])
@@ -36,6 +38,7 @@ class AuthenticationTest extends TestCase
                 'user' => [
                     'id',
                     'name',
+                    'username',
                     'email',
                     'email_verified_at',
                     'created_at',
@@ -47,6 +50,7 @@ class AuthenticationTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => 'Farhad Valizadegan',
+            'username' => 'farhad-valizadegan',
             'email' => 'farhad@example.com',
         ]);
 
@@ -65,6 +69,7 @@ class AuthenticationTest extends TestCase
     {
         $response = $this->postJson(route('api.v1.auth.register'), [
             'name' => 'F',
+            'username' => 'ADMIN',
             'email' => 'invalid-email',
             'password' => 'weak',
             'password_confirmation' => 'different',
@@ -74,12 +79,34 @@ class AuthenticationTest extends TestCase
             ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'name',
+                'username',
                 'email',
                 'password',
             ]);
 
         $this->assertDatabaseCount('users', 0);
         $this->assertDatabaseCount('personal_access_tokens', 0);
+    }
+
+    public function test_username_must_be_unique(): void
+    {
+        User::factory()->create([
+            'username' => 'farhad',
+        ]);
+
+        $response = $this->postJson(route('api.v1.auth.register'), [
+            'name' => 'Another User',
+            'username' => 'FARHAD',
+            'email' => 'another@example.com',
+            'password' => 'StrongPassword!123',
+            'password_confirmation' => 'StrongPassword!123',
+        ]);
+
+        $response
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('username');
+
+        $this->assertDatabaseCount('users', 1);
     }
 
     public function test_email_must_be_unique(): void
@@ -90,6 +117,7 @@ class AuthenticationTest extends TestCase
 
         $response = $this->postJson(route('api.v1.auth.register'), [
             'name' => 'Another User',
+            'username' => 'another-user',
             'email' => 'FARHAD@example.com',
             'password' => 'StrongPassword!123',
             'password_confirmation' => 'StrongPassword!123',
@@ -105,6 +133,7 @@ class AuthenticationTest extends TestCase
     public function test_user_can_login(): void
     {
         User::factory()->create([
+            'username' => 'farhad',
             'email' => 'farhad@example.com',
             'password' => 'StrongPassword!123',
         ]);
@@ -121,6 +150,7 @@ class AuthenticationTest extends TestCase
                 'message' => 'Login successful.',
                 'token_type' => 'Bearer',
                 'user' => [
+                    'username' => 'farhad',
                     'email' => 'farhad@example.com',
                 ],
             ])
@@ -156,6 +186,7 @@ class AuthenticationTest extends TestCase
     public function test_authenticated_user_can_view_profile(): void
     {
         $user = User::factory()->create([
+            'username' => 'farhad',
             'email' => 'farhad@example.com',
         ]);
 
@@ -173,6 +204,7 @@ class AuthenticationTest extends TestCase
                 'user' => [
                     'id' => $user->id,
                     'name' => $user->name,
+                    'username' => 'farhad',
                     'email' => 'farhad@example.com',
                 ],
             ]);

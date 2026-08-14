@@ -25,6 +25,7 @@ class AuthController extends Controller
         $result = DB::transaction(function () use ($validated): array {
             $user = User::query()->create([
                 'name' => $validated['name'],
+                'username' => $validated['username'],
                 'email' => $validated['email'],
                 'password' => $validated['password'],
             ]);
