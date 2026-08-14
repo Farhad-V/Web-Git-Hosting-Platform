@@ -1,0 +1,99 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backend-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend-tests:
+    name: PHP 8.4 / PostgreSQL 18
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        working-directory: backend
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: git_hosting_platform_test
+          POSTGRES_USER: git_hosting_app
+          POSTGRES_PASSWORD: ci_database_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready
+          --username=git_hosting_app
+          --dbname=git_hosting_platform_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      APP_ENV: testing
+      APP_DEBUG: false
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_DATABASE: git_hosting_platform_test
+      DB_USERNAME: git_hosting_app
+      DB_PASSWORD: ci_database_password
+      CACHE_STORE: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: array
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: mbstring, pdo_pgsql, pgsql
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate Composer configuration
+        run: composer validate --strict --no-check-publish
+
+      - name: Install PHP dependencies
+        run: >-
+          composer install
+          --no-interaction
+          --prefer-dist
+          --no-progress
+          --optimize-autoloader
+
+      - name: Prepare Laravel environment
+        shell: bash
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+          php artisan config:clear
+
+      - name: Check database migrations
+        run: php artisan migrate --force
+
+      - name: Check code formatting
+        run: vendor/bin/pint --test
+
+      - name: Audit Composer dependencies
+        run: composer audit --locked --no-interaction
+
+      - name: Run backend tests
+        run: php artisan test
