@@ -15,13 +15,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Process Timeout
+    | Process Limits
     |--------------------------------------------------------------------------
     */
 
     'timeout_seconds' => (int) env(
         'GIT_PROCESS_TIMEOUT_SECONDS',
         30,
+    ),
+
+    'max_request_bytes' => (int) env(
+        'GIT_MAX_REQUEST_BYTES',
+        104_857_600,
     ),
 
     /*
