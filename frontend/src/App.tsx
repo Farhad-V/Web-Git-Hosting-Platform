@@ -12,7 +12,11 @@ import {
   ShieldCheck,
   Star,
 } from 'lucide-react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { GuestRoute, ProtectedRoute } from './features/auth/AuthRoutes'
+import { LoginPage } from './features/auth/LoginPage'
+import { RegisterPage } from './features/auth/RegisterPage'
+import { DashboardPage } from './features/dashboard/DashboardPage'
 
 function HomePage() {
   return (
@@ -111,6 +115,7 @@ function HomePage() {
                   Create your account
                   <ArrowRight aria-hidden="true" className="size-4" />
                 </Link>
+
                 <a
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-3 font-semibold text-slate-200 transition hover:border-white/20 hover:bg-white/10"
                   href="#developers"
@@ -142,6 +147,7 @@ function HomePage() {
                 aria-hidden="true"
                 className="absolute -inset-8 rounded-full bg-blue-600/15 blur-3xl"
               />
+
               <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#161b22] shadow-2xl shadow-black/40">
                 <div className="flex h-12 items-center gap-2 border-b border-white/10 px-4">
                   <span className="size-3 rounded-full bg-red-400/80" />
@@ -157,22 +163,29 @@ function HomePage() {
                   <p className="pl-4 text-cyan-300">
                     http://gitforge.local/farhad/platform.git
                   </p>
+
                   <p className="mt-4 text-slate-400">
-                    Cloning into <span className="text-white">'platform'</span>...
+                    Cloning into <span className="text-white">'platform'</span>
+                    ...
                   </p>
+
                   <p className="text-slate-400">
                     remote: Enumerating objects:{' '}
                     <span className="text-white">128</span>, done.
                   </p>
+
                   <p className="text-slate-400">
                     Receiving objects:{' '}
                     <span className="text-emerald-400">100% (128/128)</span>
                   </p>
+
                   <p className="mt-4 text-slate-500">$ git status</p>
                   <p className="text-emerald-400">On branch main</p>
+
                   <p className="text-slate-400">
                     Your branch is up to date with origin/main.
                   </p>
+
                   <p className="mt-4 animate-pulse text-blue-400">▌</p>
                 </div>
               </div>
@@ -182,6 +195,7 @@ function HomePage() {
                   <span className="grid size-10 place-items-center rounded-lg bg-emerald-500/10 text-emerald-400">
                     <ShieldCheck aria-hidden="true" className="size-5" />
                   </span>
+
                   <div>
                     <p className="text-sm font-semibold text-white">
                       Secure transport
@@ -204,9 +218,11 @@ function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">
               Built for focused teams
             </p>
+
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               The essentials of modern Git hosting
             </h2>
+
             <p className="mt-4 text-slate-400">
               A clean foundation for managing code without unnecessary
               complexity.
@@ -259,7 +275,9 @@ function HomePage() {
                 <span className="grid size-11 place-items-center rounded-lg border border-blue-400/15 bg-blue-500/10 text-blue-300">
                   <Icon aria-hidden="true" className="size-5" />
                 </span>
+
                 <h3 className="mt-5 font-semibold text-white">{title}</h3>
+
                 <p className="mt-2 text-sm leading-6 text-slate-400">
                   {description}
                 </p>
@@ -277,9 +295,11 @@ function HomePage() {
               <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
                 Security foundation
               </p>
+
               <h2 className="mt-3 text-3xl font-bold text-white">
                 Access rules enforced at every layer
               </h2>
+
               <p className="mt-4 max-w-xl leading-7 text-slate-400">
                 Repository visibility, ownership, lifecycle state, credentials,
                 and Git protocol operations are validated before storage is
@@ -314,13 +334,16 @@ function HomePage() {
             aria-hidden="true"
             className="mx-auto size-8 fill-blue-500/20 text-blue-400"
           />
+
           <h2 className="mt-5 text-3xl font-bold text-white">
             Start hosting your repositories
           </h2>
+
           <p className="mx-auto mt-4 max-w-xl text-slate-400">
             Create an account, initialize a repository, and work with the Git
             commands you already know.
           </p>
+
           <Link
             className="mt-8 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-500"
             to="/register"
@@ -341,35 +364,21 @@ function HomePage() {
   )
 }
 
-function PlaceholderPage({ title }: { title: string }) {
-  return (
-    <main className="grid min-h-screen place-items-center px-5">
-      <div className="text-center">
-        <Link
-          className="mb-8 inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white"
-          to="/"
-        >
-          <GitBranch aria-hidden="true" className="size-4" />
-          GitForge
-        </Link>
-        <h1 className="text-3xl font-bold text-white">{title}</h1>
-        <p className="mt-3 text-slate-400">
-          This screen will be implemented in the authentication stage.
-        </p>
-      </div>
-    </main>
-  )
-}
-
 export default function App() {
   return (
     <Routes>
       <Route element={<HomePage />} path="/" />
-      <Route element={<PlaceholderPage title="Sign in" />} path="/login" />
-      <Route
-        element={<PlaceholderPage title="Create your account" />}
-        path="/register"
-      />
+
+      <Route element={<GuestRoute />}>
+        <Route element={<LoginPage />} path="/login" />
+        <Route element={<RegisterPage />} path="/register" />
+      </Route>
+
+      <Route element={<ProtectedRoute />}>
+        <Route element={<DashboardPage />} path="/dashboard" />
+      </Route>
+
+      <Route element={<Navigate replace to="/" />} path="*" />
     </Routes>
   )
 }
