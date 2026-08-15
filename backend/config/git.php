@@ -31,6 +31,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Repository Browser Limits
+    |--------------------------------------------------------------------------
+    |
+    | Repository files larger than this value are not returned through the
+    | JSON browsing API. Git clone and fetch operations are unaffected.
+    |
+    */
+
+    'browser_max_blob_bytes' => (int) env(
+        'GIT_BROWSER_MAX_BLOB_BYTES',
+        1_048_576,
+    ),
+
+    /*
+    |--------------------------------------------------------------------------
     | Managed Storage
     |--------------------------------------------------------------------------
     |

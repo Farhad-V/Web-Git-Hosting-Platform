@@ -1,0 +1,625 @@
+<?php
+
+namespace App\Services\Git;
+
+use App\Exceptions\GitCommandException;
+use App\Exceptions\RepositoryBrowserException;
+use App\Models\Repository;
+use Throwable;
+
+class RepositoryBrowserService
+{
+    private const DEFAULT_COMMIT_LIMIT = 50;
+
+    private const MAX_COMMIT_LIMIT = 100;
+
+    private const DEFAULT_MAX_BLOB_BYTES = 1048576;
+
+    public function __construct(
+        private readonly GitCommandRunner $git,
+        private readonly RepositoryStorageService $storage,
+    ) {}
+
+    /**
+     * List local branches in the managed repository.
+     *
+     * @return list<array{
+     *     name: string,
+     *     commit: string,
+     *     committed_at: string|null,
+     *     subject: string
+     * }>
+     */
+    public function branches(Repository $repository): array
+    {
+        $path = $this->repositoryPath($repository);
+
+        try {
+            $output = $this->git->run(
+                operation: 'list-repository-branches',
+                arguments: [
+                    '--git-dir='.$path,
+                    'for-each-ref',
+                    '--sort=-committerdate',
+                    '--format=%(refname:short)%09%(objectname)%09%(committerdate:iso-strict)%09%(subject)',
+                    'refs/heads',
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'list-branches',
+                reason: 'git_command_failed',
+                previous: $exception,
+            );
+        }
+
+        if ($output === '') {
+            return [];
+        }
+
+        $branches = [];
+
+        foreach (preg_split('/\r?\n/', $output) ?: [] as $line) {
+            if ($line === '') {
+                continue;
+            }
+
+            $fields = explode("\t", $line, 4);
+
+            if (count($fields) !== 4) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: 'list-branches',
+                    reason: 'unexpected_git_output',
+                );
+            }
+
+            [$name, $commit, $committedAt, $subject] = $fields;
+
+            if (
+                $name === ''
+                || ! preg_match('/\A[0-9a-f]{40,64}\z/', $commit)
+            ) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: 'list-branches',
+                    reason: 'unexpected_git_output',
+                );
+            }
+
+            $branches[] = [
+                'name' => $name,
+                'commit' => $commit,
+                'committed_at' => $committedAt !== ''
+                    ? $committedAt
+                    : null,
+                'subject' => $subject,
+            ];
+        }
+
+        return $branches;
+    }
+
+    /**
+     * List commits reachable from a repository branch.
+     *
+     * @return list<array{
+     *     hash: string,
+     *     parents: list<string>,
+     *     author: array{name: string, email: string},
+     *     authored_at: string,
+     *     subject: string
+     * }>
+     */
+    public function commits(
+        Repository $repository,
+        string $branch,
+        int $limit = self::DEFAULT_COMMIT_LIMIT,
+    ): array {
+        $path = $this->repositoryPath($repository);
+
+        $commit = $this->resolveBranchCommit(
+            repository: $repository,
+            path: $path,
+            branch: $branch,
+        );
+
+        $limit = max(
+            1,
+            min($limit, self::MAX_COMMIT_LIMIT),
+        );
+
+        try {
+            $output = $this->git->run(
+                operation: 'list-repository-commits',
+                arguments: [
+                    '--git-dir='.$path,
+                    'log',
+                    '--max-count='.$limit,
+                    '--date=iso-strict',
+                    '--format=%H%x1f%P%x1f%an%x1f%ae%x1f%aI%x1f%s%x1e',
+                    $commit,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'list-commits',
+                reason: 'git_command_failed',
+                previous: $exception,
+            );
+        }
+
+        if ($output === '') {
+            return [];
+        }
+
+        $commits = [];
+
+        foreach (explode("\x1e", $output) as $record) {
+            $record = trim($record);
+
+            if ($record === '') {
+                continue;
+            }
+
+            $fields = explode("\x1f", $record, 6);
+
+            if (count($fields) !== 6) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: 'list-commits',
+                    reason: 'unexpected_git_output',
+                );
+            }
+
+            [
+                $hash,
+                $parents,
+                $authorName,
+                $authorEmail,
+                $authoredAt,
+                $subject,
+            ] = $fields;
+
+            if (! preg_match('/\A[0-9a-f]{40,64}\z/', $hash)) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: 'list-commits',
+                    reason: 'unexpected_git_output',
+                );
+            }
+
+            $commits[] = [
+                'hash' => $hash,
+                'parents' => $parents === ''
+                    ? []
+                    : (preg_split('/\s+/', $parents) ?: []),
+                'author' => [
+                    'name' => $authorName,
+                    'email' => $authorEmail,
+                ],
+                'authored_at' => $authoredAt,
+                'subject' => $subject,
+            ];
+        }
+
+        return $commits;
+    }
+
+    /**
+     * List the immediate entries in a repository directory.
+     *
+     * @return list<array{
+     *     name: string,
+     *     path: string,
+     *     type: string,
+     *     mode: string,
+     *     object_id: string,
+     *     size: int|null
+     * }>
+     */
+    public function tree(
+        Repository $repository,
+        string $branch,
+        string $directory = '',
+    ): array {
+        $path = $this->repositoryPath($repository);
+
+        $commit = $this->resolveBranchCommit(
+            repository: $repository,
+            path: $path,
+            branch: $branch,
+        );
+
+        $directory = $this->normalizeRepositoryPath(
+            repository: $repository,
+            operation: 'list-tree',
+            path: $directory,
+            allowEmpty: true,
+        );
+
+        $treeish = $directory === ''
+            ? $commit
+            : $commit.':'.$directory;
+
+        try {
+            $output = $this->git->runRaw(
+                operation: 'list-repository-tree',
+                arguments: [
+                    '--git-dir='.$path,
+                    'ls-tree',
+                    '-z',
+                    '-l',
+                    $treeish,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'list-tree',
+                reason: 'path_not_found',
+                previous: $exception,
+            );
+        }
+
+        if ($output === '') {
+            if ($directory !== '') {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: 'list-tree',
+                    reason: 'path_not_found',
+                );
+            }
+
+            return [];
+        }
+
+        $entries = [];
+
+        foreach (explode("\0", $output) as $record) {
+            if ($record === '') {
+                continue;
+            }
+
+            if (
+                preg_match(
+                    '/\A([0-7]{6}) ([a-z]+) ([0-9a-f]{40,64}) +(-|\d+)\t(.*)\z/s',
+                    $record,
+                    $matches,
+                ) !== 1
+            ) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: 'list-tree',
+                    reason: 'unexpected_git_output',
+                );
+            }
+
+            $name = $matches[5];
+
+            $entries[] = [
+                'name' => $name,
+                'path' => $directory === ''
+                    ? $name
+                    : $directory.'/'.$name,
+                'type' => $matches[2] === 'tree'
+                    ? 'directory'
+                    : 'file',
+                'mode' => $matches[1],
+                'object_id' => $matches[3],
+                'size' => $matches[4] === '-'
+                    ? null
+                    : (int) $matches[4],
+            ];
+        }
+
+        usort(
+            $entries,
+            static function (array $first, array $second): int {
+                if ($first['type'] !== $second['type']) {
+                    return $first['type'] === 'directory' ? -1 : 1;
+                }
+
+                return strcasecmp(
+                    $first['name'],
+                    $second['name'],
+                );
+            },
+        );
+
+        return $entries;
+    }
+
+    /**
+     * Read a UTF-8 text blob without altering its contents.
+     *
+     * @return array{
+     *     path: string,
+     *     size: int,
+     *     content: string,
+     *     encoding: string
+     * }
+     */
+    public function blob(
+        Repository $repository,
+        string $branch,
+        string $file,
+    ): array {
+        $path = $this->repositoryPath($repository);
+
+        $commit = $this->resolveBranchCommit(
+            repository: $repository,
+            path: $path,
+            branch: $branch,
+        );
+
+        $file = $this->normalizeRepositoryPath(
+            repository: $repository,
+            operation: 'read-blob',
+            path: $file,
+            allowEmpty: false,
+        );
+
+        $object = $commit.':'.$file;
+
+        try {
+            $type = $this->git->run(
+                operation: 'resolve-repository-object-type',
+                arguments: [
+                    '--git-dir='.$path,
+                    'cat-file',
+                    '-t',
+                    $object,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'path_not_found',
+                previous: $exception,
+            );
+        }
+
+        if ($type !== 'blob') {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'path_is_not_file',
+            );
+        }
+
+        try {
+            $size = (int) $this->git->run(
+                operation: 'resolve-repository-blob-size',
+                arguments: [
+                    '--git-dir='.$path,
+                    'cat-file',
+                    '-s',
+                    $object,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'git_command_failed',
+                previous: $exception,
+            );
+        }
+
+        $maximumSize = (int) config(
+            'git.browser_max_blob_bytes',
+            self::DEFAULT_MAX_BLOB_BYTES,
+        );
+
+        if ($maximumSize < 1 || $size > $maximumSize) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'blob_too_large',
+            );
+        }
+
+        try {
+            $content = $this->git->runRaw(
+                operation: 'read-repository-blob',
+                arguments: [
+                    '--git-dir='.$path,
+                    'cat-file',
+                    'blob',
+                    $object,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'git_command_failed',
+                previous: $exception,
+            );
+        }
+
+        if (
+            str_contains($content, "\0")
+            || preg_match('//u', $content) !== 1
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'binary_blob_not_supported',
+            );
+        }
+
+        return [
+            'path' => $file,
+            'size' => $size,
+            'content' => $content,
+            'encoding' => 'utf-8',
+        ];
+    }
+
+    /**
+     * Return the managed repository path after verifying storage.
+     */
+    private function repositoryPath(Repository $repository): string
+    {
+        if (! $this->storage->exists($repository)) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-storage',
+                reason: 'storage_not_found',
+            );
+        }
+
+        return $this->storage->repositoryPath($repository);
+    }
+
+    /**
+     * Resolve a local branch to an immutable commit hash.
+     */
+    private function resolveBranchCommit(
+        Repository $repository,
+        string $path,
+        string $branch,
+    ): string {
+        $branch = trim($branch);
+
+        if (
+            $branch === ''
+            || strlen($branch) > 255
+            || str_starts_with($branch, '-')
+            || preg_match('/[\x00-\x20\x7f]/', $branch) === 1
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-branch',
+                reason: 'invalid_branch',
+            );
+        }
+
+        try {
+            $this->git->run(
+                operation: 'validate-repository-branch',
+                arguments: [
+                    'check-ref-format',
+                    '--branch',
+                    $branch,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-branch',
+                reason: 'invalid_branch',
+                previous: $exception,
+            );
+        }
+
+        try {
+            $commit = $this->git->run(
+                operation: 'resolve-repository-branch',
+                arguments: [
+                    '--git-dir='.$path,
+                    'show-ref',
+                    '--verify',
+                    '--hash',
+                    'refs/heads/'.$branch,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-branch',
+                reason: 'branch_not_found',
+                previous: $exception,
+            );
+        }
+
+        if (! preg_match('/\A[0-9a-f]{40,64}\z/', $commit)) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-branch',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        return $commit;
+    }
+
+    /**
+     * Validate a path within a Git tree.
+     */
+    private function normalizeRepositoryPath(
+        Repository $repository,
+        string $operation,
+        string $path,
+        bool $allowEmpty,
+    ): string {
+        $path = trim(
+            str_replace('\\', '/', $path),
+            '/',
+        );
+
+        if ($path === '') {
+            if ($allowEmpty) {
+                return '';
+            }
+
+            throw $this->failure(
+                repository: $repository,
+                operation: $operation,
+                reason: 'path_required',
+            );
+        }
+
+        if (
+            strlen($path) > 4096
+            || str_contains($path, "\0")
+            || preg_match('/[\x01-\x1f\x7f]/', $path) === 1
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: $operation,
+                reason: 'invalid_path',
+            );
+        }
+
+        $segments = explode('/', $path);
+
+        foreach ($segments as $segment) {
+            if (
+                $segment === ''
+                || $segment === '.'
+                || $segment === '..'
+            ) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: $operation,
+                    reason: 'invalid_path',
+                );
+            }
+        }
+
+        return implode('/', $segments);
+    }
+
+    /**
+     * Build a consistent browsing exception.
+     */
+    private function failure(
+        Repository $repository,
+        string $operation,
+        string $reason,
+        ?Throwable $previous = null,
+    ): RepositoryBrowserException {
+        return new RepositoryBrowserException(
+            operation: $operation,
+            repositoryId: $repository->id,
+            reason: $reason,
+            previous: $previous,
+        );
+    }
+}

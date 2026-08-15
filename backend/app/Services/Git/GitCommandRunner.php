@@ -10,11 +10,33 @@ use Symfony\Component\Process\Process;
 class GitCommandRunner
 {
     /**
-     * Run a controlled Git operation without invoking a command shell.
+     * Run a controlled Git operation and return trimmed output.
      *
      * @param  list<string>  $arguments
      */
     public function run(
+        string $operation,
+        array $arguments,
+        ?string $workingDirectory = null,
+    ): string {
+        return trim(
+            $this->runRaw(
+                operation: $operation,
+                arguments: $arguments,
+                workingDirectory: $workingDirectory,
+            ),
+        );
+    }
+
+    /**
+     * Run a controlled Git operation and preserve its exact output.
+     *
+     * This is required when reading repository file contents because
+     * trimming would alter leading or trailing whitespace.
+     *
+     * @param  list<string>  $arguments
+     */
+    public function runRaw(
         string $operation,
         array $arguments,
         ?string $workingDirectory = null,
@@ -70,7 +92,7 @@ class GitCommandRunner
             );
         }
 
-        return trim($process->getOutput());
+        return $process->getOutput();
     }
 
     /**
