@@ -20,6 +20,7 @@ import { getApiErrorMessage } from '../../lib/api-errors'
 import { getRepository } from '../../services/repository-service'
 import type { Repository } from '../../types/repository'
 import { useAuth } from '../auth/auth-context'
+import { RepositoryBrowser } from './RepositoryBrowser'
 import { RepositoryLifecycleActions } from './RepositoryLifecycleActions'
 import { repositoryQueryKeys } from './repository-query-keys'
 import { RepositorySettingsForm } from './RepositorySettingsForm'
@@ -140,7 +141,10 @@ export function RepositoryDetailPage() {
             to="/dashboard"
           >
             <span className="grid size-9 place-items-center rounded-lg bg-blue-600">
-              <GitBranch aria-hidden="true" className="size-5" />
+              <GitBranch
+                aria-hidden="true"
+                className="size-5"
+              />
             </span>
             GitForge
           </Link>
@@ -154,7 +158,10 @@ export function RepositoryDetailPage() {
             className="inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white"
             to="/dashboard"
           >
-            <ArrowLeft aria-hidden="true" className="size-4" />
+            <ArrowLeft
+              aria-hidden="true"
+              className="size-4"
+            />
             Dashboard
           </Link>
         </div>
@@ -244,7 +251,10 @@ export function RepositoryDetailPage() {
           <section className="rounded-xl border border-white/10 bg-[#161b22]">
             <header className="flex items-center gap-3 border-b border-white/10 px-6 py-5">
               <span className="grid size-9 place-items-center rounded-lg bg-blue-500/10 text-blue-300">
-                <Terminal aria-hidden="true" className="size-4" />
+                <Terminal
+                  aria-hidden="true"
+                  className="size-4"
+                />
               </span>
 
               <div>
@@ -327,28 +337,42 @@ git push -u origin main`}</code>
 
             <dl className="mt-5 space-y-4 text-sm">
               <div>
-                <dt className="text-slate-500">Default branch</dt>
+                <dt className="text-slate-500">
+                  Default branch
+                </dt>
+
                 <dd className="mt-1 font-medium text-slate-300">
                   {repository.default_branch ?? 'Not created'}
                 </dd>
               </div>
 
               <div>
-                <dt className="text-slate-500">Status</dt>
+                <dt className="text-slate-500">
+                  Status
+                </dt>
+
                 <dd className="mt-1 font-medium capitalize text-slate-300">
                   {repository.status.replaceAll('_', ' ')}
                 </dd>
               </div>
 
               <div>
-                <dt className="text-slate-500">Write access</dt>
+                <dt className="text-slate-500">
+                  Write access
+                </dt>
+
                 <dd className="mt-1 font-medium text-slate-300">
-                  {repository.is_writable ? 'Writable' : 'Read-only'}
+                  {repository.is_writable
+                    ? 'Writable'
+                    : 'Read-only'}
                 </dd>
               </div>
 
               <div>
-                <dt className="text-slate-500">Storage</dt>
+                <dt className="text-slate-500">
+                  Storage
+                </dt>
+
                 <dd className="mt-1 font-medium text-slate-300">
                   Managed bare repository
                 </dd>
@@ -356,6 +380,12 @@ git push -u origin main`}</code>
             </dl>
           </aside>
         </div>
+
+        {!repository.is_empty && (
+          <div className="pb-8">
+            <RepositoryBrowser repository={repository} />
+          </div>
+        )}
 
         {isOwner ? (
           <div className="space-y-6">
@@ -402,7 +432,10 @@ function RepositoryPageMessage({
     <main className="grid min-h-screen place-items-center bg-[#0d1117] px-5 text-center">
       <div>
         <span className="mx-auto grid size-12 place-items-center rounded-xl bg-blue-600 text-white">
-          <GitBranch aria-hidden="true" className="size-6" />
+          <GitBranch
+            aria-hidden="true"
+            className="size-6"
+          />
         </span>
 
         <h1 className="mt-5 text-2xl font-bold text-white">
@@ -417,7 +450,10 @@ function RepositoryPageMessage({
           className="mt-6 inline-flex items-center gap-2 rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/5 hover:text-white"
           to="/dashboard"
         >
-          <ArrowLeft aria-hidden="true" className="size-4" />
+          <ArrowLeft
+            aria-hidden="true"
+            className="size-4"
+          />
           Return to dashboard
         </Link>
       </div>
