@@ -4,6 +4,7 @@ import {
   BookOpen,
   GitBranch,
   GitFork,
+  KeyRound,
   LoaderCircle,
   LogOut,
   Plus,
@@ -104,7 +105,7 @@ export function DashboardPage() {
   return (
     <div className="min-h-screen bg-[#0d1117] text-slate-200">
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d1117]/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center gap-5 px-5 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-5 lg:gap-5 lg:px-8">
           <Link
             className="flex shrink-0 items-center gap-2 font-semibold text-white"
             to="/dashboard"
@@ -112,7 +113,8 @@ export function DashboardPage() {
             <span className="grid size-9 place-items-center rounded-lg bg-blue-600">
               <GitBranch aria-hidden="true" className="size-5" />
             </span>
-            GitForge
+
+            <span className="hidden sm:inline">GitForge</span>
           </Link>
 
           <label className="relative ml-auto hidden w-full max-w-md sm:block">
@@ -132,8 +134,18 @@ export function DashboardPage() {
             />
           </label>
 
+          <Link
+            className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+            to="/settings/access-tokens"
+          >
+            <KeyRound aria-hidden="true" className="size-4" />
+
+            <span className="hidden lg:inline">Access tokens</span>
+            <span className="lg:hidden">Tokens</span>
+          </Link>
+
           <button
-            className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white disabled:opacity-60"
+            className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white disabled:opacity-60"
             disabled={isLoggingOut}
             onClick={handleLogout}
             type="button"
@@ -147,7 +159,7 @@ export function DashboardPage() {
               <LogOut aria-hidden="true" className="size-4" />
             )}
 
-            <span className="hidden sm:inline">
+            <span className="hidden md:inline">
               {isLoggingOut ? 'Signing out...' : 'Sign out'}
             </span>
           </button>

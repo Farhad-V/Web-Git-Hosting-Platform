@@ -13,7 +13,11 @@ import {
   Star,
 } from 'lucide-react'
 import { Link, Navigate, Route, Routes } from 'react-router-dom'
-import { GuestRoute, ProtectedRoute } from './features/auth/AuthRoutes'
+import { PersonalAccessTokensPage } from './features/access-tokens/PersonalAccessTokensPage'
+import {
+  GuestRoute,
+  ProtectedRoute,
+} from './features/auth/AuthRoutes'
 import { LoginPage } from './features/auth/LoginPage'
 import { RegisterPage } from './features/auth/RegisterPage'
 import { DashboardPage } from './features/dashboard/DashboardPage'
@@ -39,15 +43,24 @@ function HomePage() {
             aria-label="Primary navigation"
             className="hidden items-center gap-6 text-sm text-slate-400 md:flex"
           >
-            <a className="transition hover:text-white" href="#features">
+            <a
+              className="transition hover:text-white"
+              href="#features"
+            >
               Features
             </a>
 
-            <a className="transition hover:text-white" href="#security">
+            <a
+              className="transition hover:text-white"
+              href="#security"
+            >
               Security
             </a>
 
-            <a className="transition hover:text-white" href="#developers">
+            <a
+              className="transition hover:text-white"
+              href="#developers"
+            >
               Developers
             </a>
           </nav>
@@ -115,9 +128,9 @@ function HomePage() {
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-400">
-                A focused Git hosting platform for teams that want secure
-                repositories, straightforward collaboration, and complete
-                control over their source code.
+                A focused Git hosting platform for teams that want
+                secure repositories, straightforward collaboration,
+                and complete control over their source code.
               </p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -351,16 +364,17 @@ function HomePage() {
 
               <p className="mt-4 max-w-xl leading-7 text-slate-400">
                 Repository visibility, ownership, lifecycle state,
-                credentials, and Git protocol operations are validated
-                before storage is accessed.
+                credentials, token abilities, expiration, and Git
+                protocol operations are validated before storage is
+                accessed.
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                ['50', 'Automated tests'],
-                ['152', 'Assertions'],
-                ['0', 'Known advisories'],
+                ['62', 'Automated tests'],
+                ['208', 'Assertions'],
+                ['2', 'Git token abilities'],
                 ['100%', 'Managed storage'],
               ].map(([value, label]) => (
                 <div
@@ -394,8 +408,9 @@ function HomePage() {
           </h2>
 
           <p className="mx-auto mt-4 max-w-xl text-slate-400">
-            Create an account, initialize a repository, and work with
-            the Git commands you already know.
+            Create an account, generate a repository access token,
+            initialize a repository, and use the Git commands you
+            already know.
           </p>
 
           <Link
@@ -439,6 +454,11 @@ export default function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route element={<DashboardPage />} path="/dashboard" />
+
+        <Route
+          element={<PersonalAccessTokensPage />}
+          path="/settings/access-tokens"
+        />
 
         <Route
           element={<RepositoryDetailPage />}
