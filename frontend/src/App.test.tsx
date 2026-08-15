@@ -1,17 +1,38 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import App from './App'
+import { AuthProvider } from './features/auth/AuthProvider'
 
 function renderApp(initialRoute = '/') {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+      mutations: {
+        retry: false,
+      },
+    },
+  })
+
   return render(
-    <MemoryRouter initialEntries={[initialRoute]}>
-      <App />
-    </MemoryRouter>,
+    <QueryClientProvider client={queryClient}>
+      <MemoryRouter initialEntries={[initialRoute]}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </MemoryRouter>
+    </QueryClientProvider>,
   )
 }
 
 describe('App', () => {
+  beforeEach(() => {
+    window.localStorage.clear()
+  })
+
   it('renders the GitForge landing page', () => {
     renderApp()
 
@@ -34,13 +55,21 @@ describe('App', () => {
     renderApp('/login')
 
     expect(
-      screen.getByRole('heading', { name: /sign in/i }),
+      screen.getByRole('heading', { name: /welcome back/i }),
     ).toBeInTheDocument()
 
     expect(
       screen.getByText(
-        /this screen will be implemented in the authentication stage/i,
+        /use your account credentials to access repositories and settings/i,
       ),
     ).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('button', { name: /^sign in$/i }),
+    ).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('link', { name: /create an account/i }),
+    ).toHaveAttribute('href', '/register')
   })
 })
