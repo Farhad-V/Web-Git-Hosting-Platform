@@ -24,6 +24,41 @@ class GitCommandRunnerTest extends TestCase
         );
     }
 
+    public function test_it_can_preserve_raw_git_output(): void
+    {
+        config([
+            'git.binary' => 'git',
+            'git.timeout_seconds' => 10,
+        ]);
+
+        $runner = app(GitCommandRunner::class);
+
+        $rawOutput = $runner->runRaw(
+            operation: 'raw-version',
+            arguments: ['--version'],
+        );
+
+        $trimmedOutput = $runner->run(
+            operation: 'trimmed-version',
+            arguments: ['--version'],
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/\r?\n\z/',
+            $rawOutput,
+        );
+
+        $this->assertSame(
+            trim($rawOutput),
+            $trimmedOutput,
+        );
+
+        $this->assertNotSame(
+            $rawOutput,
+            $trimmedOutput,
+        );
+    }
+
     public function test_it_throws_exception_for_failed_git_command(): void
     {
         config([

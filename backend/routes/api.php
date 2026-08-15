@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\PersonalAccessTokenController;
+use App\Http\Controllers\Api\V1\RepositoryBrowserController;
 use App\Http\Controllers\Api\V1\RepositoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,26 @@ Route::prefix('v1')
                 '/repositories',
                 [RepositoryController::class, 'store'],
             )->name('repositories.store');
+
+            Route::get(
+                '/repositories/{repository}/branches',
+                [RepositoryBrowserController::class, 'branches'],
+            )->name('repositories.branches');
+
+            Route::get(
+                '/repositories/{repository}/commits',
+                [RepositoryBrowserController::class, 'commits'],
+            )->name('repositories.commits');
+
+            Route::get(
+                '/repositories/{repository}/tree',
+                [RepositoryBrowserController::class, 'tree'],
+            )->name('repositories.tree');
+
+            Route::get(
+                '/repositories/{repository}/blob',
+                [RepositoryBrowserController::class, 'blob'],
+            )->name('repositories.blob');
 
             Route::get(
                 '/repositories/{repository}',
