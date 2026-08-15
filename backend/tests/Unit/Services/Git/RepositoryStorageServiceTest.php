@@ -4,6 +4,7 @@ namespace Tests\Unit\Services\Git;
 
 use App\Exceptions\RepositoryStorageException;
 use App\Models\Repository;
+use App\Services\Git\GitCommandRunner;
 use App\Services\Git\RepositoryStorageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
@@ -95,6 +96,97 @@ class RepositoryStorageServiceTest extends TestCase
         $this->assertStringContainsString(
             'refs/heads/main',
             $head,
+        );
+    }
+
+    public function test_empty_repository_has_no_discoverable_default_branch(): void
+    {
+        $repository = Repository::factory()->create();
+
+        $service = app(RepositoryStorageService::class);
+
+        $service->initialize($repository);
+
+        $this->assertNull(
+            $service->defaultBranch($repository),
+        );
+    }
+
+    public function test_it_discovers_default_branch_after_first_push(): void
+    {
+        $repository = Repository::factory()->create();
+
+        $service = app(RepositoryStorageService::class);
+        $git = app(GitCommandRunner::class);
+
+        $bareRepositoryPath = $service->initialize(
+            $repository,
+        );
+
+        $workingRepositoryPath = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'working-repository';
+
+        File::ensureDirectoryExists(
+            $workingRepositoryPath,
+        );
+
+        $git->run(
+            operation: 'initialize-test-working-repository',
+            arguments: [
+                'init',
+                '--initial-branch=main',
+                '--',
+                $workingRepositoryPath,
+            ],
+        );
+
+        File::put(
+            $workingRepositoryPath
+                .DIRECTORY_SEPARATOR
+                .'README.md',
+            "# Test Repository\n",
+        );
+
+        $git->run(
+            operation: 'stage-test-commit',
+            arguments: [
+                '-C',
+                $workingRepositoryPath,
+                'add',
+                'README.md',
+            ],
+        );
+
+        $git->run(
+            operation: 'create-test-commit',
+            arguments: [
+                '-C',
+                $workingRepositoryPath,
+                '-c',
+                'user.name=GitForge Test',
+                '-c',
+                'user.email=gitforge@example.test',
+                'commit',
+                '-m',
+                'test: create first commit',
+            ],
+        );
+
+        $git->run(
+            operation: 'push-test-default-branch',
+            arguments: [
+                '-C',
+                $workingRepositoryPath,
+                'push',
+                $bareRepositoryPath,
+                'main',
+            ],
+        );
+
+        $this->assertSame(
+            'main',
+            $service->defaultBranch($repository),
         );
     }
 

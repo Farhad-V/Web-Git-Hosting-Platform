@@ -10,14 +10,16 @@ use Laravel\Sanctum\PersonalAccessToken;
 class GitCredentialAuthenticator
 {
     /**
-     * Authenticate Git Basic credentials.
+     * Authenticate Git Basic credentials and verify an ability.
      *
      * Git clients send:
      * - username as the Basic-auth username
      * - Sanctum personal access token as the password
      */
-    public function authenticate(Request $request): User
-    {
+    public function authenticate(
+        Request $request,
+        string $requiredAbility,
+    ): User {
         $username = $request->getUser();
         $plainTextToken = $request->getPassword();
 
@@ -34,7 +36,14 @@ class GitCredentialAuthenticator
             $plainTextToken,
         );
 
-        if ($accessToken === null) {
+        if (
+            $accessToken === null
+            || (
+                $accessToken->expires_at !== null
+                && $accessToken->expires_at->isPast()
+            )
+            || ! $accessToken->can($requiredAbility)
+        ) {
             throw new GitAuthenticationException;
         }
 
@@ -53,6 +62,8 @@ class GitCredentialAuthenticator
         $accessToken->forceFill([
             'last_used_at' => now(),
         ])->save();
+
+        $user->withAccessToken($accessToken);
 
         return $user;
     }

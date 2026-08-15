@@ -6,11 +6,13 @@ use App\Enums\RepositoryStatus;
 use App\Enums\RepositoryVisibility;
 use App\Exceptions\GitAuthenticationException;
 use App\Models\Repository;
+use App\Models\User;
 use App\Services\Git\GitCredentialAuthenticator;
 use App\Services\Git\GitSmartHttpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class GitSmartHttpController extends Controller
 {
@@ -126,6 +128,8 @@ class GitSmartHttpController extends Controller
             requestBody: $request->getContent(),
         );
 
+        $this->synchronizeDefaultBranch($model);
+
         return response(
             content: $body,
             status: Response::HTTP_OK,
@@ -173,7 +177,10 @@ class GitSmartHttpController extends Controller
             return;
         }
 
-        $user = $this->authenticate($request);
+        $user = $this->authenticate(
+            request: $request,
+            requiredAbility: 'repository:read',
+        );
 
         abort_unless(
             $repository->owner_id === $user->id,
@@ -188,8 +195,10 @@ class GitSmartHttpController extends Controller
         Request $request,
         Repository $repository,
     ): void {
-        $user = $request->user()
-            ?? $this->authenticate($request);
+        $user = $this->authenticate(
+            request: $request,
+            requiredAbility: 'repository:write',
+        );
 
         abort_unless(
             $repository->owner_id === $user->id,
@@ -206,10 +215,15 @@ class GitSmartHttpController extends Controller
     /**
      * Authenticate supplied Git Basic credentials.
      */
-    private function authenticate(Request $request)
-    {
+    private function authenticate(
+        Request $request,
+        string $requiredAbility,
+    ): User {
         try {
-            $user = $this->credentials->authenticate($request);
+            $user = $this->credentials->authenticate(
+                request: $request,
+                requiredAbility: $requiredAbility,
+            );
         } catch (GitAuthenticationException) {
             abort(
                 Response::HTTP_UNAUTHORIZED,
@@ -225,10 +239,38 @@ class GitSmartHttpController extends Controller
         Auth::setUser($user);
 
         $request->setUserResolver(
-            static fn () => $user,
+            static fn (): User => $user,
         );
 
         return $user;
+    }
+
+    /**
+     * Synchronize database metadata after successful receive-pack.
+     *
+     * Git storage is authoritative for refs. Metadata synchronization
+     * is best-effort because a completed push must not be reported as
+     * failed if the secondary database update encounters a problem.
+     */
+    private function synchronizeDefaultBranch(
+        Repository $repository,
+    ): void {
+        try {
+            $defaultBranch = $this->git->defaultBranch(
+                $repository,
+            );
+
+            if (
+                $defaultBranch !== null
+                && $repository->default_branch !== $defaultBranch
+            ) {
+                $repository->update([
+                    'default_branch' => $defaultBranch,
+                ]);
+            }
+        } catch (Throwable $exception) {
+            report($exception);
+        }
     }
 
     /**

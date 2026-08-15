@@ -93,6 +93,15 @@ class GitSmartHttpService
     }
 
     /**
+     * Discover the repository default branch after a successful push.
+     */
+    public function defaultBranch(
+        Repository $repository,
+    ): ?string {
+        return $this->storage->defaultBranch($repository);
+    }
+
+    /**
      * Return the HTTP request content type for a Git service.
      */
     public function requestContentType(string $service): string

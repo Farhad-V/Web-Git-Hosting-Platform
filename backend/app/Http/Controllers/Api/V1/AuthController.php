@@ -16,7 +16,7 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     /**
-     * Register a new user and issue an API token.
+     * Register a new user and issue an API-only session token.
      */
     public function register(RegisterRequest $request): JsonResponse
     {
@@ -31,7 +31,10 @@ class AuthController extends Controller
             ]);
 
             $token = $user
-                ->createToken($validated['device_name'] ?? 'web')
+                ->createToken(
+                    $validated['device_name'] ?? 'web',
+                    ['api'],
+                )
                 ->plainTextToken;
 
             return [
@@ -49,7 +52,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Authenticate a user and issue an API token.
+     * Authenticate a user and issue an API-only session token.
      *
      * @throws ValidationException
      */
@@ -73,7 +76,10 @@ class AuthController extends Controller
         }
 
         $token = $user
-            ->createToken($validated['device_name'] ?? 'web')
+            ->createToken(
+                $validated['device_name'] ?? 'web',
+                ['api'],
+            )
             ->plainTextToken;
 
         return response()->json([

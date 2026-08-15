@@ -93,6 +93,82 @@ class RepositoryStorageService
     }
 
     /**
+     * Discover the current default branch when its reference exists.
+     *
+     * An empty bare repository has a symbolic HEAD but no corresponding
+     * branch reference, so null is returned until the first push.
+     */
+    public function defaultBranch(
+        Repository $repository,
+    ): ?string {
+        if (! $this->exists($repository)) {
+            throw new RepositoryStorageException(
+                operation: 'resolve-default-branch',
+                repositoryId: $repository->id,
+            );
+        }
+
+        $path = $this->repositoryPath($repository);
+
+        $headReference = trim(
+            $this->git->run(
+                operation: 'resolve-head-reference',
+                arguments: [
+                    '--git-dir='.$path,
+                    'symbolic-ref',
+                    '--quiet',
+                    'HEAD',
+                ],
+            ),
+        );
+
+        $prefix = 'refs/heads/';
+
+        if (! str_starts_with($headReference, $prefix)) {
+            throw new RepositoryStorageException(
+                operation: 'resolve-default-branch',
+                repositoryId: $repository->id,
+            );
+        }
+
+        $branch = substr(
+            $headReference,
+            strlen($prefix),
+        );
+
+        $this->git->run(
+            operation: 'validate-default-branch',
+            arguments: [
+                'check-ref-format',
+                '--branch',
+                $branch,
+            ],
+        );
+
+        $existingBranch = trim(
+            $this->git->run(
+                operation: 'find-default-branch-reference',
+                arguments: [
+                    '--git-dir='.$path,
+                    'for-each-ref',
+                    '--format=%(refname:short)',
+                    '--count=1',
+                    $headReference,
+                ],
+            ),
+        );
+
+        if (
+            $existingBranch === ''
+            || ! hash_equals($branch, $existingBranch)
+        ) {
+            return null;
+        }
+
+        return $branch;
+    }
+
+    /**
      * Delete managed repository storage.
      */
     public function delete(Repository $repository): void
