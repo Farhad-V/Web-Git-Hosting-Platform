@@ -3,6 +3,7 @@
 namespace Tests\Unit\Services\Git;
 
 use App\Exceptions\RepositoryBrowserException;
+use App\Exceptions\RepositoryStorageException;
 use App\Models\Repository;
 use App\Services\Git\GitCommandRunner;
 use App\Services\Git\RepositoryBrowserService;
@@ -314,6 +315,33 @@ class RepositoryBrowserServiceTest extends TestCase
         }
     }
 
+    public function test_it_rejects_invalid_branch(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        try {
+            app(RepositoryBrowserService::class)
+                ->commits(
+                    repository: $repository,
+                    branch: '../main',
+                );
+
+            $this->fail(
+                'An invalid branch was accepted.',
+            );
+        } catch (RepositoryBrowserException $exception) {
+            $this->assertSame(
+                'invalid_branch',
+                $exception->reason,
+            );
+
+            $this->assertSame(
+                'resolve-branch',
+                $exception->operation,
+            );
+        }
+    }
+
     public function test_it_rejects_invalid_repository_path(): void
     {
         $repository = $this->createRepositoryWithHistory();
@@ -360,6 +388,29 @@ class RepositoryBrowserServiceTest extends TestCase
         }
     }
 
+    public function test_it_rejects_directory_when_blob_is_requested(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        try {
+            app(RepositoryBrowserService::class)
+                ->blob(
+                    repository: $repository,
+                    branch: 'main',
+                    file: 'src',
+                );
+
+            $this->fail(
+                'A repository directory was returned as a blob.',
+            );
+        } catch (RepositoryBrowserException $exception) {
+            $this->assertSame(
+                'path_is_not_file',
+                $exception->reason,
+            );
+        }
+    }
+
     public function test_it_rejects_blob_larger_than_configured_limit(): void
     {
         $repository = $this->createRepositoryWithHistory();
@@ -383,6 +434,138 @@ class RepositoryBrowserServiceTest extends TestCase
             $this->assertSame(
                 'blob_too_large',
                 $exception->reason,
+            );
+        }
+    }
+
+    public function test_it_rejects_invalid_blob_size_configuration(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        config([
+            'git.browser_max_blob_bytes' => 0,
+        ]);
+
+        try {
+            app(RepositoryBrowserService::class)
+                ->blob(
+                    repository: $repository,
+                    branch: 'main',
+                    file: 'README.md',
+                );
+
+            $this->fail(
+                'An invalid blob-size configuration was accepted.',
+            );
+        } catch (RepositoryBrowserException $exception) {
+            $this->assertSame(
+                'invalid_configuration',
+                $exception->reason,
+            );
+        }
+    }
+
+    public function test_it_rejects_binary_blob(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        $binaryPath = $this->worktreePath
+            .DIRECTORY_SEPARATOR
+            .'binary.dat';
+
+        File::put(
+            $binaryPath,
+            "GitForge\0Binary\n",
+        );
+
+        $runner = app(
+            GitCommandRunner::class,
+        );
+
+        $runner->run(
+            operation: 'stage-browser-test-binary',
+            arguments: [
+                'add',
+                'binary.dat',
+            ],
+            workingDirectory: $this->worktreePath,
+        );
+
+        $runner->run(
+            operation: 'commit-browser-test-binary',
+            arguments: [
+                'commit',
+                '-m',
+                'Add binary file',
+            ],
+            workingDirectory: $this->worktreePath,
+        );
+
+        $runner->run(
+            operation: 'push-browser-test-binary',
+            arguments: [
+                'push',
+                'origin',
+                'main',
+            ],
+            workingDirectory: $this->worktreePath,
+        );
+
+        try {
+            app(RepositoryBrowserService::class)
+                ->blob(
+                    repository: $repository,
+                    branch: 'main',
+                    file: 'binary.dat',
+                );
+
+            $this->fail(
+                'A binary repository blob was displayed.',
+            );
+        } catch (RepositoryBrowserException $exception) {
+            $this->assertSame(
+                'binary_blob_not_supported',
+                $exception->reason,
+            );
+        }
+    }
+
+    public function test_corrupt_repository_storage_is_rejected_before_browsing(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        $storage = app(
+            RepositoryStorageService::class,
+        );
+
+        $repositoryPath = $storage->repositoryPath(
+            $repository,
+        );
+
+        File::delete(
+            $repositoryPath
+                .DIRECTORY_SEPARATOR
+                .'config',
+        );
+
+        try {
+            app(RepositoryBrowserService::class)
+                ->branches(
+                    $repository,
+                );
+
+            $this->fail(
+                'Corrupt repository storage was accepted for browsing.',
+            );
+        } catch (RepositoryStorageException $exception) {
+            $this->assertSame(
+                'verify-repository',
+                $exception->operation,
+            );
+
+            $this->assertSame(
+                $repository->id,
+                $exception->repositoryId,
             );
         }
     }
