@@ -2,11 +2,10 @@
 
 namespace App\Services\Git;
 
+use App\Exceptions\GitCommandException;
 use App\Exceptions\GitTransportException;
 use App\Models\Repository;
 use InvalidArgumentException;
-use Symfony\Component\Process\Exception\ProcessTimedOutException;
-use Symfony\Component\Process\Process;
 
 class GitSmartHttpService
 {
@@ -16,6 +15,7 @@ class GitSmartHttpService
 
     public function __construct(
         private readonly RepositoryStorageService $storage,
+        private readonly GitCommandRunner $git,
     ) {}
 
     /**
@@ -25,13 +25,15 @@ class GitSmartHttpService
         Repository $repository,
         string $service,
     ): string {
-        $this->validateService($service);
+        $this->validateService(
+            $service,
+        );
 
         $repositoryPath = $this->requireRepositoryPath(
             $repository,
         );
 
-        $output = $this->run(
+        $output = $this->runTransport(
             operation: "advertise-{$service}",
             arguments: [
                 $service,
@@ -56,7 +58,9 @@ class GitSmartHttpService
         string $service,
         string $requestBody,
     ): string {
-        $this->validateService($service);
+        $this->validateService(
+            $service,
+        );
 
         $maximumBytes = (int) config(
             'git.max_request_bytes',
@@ -81,7 +85,7 @@ class GitSmartHttpService
             $repository,
         );
 
-        return $this->run(
+        return $this->runTransport(
             operation: "rpc-{$service}",
             arguments: [
                 $service,
@@ -98,15 +102,20 @@ class GitSmartHttpService
     public function defaultBranch(
         Repository $repository,
     ): ?string {
-        return $this->storage->defaultBranch($repository);
+        return $this->storage->defaultBranch(
+            $repository,
+        );
     }
 
     /**
      * Return the HTTP request content type for a Git service.
      */
-    public function requestContentType(string $service): string
-    {
-        $this->validateService($service);
+    public function requestContentType(
+        string $service,
+    ): string {
+        $this->validateService(
+            $service,
+        );
 
         return "application/x-git-{$service}-request";
     }
@@ -114,9 +123,12 @@ class GitSmartHttpService
     /**
      * Return the HTTP result content type for a Git service.
      */
-    public function resultContentType(string $service): string
-    {
-        $this->validateService($service);
+    public function resultContentType(
+        string $service,
+    ): string {
+        $this->validateService(
+            $service,
+        );
 
         return "application/x-git-{$service}-result";
     }
@@ -127,79 +139,48 @@ class GitSmartHttpService
     public function advertisementContentType(
         string $service,
     ): string {
-        $this->validateService($service);
+        $this->validateService(
+            $service,
+        );
 
         return "application/x-git-{$service}-advertisement";
     }
 
     /**
-     * Run a controlled Git transport process.
+     * Execute a Smart HTTP Git process through the central Git runner.
+     *
+     * GitCommandRunner owns process construction, environment isolation,
+     * timeout enforcement, argument validation, stdin handling, and raw
+     * stdout preservation.
+     *
+     * This service translates process-level failures into transport-domain
+     * failures without exposing Git stderr to HTTP clients.
      *
      * @param  list<string>  $arguments
      */
-    private function run(
+    private function runTransport(
         string $operation,
         array $arguments,
         ?string $input = null,
     ): string {
-        $binary = trim(
-            (string) config('git.binary', 'git'),
-        );
-
-        $timeout = (int) config(
-            'git.timeout_seconds',
-            30,
-        );
-
-        if ($binary === '') {
-            throw new InvalidArgumentException(
-                'The configured Git binary cannot be empty.',
-            );
-        }
-
-        if ($timeout < 1) {
-            throw new InvalidArgumentException(
-                'The Git process timeout must be positive.',
-            );
-        }
-
-        $process = new Process(
-            command: [
-                $binary,
-                ...$arguments,
-            ],
-            env: [
-                'GIT_CONFIG_NOSYSTEM' => '1',
-                'GIT_TERMINAL_PROMPT' => '0',
-                'LC_ALL' => 'C',
-            ],
-        );
-
-        $process->setTimeout($timeout);
-
-        if ($input !== null) {
-            $process->setInput($input);
-        }
-
         try {
-            $process->run();
-        } catch (ProcessTimedOutException $exception) {
+            return $this->git->runRaw(
+                operation: $operation,
+                arguments: $arguments,
+                input: $input,
+            );
+        } catch (GitCommandException $exception) {
+            $message = $exception->processExitCode === 124
+                ? 'Git transport process timed out.'
+                : 'Git transport operation failed.';
+
             throw new GitTransportException(
                 operation: $operation,
-                processExitCode: 124,
-                message: 'Git transport process timed out.',
+                processExitCode: $exception->processExitCode,
+                message: $message,
                 previous: $exception,
             );
         }
-
-        if (! $process->isSuccessful()) {
-            throw new GitTransportException(
-                operation: $operation,
-                processExitCode: $process->getExitCode() ?? 1,
-            );
-        }
-
-        return $process->getOutput();
     }
 
     /**
@@ -222,10 +203,11 @@ class GitSmartHttpService
     }
 
     /**
-     * Validate the requested Git service.
+     * Validate the requested Smart HTTP Git service.
      */
-    private function validateService(string $service): void
-    {
+    private function validateService(
+        string $service,
+    ): void {
         if (
             ! in_array(
                 $service,
@@ -245,8 +227,9 @@ class GitSmartHttpService
     /**
      * Encode one Git packet-line.
      */
-    private function packetLine(string $payload): string
-    {
+    private function packetLine(
+        string $payload,
+    ): string {
         return sprintf(
             '%04x',
             strlen($payload) + 4,
