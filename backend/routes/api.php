@@ -10,6 +10,11 @@ Route::middleware('web')
     ->prefix('v1')
     ->name('api.v1.')
     ->group(function (): void {
+        Route::get(
+            '/auth/csrf-token',
+            [AuthController::class, 'csrfToken'],
+        )->name('auth.csrf-token');
+
         Route::middleware('throttle:5,1')
             ->group(function (): void {
                 Route::post(

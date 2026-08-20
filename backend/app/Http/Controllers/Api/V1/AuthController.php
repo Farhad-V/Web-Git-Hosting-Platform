@@ -16,6 +16,17 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     /**
+     * Bootstrap CSRF protection for the browser application.
+     */
+    public function csrfToken(
+        Request $request,
+    ): JsonResponse {
+        return response()->json([
+            'csrf_token' => $request->session()->token(),
+        ]);
+    }
+
+    /**
      * Register a new user and establish an application session.
      */
     public function register(

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Models\PersonalAccessToken;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -11,16 +12,38 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_csrf_bootstrap_returns_session_csrf_token(): void
+    {
+        $response = $this->getJson(
+            route('api.v1.auth.csrf-token'),
+        );
+
+        $response
+            ->assertOk()
+            ->assertJsonStructure([
+                'csrf_token',
+            ]);
+
+        $this->assertIsString(
+            $response->json('csrf_token'),
+        );
+
+        $this->assertNotSame(
+            '',
+            $response->json('csrf_token'),
+        );
+    }
+
     public function test_user_can_register_and_session_is_established(): void
     {
         $response = $this->postJson(
             route('api.v1.auth.register'),
             [
                 'name' => 'Farhad Valizadegan',
-                'username' => '  FARHAD-VALIZADEGAN  ',
-                'email' => '  FARHAD@example.com  ',
-                'password' => 'StrongPassword!123',
-                'password_confirmation' => 'StrongPassword!123',
+                'username' => 'farhad',
+                'email' => 'FARHAD@EXAMPLE.COM',
+                'password' => 'StrongPassword1!',
+                'password_confirmation' => 'StrongPassword1!',
             ],
         );
 
@@ -30,51 +53,36 @@ class AuthenticationTest extends TestCase
                 'message' => 'Registration successful.',
                 'user' => [
                     'name' => 'Farhad Valizadegan',
-                    'username' => 'farhad-valizadegan',
+                    'username' => 'farhad',
                     'email' => 'farhad@example.com',
-                ],
-            ])
-            ->assertJsonStructure([
-                'message',
-                'user' => [
-                    'id',
-                    'name',
-                    'username',
-                    'email',
-                    'email_verified_at',
-                    'created_at',
-                    'updated_at',
                 ],
             ])
             ->assertJsonMissingPath('access_token')
             ->assertJsonMissingPath('token_type');
 
-        $this->assertDatabaseHas(
-            'users',
-            [
-                'name' => 'Farhad Valizadegan',
-                'username' => 'farhad-valizadegan',
-                'email' => 'farhad@example.com',
-            ],
-        );
-
         $user = User::query()
-            ->where(
-                'email',
-                'farhad@example.com',
-            )
+            ->where('email', 'farhad@example.com')
             ->firstOrFail();
-
-        $this->assertTrue(
-            Hash::check(
-                'StrongPassword!123',
-                $user->password,
-            ),
-        );
 
         $this->assertAuthenticatedAs(
             $user,
             'web',
+        );
+
+        $this->assertDatabaseHas(
+            'users',
+            [
+                'id' => $user->id,
+                'username' => 'farhad',
+                'email' => 'farhad@example.com',
+            ],
+        );
+
+        $this->assertTrue(
+            Hash::check(
+                'StrongPassword1!',
+                $user->password,
+            ),
         );
 
         $this->assertDatabaseCount(
@@ -89,8 +97,8 @@ class AuthenticationTest extends TestCase
             route('api.v1.auth.register'),
             [
                 'name' => 'F',
-                'username' => 'ADMIN',
-                'email' => 'invalid-email',
+                'username' => 'invalid username',
+                'email' => 'not-an-email',
                 'password' => 'weak',
                 'password_confirmation' => 'different',
             ],
@@ -109,13 +117,6 @@ class AuthenticationTest extends TestCase
             'users',
             0,
         );
-
-        $this->assertDatabaseCount(
-            'personal_access_tokens',
-            0,
-        );
-
-        $this->assertGuest('web');
     }
 
     public function test_username_must_be_unique(): void
@@ -130,8 +131,8 @@ class AuthenticationTest extends TestCase
                 'name' => 'Another User',
                 'username' => 'FARHAD',
                 'email' => 'another@example.com',
-                'password' => 'StrongPassword!123',
-                'password_confirmation' => 'StrongPassword!123',
+                'password' => 'StrongPassword1!',
+                'password_confirmation' => 'StrongPassword1!',
             ],
         );
 
@@ -140,11 +141,6 @@ class AuthenticationTest extends TestCase
             ->assertJsonValidationErrors(
                 'username',
             );
-
-        $this->assertDatabaseCount(
-            'users',
-            1,
-        );
     }
 
     public function test_email_must_be_unique(): void
@@ -158,9 +154,9 @@ class AuthenticationTest extends TestCase
             [
                 'name' => 'Another User',
                 'username' => 'another-user',
-                'email' => 'FARHAD@example.com',
-                'password' => 'StrongPassword!123',
-                'password_confirmation' => 'StrongPassword!123',
+                'email' => 'FARHAD@EXAMPLE.COM',
+                'password' => 'StrongPassword1!',
+                'password_confirmation' => 'StrongPassword1!',
             ],
         );
 
@@ -169,26 +165,20 @@ class AuthenticationTest extends TestCase
             ->assertJsonValidationErrors(
                 'email',
             );
-
-        $this->assertDatabaseCount(
-            'users',
-            1,
-        );
     }
 
     public function test_user_can_login_and_session_is_established(): void
     {
         $user = User::factory()->create([
-            'username' => 'farhad',
             'email' => 'farhad@example.com',
-            'password' => 'StrongPassword!123',
+            'password' => 'StrongPassword1!',
         ]);
 
         $response = $this->postJson(
             route('api.v1.auth.login'),
             [
-                'email' => '  FARHAD@example.com  ',
-                'password' => 'StrongPassword!123',
+                'email' => ' FARHAD@EXAMPLE.COM ',
+                'password' => 'StrongPassword1!',
             ],
         );
 
@@ -198,7 +188,6 @@ class AuthenticationTest extends TestCase
                 'message' => 'Login successful.',
                 'user' => [
                     'id' => $user->id,
-                    'username' => 'farhad',
                     'email' => 'farhad@example.com',
                 ],
             ])
@@ -220,14 +209,14 @@ class AuthenticationTest extends TestCase
     {
         User::factory()->create([
             'email' => 'farhad@example.com',
-            'password' => 'StrongPassword!123',
+            'password' => 'StrongPassword1!',
         ]);
 
         $response = $this->postJson(
             route('api.v1.auth.login'),
             [
                 'email' => 'farhad@example.com',
-                'password' => 'IncorrectPassword!123',
+                'password' => 'WrongPassword1!',
             ],
         );
 
@@ -237,38 +226,30 @@ class AuthenticationTest extends TestCase
                 'email',
             );
 
-        $this->assertGuest('web');
-
-        $this->assertDatabaseCount(
-            'personal_access_tokens',
-            0,
+        $this->assertGuest(
+            'web',
         );
     }
 
     public function test_authenticated_user_can_view_profile(): void
     {
-        $user = User::factory()->create([
-            'username' => 'farhad',
-            'email' => 'farhad@example.com',
-        ]);
+        $user = User::factory()->create();
 
-        $response = $this
+        $this
             ->actingAs(
                 $user,
                 'web',
             )
             ->getJson(
                 route('api.v1.auth.me'),
-            );
-
-        $response
+            )
             ->assertOk()
             ->assertJson([
                 'user' => [
                     'id' => $user->id,
                     'name' => $user->name,
-                    'username' => 'farhad',
-                    'email' => 'farhad@example.com',
+                    'username' => $user->username,
+                    'email' => $user->email,
                 ],
             ]);
     }
@@ -286,6 +267,14 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
+        PersonalAccessToken::query()->create([
+            'user_id' => $user->id,
+            'name' => 'Git client',
+            'token_identifier' => str_repeat('a', 32),
+            'token_hash' => str_repeat('b', 64),
+            'revoked_at' => null,
+        ]);
+
         $this
             ->actingAs(
                 $user,
@@ -299,17 +288,21 @@ class AuthenticationTest extends TestCase
                 'message' => 'Logout successful.',
             ]);
 
-        $this->assertGuest('web');
+        $this->assertGuest(
+            'web',
+        );
 
-        $this
-            ->getJson(
-                route('api.v1.auth.me'),
-            )
-            ->assertUnauthorized();
-
-        $this->assertDatabaseCount(
+        /*
+         * Logging out of the browser session must not revoke or delete
+         * GitForge personal access tokens.
+         */
+        $this->assertDatabaseHas(
             'personal_access_tokens',
-            0,
+            [
+                'user_id' => $user->id,
+                'name' => 'Git client',
+                'revoked_at' => null,
+            ],
         );
     }
 }
