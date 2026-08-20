@@ -1,5 +1,11 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { render, screen } from '@testing-library/react'
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import {
+  render,
+  screen,
+} from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import {
   beforeEach,
@@ -17,12 +23,28 @@ import {
   register,
 } from './services/auth-service'
 
-vi.mock('./services/auth-service', () => ({
-  getCurrentUser: vi.fn(),
-  login: vi.fn(),
-  logout: vi.fn(),
-  register: vi.fn(),
-}))
+vi.mock(
+  './services/auth-service',
+  () => ({
+    getCurrentUser: vi.fn(),
+    login: vi.fn(),
+    logout: vi.fn(),
+    register: vi.fn(),
+  }),
+)
+
+vi.mock(
+  './features/repositories/RepositoryDetailPage',
+  () => ({
+    RepositoryDetailPage: () => (
+      <main>
+        <h1>
+          Public repository route
+        </h1>
+      </main>
+    ),
+  }),
+)
 
 function unauthenticatedError() {
   return {
@@ -30,7 +52,8 @@ function unauthenticatedError() {
     response: {
       status: 401,
       data: {
-        message: 'Unauthenticated.',
+        message:
+          'Unauthenticated.',
       },
     },
   }
@@ -39,20 +62,29 @@ function unauthenticatedError() {
 function renderApp(
   initialRoute = '/',
 ) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
+  const queryClient =
+    new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+        },
+        mutations: {
+          retry: false,
+        },
       },
-      mutations: {
-        retry: false,
-      },
-    },
-  })
+    })
 
   return render(
-    <QueryClientProvider client={queryClient}>
-      <MemoryRouter initialEntries={[initialRoute]}>
+    <QueryClientProvider
+      client={
+        queryClient
+      }
+    >
+      <MemoryRouter
+        initialEntries={[
+          initialRoute,
+        ]}
+      >
         <AuthProvider>
           <App />
         </AuthProvider>
@@ -71,24 +103,40 @@ describe('App', () => {
       unauthenticatedError(),
     )
 
-    vi.mocked(login).mockReset()
-    vi.mocked(register).mockReset()
-    vi.mocked(logout).mockReset()
+    vi.mocked(
+      login,
+    ).mockReset()
+
+    vi.mocked(
+      register,
+    ).mockReset()
+
+    vi.mocked(
+      logout,
+    ).mockReset()
   })
 
   it('renders the GitForge landing page', () => {
     renderApp()
 
     expect(
-      screen.getByRole('heading', {
-        name: /your code\.\s*your infrastructure\./i,
-      }),
+      screen.getByRole(
+        'heading',
+        {
+          name:
+            /your code\.\s*your infrastructure\./i,
+        },
+      ),
     ).toBeInTheDocument()
 
     expect(
-      screen.getByRole('link', {
-        name: /create your account/i,
-      }),
+      screen.getByRole(
+        'link',
+        {
+          name:
+            /create your account/i,
+        },
+      ),
     ).toHaveAttribute(
       'href',
       '/register',
@@ -111,9 +159,13 @@ describe('App', () => {
     ).toBeInTheDocument()
 
     expect(
-      await screen.findByRole('heading', {
-        name: /welcome back/i,
-      }),
+      await screen.findByRole(
+        'heading',
+        {
+          name:
+            /welcome back/i,
+        },
+      ),
     ).toBeInTheDocument()
 
     expect(
@@ -123,15 +175,23 @@ describe('App', () => {
     ).toBeInTheDocument()
 
     expect(
-      screen.getByRole('button', {
-        name: /^sign in$/i,
-      }),
+      screen.getByRole(
+        'button',
+        {
+          name:
+            /^sign in$/i,
+        },
+      ),
     ).toBeInTheDocument()
 
     expect(
-      screen.getByRole('link', {
-        name: /create an account/i,
-      }),
+      screen.getByRole(
+        'link',
+        {
+          name:
+            /create an account/i,
+        },
+      ),
     ).toHaveAttribute(
       'href',
       '/register',
@@ -139,6 +199,50 @@ describe('App', () => {
 
     expect(
       getCurrentUser,
-    ).toHaveBeenCalledTimes(1)
+    ).toHaveBeenCalledTimes(
+      1,
+    )
+  })
+
+  it('redirects an unauthenticated dashboard request to sign in', async () => {
+    renderApp('/dashboard')
+
+    expect(
+      screen.getByText(
+        /verifying your session/i,
+      ),
+    ).toBeInTheDocument()
+
+    expect(
+      await screen.findByRole(
+        'heading',
+        {
+          name:
+            /welcome back/i,
+        },
+      ),
+    ).toBeInTheDocument()
+
+    expect(
+      screen.queryByText(
+        /^dashboard$/i,
+      ),
+    ).not.toBeInTheDocument()
+  })
+
+  it('allows the public repository route without authentication', () => {
+    renderApp(
+      '/repositories/36',
+    )
+
+    expect(
+      screen.getByRole(
+        'heading',
+        {
+          name:
+            /public repository route/i,
+        },
+      ),
+    ).toBeInTheDocument()
   })
 })
