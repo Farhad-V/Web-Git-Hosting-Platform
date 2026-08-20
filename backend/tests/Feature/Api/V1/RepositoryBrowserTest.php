@@ -380,7 +380,7 @@ class RepositoryBrowserTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
 
         $this
             ->actingAs(
@@ -393,7 +393,7 @@ class RepositoryBrowserTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
 
         $this
             ->actingAs(
@@ -406,7 +406,7 @@ class RepositoryBrowserTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
 
         $this
             ->actingAs(
@@ -422,7 +422,7 @@ class RepositoryBrowserTest extends TestCase
                     ],
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
     }
 
     public function test_anonymous_visitor_cannot_browse_private_repository(): void
@@ -440,7 +440,7 @@ class RepositoryBrowserTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
 
         $this
             ->getJson(
@@ -449,7 +449,7 @@ class RepositoryBrowserTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
 
         $this
             ->getJson(
@@ -458,7 +458,7 @@ class RepositoryBrowserTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
 
         $this
             ->getJson(
@@ -470,7 +470,7 @@ class RepositoryBrowserTest extends TestCase
                     ],
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
     }
 
     public function test_authenticated_user_can_browse_public_repository(): void

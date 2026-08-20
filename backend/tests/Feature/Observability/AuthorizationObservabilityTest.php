@@ -90,7 +90,7 @@ class AuthorizationObservabilityTest extends TestCase
                 ),
             );
 
-        $response->assertForbidden();
+        $response->assertNotFound();
 
         $requestId = $response->headers->get(
             'X-Request-ID',

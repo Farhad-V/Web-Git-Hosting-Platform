@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Enums\RepositoryVisibility;
 use App\Models\Repository;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Log;
 
 class RepositoryPolicy
@@ -24,11 +25,15 @@ class RepositoryPolicy
 
     /**
      * Determine whether the repository may be read.
+     *
+     * Unauthorized reads of private repositories are externally concealed
+     * as not-found responses so callers cannot distinguish a private
+     * repository from a repository that does not exist.
      */
     public function view(
         ?User $user,
         Repository $repository,
-    ): bool {
+    ): Response {
         $allowed = (
             $repository->visibility
             === RepositoryVisibility::PublicAccess
@@ -38,12 +43,16 @@ class RepositoryPolicy
                 && $repository->owner_id === $user->id
             );
 
-        return $this->decision(
+        $this->decision(
             operation: 'view',
             allowed: $allowed,
             user: $user,
             repository: $repository,
         );
+
+        return $allowed
+            ? Response::allow()
+            : Response::denyAsNotFound();
     }
 
     /**

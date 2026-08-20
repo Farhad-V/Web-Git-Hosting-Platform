@@ -510,7 +510,7 @@ class RepositoryTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
     }
 
     public function test_anonymous_visitor_cannot_view_private_repository(): void
@@ -526,7 +526,7 @@ class RepositoryTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertForbidden();
+            ->assertNotFound();
     }
 
     public function test_owner_can_update_repository_visibility(): void
