@@ -9,6 +9,7 @@ use App\Services\Auth\PersonalAccessTokenService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class PersonalAccessTokenController extends Controller
@@ -47,6 +48,18 @@ class PersonalAccessTokenController extends Controller
             name: $request->validated()['name'],
         );
 
+        Log::info(
+            'pat_created',
+            [
+                'event' => 'pat_created',
+                'request_id' => $request->attributes->get('request_id'),
+                'user_id' => $request->user()->id,
+                'token_id' => $token->id,
+                'token_identifier' => $token->token_identifier,
+                'result' => 'success',
+            ],
+        );
+
         return response()->json([
             'message' => 'Personal access token created successfully.',
             'token' => new PersonalAccessTokenResource(
@@ -75,6 +88,30 @@ class PersonalAccessTokenController extends Controller
             $accessToken->forceFill([
                 'revoked_at' => now(),
             ])->save();
+
+            Log::info(
+                'pat_revoked',
+                [
+                    'event' => 'pat_revoked',
+                    'request_id' => $request->attributes->get('request_id'),
+                    'user_id' => $request->user()->id,
+                    'token_id' => $accessToken->id,
+                    'token_identifier' => $accessToken->token_identifier,
+                    'result' => 'success',
+                ],
+            );
+        } else {
+            Log::info(
+                'pat_already_revoked',
+                [
+                    'event' => 'pat_already_revoked',
+                    'request_id' => $request->attributes->get('request_id'),
+                    'user_id' => $request->user()->id,
+                    'token_id' => $accessToken->id,
+                    'token_identifier' => $accessToken->token_identifier,
+                    'result' => 'completed',
+                ],
+            );
         }
 
         return response()->json([

@@ -6,6 +6,7 @@ use App\Exceptions\GitAuthenticationException;
 use App\Models\User;
 use App\Services\Auth\PersonalAccessTokenService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GitCredentialAuthenticator
 {
@@ -28,6 +29,11 @@ class GitCredentialAuthenticator
             || ! is_string($plainTextToken)
             || $plainTextToken === ''
         ) {
+            $this->logFailure(
+                request: $request,
+                reason: 'missing',
+            );
+
             throw new GitAuthenticationException;
         }
 
@@ -42,6 +48,11 @@ class GitCredentialAuthenticator
         );
 
         if ($token === null) {
+            $this->logFailure(
+                request: $request,
+                reason: 'invalid_or_revoked',
+            );
+
             throw new GitAuthenticationException;
         }
 
@@ -54,9 +65,43 @@ class GitCredentialAuthenticator
                 $username,
             )
         ) {
+            $this->logFailure(
+                request: $request,
+                reason: 'username_mismatch',
+            );
+
             throw new GitAuthenticationException;
         }
 
+        Log::info(
+            'pat_authentication_succeeded',
+            [
+                'event' => 'pat_authentication_succeeded',
+                'request_id' => $request->attributes->get('request_id'),
+                'user_id' => $user->id,
+                'token_identifier' => $token->token_identifier,
+                'authentication_type' => 'pat',
+                'result' => 'success',
+            ],
+        );
+
         return $user;
+    }
+
+    private function logFailure(
+        Request $request,
+        string $reason,
+    ): void {
+        Log::warning(
+            'pat_authentication_failed',
+            [
+                'event' => 'pat_authentication_failed',
+                'request_id' => $request->attributes->get('request_id'),
+                'authentication_type' => 'pat',
+                'result' => 'failure',
+                'failure_category' => 'authentication_failure',
+                'reason' => $reason,
+            ],
+        );
     }
 }

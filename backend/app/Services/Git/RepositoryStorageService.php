@@ -5,6 +5,7 @@ namespace App\Services\Git;
 use App\Exceptions\RepositoryStorageException;
 use App\Models\Repository;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class RepositoryStorageService
@@ -51,6 +52,12 @@ class RepositoryStorageService
             );
 
             if ($initialBranch === '') {
+                $this->logResolutionFailure(
+                    operation: 'initialize',
+                    repositoryId: $repository->id,
+                    category: 'invalid',
+                );
+
                 throw new RepositoryStorageException(
                     operation: 'initialize',
                     repositoryId: $repository->id,
@@ -103,6 +110,12 @@ class RepositoryStorageService
                 throw $exception;
             }
 
+            $this->logResolutionFailure(
+                operation: 'initialize',
+                repositoryId: $repository->id,
+                category: 'unavailable',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'initialize',
                 repositoryId: $repository->id,
@@ -125,10 +138,16 @@ class RepositoryStorageService
             return false;
         }
 
-        if (
-            ! File::isDirectory($path)
-            || is_link($path)
-        ) {
+        if (is_link($path)) {
+            $this->logUnsafePath(
+                operation: 'exists',
+                repositoryId: $repository->id,
+            );
+
+            return false;
+        }
+
+        if (! File::isDirectory($path)) {
             return false;
         }
 
@@ -153,15 +172,29 @@ class RepositoryStorageService
             ! is_int($repository->id)
             && ! ctype_digit((string) $repository->id)
         ) {
+            $repositoryId = (int) ($repository->id ?? 0);
+
+            $this->logResolutionFailure(
+                operation: 'resolve-path',
+                repositoryId: $repositoryId,
+                category: 'invalid',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'resolve-path',
-                repositoryId: (int) ($repository->id ?? 0),
+                repositoryId: $repositoryId,
             );
         }
 
         $repositoryId = (int) $repository->id;
 
         if ($repositoryId < 1) {
+            $this->logResolutionFailure(
+                operation: 'resolve-path',
+                repositoryId: $repositoryId,
+                category: 'invalid',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'resolve-path',
                 repositoryId: $repositoryId,
@@ -175,6 +208,7 @@ class RepositoryStorageService
 
         $this->assertContainedPath(
             $path,
+            repositoryId: $repositoryId,
         );
 
         return $path;
@@ -190,10 +224,24 @@ class RepositoryStorageService
             $repository,
         );
 
-        if (
-            ! File::isDirectory($path)
-            || is_link($path)
-        ) {
+        if (is_link($path)) {
+            $this->logUnsafePath(
+                operation: 'resolve-existing',
+                repositoryId: $repository->id,
+            );
+
+            throw new RepositoryStorageException(
+                operation: 'resolve-existing',
+                repositoryId: $repository->id,
+            );
+        }
+
+        if (! File::isDirectory($path)) {
+            $this->logMissingStorage(
+                operation: 'resolve-existing',
+                repositoryId: $repository->id,
+            );
+
             throw new RepositoryStorageException(
                 operation: 'resolve-existing',
                 repositoryId: $repository->id,
@@ -202,6 +250,7 @@ class RepositoryStorageService
 
         $this->assertContainedPath(
             $path,
+            repositoryId: $repository->id,
         );
 
         $this->assertValidBareRepository(
@@ -226,6 +275,17 @@ class RepositoryStorageService
             File::exists($path)
             || is_link($path)
         ) {
+            $this->logUnexpectedExistingTarget(
+                repositoryId: $repository->id,
+            );
+
+            if (is_link($path)) {
+                $this->logUnsafePath(
+                    operation: 'resolve-new-target',
+                    repositoryId: $repository->id,
+                );
+            }
+
             throw new RepositoryStorageException(
                 operation: 'resolve-new-target',
                 repositoryId: $repository->id,
@@ -273,6 +333,12 @@ class RepositoryStorageService
         $prefix = 'refs/heads/';
 
         if (! str_starts_with($headReference, $prefix)) {
+            $this->logResolutionFailure(
+                operation: 'resolve-default-branch',
+                repositoryId: $repository->id,
+                category: 'inconsistent',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'resolve-default-branch',
                 repositoryId: $repository->id,
@@ -324,6 +390,11 @@ class RepositoryStorageService
         );
 
         if (is_link($path)) {
+            $this->logUnsafePath(
+                operation: 'cleanup-partial',
+                repositoryId: $repository->id,
+            );
+
             throw new RepositoryStorageException(
                 operation: 'cleanup-partial',
                 repositoryId: $repository->id,
@@ -332,6 +403,7 @@ class RepositoryStorageService
 
         $this->assertContainedPath(
             $path,
+            repositoryId: $repository->id,
         );
 
         if (! File::exists($path)) {
@@ -339,6 +411,12 @@ class RepositoryStorageService
         }
 
         if (! File::isDirectory($path)) {
+            $this->logResolutionFailure(
+                operation: 'cleanup-partial',
+                repositoryId: $repository->id,
+                category: 'inconsistent',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'cleanup-partial',
                 repositoryId: $repository->id,
@@ -346,6 +424,12 @@ class RepositoryStorageService
         }
 
         if (! File::deleteDirectory($path)) {
+            $this->logResolutionFailure(
+                operation: 'cleanup-partial',
+                repositoryId: $repository->id,
+                category: 'unavailable',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'cleanup-partial',
                 repositoryId: $repository->id,
@@ -372,6 +456,12 @@ class RepositoryStorageService
             || str_contains($directory, '/')
             || str_contains($directory, '\\')
         ) {
+            $this->logResolutionFailure(
+                operation: 'resolve-root',
+                repositoryId: 0,
+                category: 'invalid',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'resolve-root',
                 repositoryId: 0,
@@ -383,6 +473,11 @@ class RepositoryStorageService
             .$directory;
 
         if (is_link($path)) {
+            $this->logUnsafePath(
+                operation: 'path-containment',
+                repositoryId: 0,
+            );
+
             throw new RepositoryStorageException(
                 operation: 'path-containment',
                 repositoryId: 0,
@@ -417,6 +512,12 @@ class RepositoryStorageService
             $root === ''
             || ! $this->isAbsolutePath($root)
         ) {
+            $this->logResolutionFailure(
+                operation: 'resolve-root',
+                repositoryId: 0,
+                category: 'invalid',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'resolve-root',
                 repositoryId: 0,
@@ -435,6 +536,7 @@ class RepositoryStorageService
      */
     private function assertContainedPath(
         string $path,
+        int $repositoryId = 0,
     ): void {
         $storageRoot = $this->storageRoot();
 
@@ -453,9 +555,14 @@ class RepositoryStorageService
                 $root.DIRECTORY_SEPARATOR,
             )
         ) {
+            $this->logUnsafePath(
+                operation: 'path-containment',
+                repositoryId: $repositoryId,
+            );
+
             throw new RepositoryStorageException(
                 operation: 'path-containment',
-                repositoryId: 0,
+                repositoryId: $repositoryId,
             );
         }
 
@@ -494,9 +601,15 @@ class RepositoryStorageService
         );
 
         if ($canonicalAncestor === false) {
+            $this->logResolutionFailure(
+                operation: 'path-containment',
+                repositoryId: $repositoryId,
+                category: 'unavailable',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'path-containment',
-                repositoryId: 0,
+                repositoryId: $repositoryId,
             );
         }
 
@@ -515,9 +628,14 @@ class RepositoryStorageService
                 $canonicalRoot.DIRECTORY_SEPARATOR,
             )
         ) {
+            $this->logUnsafePath(
+                operation: 'path-containment',
+                repositoryId: $repositoryId,
+            );
+
             throw new RepositoryStorageException(
                 operation: 'path-containment',
-                repositoryId: 0,
+                repositoryId: $repositoryId,
             );
         }
     }
@@ -579,6 +697,11 @@ class RepositoryStorageService
         string $path,
     ): void {
         if (is_link($path)) {
+            $this->logUnsafePath(
+                operation: 'verify-repository',
+                repositoryId: $repository->id,
+            );
+
             throw new RepositoryStorageException(
                 operation: 'verify-repository',
                 repositoryId: $repository->id,
@@ -587,6 +710,7 @@ class RepositoryStorageService
 
         $this->assertContainedPath(
             $path,
+            repositoryId: $repository->id,
         );
 
         $requiredFiles = [
@@ -596,6 +720,12 @@ class RepositoryStorageService
 
         foreach ($requiredFiles as $requiredFile) {
             if (! File::isFile($requiredFile)) {
+                $this->logResolutionFailure(
+                    operation: 'verify-repository',
+                    repositoryId: $repository->id,
+                    category: 'invalid',
+                );
+
                 throw new RepositoryStorageException(
                     operation: 'verify-repository',
                     repositoryId: $repository->id,
@@ -610,6 +740,12 @@ class RepositoryStorageService
 
         foreach ($requiredDirectories as $requiredDirectory) {
             if (! File::isDirectory($requiredDirectory)) {
+                $this->logResolutionFailure(
+                    operation: 'verify-repository',
+                    repositoryId: $repository->id,
+                    category: 'invalid',
+                );
+
                 throw new RepositoryStorageException(
                     operation: 'verify-repository',
                     repositoryId: $repository->id,
@@ -629,10 +765,137 @@ class RepositoryStorageService
         );
 
         if (! hash_equals('true', $isBare)) {
+            $this->logResolutionFailure(
+                operation: 'verify-repository',
+                repositoryId: $repository->id,
+                category: 'invalid',
+            );
+
             throw new RepositoryStorageException(
                 operation: 'verify-repository',
                 repositoryId: $repository->id,
             );
         }
+    }
+
+    /**
+     * Record a categorized repository-storage resolution failure.
+     */
+    private function logResolutionFailure(
+        string $operation,
+        int $repositoryId,
+        string $category,
+    ): void {
+        Log::warning(
+            'repository_storage_resolution_failed',
+            [
+                'event' => 'repository_storage_resolution_failed',
+                'request_id' => $this->requestId(),
+                'repository_id' => $repositoryId > 0
+                    ? $repositoryId
+                    : null,
+                'operation' => $operation,
+                'result' => 'failure',
+                'failure_category' => $category,
+            ],
+        );
+    }
+
+    /**
+     * Record missing physical storage for an existing repository.
+     */
+    private function logMissingStorage(
+        string $operation,
+        int $repositoryId,
+    ): void {
+        Log::error(
+            'repository_storage_missing',
+            [
+                'event' => 'repository_storage_missing',
+                'request_id' => $this->requestId(),
+                'repository_id' => $repositoryId,
+                'operation' => $operation,
+                'result' => 'failure',
+                'failure_category' => 'missing',
+            ],
+        );
+
+        $this->logResolutionFailure(
+            operation: $operation,
+            repositoryId: $repositoryId,
+            category: 'missing',
+        );
+    }
+
+    /**
+     * Record a security-relevant storage-containment failure.
+     */
+    private function logUnsafePath(
+        string $operation,
+        int $repositoryId,
+    ): void {
+        Log::error(
+            'repository_storage_unsafe_path',
+            [
+                'event' => 'repository_storage_unsafe_path',
+                'request_id' => $this->requestId(),
+                'repository_id' => $repositoryId > 0
+                    ? $repositoryId
+                    : null,
+                'operation' => $operation,
+                'result' => 'failure',
+                'failure_category' => 'unsafe',
+            ],
+        );
+
+        $this->logResolutionFailure(
+            operation: $operation,
+            repositoryId: $repositoryId,
+            category: 'unsafe',
+        );
+    }
+
+    /**
+     * Record an unexpected physical target during repository creation.
+     */
+    private function logUnexpectedExistingTarget(
+        int $repositoryId,
+    ): void {
+        Log::error(
+            'repository_storage_unexpected_existing_target',
+            [
+                'event' => 'repository_storage_unexpected_existing_target',
+                'request_id' => $this->requestId(),
+                'repository_id' => $repositoryId,
+                'operation' => 'resolve-new-target',
+                'result' => 'failure',
+                'failure_category' => 'inconsistent',
+            ],
+        );
+
+        $this->logResolutionFailure(
+            operation: 'resolve-new-target',
+            repositoryId: $repositoryId,
+            category: 'inconsistent',
+        );
+    }
+
+    /**
+     * Return the current request correlation identifier when available.
+     */
+    private function requestId(): ?string
+    {
+        if (! app()->bound('request')) {
+            return null;
+        }
+
+        $requestId = request()->attributes->get(
+            'request_id',
+        );
+
+        return is_string($requestId)
+            && $requestId !== ''
+                ? $requestId
+                : null;
     }
 }

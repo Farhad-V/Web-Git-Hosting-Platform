@@ -1,10 +1,26 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\Observability\HealthController;
 use App\Http\Controllers\Api\V1\PersonalAccessTokenController;
 use App\Http\Controllers\Api\V1\RepositoryBrowserController;
 use App\Http\Controllers\Api\V1\RepositoryController;
 use Illuminate\Support\Facades\Route;
+
+/*
+ * Readiness intentionally remains outside the web/session middleware group.
+ *
+ * A failed database dependency must be reportable as a controlled 503 rather
+ * than failing first while attempting to initialize a database-backed session.
+ */
+Route::prefix('v1')
+    ->name('api.v1.')
+    ->group(function (): void {
+        Route::get(
+            '/health/readiness',
+            [HealthController::class, 'readiness'],
+        )->name('health.readiness');
+    });
 
 Route::middleware('web')
     ->prefix('v1')

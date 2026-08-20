@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -49,6 +50,18 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        Log::info(
+            'authentication_succeeded',
+            [
+                'event' => 'authentication_succeeded',
+                'request_id' => $request->attributes->get('request_id'),
+                'user_id' => $user->id,
+                'authentication_type' => 'session',
+                'operation' => 'register',
+                'result' => 'success',
+            ],
+        );
+
         return response()->json([
             'message' => 'Registration successful.',
             'user' => new UserResource($user),
@@ -71,6 +84,18 @@ class AuthController extends Controller
         ]);
 
         if (! $authenticated) {
+            Log::warning(
+                'authentication_failed',
+                [
+                    'event' => 'authentication_failed',
+                    'request_id' => $request->attributes->get('request_id'),
+                    'authentication_type' => 'session',
+                    'operation' => 'login',
+                    'result' => 'failure',
+                    'failure_category' => 'authentication_failure',
+                ],
+            );
+
             throw ValidationException::withMessages([
                 'email' => [
                     'The provided credentials are incorrect.',
@@ -79,6 +104,18 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerate();
+
+        Log::info(
+            'authentication_succeeded',
+            [
+                'event' => 'authentication_succeeded',
+                'request_id' => $request->attributes->get('request_id'),
+                'user_id' => $request->user()?->id,
+                'authentication_type' => 'session',
+                'operation' => 'login',
+                'result' => 'success',
+            ],
+        );
 
         return response()->json([
             'message' => 'Login successful.',
@@ -107,10 +144,23 @@ class AuthController extends Controller
     public function logout(
         Request $request,
     ): JsonResponse {
+        $userId = $request->user()?->id;
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        Log::info(
+            'logout_succeeded',
+            [
+                'event' => 'logout_succeeded',
+                'request_id' => $request->attributes->get('request_id'),
+                'user_id' => $userId,
+                'authentication_type' => 'session',
+                'result' => 'success',
+            ],
+        );
 
         return response()->json([
             'message' => 'Logout successful.',
