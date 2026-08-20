@@ -1,4 +1,10 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
 import { apiClient } from '../lib/api'
 import type {
   Repository,
@@ -6,18 +12,14 @@ import type {
   RepositoryMutationResponse,
 } from '../types/repository'
 import {
-  archiveRepository,
   createRepository,
   getRepositories,
   getRepository,
-  scheduleRepositoryDeletion,
-  unarchiveRepository,
   updateRepository,
 } from './repository-service'
 
 vi.mock('../lib/api', () => ({
   apiClient: {
-    delete: vi.fn(),
     get: vi.fn(),
     patch: vi.fn(),
     post: vi.fn(),
@@ -27,26 +29,15 @@ vi.mock('../lib/api', () => ({
 const repository: Repository = {
   id: 36,
   name: 'test-project',
-  slug: 'test-project',
   full_name: 'farhad-dev/test-project',
-  description: 'Test repository',
   visibility: 'public',
-  status: 'active',
-  default_branch: null,
-  is_empty: true,
-  is_writable: true,
-  is_archived: false,
   owner: {
     id: 1,
     name: 'Farhad Valizadegan',
     username: 'farhad-dev',
   },
-  archived_at: null,
-  created_at: '2026-08-15T10:00:00.000Z',
-  updated_at: '2026-08-15T10:00:00.000Z',
-  links: {
-    api: 'http://127.0.0.1:8000/api/v1/repositories/36',
-  },
+  created_at: '2026-08-20T10:00:00.000Z',
+  updated_at: '2026-08-20T10:00:00.000Z',
 }
 
 const collectionResponse: RepositoryCollectionResponse = {
@@ -74,16 +65,22 @@ describe('repository service', () => {
     vi.clearAllMocks()
   })
 
-  it('requests a paginated repository list', async () => {
-    vi.mocked(apiClient.get).mockResolvedValue({
+  it('requests the owned repository list', async () => {
+    vi.mocked(
+      apiClient.get,
+    ).mockResolvedValue({
       data: collectionResponse,
     })
 
-    await expect(getRepositories(2)).resolves.toEqual(
+    await expect(
+      getRepositories(2),
+    ).resolves.toEqual(
       collectionResponse,
     )
 
-    expect(apiClient.get).toHaveBeenCalledWith(
+    expect(
+      apiClient.get,
+    ).toHaveBeenCalledWith(
       '/repositories',
       {
         params: {
@@ -93,137 +90,92 @@ describe('repository service', () => {
     )
   })
 
-  it('requests a repository by identifier', async () => {
-    vi.mocked(apiClient.get).mockResolvedValue({
+  it('requests repository metadata', async () => {
+    vi.mocked(
+      apiClient.get,
+    ).mockResolvedValue({
       data: {
         data: repository,
       },
     })
 
-    await expect(getRepository(36)).resolves.toEqual({
+    await expect(
+      getRepository(36),
+    ).resolves.toEqual({
       data: repository,
     })
 
-    expect(apiClient.get).toHaveBeenCalledWith(
+    expect(
+      apiClient.get,
+    ).toHaveBeenCalledWith(
       '/repositories/36',
     )
   })
 
-  it('creates a repository', async () => {
+  it('creates repository using name and visibility only', async () => {
+    const input = {
+      name: 'test-project',
+      visibility: 'public' as const,
+    }
+
     const response: RepositoryMutationResponse = {
       message: 'Repository created successfully.',
       repository,
     }
 
-    vi.mocked(apiClient.post).mockResolvedValue({
+    vi.mocked(
+      apiClient.post,
+    ).mockResolvedValue({
       data: response,
     })
 
-    const input = {
-      name: 'test-project',
-      description: 'Test repository',
-      visibility: 'public' as const,
-    }
-
-    await expect(createRepository(input)).resolves.toEqual(
+    await expect(
+      createRepository(input),
+    ).resolves.toEqual(
       response,
     )
 
-    expect(apiClient.post).toHaveBeenCalledWith(
+    expect(
+      apiClient.post,
+    ).toHaveBeenCalledWith(
       '/repositories',
       input,
     )
   })
 
-  it('updates repository metadata', async () => {
-    const input = {
-      name: 'renamed-project',
-      description: 'Updated description',
-      visibility: 'private' as const,
-    }
-
+  it('updates repository visibility only', async () => {
     const response: RepositoryMutationResponse = {
-      message: 'Repository updated successfully.',
+      message: 'Repository visibility updated successfully.',
       repository: {
         ...repository,
-        ...input,
-        slug: 'renamed-project',
-        full_name: 'farhad-dev/renamed-project',
+        visibility: 'private',
       },
     }
 
-    vi.mocked(apiClient.patch).mockResolvedValue({
+    vi.mocked(
+      apiClient.patch,
+    ).mockResolvedValue({
       data: response,
     })
 
     await expect(
-      updateRepository(36, input),
-    ).resolves.toEqual(response)
+      updateRepository(
+        36,
+        {
+          visibility: 'private',
+        },
+      ),
+    ).resolves.toEqual(
+      response,
+    )
 
-    expect(apiClient.patch).toHaveBeenCalledWith(
+    expect(
+      apiClient.patch,
+    ).toHaveBeenCalledWith(
       '/repositories/36',
-      input,
-    )
-  })
-
-  it('archives and restores a repository', async () => {
-    const archivedResponse: RepositoryMutationResponse = {
-      message: 'Repository archived successfully.',
-      repository: {
-        ...repository,
-        status: 'archived',
-        is_archived: true,
-        is_writable: false,
+      {
+        visibility: 'private',
       },
-    }
-
-    const restoredResponse: RepositoryMutationResponse = {
-      message: 'Repository unarchived successfully.',
-      repository,
-    }
-
-    vi.mocked(apiClient.post)
-      .mockResolvedValueOnce({
-        data: archivedResponse,
-      })
-      .mockResolvedValueOnce({
-        data: restoredResponse,
-      })
-
-    await expect(
-      archiveRepository(36),
-    ).resolves.toEqual(archivedResponse)
-
-    expect(apiClient.post).toHaveBeenNthCalledWith(
-      1,
-      '/repositories/36/archive',
-    )
-
-    await expect(
-      unarchiveRepository(36),
-    ).resolves.toEqual(restoredResponse)
-
-    expect(apiClient.post).toHaveBeenNthCalledWith(
-      2,
-      '/repositories/36/unarchive',
-    )
-  })
-
-  it('schedules repository deletion', async () => {
-    vi.mocked(apiClient.delete).mockResolvedValue({
-      data: {
-        message: 'Repository deletion scheduled.',
-      },
-    })
-
-    await expect(
-      scheduleRepositoryDeletion(36),
-    ).resolves.toEqual({
-      message: 'Repository deletion scheduled.',
-    })
-
-    expect(apiClient.delete).toHaveBeenCalledWith(
-      '/repositories/36',
     )
   })
 })

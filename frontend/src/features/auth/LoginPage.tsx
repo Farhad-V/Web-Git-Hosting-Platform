@@ -45,10 +45,7 @@ export function LoginPage() {
     setSubmissionError(null)
 
     try {
-      await login({
-        ...values,
-        device_name: 'web',
-      })
+      await login(values)
 
       navigate('/dashboard', { replace: true })
     } catch (error) {

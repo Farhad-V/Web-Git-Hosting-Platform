@@ -110,10 +110,7 @@ export function RegisterPage() {
     setSubmissionError(null)
 
     try {
-      await createAccount({
-        ...values,
-        device_name: 'web',
-      })
+      await createAccount(values)
 
       navigate('/dashboard', { replace: true })
     } catch (error) {

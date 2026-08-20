@@ -1,4 +1,10 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
 import { apiClient } from '../lib/api'
 import type {
   CreatePersonalAccessTokenInput,
@@ -23,14 +29,9 @@ vi.mock('../lib/api', () => ({
 const token: PersonalAccessToken = {
   id: 12,
   name: 'Development laptop',
-  abilities: [
-    'repository:read',
-    'repository:write',
-  ],
-  last_used_at: null,
-  expires_at: '2026-09-15T10:00:00.000Z',
-  is_expired: false,
-  created_at: '2026-08-15T10:00:00.000Z',
+  revoked_at: null,
+  created_at: '2026-08-20T10:00:00.000Z',
+  updated_at: '2026-08-20T10:00:00.000Z',
 }
 
 describe('personal access token service', () => {
@@ -38,12 +39,14 @@ describe('personal access token service', () => {
     vi.clearAllMocks()
   })
 
-  it('requests the repository access token list', async () => {
+  it('requests the personal access token list', async () => {
     const response: PersonalAccessTokenCollectionResponse = {
       data: [token],
     }
 
-    vi.mocked(apiClient.get).mockResolvedValue({
+    vi.mocked(
+      apiClient.get,
+    ).mockResolvedValue({
       data: response,
     })
 
@@ -51,29 +54,28 @@ describe('personal access token service', () => {
       getPersonalAccessTokens(),
     ).resolves.toEqual(response)
 
-    expect(apiClient.get).toHaveBeenCalledWith(
+    expect(
+      apiClient.get,
+    ).toHaveBeenCalledWith(
       '/personal-access-tokens',
     )
   })
 
-  it('creates a repository access token', async () => {
+  it('creates a personal access token using only its name', async () => {
     const input: CreatePersonalAccessTokenInput = {
       name: 'Development laptop',
-      current_password: 'StrongPassword!123',
-      abilities: [
-        'repository:read',
-        'repository:write',
-      ],
-      expires_at: '2026-09-15T10:00:00.000Z',
     }
 
     const response: CreatePersonalAccessTokenResponse = {
       message: 'Personal access token created successfully.',
       token,
-      plain_text_token: '12|plain-text-secret',
+      plain_text_token:
+        'gitforge_pat_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa_bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
     }
 
-    vi.mocked(apiClient.post).mockResolvedValue({
+    vi.mocked(
+      apiClient.post,
+    ).mockResolvedValue({
       data: response,
     })
 
@@ -81,18 +83,24 @@ describe('personal access token service', () => {
       createPersonalAccessToken(input),
     ).resolves.toEqual(response)
 
-    expect(apiClient.post).toHaveBeenCalledWith(
+    expect(
+      apiClient.post,
+    ).toHaveBeenCalledWith(
       '/personal-access-tokens',
-      input,
+      {
+        name: 'Development laptop',
+      },
     )
   })
 
-  it('revokes a repository access token', async () => {
+  it('revokes a personal access token', async () => {
     const response = {
       message: 'Personal access token revoked successfully.',
     }
 
-    vi.mocked(apiClient.delete).mockResolvedValue({
+    vi.mocked(
+      apiClient.delete,
+    ).mockResolvedValue({
       data: response,
     })
 
@@ -100,7 +108,9 @@ describe('personal access token service', () => {
       revokePersonalAccessToken(12),
     ).resolves.toEqual(response)
 
-    expect(apiClient.delete).toHaveBeenCalledWith(
+    expect(
+      apiClient.delete,
+    ).toHaveBeenCalledWith(
       '/personal-access-tokens/12',
     )
   })

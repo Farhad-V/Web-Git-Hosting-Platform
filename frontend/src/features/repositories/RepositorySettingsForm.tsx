@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 import {
   Globe2,
   LoaderCircle,
@@ -20,79 +23,72 @@ import type {
 } from '../../types/repository'
 import { repositoryQueryKeys } from './repository-query-keys'
 
-const repositoryNamePattern = /^[A-Za-z0-9][A-Za-z0-9._-]*$/
+const repositorySettingsSchema =
+  z.object({
+    visibility: z.enum([
+      'private',
+      'public',
+    ]),
+  })
 
-const repositorySettingsSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, 'Repository name is required.')
-    .max(100, 'Repository name cannot exceed 100 characters.')
-    .regex(
-      repositoryNamePattern,
-      'Start with a letter or number and use only letters, numbers, dots, underscores, and hyphens.',
-    )
-    .refine(
-      (name) => name !== '.' && name !== '..',
-      'This repository name is not allowed.',
-    )
-    .refine(
-      (name) => !name.toLowerCase().endsWith('.git'),
-      'Repository names cannot end with .git.',
-    ),
-  description: z
-    .string()
-    .max(2000, 'Description cannot exceed 2,000 characters.'),
-  visibility: z.enum(['private', 'public']),
-})
-
-type RepositorySettingsValues = z.infer<
-  typeof repositorySettingsSchema
->
+type RepositorySettingsValues =
+  z.infer<
+    typeof repositorySettingsSchema
+  >
 
 interface RepositorySettingsFormProps {
   repository: Repository
-  onUpdated: (repository: Repository) => void
+  onUpdated: (
+    repository: Repository,
+  ) => void
 }
-
-const inputClassName =
-  'h-11 w-full rounded-lg border border-white/10 bg-[#0d1117] px-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60'
 
 export function RepositorySettingsForm({
   repository,
   onUpdated,
 }: RepositorySettingsFormProps) {
-  const queryClient = useQueryClient()
+  const queryClient =
+    useQueryClient()
 
   const {
-    formState: { errors, isDirty },
+    formState: {
+      errors,
+      isDirty,
+    },
     handleSubmit,
     register,
     reset,
     setError,
   } = useForm<RepositorySettingsValues>({
-    resolver: zodResolver(repositorySettingsSchema),
+    resolver:
+      zodResolver(
+        repositorySettingsSchema,
+      ),
+
     defaultValues: {
-      name: repository.name,
-      description: repository.description ?? '',
-      visibility: repository.visibility,
+      visibility:
+        repository.visibility,
     },
   })
 
-  const updateMutation = useMutation({
-    mutationFn: (input: UpdateRepositoryInput) =>
-      updateRepository(repository.id, input),
-  })
+  const updateMutation =
+    useMutation({
+      mutationFn:
+        (
+          input: UpdateRepositoryInput,
+        ) =>
+          updateRepository(
+            repository.id,
+            input,
+          ),
+    })
 
   useEffect(() => {
     reset({
-      name: repository.name,
-      description: repository.description ?? '',
-      visibility: repository.visibility,
+      visibility:
+        repository.visibility,
     })
   }, [
-    repository.description,
-    repository.name,
     repository.visibility,
     reset,
   ])
@@ -102,81 +98,72 @@ export function RepositorySettingsForm({
   ): Promise<void> {
     updateMutation.reset()
 
-    const descriptionValue = values.description.trim()
-
-    const input: UpdateRepositoryInput = {
-      name: values.name.trim(),
-      description:
-        descriptionValue === ''
-          ? null
-          : descriptionValue,
-      visibility: values.visibility,
-    }
-
     try {
-      const response = await updateMutation.mutateAsync(input)
+      const response =
+        await updateMutation.mutateAsync({
+          visibility:
+            values.visibility,
+        })
 
       queryClient.setQueryData(
-        repositoryQueryKeys.detail(repository.id),
+        repositoryQueryKeys.detail(
+          repository.id,
+        ),
         {
-          data: response.repository,
+          data:
+            response.repository,
         },
       )
 
       await queryClient.invalidateQueries({
-        queryKey: repositoryQueryKeys.lists(),
+        queryKey:
+          repositoryQueryKeys.lists(),
       })
 
       reset({
-        name: response.repository.name,
-        description: response.repository.description ?? '',
-        visibility: response.repository.visibility,
+        visibility:
+          response.repository.visibility,
       })
 
-      onUpdated(response.repository)
+      onUpdated(
+        response.repository,
+      )
     } catch (error) {
-      const validationErrors = getValidationErrors(error)
-
-      const nameError =
-        validationErrors.name?.[0]
-        ?? validationErrors.slug?.[0]
-
-      const descriptionError =
-        validationErrors.description?.[0]
+      const validationErrors =
+        getValidationErrors(
+          error,
+        )
 
       const visibilityError =
         validationErrors.visibility?.[0]
 
-      if (nameError !== undefined) {
-        setError('name', {
-          type: 'server',
-          message: nameError,
-        })
-      }
-
-      if (descriptionError !== undefined) {
-        setError('description', {
-          type: 'server',
-          message: descriptionError,
-        })
-      }
-
-      if (visibilityError !== undefined) {
-        setError('visibility', {
-          type: 'server',
-          message: visibilityError,
-        })
+      if (
+        visibilityError !== undefined
+      ) {
+        setError(
+          'visibility',
+          {
+            type: 'server',
+            message:
+              visibilityError,
+          },
+        )
       }
     }
   }
 
-  const validationErrors = updateMutation.isError
-    ? getValidationErrors(updateMutation.error)
-    : {}
+  const validationErrors =
+    updateMutation.isError
+      ? getValidationErrors(
+          updateMutation.error,
+        )
+      : {}
 
   const hasGeneralError =
     updateMutation.isError
-    && Object.keys(validationErrors).length === 0
+    && Object.keys(
+      validationErrors,
+    ).length === 0
 
   return (
     <section className="rounded-xl border border-white/10 bg-[#161b22]">
@@ -186,21 +173,25 @@ export function RepositorySettingsForm({
         </h2>
 
         <p className="mt-1 text-sm text-slate-500">
-          Update the repository identity, description, and visibility.
+          V1 allows the repository owner to change visibility only.
         </p>
       </header>
 
       <form
         className="space-y-6 p-6"
         noValidate
-        onSubmit={handleSubmit(submit)}
+        onSubmit={
+          handleSubmit(
+            submit,
+          )
+        }
       >
         {updateMutation.isSuccess && (
           <div
             className="rounded-lg border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300"
             role="status"
           >
-            Repository settings saved successfully.
+            Repository visibility updated successfully.
           </div>
         )}
 
@@ -211,87 +202,16 @@ export function RepositorySettingsForm({
           >
             {getApiErrorMessage(
               updateMutation.error,
-              'Unable to update the repository.',
+              'Unable to update repository visibility.',
             )}
           </div>
         )}
 
-        <div>
-          <label
-            className="mb-2 block text-sm font-medium text-slate-200"
-            htmlFor="settings-repository-name"
-          >
-            Repository name
-          </label>
-
-          <input
-            aria-describedby={
-              errors.name
-                ? 'settings-repository-name-error'
-                : 'settings-repository-name-help'
-            }
-            aria-invalid={errors.name ? 'true' : 'false'}
-            className={inputClassName}
-            disabled={updateMutation.isPending}
-            id="settings-repository-name"
-            spellCheck="false"
-            type="text"
-            {...register('name')}
-          />
-
-          {errors.name?.message !== undefined ? (
-            <p
-              className="mt-2 text-sm text-red-400"
-              id="settings-repository-name-error"
-            >
-              {errors.name.message}
-            </p>
-          ) : (
-            <p
-              className="mt-2 text-xs text-slate-500"
-              id="settings-repository-name-help"
-            >
-              Renaming also updates the repository URL slug.
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label
-            className="mb-2 block text-sm font-medium text-slate-200"
-            htmlFor="settings-repository-description"
-          >
-            Description
-            <span className="ml-1 text-slate-500">
-              (optional)
-            </span>
-          </label>
-
-          <textarea
-            aria-describedby={
-              errors.description
-                ? 'settings-repository-description-error'
-                : undefined
-            }
-            aria-invalid={errors.description ? 'true' : 'false'}
-            className="min-h-28 w-full resize-y rounded-lg border border-white/10 bg-[#0d1117] px-3 py-2.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60"
-            disabled={updateMutation.isPending}
-            id="settings-repository-description"
-            placeholder="What is this repository for?"
-            {...register('description')}
-          />
-
-          {errors.description?.message !== undefined && (
-            <p
-              className="mt-2 text-sm text-red-400"
-              id="settings-repository-description-error"
-            >
-              {errors.description.message}
-            </p>
-          )}
-        </div>
-
-        <fieldset disabled={updateMutation.isPending}>
+        <fieldset
+          disabled={
+            updateMutation.isPending
+          }
+        >
           <legend className="mb-3 text-sm font-medium text-slate-200">
             Visibility
           </legend>
@@ -302,7 +222,9 @@ export function RepositorySettingsForm({
                 className="peer sr-only"
                 type="radio"
                 value="private"
-                {...register('visibility')}
+                {...register(
+                  'visibility',
+                )}
               />
 
               <span className="flex h-full gap-3 rounded-xl border border-white/10 bg-[#0d1117] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
@@ -317,7 +239,7 @@ export function RepositorySettingsForm({
                   </span>
 
                   <span className="mt-1 block text-xs leading-5 text-slate-500">
-                    Only the owner can access this repository.
+                    Only you may read or manage this repository.
                   </span>
                 </span>
               </span>
@@ -328,7 +250,9 @@ export function RepositorySettingsForm({
                 className="peer sr-only"
                 type="radio"
                 value="public"
-                {...register('visibility')}
+                {...register(
+                  'visibility',
+                )}
               />
 
               <span className="flex h-full gap-3 rounded-xl border border-white/10 bg-[#0d1117] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
@@ -343,16 +267,21 @@ export function RepositorySettingsForm({
                   </span>
 
                   <span className="mt-1 block text-xs leading-5 text-slate-500">
-                    Authenticated users can discover and view it.
+                    Anyone may view and clone the repository.
                   </span>
                 </span>
               </span>
             </label>
           </div>
 
-          {errors.visibility?.message !== undefined && (
+          {errors.visibility
+            ?.message !==
+          undefined && (
             <p className="mt-2 text-sm text-red-400">
-              {errors.visibility.message}
+              {
+                errors.visibility
+                  .message
+              }
             </p>
           )}
         </fieldset>
@@ -360,7 +289,10 @@ export function RepositorySettingsForm({
         <div className="flex justify-end border-t border-white/10 pt-5">
           <button
             className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
-            disabled={!isDirty || updateMutation.isPending}
+            disabled={
+              !isDirty
+              || updateMutation.isPending
+            }
             type="submit"
           >
             {updateMutation.isPending ? (
@@ -369,12 +301,15 @@ export function RepositorySettingsForm({
                 className="size-4 animate-spin"
               />
             ) : (
-              <Save aria-hidden="true" className="size-4" />
+              <Save
+                aria-hidden="true"
+                className="size-4"
+              />
             )}
 
             {updateMutation.isPending
-              ? 'Saving changes...'
-              : 'Save changes'}
+              ? 'Saving...'
+              : 'Save visibility'}
           </button>
         </div>
       </form>
