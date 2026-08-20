@@ -12,7 +12,7 @@ return [
     */
 
     'binary' => env(
-        'GIT_BINARY',
+        'GITFORGE_GIT_BINARY',
         'git',
     ),
 
