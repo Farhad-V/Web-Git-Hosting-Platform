@@ -605,6 +605,227 @@ class GitSmartHttpTest extends TestCase
         )->assertUnsupportedMediaType();
     }
 
+    public function test_owner_token_can_execute_receive_pack_rpc(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $headers = $this->basicAuthHeaders(
+            $owner,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.receive-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-receive-pack-request'
+                ),
+                'HTTP_AUTHORIZATION' => $headers['Authorization'],
+            ],
+            '0000',
+        );
+
+        $response
+            ->assertOk()
+            ->assertHeader(
+                'Content-Type',
+                'application/x-git-receive-pack-result',
+            )
+            ->assertHeader(
+                'X-Content-Type-Options',
+                'nosniff',
+            );
+    }
+
+    public function test_non_owner_cannot_execute_receive_pack_rpc(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $otherUser = User::factory()->create([
+            'username' => 'other-user',
+        ]);
+
+        $headers = $this->basicAuthHeaders(
+            $otherUser,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.receive-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-receive-pack-request'
+                ),
+                'HTTP_AUTHORIZATION' => $headers['Authorization'],
+            ],
+            '0000',
+        );
+
+        $response->assertForbidden();
+    }
+
+    public function test_receive_pack_rejects_incorrect_content_type(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $headers = $this->basicAuthHeaders(
+            $owner,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.receive-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_AUTHORIZATION' => $headers['Authorization'],
+            ],
+            '0000',
+        );
+
+        $response->assertUnsupportedMediaType();
+    }
+
+    public function test_oversized_receive_pack_rpc_is_rejected(): void
+    {
+        config([
+            'git.max_request_bytes' => 4,
+        ]);
+
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $headers = $this->basicAuthHeaders(
+            $owner,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.receive-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-receive-pack-request'
+                ),
+                'HTTP_AUTHORIZATION' => $headers['Authorization'],
+            ],
+            '12345',
+        );
+
+        $response
+            ->assertStatus(413)
+            ->assertHeader(
+                'Content-Type',
+                'text/plain; charset=UTF-8',
+            );
+
+        $this->assertSame(
+            'Git request body exceeds the configured limit.',
+            $response->getContent(),
+        );
+    }
+
+    public function test_corrupt_repository_storage_fails_closed_for_receive_pack_rpc(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $repositoryPath = app(
+            RepositoryStorageService::class,
+        )->repositoryPath(
+            $repository,
+        );
+
+        File::delete(
+            $repositoryPath
+                .DIRECTORY_SEPARATOR
+                .'config',
+        );
+
+        $headers = $this->basicAuthHeaders(
+            $owner,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.receive-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-receive-pack-request'
+                ),
+                'HTTP_AUTHORIZATION' => $headers['Authorization'],
+            ],
+            '0000',
+        );
+
+        $response
+            ->assertInternalServerError()
+            ->assertHeader(
+                'Content-Type',
+                'text/plain; charset=UTF-8',
+            );
+
+        $this->assertSame(
+            'Git transport operation failed.',
+            $response->getContent(),
+        );
+
+        $this->assertStringNotContainsString(
+            $repositoryPath,
+            $response->getContent(),
+        );
+    }
     public function test_receive_pack_requires_authentication(): void
     {
         [$repository, $owner] = $this->createManagedRepository(
