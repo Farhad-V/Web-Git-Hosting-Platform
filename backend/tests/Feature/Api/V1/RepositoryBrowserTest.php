@@ -425,6 +425,54 @@ class RepositoryBrowserTest extends TestCase
             ->assertForbidden();
     }
 
+    public function test_anonymous_visitor_cannot_browse_private_repository(): void
+    {
+        $owner = User::factory()->create();
+
+        $repository = $this->createRepositoryWithHistory(
+            owner: $owner,
+        );
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.branches',
+                    $repository,
+                ),
+            )
+            ->assertForbidden();
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.tree',
+                    $repository,
+                ),
+            )
+            ->assertForbidden();
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    $repository,
+                ),
+            )
+            ->assertForbidden();
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.blob',
+                    [
+                        'repository' => $repository,
+                        'path' => 'README.md',
+                    ],
+                ),
+            )
+            ->assertForbidden();
+    }
+
     public function test_authenticated_user_can_browse_public_repository(): void
     {
         $owner = User::factory()->create();
@@ -451,6 +499,71 @@ class RepositoryBrowserTest extends TestCase
             ->assertJsonPath(
                 'branch',
                 'main',
+            );
+    }
+
+    public function test_anonymous_visitor_can_browse_public_repository(): void
+    {
+        $owner = User::factory()->create();
+
+        $repository = $this->createRepositoryWithHistory(
+            owner: $owner,
+            public: true,
+        );
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.branches',
+                    $repository,
+                ),
+            )
+            ->assertOk()
+            ->assertJsonPath(
+                'default_branch',
+                'main',
+            );
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    $repository,
+                ),
+            )
+            ->assertOk()
+            ->assertJsonPath(
+                'branch',
+                'main',
+            );
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.tree',
+                    $repository,
+                ),
+            )
+            ->assertOk()
+            ->assertJsonPath(
+                'branch',
+                'main',
+            );
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.blob',
+                    [
+                        'repository' => $repository,
+                        'path' => 'README.md',
+                    ],
+                ),
+            )
+            ->assertOk()
+            ->assertJsonPath(
+                'data.path',
+                'README.md',
             );
     }
 
@@ -572,50 +685,6 @@ class RepositoryBrowserTest extends TestCase
                 'message' => 'The repository could not be browsed.',
                 'error' => 'storage_not_found',
             ]);
-    }
-
-    public function test_unauthenticated_user_cannot_browse_repositories(): void
-    {
-        $repository = Repository::factory()->create();
-
-        $this
-            ->getJson(
-                route(
-                    'api.v1.repositories.branches',
-                    $repository,
-                ),
-            )
-            ->assertUnauthorized();
-
-        $this
-            ->getJson(
-                route(
-                    'api.v1.repositories.tree',
-                    $repository,
-                ),
-            )
-            ->assertUnauthorized();
-
-        $this
-            ->getJson(
-                route(
-                    'api.v1.repositories.commits',
-                    $repository,
-                ),
-            )
-            ->assertUnauthorized();
-
-        $this
-            ->getJson(
-                route(
-                    'api.v1.repositories.blob',
-                    [
-                        'repository' => $repository,
-                        'path' => 'README.md',
-                    ],
-                ),
-            )
-            ->assertUnauthorized();
     }
 
     /**

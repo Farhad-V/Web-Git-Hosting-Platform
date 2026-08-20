@@ -29,18 +29,38 @@ Route::middleware('web')
             });
 
         /*
-         * Public repository metadata.
+         * Repository read endpoints are policy-controlled.
          *
-         * Authorization remains policy-driven:
-         * - public repository: guest or authenticated user may view
-         * - private repository: owner only
+         * Public repositories may be read anonymously.
+         * Private repositories remain owner-only.
          */
         Route::middleware('throttle:60,1')
-            ->get(
-                '/repositories/{repository}',
-                [RepositoryController::class, 'show'],
-            )
-            ->name('repositories.show');
+            ->group(function (): void {
+                Route::get(
+                    '/repositories/{repository}',
+                    [RepositoryController::class, 'show'],
+                )->name('repositories.show');
+
+                Route::get(
+                    '/repositories/{repository}/branches',
+                    [RepositoryBrowserController::class, 'branches'],
+                )->name('repositories.branches');
+
+                Route::get(
+                    '/repositories/{repository}/commits',
+                    [RepositoryBrowserController::class, 'commits'],
+                )->name('repositories.commits');
+
+                Route::get(
+                    '/repositories/{repository}/tree',
+                    [RepositoryBrowserController::class, 'tree'],
+                )->name('repositories.tree');
+
+                Route::get(
+                    '/repositories/{repository}/blob',
+                    [RepositoryBrowserController::class, 'blob'],
+                )->name('repositories.blob');
+            });
 
         Route::middleware([
             'auth',
@@ -82,26 +102,6 @@ Route::middleware('web')
                 '/repositories',
                 [RepositoryController::class, 'store'],
             )->name('repositories.store');
-
-            Route::get(
-                '/repositories/{repository}/branches',
-                [RepositoryBrowserController::class, 'branches'],
-            )->name('repositories.branches');
-
-            Route::get(
-                '/repositories/{repository}/commits',
-                [RepositoryBrowserController::class, 'commits'],
-            )->name('repositories.commits');
-
-            Route::get(
-                '/repositories/{repository}/tree',
-                [RepositoryBrowserController::class, 'tree'],
-            )->name('repositories.tree');
-
-            Route::get(
-                '/repositories/{repository}/blob',
-                [RepositoryBrowserController::class, 'blob'],
-            )->name('repositories.blob');
 
             Route::patch(
                 '/repositories/{repository}',
