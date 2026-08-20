@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Git;
 
-use App\Enums\RepositoryStatus;
 use App\Enums\RepositoryVisibility;
+use App\Models\PersonalAccessToken;
 use App\Models\Repository;
 use App\Models\User;
 use App\Services\Git\RepositoryStorageService;
@@ -58,11 +58,14 @@ class GitSmartHttpTest extends TestCase
         );
 
         $response = $this->get(
-            route('git.info-refs', [
-                'username' => $repository->owner->username,
-                'repository' => $repository->slug,
-                'service' => 'git-upload-pack',
-            ]),
+            route(
+                'git.info-refs',
+                [
+                    'username' => $repository->owner->username,
+                    'repository' => $repository->name,
+                    'service' => 'git-upload-pack',
+                ],
+            ),
         );
 
         $response
@@ -94,11 +97,14 @@ class GitSmartHttpTest extends TestCase
         );
 
         $response = $this->get(
-            route('git.info-refs', [
-                'username' => $repository->owner->username,
-                'repository' => $repository->slug,
-                'service' => 'git-upload-pack',
-            ]),
+            route(
+                'git.info-refs',
+                [
+                    'username' => $repository->owner->username,
+                    'repository' => $repository->name,
+                    'service' => 'git-upload-pack',
+                ],
+            ),
         );
 
         $response
@@ -117,14 +123,19 @@ class GitSmartHttpTest extends TestCase
 
         $response = $this
             ->withHeaders(
-                $this->basicAuthHeaders($owner),
+                $this->basicAuthHeaders(
+                    $owner,
+                ),
             )
             ->get(
-                route('git.info-refs', [
-                    'username' => $owner->username,
-                    'repository' => $repository->slug,
-                    'service' => 'git-upload-pack',
-                ]),
+                route(
+                    'git.info-refs',
+                    [
+                        'username' => $owner->username,
+                        'repository' => $repository->name,
+                        'service' => 'git-upload-pack',
+                    ],
+                ),
             );
 
         $response
@@ -151,11 +162,84 @@ class GitSmartHttpTest extends TestCase
                 "Basic {$credentials}",
             )
             ->get(
-                route('git.info-refs', [
-                    'username' => $owner->username,
-                    'repository' => $repository->slug,
-                    'service' => 'git-upload-pack',
-                ]),
+                route(
+                    'git.info-refs',
+                    [
+                        'username' => $owner->username,
+                        'repository' => $repository->name,
+                        'service' => 'git-upload-pack',
+                    ],
+                ),
+            )
+            ->assertUnauthorized();
+    }
+
+    public function test_revoked_token_cannot_access_private_repository(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PrivateAccess,
+        );
+
+        [$plainTextToken, $token] = $this->createGitToken(
+            $owner,
+        );
+
+        $token->forceFill([
+            'revoked_at' => now(),
+        ])->save();
+
+        $this
+            ->withHeader(
+                'Authorization',
+                $this->basicAuthorization(
+                    $owner,
+                    $plainTextToken,
+                ),
+            )
+            ->get(
+                route(
+                    'git.info-refs',
+                    [
+                        'username' => $owner->username,
+                        'repository' => $repository->name,
+                        'service' => 'git-upload-pack',
+                    ],
+                ),
+            )
+            ->assertUnauthorized();
+    }
+
+    public function test_token_username_must_match_token_owner_namespace(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PrivateAccess,
+        );
+
+        $otherUser = User::factory()->create([
+            'username' => 'other-user',
+        ]);
+
+        [$plainTextToken] = $this->createGitToken(
+            $owner,
+        );
+
+        $this
+            ->withHeader(
+                'Authorization',
+                $this->basicAuthorization(
+                    $otherUser,
+                    $plainTextToken,
+                ),
+            )
+            ->get(
+                route(
+                    'git.info-refs',
+                    [
+                        'username' => $owner->username,
+                        'repository' => $repository->name,
+                        'service' => 'git-upload-pack',
+                    ],
+                ),
             )
             ->assertUnauthorized();
     }
@@ -168,14 +252,19 @@ class GitSmartHttpTest extends TestCase
 
         $response = $this
             ->withHeaders(
-                $this->basicAuthHeaders($owner),
+                $this->basicAuthHeaders(
+                    $owner,
+                ),
             )
             ->get(
-                route('git.info-refs', [
-                    'username' => $owner->username,
-                    'repository' => $repository->slug,
-                    'service' => 'git-receive-pack',
-                ]),
+                route(
+                    'git.info-refs',
+                    [
+                        'username' => $owner->username,
+                        'repository' => $repository->name,
+                        'service' => 'git-receive-pack',
+                    ],
+                ),
             );
 
         $response
@@ -191,27 +280,6 @@ class GitSmartHttpTest extends TestCase
         );
     }
 
-    public function test_archived_repository_rejects_receive_pack(): void
-    {
-        [$repository, $owner] = $this->createManagedRepository(
-            visibility: RepositoryVisibility::PrivateAccess,
-            status: RepositoryStatus::Archived,
-        );
-
-        $this
-            ->withHeaders(
-                $this->basicAuthHeaders($owner),
-            )
-            ->get(
-                route('git.info-refs', [
-                    'username' => $owner->username,
-                    'repository' => $repository->slug,
-                    'service' => 'git-receive-pack',
-                ]),
-            )
-            ->assertForbidden();
-    }
-
     public function test_non_owner_cannot_advertise_receive_pack(): void
     {
         [$repository, $owner] = $this->createManagedRepository(
@@ -224,14 +292,19 @@ class GitSmartHttpTest extends TestCase
 
         $this
             ->withHeaders(
-                $this->basicAuthHeaders($otherUser),
+                $this->basicAuthHeaders(
+                    $otherUser,
+                ),
             )
             ->get(
-                route('git.info-refs', [
-                    'username' => $owner->username,
-                    'repository' => $repository->slug,
-                    'service' => 'git-receive-pack',
-                ]),
+                route(
+                    'git.info-refs',
+                    [
+                        'username' => $owner->username,
+                        'repository' => $repository->name,
+                        'service' => 'git-receive-pack',
+                    ],
+                ),
             )
             ->assertForbidden();
     }
@@ -244,10 +317,13 @@ class GitSmartHttpTest extends TestCase
 
         $this->call(
             'POST',
-            route('git.upload-pack', [
-                'username' => $owner->username,
-                'repository' => $repository->slug,
-            ]),
+            route(
+                'git.upload-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
             [],
             [],
             [],
@@ -266,10 +342,13 @@ class GitSmartHttpTest extends TestCase
 
         $this->call(
             'POST',
-            route('git.receive-pack', [
-                'username' => $owner->username,
-                'repository' => $repository->slug,
-            ]),
+            route(
+                'git.receive-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
             [],
             [],
             [],
@@ -289,12 +368,45 @@ class GitSmartHttpTest extends TestCase
         );
 
         $this->get(
-            route('git.info-refs', [
-                'username' => $owner->username,
-                'repository' => $repository->slug,
-                'service' => 'git-unsupported-pack',
-            ]),
+            route(
+                'git.info-refs',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                    'service' => 'git-unsupported-pack',
+                ],
+            ),
         )->assertBadRequest();
+    }
+
+    public function test_repository_name_with_period_and_underscore_is_routable(): void
+    {
+        $owner = User::factory()->create([
+            'username' => 'farhad',
+        ]);
+
+        $repository = Repository::factory()
+            ->publicRepository()
+            ->create([
+                'owner_id' => $owner->id,
+                'name' => 'project.api_v1',
+            ]);
+
+        app(RepositoryStorageService::class)
+            ->initialize($repository);
+
+        $this
+            ->get(
+                route(
+                    'git.info-refs',
+                    [
+                        'username' => $owner->username,
+                        'repository' => $repository->name,
+                        'service' => 'git-upload-pack',
+                    ],
+                ),
+            )
+            ->assertOk();
     }
 
     /**
@@ -304,7 +416,6 @@ class GitSmartHttpTest extends TestCase
      */
     private function createManagedRepository(
         RepositoryVisibility $visibility,
-        RepositoryStatus $status = RepositoryStatus::Active,
     ): array {
         $owner = User::factory()->create([
             'username' => 'farhad',
@@ -312,15 +423,8 @@ class GitSmartHttpTest extends TestCase
 
         $repository = Repository::factory()->create([
             'owner_id' => $owner->id,
-            'name' => 'Project',
-            'slug' => 'project',
+            'name' => 'project',
             'visibility' => $visibility,
-            'status' => $status,
-            'archived_at' => (
-                $status === RepositoryStatus::Archived
-                    ? now()
-                    : null
-            ),
         ]);
 
         app(RepositoryStorageService::class)
@@ -333,20 +437,74 @@ class GitSmartHttpTest extends TestCase
     }
 
     /**
+     * Create a GitForge PAT and return the plaintext and persisted token.
+     *
+     * @return array{string, PersonalAccessToken}
+     */
+    private function createGitToken(
+        User $user,
+    ): array {
+        $identifier = bin2hex(
+            random_bytes(16),
+        );
+
+        $secret = bin2hex(
+            random_bytes(32),
+        );
+
+        $plainTextToken = sprintf(
+            'gitforge_pat_%s_%s',
+            $identifier,
+            $secret,
+        );
+
+        $token = $user
+            ->personalAccessTokens()
+            ->create([
+                'name' => 'Git client',
+                'token_identifier' => $identifier,
+                'token_hash' => hash(
+                    'sha256',
+                    $plainTextToken,
+                ),
+                'revoked_at' => null,
+            ]);
+
+        return [
+            $plainTextToken,
+            $token,
+        ];
+    }
+
+    /**
      * Return Git-compatible HTTP Basic authentication headers.
      *
      * @return array<string, string>
      */
-    private function basicAuthHeaders(User $user): array
-    {
-        $plainTextToken = $user
-            ->createToken('git-client')
-            ->plainTextToken;
+    private function basicAuthHeaders(
+        User $user,
+    ): array {
+        [$plainTextToken] = $this->createGitToken(
+            $user,
+        );
 
         return [
-            'Authorization' => 'Basic '.base64_encode(
-                "{$user->username}:{$plainTextToken}",
+            'Authorization' => $this->basicAuthorization(
+                $user,
+                $plainTextToken,
             ),
         ];
+    }
+
+    /**
+     * Build a Git-compatible Basic authorization value.
+     */
+    private function basicAuthorization(
+        User $user,
+        string $plainTextToken,
+    ): string {
+        return 'Basic '.base64_encode(
+            "{$user->username}:{$plainTextToken}",
+        );
     }
 }

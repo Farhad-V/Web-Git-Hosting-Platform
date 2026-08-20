@@ -9,7 +9,6 @@ use App\Services\Git\RepositoryStorageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class RepositoryBrowserTest extends TestCase
@@ -28,7 +27,7 @@ class RepositoryBrowserTest extends TestCase
 
         $this->temporaryRoot = sys_get_temp_dir()
             .DIRECTORY_SEPARATOR
-            .'git-hosting-platform-browser-api-tests-'
+            .'gitforge-browser-api-tests-'
             .Str::uuid();
 
         $this->storageRoot = $this->temporaryRoot
@@ -55,7 +54,9 @@ class RepositoryBrowserTest extends TestCase
             isset($this->temporaryRoot)
             && File::isDirectory($this->temporaryRoot)
         ) {
-            File::deleteDirectory($this->temporaryRoot);
+            File::deleteDirectory(
+                $this->temporaryRoot,
+            );
         }
 
         parent::tearDown();
@@ -69,14 +70,17 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
-        Sanctum::actingAs($owner);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.branches',
-                $repository,
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.branches',
+                    $repository,
+                ),
+            )
             ->assertOk()
             ->assertJsonPath(
                 'default_branch',
@@ -104,18 +108,21 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
-        Sanctum::actingAs($owner);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.commits',
-                [
-                    'repository' => $repository,
-                    'branch' => 'main',
-                    'limit' => 10,
-                ],
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    [
+                        'repository' => $repository,
+                        'branch' => 'main',
+                        'limit' => 10,
+                    ],
+                ),
+            )
             ->assertOk()
             ->assertJsonPath(
                 'branch',
@@ -143,17 +150,20 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
-        Sanctum::actingAs($owner);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.tree',
-                [
-                    'repository' => $repository,
-                    'branch' => 'main',
-                ],
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.tree',
+                    [
+                        'repository' => $repository,
+                        'branch' => 'main',
+                    ],
+                ),
+            )
             ->assertOk()
             ->assertJsonPath(
                 'branch',
@@ -184,16 +194,21 @@ class RepositoryBrowserTest extends TestCase
                 'file',
             );
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.tree',
-                [
-                    'repository' => $repository,
-                    'branch' => 'main',
-                    'path' => 'src',
-                ],
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.tree',
+                    [
+                        'repository' => $repository,
+                        'branch' => 'main',
+                        'path' => 'src',
+                    ],
+                ),
+            )
             ->assertOk()
             ->assertJsonPath(
                 'path',
@@ -217,18 +232,21 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
-        Sanctum::actingAs($owner);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.blob',
-                [
-                    'repository' => $repository,
-                    'branch' => 'main',
-                    'path' => 'README.md',
-                ],
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.blob',
+                    [
+                        'repository' => $repository,
+                        'branch' => 'main',
+                        'path' => 'README.md',
+                    ],
+                ),
+            )
             ->assertOk()
             ->assertJsonPath(
                 'branch',
@@ -248,7 +266,7 @@ class RepositoryBrowserTest extends TestCase
             );
     }
 
-    public function test_default_branch_is_used_when_branch_is_omitted(): void
+    public function test_git_native_default_branch_is_used_when_branch_is_omitted(): void
     {
         $owner = User::factory()->create();
 
@@ -256,14 +274,17 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
-        Sanctum::actingAs($owner);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.commits',
-                $repository,
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    $repository,
+                ),
+            )
             ->assertOk()
             ->assertJsonPath(
                 'branch',
@@ -277,20 +298,22 @@ class RepositoryBrowserTest extends TestCase
 
         $repository = Repository::factory()->create([
             'owner_id' => $owner->id,
-            'default_branch' => null,
         ]);
 
         app(RepositoryStorageService::class)
             ->initialize($repository);
 
-        Sanctum::actingAs($owner);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.branches',
-                $repository,
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.branches',
+                    $repository,
+                ),
+            )
             ->assertOk()
             ->assertJsonCount(
                 0,
@@ -301,24 +324,34 @@ class RepositoryBrowserTest extends TestCase
                 null,
             );
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.tree',
-                $repository,
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.tree',
+                    $repository,
+                ),
+            )
             ->assertConflict()
             ->assertJson([
                 'message' => 'The repository is empty.',
                 'error' => 'empty_repository',
             ]);
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.commits',
-                $repository,
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    $repository,
+                ),
+            )
             ->assertConflict()
             ->assertJsonPath(
                 'error',
@@ -329,49 +362,73 @@ class RepositoryBrowserTest extends TestCase
     public function test_private_repository_cannot_be_browsed_by_another_user(): void
     {
         $owner = User::factory()->create();
+
         $viewer = User::factory()->create();
 
         $repository = $this->createRepositoryWithHistory(
             owner: $owner,
         );
 
-        Sanctum::actingAs($viewer);
+        $this
+            ->actingAs(
+                $viewer,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.branches',
+                    $repository,
+                ),
+            )
+            ->assertForbidden();
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.branches',
-                $repository,
-            ),
-        )->assertForbidden();
+        $this
+            ->actingAs(
+                $viewer,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.tree',
+                    $repository,
+                ),
+            )
+            ->assertForbidden();
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.tree',
-                $repository,
-            ),
-        )->assertForbidden();
+        $this
+            ->actingAs(
+                $viewer,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    $repository,
+                ),
+            )
+            ->assertForbidden();
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.commits',
-                $repository,
-            ),
-        )->assertForbidden();
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.blob',
-                [
-                    'repository' => $repository,
-                    'path' => 'README.md',
-                ],
-            ),
-        )->assertForbidden();
+        $this
+            ->actingAs(
+                $viewer,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.blob',
+                    [
+                        'repository' => $repository,
+                        'path' => 'README.md',
+                    ],
+                ),
+            )
+            ->assertForbidden();
     }
 
     public function test_authenticated_user_can_browse_public_repository(): void
     {
         $owner = User::factory()->create();
+
         $viewer = User::factory()->create();
 
         $repository = $this->createRepositoryWithHistory(
@@ -379,14 +436,17 @@ class RepositoryBrowserTest extends TestCase
             public: true,
         );
 
-        Sanctum::actingAs($viewer);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.tree',
-                $repository,
-            ),
-        )
+        $this
+            ->actingAs(
+                $viewer,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.tree',
+                    $repository,
+                ),
+            )
             ->assertOk()
             ->assertJsonPath(
                 'branch',
@@ -402,28 +462,36 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
-        Sanctum::actingAs($owner);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.commits',
-                [
-                    'repository' => $repository,
-                    'limit' => 101,
-                ],
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    [
+                        'repository' => $repository,
+                        'limit' => 101,
+                    ],
+                ),
+            )
             ->assertUnprocessable()
-            ->assertJsonValidationErrors('limit');
+            ->assertJsonValidationErrors(
+                'limit',
+            );
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.blob',
-                [
-                    'repository' => $repository,
-                ],
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.blob',
+                    $repository,
+                ),
+            )
             ->assertUnprocessable()
             ->assertJsonPath(
                 'error',
@@ -439,32 +507,40 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
-        Sanctum::actingAs($owner);
-
-        $this->getJson(
-            route(
-                'api.v1.repositories.commits',
-                [
-                    'repository' => $repository,
-                    'branch' => 'missing',
-                ],
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    [
+                        'repository' => $repository,
+                        'branch' => 'missing',
+                    ],
+                ),
+            )
             ->assertNotFound()
             ->assertJsonPath(
                 'error',
                 'branch_not_found',
             );
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.blob',
-                [
-                    'repository' => $repository,
-                    'path' => 'missing.txt',
-                ],
-            ),
-        )
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.blob',
+                    [
+                        'repository' => $repository,
+                        'path' => 'missing.txt',
+                    ],
+                ),
+            )
             ->assertNotFound()
             ->assertJsonPath(
                 'error',
@@ -472,40 +548,74 @@ class RepositoryBrowserTest extends TestCase
             );
     }
 
+    public function test_missing_repository_storage_fails_closed(): void
+    {
+        $owner = User::factory()->create();
+
+        $repository = Repository::factory()->create([
+            'owner_id' => $owner->id,
+        ]);
+
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.branches',
+                    $repository,
+                ),
+            )
+            ->assertInternalServerError()
+            ->assertJson([
+                'message' => 'The repository could not be browsed.',
+                'error' => 'storage_not_found',
+            ]);
+    }
+
     public function test_unauthenticated_user_cannot_browse_repositories(): void
     {
         $repository = Repository::factory()->create();
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.branches',
-                $repository,
-            ),
-        )->assertUnauthorized();
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.branches',
+                    $repository,
+                ),
+            )
+            ->assertUnauthorized();
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.tree',
-                $repository,
-            ),
-        )->assertUnauthorized();
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.tree',
+                    $repository,
+                ),
+            )
+            ->assertUnauthorized();
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.commits',
-                $repository,
-            ),
-        )->assertUnauthorized();
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.commits',
+                    $repository,
+                ),
+            )
+            ->assertUnauthorized();
 
-        $this->getJson(
-            route(
-                'api.v1.repositories.blob',
-                [
-                    'repository' => $repository,
-                    'path' => 'README.md',
-                ],
-            ),
-        )->assertUnauthorized();
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.blob',
+                    [
+                        'repository' => $repository,
+                        'path' => 'README.md',
+                    ],
+                ),
+            )
+            ->assertUnauthorized();
     }
 
     /**
@@ -525,13 +635,19 @@ class RepositoryBrowserTest extends TestCase
 
         $repository = $factory->create([
             'owner_id' => $owner->id,
-            'default_branch' => null,
         ]);
 
-        $storage = app(RepositoryStorageService::class);
-        $runner = app(GitCommandRunner::class);
+        $storage = app(
+            RepositoryStorageService::class,
+        );
 
-        $barePath = $storage->initialize($repository);
+        $runner = app(
+            GitCommandRunner::class,
+        );
+
+        $barePath = $storage->initialize(
+            $repository,
+        );
 
         File::ensureDirectoryExists(
             $this->worktreePath,
@@ -628,10 +744,6 @@ class RepositoryBrowserTest extends TestCase
             ],
             workingDirectory: $this->worktreePath,
         );
-
-        $repository->update([
-            'default_branch' => 'main',
-        ]);
 
         return $repository->fresh();
     }

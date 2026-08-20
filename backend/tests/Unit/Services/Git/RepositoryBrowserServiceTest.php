@@ -28,7 +28,7 @@ class RepositoryBrowserServiceTest extends TestCase
 
         $this->temporaryRoot = sys_get_temp_dir()
             .DIRECTORY_SEPARATOR
-            .'git-hosting-platform-browser-tests-'
+            .'gitforge-browser-service-tests-'
             .Str::uuid();
 
         $this->storageRoot = $this->temporaryRoot
@@ -55,7 +55,9 @@ class RepositoryBrowserServiceTest extends TestCase
             isset($this->temporaryRoot)
             && File::isDirectory($this->temporaryRoot)
         ) {
-            File::deleteDirectory($this->temporaryRoot);
+            File::deleteDirectory(
+                $this->temporaryRoot,
+            );
         }
 
         parent::tearDown();
@@ -71,7 +73,10 @@ class RepositoryBrowserServiceTest extends TestCase
         $branches = app(RepositoryBrowserService::class)
             ->branches($repository);
 
-        $this->assertSame([], $branches);
+        $this->assertSame(
+            [],
+            $branches,
+        );
     }
 
     public function test_it_lists_repository_branches(): void
@@ -81,7 +86,10 @@ class RepositoryBrowserServiceTest extends TestCase
         $branches = app(RepositoryBrowserService::class)
             ->branches($repository);
 
-        $this->assertCount(1, $branches);
+        $this->assertCount(
+            1,
+            $branches,
+        );
 
         $this->assertSame(
             'main',
@@ -113,7 +121,10 @@ class RepositoryBrowserServiceTest extends TestCase
                 branch: 'main',
             );
 
-        $this->assertCount(2, $commits);
+        $this->assertCount(
+            2,
+            $commits,
+        );
 
         $this->assertSame(
             'Add application source',
@@ -157,7 +168,10 @@ class RepositoryBrowserServiceTest extends TestCase
                 limit: 1,
             );
 
-        $this->assertCount(1, $commits);
+        $this->assertCount(
+            1,
+            $commits,
+        );
 
         $this->assertSame(
             'Add application source',
@@ -169,14 +183,19 @@ class RepositoryBrowserServiceTest extends TestCase
     {
         $repository = $this->createRepositoryWithHistory();
 
-        $browser = app(RepositoryBrowserService::class);
+        $browser = app(
+            RepositoryBrowserService::class,
+        );
 
         $rootEntries = $browser->tree(
             repository: $repository,
             branch: 'main',
         );
 
-        $this->assertCount(2, $rootEntries);
+        $this->assertCount(
+            2,
+            $rootEntries,
+        );
 
         $this->assertSame(
             'directory',
@@ -213,7 +232,10 @@ class RepositoryBrowserServiceTest extends TestCase
             directory: 'src',
         );
 
-        $this->assertCount(1, $nestedEntries);
+        $this->assertCount(
+            1,
+            $nestedEntries,
+        );
 
         $this->assertSame(
             'app.php',
@@ -253,7 +275,9 @@ class RepositoryBrowserServiceTest extends TestCase
         );
 
         $this->assertSame(
-            strlen($blob['content']),
+            strlen(
+                $blob['content'],
+            ),
             $blob['size'],
         );
 
@@ -368,14 +392,19 @@ class RepositoryBrowserServiceTest extends TestCase
      */
     private function createRepositoryWithHistory(): Repository
     {
-        $repository = Repository::factory()->create([
-            'default_branch' => 'main',
-        ]);
+        $repository = Repository::factory()->create();
 
-        $storage = app(RepositoryStorageService::class);
-        $runner = app(GitCommandRunner::class);
+        $storage = app(
+            RepositoryStorageService::class,
+        );
 
-        $barePath = $storage->initialize($repository);
+        $runner = app(
+            GitCommandRunner::class,
+        );
+
+        $barePath = $storage->initialize(
+            $repository,
+        );
 
         File::ensureDirectoryExists(
             $this->worktreePath,

@@ -2,17 +2,13 @@
 
 namespace Tests\Feature\Api\V1;
 
-use App\Enums\RepositoryStatus;
 use App\Enums\RepositoryVisibility;
-use App\Jobs\DeleteRepositoryStorage;
 use App\Models\Repository;
 use App\Models\User;
 use App\Services\Git\RepositoryStorageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Str;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class RepositoryTest extends TestCase
@@ -27,7 +23,7 @@ class RepositoryTest extends TestCase
 
         $this->temporaryStorageRoot = sys_get_temp_dir()
             .DIRECTORY_SEPARATOR
-            .'git-hosting-platform-api-tests-'
+            .'gitforge-repository-api-tests-'
             .Str::uuid();
 
         config([
@@ -59,32 +55,27 @@ class RepositoryTest extends TestCase
             'username' => 'farhad',
         ]);
 
-        Sanctum::actingAs($user);
-
-        $response = $this->postJson(
-            route('api.v1.repositories.store'),
-            [
-                'name' => 'Git-Hosting-Platform',
-                'description' => 'A self-hosted Git platform.',
-                'visibility' => 'private',
-            ],
-        );
+        $response = $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => 'Git-Hosting-Platform',
+                    'visibility' => 'private',
+                ],
+            );
 
         $response
             ->assertCreated()
             ->assertJson([
                 'message' => 'Repository created successfully.',
                 'repository' => [
-                    'name' => 'Git-Hosting-Platform',
-                    'slug' => 'git-hosting-platform',
+                    'name' => 'git-hosting-platform',
                     'full_name' => 'farhad/git-hosting-platform',
-                    'description' => 'A self-hosted Git platform.',
                     'visibility' => 'private',
-                    'status' => 'active',
-                    'default_branch' => null,
-                    'is_empty' => true,
-                    'is_writable' => true,
-                    'is_archived' => false,
                     'owner' => [
                         'id' => $user->id,
                         'username' => 'farhad',
@@ -92,22 +83,31 @@ class RepositoryTest extends TestCase
                 ],
             ]);
 
-        $this->assertDatabaseHas('repositories', [
-            'owner_id' => $user->id,
-            'name' => 'Git-Hosting-Platform',
-            'slug' => 'git-hosting-platform',
-            'visibility' => RepositoryVisibility::PrivateAccess->value,
-            'status' => RepositoryStatus::Active->value,
-            'default_branch' => null,
-        ]);
+        $this->assertDatabaseHas(
+            'repositories',
+            [
+                'owner_id' => $user->id,
+                'name' => 'git-hosting-platform',
+                'visibility' => (
+                    RepositoryVisibility::PrivateAccess->value
+                ),
+            ],
+        );
 
-        $repository = Repository::query()->firstOrFail();
+        $repository = Repository::query()
+            ->firstOrFail();
 
-        $this->assertNotEmpty($repository->storage_uuid);
+        $expectedPath = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'repositories'
+            .DIRECTORY_SEPARATOR
+            .$repository->id
+            .'.git';
 
         $this->assertSame(
-            "repositories/{$repository->storage_uuid}.git",
-            $repository->storageRelativePath(),
+            $expectedPath,
+            app(RepositoryStorageService::class)
+                ->pathFor($repository),
         );
 
         $this->assertTrue(
@@ -116,7 +116,66 @@ class RepositoryTest extends TestCase
         );
     }
 
-    public function test_failed_storage_creation_rolls_back_metadata(): void
+    public function test_repository_creation_does_not_persist_deferred_metadata(): void
+    {
+        $user = User::factory()->create();
+
+        $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => 'project',
+                    'visibility' => 'public',
+                ],
+            )
+            ->assertCreated();
+
+        $repository = Repository::query()
+            ->firstOrFail();
+
+        $attributes = $repository->getAttributes();
+
+        $this->assertArrayNotHasKey(
+            'slug',
+            $attributes,
+        );
+
+        $this->assertArrayNotHasKey(
+            'description',
+            $attributes,
+        );
+
+        $this->assertArrayNotHasKey(
+            'status',
+            $attributes,
+        );
+
+        $this->assertArrayNotHasKey(
+            'storage_uuid',
+            $attributes,
+        );
+
+        $this->assertArrayNotHasKey(
+            'default_branch',
+            $attributes,
+        );
+
+        $this->assertArrayNotHasKey(
+            'archived_at',
+            $attributes,
+        );
+
+        $this->assertArrayNotHasKey(
+            'deleted_at',
+            $attributes,
+        );
+    }
+
+    public function test_failed_storage_creation_rolls_back_repository_metadata(): void
     {
         config([
             'git.initial_branch' => 'invalid..branch',
@@ -124,17 +183,24 @@ class RepositoryTest extends TestCase
 
         $user = User::factory()->create();
 
-        Sanctum::actingAs($user);
+        $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => 'broken-repository',
+                    'visibility' => 'private',
+                ],
+            )
+            ->assertInternalServerError();
 
-        $this->postJson(
-            route('api.v1.repositories.store'),
-            [
-                'name' => 'Broken-Repository',
-                'visibility' => 'private',
-            ],
-        )->assertInternalServerError();
-
-        $this->assertDatabaseCount('repositories', 0);
+        $this->assertDatabaseCount(
+            'repositories',
+            0,
+        );
 
         $repositoriesDirectory = $this->temporaryStorageRoot
             .DIRECTORY_SEPARATOR
@@ -143,9 +209,71 @@ class RepositoryTest extends TestCase
         if (File::isDirectory($repositoriesDirectory)) {
             $this->assertCount(
                 0,
-                File::directories($repositoriesDirectory),
+                File::directories(
+                    $repositoriesDirectory,
+                ),
             );
         }
+    }
+
+    public function test_repository_name_is_normalized_to_lowercase(): void
+    {
+        $user = User::factory()->create();
+
+        $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => 'My.Project_Name',
+                    'visibility' => 'private',
+                ],
+            )
+            ->assertCreated()
+            ->assertJsonPath(
+                'repository.name',
+                'my.project_name',
+            );
+
+        $this->assertDatabaseHas(
+            'repositories',
+            [
+                'owner_id' => $user->id,
+                'name' => 'my.project_name',
+            ],
+        );
+    }
+
+    public function test_repository_name_rejects_unsafe_values(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => '../project',
+                    'visibility' => 'private',
+                ],
+            );
+
+        $response
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(
+                'name',
+            );
+
+        $this->assertDatabaseCount(
+            'repositories',
+            0,
+        );
     }
 
     public function test_repository_name_must_be_unique_within_owner_namespace(): void
@@ -154,81 +282,100 @@ class RepositoryTest extends TestCase
 
         Repository::factory()->create([
             'owner_id' => $user->id,
-            'name' => 'Project',
-            'slug' => 'project',
+            'name' => 'project',
         ]);
 
-        Sanctum::actingAs($user);
+        $response = $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => 'PROJECT',
+                    'visibility' => 'private',
+                ],
+            );
 
-        $this->postJson(
-            route('api.v1.repositories.store'),
-            [
-                'name' => 'PROJECT',
-                'visibility' => 'private',
-            ],
-        )
+        $response
             ->assertUnprocessable()
-            ->assertJsonValidationErrors('slug');
+            ->assertJsonValidationErrors(
+                'name',
+            );
 
-        $this->assertDatabaseCount('repositories', 1);
+        $this->assertDatabaseCount(
+            'repositories',
+            1,
+        );
     }
 
     public function test_different_owners_can_use_same_repository_name(): void
     {
         $firstOwner = User::factory()->create();
+
         $secondOwner = User::factory()->create();
 
         Repository::factory()->create([
             'owner_id' => $firstOwner->id,
-            'name' => 'Project',
-            'slug' => 'project',
+            'name' => 'project',
         ]);
 
-        Sanctum::actingAs($secondOwner);
+        $this
+            ->actingAs(
+                $secondOwner,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => 'project',
+                    'visibility' => 'private',
+                ],
+            )
+            ->assertCreated();
 
-        $this->postJson(
-            route('api.v1.repositories.store'),
-            [
-                'name' => 'Project',
-                'visibility' => 'private',
-            ],
-        )->assertCreated();
-
-        $this->assertDatabaseCount('repositories', 2);
+        $this->assertDatabaseCount(
+            'repositories',
+            2,
+        );
     }
 
-    public function test_user_sees_public_and_owned_repositories_only(): void
+    public function test_repository_index_lists_only_owned_repositories(): void
     {
         $user = User::factory()->create();
+
         $otherUser = User::factory()->create();
 
-        $ownedPrivate = Repository::factory()->create([
-            'owner_id' => $user->id,
-            'name' => 'Owned Private',
-            'slug' => 'owned-private',
-        ]);
+        $ownedPrivate = Repository::factory()
+            ->privateRepository()
+            ->create([
+                'owner_id' => $user->id,
+                'name' => 'owned-private',
+            ]);
 
-        $publicRepository = Repository::factory()
+        $ownedPublic = Repository::factory()
+            ->publicRepository()
+            ->create([
+                'owner_id' => $user->id,
+                'name' => 'owned-public',
+            ]);
+
+        $otherPublic = Repository::factory()
             ->publicRepository()
             ->create([
                 'owner_id' => $otherUser->id,
-                'name' => 'Public Project',
-                'slug' => 'public-project',
+                'name' => 'other-public',
             ]);
 
-        $hiddenPrivate = Repository::factory()
-            ->privateRepository()
-            ->create([
-                'owner_id' => $otherUser->id,
-                'name' => 'Hidden Project',
-                'slug' => 'hidden-project',
-            ]);
-
-        Sanctum::actingAs($user);
-
-        $response = $this->getJson(
-            route('api.v1.repositories.index'),
-        );
+        $response = $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->getJson(
+                route('api.v1.repositories.index'),
+            );
 
         $response
             ->assertOk()
@@ -236,16 +383,17 @@ class RepositoryTest extends TestCase
                 'id' => $ownedPrivate->id,
             ])
             ->assertJsonFragment([
-                'id' => $publicRepository->id,
+                'id' => $ownedPublic->id,
             ])
             ->assertJsonMissing([
-                'id' => $hiddenPrivate->id,
+                'id' => $otherPublic->id,
             ]);
     }
 
-    public function test_user_can_view_public_repository(): void
+    public function test_authenticated_user_can_view_public_repository(): void
     {
         $owner = User::factory()->create();
+
         $viewer = User::factory()->create();
 
         $repository = Repository::factory()
@@ -254,23 +402,60 @@ class RepositoryTest extends TestCase
                 'owner_id' => $owner->id,
             ]);
 
-        Sanctum::actingAs($viewer);
-
-        $this->getJson(
-            route('api.v1.repositories.show', $repository),
-        )
+        $this
+            ->actingAs(
+                $viewer,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.show',
+                    $repository,
+                ),
+            )
             ->assertOk()
-            ->assertJson([
-                'data' => [
-                    'id' => $repository->id,
-                    'visibility' => 'public',
-                ],
-            ]);
+            ->assertJsonPath(
+                'data.id',
+                $repository->id,
+            )
+            ->assertJsonPath(
+                'data.visibility',
+                'public',
+            );
     }
 
-    public function test_user_cannot_view_another_users_private_repository(): void
+    public function test_owner_can_view_private_repository(): void
     {
         $owner = User::factory()->create();
+
+        $repository = Repository::factory()
+            ->privateRepository()
+            ->create([
+                'owner_id' => $owner->id,
+            ]);
+
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.show',
+                    $repository,
+                ),
+            )
+            ->assertOk()
+            ->assertJsonPath(
+                'data.id',
+                $repository->id,
+            );
+    }
+
+    public function test_non_owner_cannot_view_private_repository(): void
+    {
+        $owner = User::factory()->create();
+
         $viewer = User::factory()->create();
 
         $repository = Repository::factory()
@@ -279,187 +464,179 @@ class RepositoryTest extends TestCase
                 'owner_id' => $owner->id,
             ]);
 
-        Sanctum::actingAs($viewer);
-
-        $this->getJson(
-            route('api.v1.repositories.show', $repository),
-        )->assertForbidden();
+        $this
+            ->actingAs(
+                $viewer,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.show',
+                    $repository,
+                ),
+            )
+            ->assertForbidden();
     }
 
-    public function test_owner_can_update_repository_metadata(): void
+    public function test_owner_can_update_repository_visibility(): void
     {
         $owner = User::factory()->create();
 
-        $repository = Repository::factory()->create([
-            'owner_id' => $owner->id,
-            'name' => 'Old-Name',
-            'slug' => 'old-name',
-        ]);
+        $repository = Repository::factory()
+            ->privateRepository()
+            ->create([
+                'owner_id' => $owner->id,
+                'name' => 'project',
+            ]);
 
-        $storageUuid = $repository->storage_uuid;
+        $response = $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->patchJson(
+                route(
+                    'api.v1.repositories.update',
+                    $repository,
+                ),
+                [
+                    'visibility' => 'public',
+                ],
+            );
 
-        Sanctum::actingAs($owner);
-
-        $this->patchJson(
-            route('api.v1.repositories.update', $repository),
-            [
-                'name' => 'New-Name',
-                'description' => 'Updated description.',
-                'visibility' => 'public',
-            ],
-        )
+        $response
             ->assertOk()
             ->assertJson([
-                'message' => 'Repository updated successfully.',
+                'message' => 'Repository visibility updated successfully.',
                 'repository' => [
-                    'name' => 'New-Name',
-                    'slug' => 'new-name',
-                    'description' => 'Updated description.',
+                    'id' => $repository->id,
+                    'name' => 'project',
                     'visibility' => 'public',
                 ],
             ]);
 
         $repository->refresh();
 
-        $this->assertSame('new-name', $repository->slug);
-        $this->assertSame($storageUuid, $repository->storage_uuid);
+        $this->assertSame(
+            RepositoryVisibility::PublicAccess,
+            $repository->visibility,
+        );
+    }
+
+    public function test_repository_update_does_not_allow_rename(): void
+    {
+        $owner = User::factory()->create();
+
+        $repository = Repository::factory()->create([
+            'owner_id' => $owner->id,
+            'name' => 'original-name',
+        ]);
+
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->patchJson(
+                route(
+                    'api.v1.repositories.update',
+                    $repository,
+                ),
+                [
+                    'name' => 'new-name',
+                    'visibility' => 'public',
+                ],
+            )
+            ->assertOk();
+
+        $repository->refresh();
+
+        $this->assertSame(
+            'original-name',
+            $repository->name,
+        );
+
+        $this->assertSame(
+            RepositoryVisibility::PublicAccess,
+            $repository->visibility,
+        );
     }
 
     public function test_non_owner_cannot_update_repository(): void
     {
         $owner = User::factory()->create();
+
         $otherUser = User::factory()->create();
 
         $repository = Repository::factory()->create([
             'owner_id' => $owner->id,
         ]);
 
-        Sanctum::actingAs($otherUser);
-
-        $this->patchJson(
-            route('api.v1.repositories.update', $repository),
-            [
-                'description' => 'Unauthorized change.',
-            ],
-        )->assertForbidden();
-    }
-
-    public function test_owner_can_archive_and_unarchive_repository(): void
-    {
-        $owner = User::factory()->create();
-
-        $repository = Repository::factory()->create([
-            'owner_id' => $owner->id,
-        ]);
-
-        Sanctum::actingAs($owner);
-
-        $this->postJson(
-            route('api.v1.repositories.archive', $repository),
-        )
-            ->assertOk()
-            ->assertJson([
-                'repository' => [
-                    'status' => 'archived',
-                    'is_writable' => false,
-                    'is_archived' => true,
+        $this
+            ->actingAs(
+                $otherUser,
+                'web',
+            )
+            ->patchJson(
+                route(
+                    'api.v1.repositories.update',
+                    $repository,
+                ),
+                [
+                    'visibility' => 'public',
                 ],
-            ]);
+            )
+            ->assertForbidden();
 
         $repository->refresh();
 
         $this->assertSame(
-            RepositoryStatus::Archived,
-            $repository->status,
-        );
-
-        $this->assertNotNull($repository->archived_at);
-
-        $this->patchJson(
-            route('api.v1.repositories.update', $repository),
-            [
-                'description' => 'Should not change.',
-            ],
-        )->assertForbidden();
-
-        $this->postJson(
-            route('api.v1.repositories.unarchive', $repository),
-        )
-            ->assertOk()
-            ->assertJson([
-                'repository' => [
-                    'status' => 'active',
-                    'is_writable' => true,
-                    'is_archived' => false,
-                ],
-            ]);
-
-        $repository->refresh();
-
-        $this->assertSame(
-            RepositoryStatus::Active,
-            $repository->status,
-        );
-
-        $this->assertNull($repository->archived_at);
-    }
-
-    public function test_owner_can_schedule_repository_deletion(): void
-    {
-        Queue::fake();
-
-        $owner = User::factory()->create();
-
-        $repository = Repository::factory()->create([
-            'owner_id' => $owner->id,
-        ]);
-
-        Sanctum::actingAs($owner);
-
-        $this->deleteJson(
-            route('api.v1.repositories.destroy', $repository),
-        )
-            ->assertAccepted()
-            ->assertJson([
-                'message' => 'Repository deletion scheduled.',
-            ]);
-
-        $repository->refresh();
-
-        $this->assertSame(
-            RepositoryStatus::DeletionPending,
-            $repository->status,
-        );
-
-        $this->assertNotNull(
-            $repository->deletion_requested_at,
-        );
-
-        $this->assertDatabaseHas('repositories', [
-            'id' => $repository->id,
-            'deleted_at' => null,
-        ]);
-
-        Queue::assertPushed(
-            DeleteRepositoryStorage::class,
-            fn (DeleteRepositoryStorage $job): bool => (
-                $job->repositoryId === $repository->id
-            ),
+            RepositoryVisibility::PrivateAccess,
+            $repository->visibility,
         );
     }
 
     public function test_unauthenticated_user_cannot_manage_repositories(): void
     {
-        $this->getJson(
-            route('api.v1.repositories.index'),
-        )->assertUnauthorized();
+        $repository = Repository::factory()
+            ->publicRepository()
+            ->create();
 
-        $this->postJson(
-            route('api.v1.repositories.store'),
-            [
-                'name' => 'Project',
-                'visibility' => 'private',
-            ],
-        )->assertUnauthorized();
+        $this
+            ->getJson(
+                route('api.v1.repositories.index'),
+            )
+            ->assertUnauthorized();
+
+        $this
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => 'project',
+                    'visibility' => 'private',
+                ],
+            )
+            ->assertUnauthorized();
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.show',
+                    $repository,
+                ),
+            )
+            ->assertUnauthorized();
+
+        $this
+            ->patchJson(
+                route(
+                    'api.v1.repositories.update',
+                    $repository,
+                ),
+                [
+                    'visibility' => 'private',
+                ],
+            )
+            ->assertUnauthorized();
     }
 }
