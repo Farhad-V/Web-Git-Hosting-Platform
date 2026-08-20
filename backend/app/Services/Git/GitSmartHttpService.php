@@ -4,6 +4,7 @@ namespace App\Services\Git;
 
 use App\Exceptions\GitCommandException;
 use App\Exceptions\GitTransportException;
+use App\Exceptions\RepositoryStorageException;
 use App\Models\Repository;
 use InvalidArgumentException;
 
@@ -149,13 +150,6 @@ class GitSmartHttpService
     /**
      * Execute a Smart HTTP Git process through the central Git runner.
      *
-     * GitCommandRunner owns process construction, environment isolation,
-     * timeout enforcement, argument validation, stdin handling, and raw
-     * stdout preservation.
-     *
-     * This service translates process-level failures into transport-domain
-     * failures without exposing Git stderr to HTTP clients.
-     *
      * @param  list<string>  $arguments
      */
     private function runTransport(
@@ -184,22 +178,23 @@ class GitSmartHttpService
     }
 
     /**
-     * Resolve an existing managed bare repository.
+     * Resolve and verify an existing managed bare repository.
      */
     private function requireRepositoryPath(
         Repository $repository,
     ): string {
-        if (! $this->storage->exists($repository)) {
+        try {
+            return $this->storage->resolveExisting(
+                $repository,
+            );
+        } catch (RepositoryStorageException $exception) {
             throw new GitTransportException(
                 operation: 'resolve-repository',
-                processExitCode: 404,
-                message: 'Managed Git repository storage was not found.',
+                processExitCode: 500,
+                message: 'Managed Git repository storage is unavailable.',
+                previous: $exception,
             );
         }
-
-        return $this->storage->repositoryPath(
-            $repository,
-        );
     }
 
     /**

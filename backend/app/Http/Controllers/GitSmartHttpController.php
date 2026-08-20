@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\RepositoryVisibility;
 use App\Exceptions\GitAuthenticationException;
+use App\Exceptions\GitTransportException;
 use App\Models\Repository;
 use App\Models\User;
 use App\Services\Git\GitCredentialAuthenticator;
@@ -54,10 +55,16 @@ class GitSmartHttpController extends Controller
             );
         }
 
-        $body = $this->git->advertise(
-            repository: $model,
-            service: $service,
-        );
+        try {
+            $body = $this->git->advertise(
+                repository: $model,
+                service: $service,
+            );
+        } catch (GitTransportException $exception) {
+            return $this->transportErrorResponse(
+                $exception,
+            );
+        }
 
         return response(
             content: $body,
@@ -95,11 +102,17 @@ class GitSmartHttpController extends Controller
             ),
         );
 
-        $body = $this->git->rpc(
-            repository: $model,
-            service: 'upload-pack',
-            requestBody: $request->getContent(),
-        );
+        try {
+            $body = $this->git->rpc(
+                repository: $model,
+                service: 'upload-pack',
+                requestBody: $request->getContent(),
+            );
+        } catch (GitTransportException $exception) {
+            return $this->transportErrorResponse(
+                $exception,
+            );
+        }
 
         return response(
             content: $body,
@@ -137,11 +150,17 @@ class GitSmartHttpController extends Controller
             ),
         );
 
-        $body = $this->git->rpc(
-            repository: $model,
-            service: 'receive-pack',
-            requestBody: $request->getContent(),
-        );
+        try {
+            $body = $this->git->rpc(
+                repository: $model,
+                service: 'receive-pack',
+                requestBody: $request->getContent(),
+            );
+        } catch (GitTransportException $exception) {
+            return $this->transportErrorResponse(
+                $exception,
+            );
+        }
 
         return response(
             content: $body,
@@ -251,7 +270,9 @@ class GitSmartHttpController extends Controller
             );
         }
 
-        Auth::setUser($user);
+        Auth::setUser(
+            $user,
+        );
 
         $request->setUserResolver(
             static fn (): User => $user,
@@ -261,7 +282,7 @@ class GitSmartHttpController extends Controller
     }
 
     /**
-     * Require the exact Git protocol request content type.
+     * Require the Git protocol request media type.
      */
     private function validateContentType(
         Request $request,
@@ -285,6 +306,53 @@ class GitSmartHttpController extends Controller
                 $actual,
             ),
             Response::HTTP_UNSUPPORTED_MEDIA_TYPE,
+        );
+    }
+
+    /**
+     * Convert controlled transport failures into safe HTTP responses.
+     */
+    private function transportErrorResponse(
+        GitTransportException $exception,
+    ): Response {
+        $status = match ($exception->processExitCode) {
+            Response::HTTP_REQUEST_ENTITY_TOO_LARGE => (
+                Response::HTTP_REQUEST_ENTITY_TOO_LARGE
+            ),
+
+            124 => Response::HTTP_GATEWAY_TIMEOUT,
+
+            default => Response::HTTP_INTERNAL_SERVER_ERROR,
+        };
+
+        report(
+            $exception,
+        );
+
+        $message = match ($status) {
+            Response::HTTP_REQUEST_ENTITY_TOO_LARGE => (
+                'Git request body exceeds the configured limit.'
+            ),
+
+            Response::HTTP_GATEWAY_TIMEOUT => (
+                'Git transport operation timed out.'
+            ),
+
+            default => (
+                'Git transport operation failed.'
+            ),
+        };
+
+        return response(
+            content: $message,
+            status: $status,
+            headers: [
+                'Content-Type' => 'text/plain; charset=UTF-8',
+                'Cache-Control' => 'no-cache, max-age=0, must-revalidate',
+                'Pragma' => 'no-cache',
+                'Expires' => 'Fri, 01 Jan 1980 00:00:00 GMT',
+                'X-Content-Type-Options' => 'nosniff',
+            ],
         );
     }
 

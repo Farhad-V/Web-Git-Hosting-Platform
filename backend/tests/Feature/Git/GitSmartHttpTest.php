@@ -79,6 +79,25 @@ class GitSmartHttpTest extends TestCase
                 'nosniff',
             );
 
+        $cacheControl = (string) $response->headers->get(
+            'Cache-Control',
+        );
+
+        $this->assertStringContainsString(
+            'no-cache',
+            $cacheControl,
+        );
+
+        $this->assertStringContainsString(
+            'max-age=0',
+            $cacheControl,
+        );
+
+        $this->assertStringContainsString(
+            'must-revalidate',
+            $cacheControl,
+        );
+
         $this->assertStringContainsString(
             "# service=git-upload-pack\n",
             $response->getContent(),
@@ -144,6 +163,258 @@ class GitSmartHttpTest extends TestCase
                 'Content-Type',
                 'application/x-git-upload-pack-advertisement',
             );
+    }
+
+    public function test_public_repository_accepts_upload_pack_rpc_without_authentication(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.upload-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-upload-pack-request'
+                ),
+            ],
+            '0000',
+        );
+
+        $response
+            ->assertOk()
+            ->assertHeader(
+                'Content-Type',
+                'application/x-git-upload-pack-result',
+            )
+            ->assertHeader(
+                'X-Content-Type-Options',
+                'nosniff',
+            );
+    }
+
+    public function test_private_upload_pack_rpc_requires_authentication(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PrivateAccess,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.upload-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-upload-pack-request'
+                ),
+            ],
+            '0000',
+        );
+
+        $response
+            ->assertUnauthorized()
+            ->assertHeader(
+                'WWW-Authenticate',
+                'Basic realm="Git Hosting Platform", charset="UTF-8"',
+            );
+    }
+
+    public function test_owner_token_can_execute_private_upload_pack_rpc(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PrivateAccess,
+        );
+
+        $headers = $this->basicAuthHeaders(
+            $owner,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.upload-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-upload-pack-request'
+                ),
+                'HTTP_AUTHORIZATION' => $headers['Authorization'],
+            ],
+            '0000',
+        );
+
+        $response
+            ->assertOk()
+            ->assertHeader(
+                'Content-Type',
+                'application/x-git-upload-pack-result',
+            );
+    }
+
+    public function test_oversized_upload_pack_rpc_is_rejected(): void
+    {
+        config([
+            'git.max_request_bytes' => 4,
+        ]);
+
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.upload-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-upload-pack-request'
+                ),
+            ],
+            '12345',
+        );
+
+        $response
+            ->assertStatus(413)
+            ->assertHeader(
+                'Content-Type',
+                'text/plain; charset=UTF-8',
+            );
+
+        $this->assertSame(
+            'Git request body exceeds the configured limit.',
+            $response->getContent(),
+        );
+    }
+
+    public function test_corrupt_repository_storage_fails_closed_for_upload_pack_advertisement(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $repositoryPath = app(
+            RepositoryStorageService::class,
+        )->repositoryPath(
+            $repository,
+        );
+
+        File::delete(
+            $repositoryPath
+                .DIRECTORY_SEPARATOR
+                .'config',
+        );
+
+        $response = $this->get(
+            route(
+                'git.info-refs',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                    'service' => 'git-upload-pack',
+                ],
+            ),
+        );
+
+        $response
+            ->assertInternalServerError()
+            ->assertHeader(
+                'Content-Type',
+                'text/plain; charset=UTF-8',
+            );
+
+        $this->assertSame(
+            'Git transport operation failed.',
+            $response->getContent(),
+        );
+
+        $this->assertStringNotContainsString(
+            $repositoryPath,
+            $response->getContent(),
+        );
+    }
+
+    public function test_git_transport_failure_does_not_expose_git_stderr(): void
+    {
+        [$repository, $owner] = $this->createManagedRepository(
+            visibility: RepositoryVisibility::PublicAccess,
+        );
+
+        $response = $this->call(
+            'POST',
+            route(
+                'git.upload-pack',
+                [
+                    'username' => $owner->username,
+                    'repository' => $repository->name,
+                ],
+            ),
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => (
+                    'application/x-git-upload-pack-request'
+                ),
+            ],
+            'garbage',
+        );
+
+        $response
+            ->assertInternalServerError()
+            ->assertHeader(
+                'Content-Type',
+                'text/plain; charset=UTF-8',
+            );
+
+        $body = $response->getContent();
+
+        $this->assertSame(
+            'Git transport operation failed.',
+            $body,
+        );
+
+        $this->assertStringNotContainsString(
+            'fatal:',
+            mb_strtolower($body),
+        );
+
+        $this->assertStringNotContainsString(
+            'protocol error',
+            mb_strtolower($body),
+        );
     }
 
     public function test_invalid_token_cannot_access_private_repository(): void
@@ -393,7 +664,9 @@ class GitSmartHttpTest extends TestCase
             ]);
 
         app(RepositoryStorageService::class)
-            ->initialize($repository);
+            ->initialize(
+                $repository,
+            );
 
         $this
             ->get(
@@ -428,10 +701,14 @@ class GitSmartHttpTest extends TestCase
         ]);
 
         app(RepositoryStorageService::class)
-            ->initialize($repository);
+            ->initialize(
+                $repository,
+            );
 
         return [
-            $repository->load('owner'),
+            $repository->load(
+                'owner',
+            ),
             $owner,
         ];
     }

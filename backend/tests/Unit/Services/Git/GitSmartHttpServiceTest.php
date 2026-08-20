@@ -4,6 +4,7 @@ namespace Tests\Unit\Services\Git;
 
 use App\Exceptions\GitCommandException;
 use App\Exceptions\GitTransportException;
+use App\Exceptions\RepositoryStorageException;
 use App\Models\Repository;
 use App\Services\Git\GitCommandRunner;
 use App\Services\Git\GitSmartHttpService;
@@ -27,13 +28,7 @@ class GitSmartHttpServiceTest extends TestCase
         );
 
         $storage
-            ->shouldReceive('exists')
-            ->once()
-            ->with($repository)
-            ->andReturn(true);
-
-        $storage
-            ->shouldReceive('repositoryPath')
+            ->shouldReceive('resolveExisting')
             ->once()
             ->with($repository)
             ->andReturn($repositoryPath);
@@ -103,13 +98,7 @@ class GitSmartHttpServiceTest extends TestCase
         );
 
         $storage
-            ->shouldReceive('exists')
-            ->once()
-            ->with($repository)
-            ->andReturn(true);
-
-        $storage
-            ->shouldReceive('repositoryPath')
+            ->shouldReceive('resolveExisting')
             ->once()
             ->with($repository)
             ->andReturn($repositoryPath);
@@ -245,19 +234,26 @@ class GitSmartHttpServiceTest extends TestCase
         }
     }
 
-    public function test_missing_repository_storage_is_mapped_to_transport_not_found(): void
+    public function test_missing_repository_storage_is_mapped_to_transport_failure(): void
     {
         $repository = $this->repository();
+
+        $storageFailure = new RepositoryStorageException(
+            operation: 'resolve-existing',
+            repositoryId: 1,
+        );
 
         $storage = Mockery::mock(
             RepositoryStorageService::class,
         );
 
         $storage
-            ->shouldReceive('exists')
+            ->shouldReceive('resolveExisting')
             ->once()
             ->with($repository)
-            ->andReturn(false);
+            ->andThrow(
+                $storageFailure,
+            );
 
         $service = new GitSmartHttpService(
             storage: $storage,
@@ -273,7 +269,7 @@ class GitSmartHttpServiceTest extends TestCase
             );
 
             $this->fail(
-                'Missing repository storage was accepted.',
+                'Unavailable repository storage was accepted.',
             );
         } catch (GitTransportException $exception) {
             $this->assertSame(
@@ -282,8 +278,18 @@ class GitSmartHttpServiceTest extends TestCase
             );
 
             $this->assertSame(
-                404,
+                500,
                 $exception->processExitCode,
+            );
+
+            $this->assertSame(
+                $storageFailure,
+                $exception->getPrevious(),
+            );
+
+            $this->assertSame(
+                'Managed Git repository storage is unavailable.',
+                $exception->getMessage(),
             );
         }
     }
@@ -299,13 +305,7 @@ class GitSmartHttpServiceTest extends TestCase
         );
 
         $storage
-            ->shouldReceive('exists')
-            ->once()
-            ->with($repository)
-            ->andReturn(true);
-
-        $storage
-            ->shouldReceive('repositoryPath')
+            ->shouldReceive('resolveExisting')
             ->once()
             ->with($repository)
             ->andReturn($repositoryPath);
@@ -376,13 +376,7 @@ class GitSmartHttpServiceTest extends TestCase
         );
 
         $storage
-            ->shouldReceive('exists')
-            ->once()
-            ->with($repository)
-            ->andReturn(true);
-
-        $storage
-            ->shouldReceive('repositoryPath')
+            ->shouldReceive('resolveExisting')
             ->once()
             ->with($repository)
             ->andReturn($repositoryPath);
