@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class LoginRequest extends FormRequest
 {
     /**
-     * Determine whether the user is authorized to make this request.
+     * Determine whether the request may be made.
      */
     public function authorize(): bool
     {
@@ -33,22 +33,21 @@ class LoginRequest extends FormRequest
                 'required',
                 'string',
             ],
-            'device_name' => [
-                'sometimes',
-                'string',
-                'max:100',
-            ],
         ];
     }
 
     /**
-     * Prepare input before validation.
+     * Normalize login input before validation.
      */
     protected function prepareForValidation(): void
     {
         if ($this->has('email')) {
             $this->merge([
-                'email' => mb_strtolower(trim((string) $this->input('email'))),
+                'email' => mb_strtolower(
+                    trim(
+                        (string) $this->input('email'),
+                    ),
+                ),
             ]);
         }
     }

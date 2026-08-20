@@ -10,7 +10,7 @@ use Illuminate\Validation\Rules\Password;
 class RegisterRequest extends FormRequest
 {
     /**
-     * Determine whether the user is authorized to make this request.
+     * Determine whether the request may be made.
      */
     public function authorize(): bool
     {
@@ -31,6 +31,7 @@ class RegisterRequest extends FormRequest
                 'min:2',
                 'max:100',
             ],
+
             'username' => [
                 'required',
                 'string',
@@ -49,6 +50,7 @@ class RegisterRequest extends FormRequest
                 ]),
                 'unique:users,username',
             ],
+
             'email' => [
                 'required',
                 'string',
@@ -56,6 +58,7 @@ class RegisterRequest extends FormRequest
                 'max:255',
                 'unique:users,email',
             ],
+
             'password' => [
                 'required',
                 'confirmed',
@@ -65,29 +68,28 @@ class RegisterRequest extends FormRequest
                     ->numbers()
                     ->symbols(),
             ],
-            'device_name' => [
-                'sometimes',
-                'string',
-                'max:100',
-            ],
         ];
     }
 
     /**
-     * Prepare input before validation.
+     * Normalize registration input before validation.
      */
     protected function prepareForValidation(): void
     {
         if ($this->has('name')) {
             $this->merge([
-                'name' => trim((string) $this->input('name')),
+                'name' => trim(
+                    (string) $this->input('name'),
+                ),
             ]);
         }
 
         if ($this->has('username')) {
             $this->merge([
                 'username' => mb_strtolower(
-                    trim((string) $this->input('username')),
+                    trim(
+                        (string) $this->input('username'),
+                    ),
                 ),
             ]);
         }
@@ -95,7 +97,9 @@ class RegisterRequest extends FormRequest
         if ($this->has('email')) {
             $this->merge([
                 'email' => mb_strtolower(
-                    trim((string) $this->input('email')),
+                    trim(
+                        (string) $this->input('email'),
+                    ),
                 ),
             ]);
         }

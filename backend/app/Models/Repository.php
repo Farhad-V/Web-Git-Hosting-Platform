@@ -2,39 +2,26 @@
 
 namespace App\Models;
 
-use App\Enums\RepositoryStatus;
 use App\Enums\RepositoryVisibility;
 use Database\Factories\RepositoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
-use LogicException;
 
 class Repository extends Model
 {
     /** @use HasFactory<RepositoryFactory> */
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     /**
-     * Attributes that may be assigned by application services.
-     *
-     * storage_uuid is intentionally excluded because it is server-controlled.
+     * Attributes that may be assigned through application workflows.
      *
      * @var list<string>
      */
     protected $fillable = [
         'owner_id',
         'name',
-        'slug',
-        'description',
         'visibility',
-        'status',
-        'default_branch',
-        'archived_at',
-        'deletion_requested_at',
-        'deletion_failure_reason',
     ];
 
     /**
@@ -44,47 +31,18 @@ class Repository extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(
+            User::class,
+            'owner_id',
+        );
     }
 
     /**
-     * Return the immutable relative path of the managed bare repository.
+     * Return the logical repository namespace.
      */
-    public function storageRelativePath(): string
+    public function fullName(): string
     {
-        return "repositories/{$this->storage_uuid}.git";
-    }
-
-    /**
-     * Determine whether repository mutations are currently allowed.
-     */
-    public function isWritable(): bool
-    {
-        return $this->status->isWritable();
-    }
-
-    /**
-     * Configure model invariants.
-     */
-    protected static function booted(): void
-    {
-        static::creating(function (self $repository): void {
-            $repository->storage_uuid ??= (string) Str::uuid();
-        });
-
-        static::updating(function (self $repository): void {
-            if ($repository->isDirty('owner_id')) {
-                throw new LogicException(
-                    'Repository ownership cannot be transferred in V1.',
-                );
-            }
-
-            if ($repository->isDirty('storage_uuid')) {
-                throw new LogicException(
-                    'Repository storage identity is immutable.',
-                );
-            }
-        });
+        return "{$this->owner->username}/{$this->name}";
     }
 
     /**
@@ -96,9 +54,6 @@ class Repository extends Model
     {
         return [
             'visibility' => RepositoryVisibility::class,
-            'status' => RepositoryStatus::class,
-            'archived_at' => 'immutable_datetime',
-            'deletion_requested_at' => 'immutable_datetime',
         ];
     }
 }

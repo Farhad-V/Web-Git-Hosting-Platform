@@ -3,22 +3,22 @@
 namespace App\Services\Git;
 
 use App\Exceptions\GitAuthenticationException;
+use App\Models\PersonalAccessToken;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class GitCredentialAuthenticator
 {
+    private const TOKEN_PREFIX = 'gitforge_pat';
+
     /**
-     * Authenticate Git Basic credentials and verify an ability.
+     * Authenticate Git Smart HTTP Basic credentials.
      *
-     * Git clients send:
-     * - username as the Basic-auth username
-     * - Sanctum personal access token as the password
+     * The Basic-auth username is the GitForge owner namespace.
+     * The Basic-auth password is a GitForge personal access token.
      */
     public function authenticate(
         Request $request,
-        string $requiredAbility,
     ): User {
         $username = $request->getUser();
         $plainTextToken = $request->getPassword();
@@ -32,39 +32,80 @@ class GitCredentialAuthenticator
             throw new GitAuthenticationException;
         }
 
-        $accessToken = PersonalAccessToken::findToken(
+        $username = mb_strtolower(
+            trim($username),
+        );
+
+        $identifier = $this->extractIdentifier(
+            $plainTextToken,
+        );
+
+        $token = PersonalAccessToken::query()
+            ->with('user')
+            ->where(
+                'token_identifier',
+                $identifier,
+            )
+            ->whereNull('revoked_at')
+            ->first();
+
+        if ($token === null) {
+            throw new GitAuthenticationException;
+        }
+
+        $candidateHash = hash(
+            'sha256',
             $plainTextToken,
         );
 
         if (
-            $accessToken === null
-            || (
-                $accessToken->expires_at !== null
-                && $accessToken->expires_at->isPast()
+            ! hash_equals(
+                $token->token_hash,
+                $candidateHash,
             )
-            || ! $accessToken->can($requiredAbility)
         ) {
             throw new GitAuthenticationException;
         }
 
-        $user = $accessToken->tokenable;
+        $user = $token->user;
 
         if (
             ! $user instanceof User
             || ! hash_equals(
                 $user->username,
-                mb_strtolower(trim($username)),
+                $username,
             )
         ) {
             throw new GitAuthenticationException;
         }
 
-        $accessToken->forceFill([
-            'last_used_at' => now(),
-        ])->save();
-
-        $user->withAccessToken($accessToken);
-
         return $user;
+    }
+
+    /**
+     * Extract and validate the indexed token identifier.
+     */
+    private function extractIdentifier(
+        string $plainTextToken,
+    ): string {
+        $pattern = sprintf(
+            '/\A%s_([0-9a-f]{32})_[0-9a-f]{64}\z/',
+            preg_quote(
+                self::TOKEN_PREFIX,
+                '/',
+            ),
+        );
+
+        if (
+            preg_match(
+                $pattern,
+                $plainTextToken,
+                $matches,
+            ) !== 1
+        ) {
+            throw new GitAuthenticationException;
+        }
+
+        return $matches[1];
     }
 }

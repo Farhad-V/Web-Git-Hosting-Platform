@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Enums\RepositoryStatus;
 use App\Enums\RepositoryVisibility;
 use App\Models\Repository;
 use App\Models\User;
@@ -10,18 +9,20 @@ use App\Models\User;
 class RepositoryPolicy
 {
     /**
-     * Determine whether repositories may be listed.
+     * Determine whether the authenticated user may list repositories.
      */
-    public function viewAny(?User $user): bool
+    public function viewAny(User $user): bool
     {
         return true;
     }
 
     /**
-     * Determine whether the repository may be viewed.
+     * Determine whether the repository may be read.
      */
-    public function view(?User $user, Repository $repository): bool
-    {
+    public function view(
+        ?User $user,
+        Repository $repository,
+    ): bool {
         if (
             $repository->visibility
             === RepositoryVisibility::PublicAccess
@@ -42,62 +43,22 @@ class RepositoryPolicy
     }
 
     /**
-     * Determine whether the user may update the repository.
+     * Determine whether repository settings may be changed.
      */
-    public function update(User $user, Repository $repository): bool
-    {
-        return $repository->owner_id === $user->id
-            && $repository->status === RepositoryStatus::Active;
+    public function update(
+        User $user,
+        Repository $repository,
+    ): bool {
+        return $repository->owner_id === $user->id;
     }
 
     /**
-     * Determine whether the user may archive the repository.
+     * Determine whether the repository may receive Git writes.
      */
-    public function archive(User $user, Repository $repository): bool
-    {
-        return $repository->owner_id === $user->id
-            && $repository->status === RepositoryStatus::Active;
-    }
-
-    /**
-     * Determine whether the user may restore an archived repository.
-     */
-    public function unarchive(User $user, Repository $repository): bool
-    {
-        return $repository->owner_id === $user->id
-            && $repository->status === RepositoryStatus::Archived;
-    }
-
-    /**
-     * Determine whether the user may request repository deletion.
-     */
-    public function delete(User $user, Repository $repository): bool
-    {
-        return $repository->owner_id === $user->id
-            && in_array(
-                $repository->status,
-                [
-                    RepositoryStatus::Active,
-                    RepositoryStatus::Archived,
-                    RepositoryStatus::DeletionFailed,
-                ],
-                true,
-            );
-    }
-
-    /**
-     * Restoring soft-deleted repositories is not exposed in V1.
-     */
-    public function restore(User $user, Repository $repository): bool
-    {
-        return false;
-    }
-
-    /**
-     * Force deletion is handled only by the internal storage workflow.
-     */
-    public function forceDelete(User $user, Repository $repository): bool
-    {
-        return false;
+    public function write(
+        User $user,
+        Repository $repository,
+    ): bool {
+        return $repository->owner_id === $user->id;
     }
 }

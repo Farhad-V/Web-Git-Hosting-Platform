@@ -8,23 +8,19 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class PersonalAccessTokenResource extends JsonResource
 {
     /**
-     * Transform the personal access token into an API response.
+     * Transform a GitForge personal access token.
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
-    {
+    public function toArray(
+        Request $request,
+    ): array {
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'abilities' => $this->abilities ?? [],
-            'last_used_at' => $this->last_used_at?->toISOString(),
-            'expires_at' => $this->expires_at?->toISOString(),
-            'is_expired' => (
-                $this->expires_at !== null
-                && $this->expires_at->isPast()
-            ),
+            'revoked_at' => $this->revoked_at?->toISOString(),
             'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
         ];
     }
 }

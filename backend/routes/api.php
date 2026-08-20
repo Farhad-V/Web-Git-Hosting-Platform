@@ -6,7 +6,8 @@ use App\Http\Controllers\Api\V1\RepositoryBrowserController;
 use App\Http\Controllers\Api\V1\RepositoryController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')
+Route::middleware('web')
+    ->prefix('v1')
     ->name('api.v1.')
     ->group(function (): void {
         Route::middleware('throttle:5,1')
@@ -23,7 +24,7 @@ Route::prefix('v1')
             });
 
         Route::middleware([
-            'auth:sanctum',
+            'auth',
             'throttle:60,1',
         ])->group(function (): void {
             Route::get(
@@ -92,20 +93,5 @@ Route::prefix('v1')
                 '/repositories/{repository}',
                 [RepositoryController::class, 'update'],
             )->name('repositories.update');
-
-            Route::post(
-                '/repositories/{repository}/archive',
-                [RepositoryController::class, 'archive'],
-            )->name('repositories.archive');
-
-            Route::post(
-                '/repositories/{repository}/unarchive',
-                [RepositoryController::class, 'unarchive'],
-            )->name('repositories.unarchive');
-
-            Route::delete(
-                '/repositories/{repository}',
-                [RepositoryController::class, 'destroy'],
-            )->name('repositories.destroy');
         });
     });

@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Attributes that may be assigned through application workflows.
      *
      * @var list<string>
      */
@@ -27,7 +27,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Attributes hidden from serialization.
      *
      * @var list<string>
      */
@@ -37,13 +37,29 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the repositories owned by this user.
+     * Return repositories owned by the user.
      *
      * @return HasMany<Repository, $this>
      */
     public function repositories(): HasMany
     {
-        return $this->hasMany(Repository::class, 'owner_id');
+        return $this->hasMany(
+            Repository::class,
+            'owner_id',
+        );
+    }
+
+    /**
+     * Return GitForge personal access tokens owned by the user.
+     *
+     * @return HasMany<PersonalAccessToken, $this>
+     */
+    public function personalAccessTokens(): HasMany
+    {
+        return $this->hasMany(
+            PersonalAccessToken::class,
+            'user_id',
+        );
     }
 
     /**
