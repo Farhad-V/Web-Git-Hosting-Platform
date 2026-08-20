@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StorePersonalAccessTokenRequest;
 use App\Http\Resources\PersonalAccessTokenResource;
-use App\Models\PersonalAccessToken;
+use App\Services\Auth\PersonalAccessTokenService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -13,7 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PersonalAccessTokenController extends Controller
 {
-    private const TOKEN_PREFIX = 'gitforge_pat';
+    public function __construct(
+        private readonly PersonalAccessTokenService $tokens,
+    ) {}
 
     /**
      * List PATs owned by the authenticated user.
@@ -40,33 +42,10 @@ class PersonalAccessTokenController extends Controller
     public function store(
         StorePersonalAccessTokenRequest $request,
     ): JsonResponse {
-        $identifier = bin2hex(
-            random_bytes(16),
+        [$token, $plainTextToken] = $this->tokens->issue(
+            user: $request->user(),
+            name: $request->validated()['name'],
         );
-
-        $secret = bin2hex(
-            random_bytes(32),
-        );
-
-        $plainTextToken = sprintf(
-            '%s_%s_%s',
-            self::TOKEN_PREFIX,
-            $identifier,
-            $secret,
-        );
-
-        $token = $request
-            ->user()
-            ->personalAccessTokens()
-            ->create([
-                'name' => $request->validated()['name'],
-                'token_identifier' => $identifier,
-                'token_hash' => hash(
-                    'sha256',
-                    $plainTextToken,
-                ),
-                'revoked_at' => null,
-            ]);
 
         return response()->json([
             'message' => 'Personal access token created successfully.',
@@ -87,7 +66,9 @@ class PersonalAccessTokenController extends Controller
         $accessToken = $request
             ->user()
             ->personalAccessTokens()
-            ->whereKey($token)
+            ->whereKey(
+                $token,
+            )
             ->firstOrFail();
 
         if ($accessToken->revoked_at === null) {
