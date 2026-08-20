@@ -28,6 +28,20 @@ Route::middleware('web')
                 )->name('auth.login');
             });
 
+        /*
+         * Public repository metadata.
+         *
+         * Authorization remains policy-driven:
+         * - public repository: guest or authenticated user may view
+         * - private repository: owner only
+         */
+        Route::middleware('throttle:60,1')
+            ->get(
+                '/repositories/{repository}',
+                [RepositoryController::class, 'show'],
+            )
+            ->name('repositories.show');
+
         Route::middleware([
             'auth',
             'throttle:60,1',
@@ -88,11 +102,6 @@ Route::middleware('web')
                 '/repositories/{repository}/blob',
                 [RepositoryBrowserController::class, 'blob'],
             )->name('repositories.blob');
-
-            Route::get(
-                '/repositories/{repository}',
-                [RepositoryController::class, 'show'],
-            )->name('repositories.show');
 
             Route::patch(
                 '/repositories/{repository}',

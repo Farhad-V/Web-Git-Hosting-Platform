@@ -390,6 +390,41 @@ class RepositoryTest extends TestCase
             ]);
     }
 
+    public function test_anonymous_visitor_can_view_public_repository(): void
+    {
+        $owner = User::factory()->create([
+            'username' => 'owner-user',
+        ]);
+
+        $repository = Repository::factory()
+            ->publicRepository()
+            ->create([
+                'owner_id' => $owner->id,
+                'name' => 'public-project',
+            ]);
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.show',
+                    $repository,
+                ),
+            )
+            ->assertOk()
+            ->assertJsonPath(
+                'data.id',
+                $repository->id,
+            )
+            ->assertJsonPath(
+                'data.full_name',
+                'owner-user/public-project',
+            )
+            ->assertJsonPath(
+                'data.visibility',
+                'public',
+            );
+    }
+
     public function test_authenticated_user_can_view_public_repository(): void
     {
         $owner = User::factory()->create();
@@ -469,6 +504,22 @@ class RepositoryTest extends TestCase
                 $viewer,
                 'web',
             )
+            ->getJson(
+                route(
+                    'api.v1.repositories.show',
+                    $repository,
+                ),
+            )
+            ->assertForbidden();
+    }
+
+    public function test_anonymous_visitor_cannot_view_private_repository(): void
+    {
+        $repository = Repository::factory()
+            ->privateRepository()
+            ->create();
+
+        $this
             ->getJson(
                 route(
                     'api.v1.repositories.show',
@@ -618,6 +669,10 @@ class RepositoryTest extends TestCase
             )
             ->assertUnauthorized();
 
+        /*
+         * Repository metadata for a public repository is intentionally
+         * readable without an authenticated session.
+         */
         $this
             ->getJson(
                 route(
@@ -625,7 +680,7 @@ class RepositoryTest extends TestCase
                     $repository,
                 ),
             )
-            ->assertUnauthorized();
+            ->assertOk();
 
         $this
             ->patchJson(
