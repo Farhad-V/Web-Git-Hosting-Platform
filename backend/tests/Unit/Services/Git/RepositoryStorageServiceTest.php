@@ -17,6 +17,8 @@ class RepositoryStorageServiceTest extends TestCase
 
     private string $temporaryStorageRoot;
 
+    private string $temporaryOutsideRoot;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -24,6 +26,11 @@ class RepositoryStorageServiceTest extends TestCase
         $this->temporaryStorageRoot = sys_get_temp_dir()
             .DIRECTORY_SEPARATOR
             .'gitforge-storage-tests-'
+            .Str::uuid();
+
+        $this->temporaryOutsideRoot = sys_get_temp_dir()
+            .DIRECTORY_SEPARATOR
+            .'gitforge-storage-outside-tests-'
             .Str::uuid();
 
         config([
@@ -37,12 +44,29 @@ class RepositoryStorageServiceTest extends TestCase
 
     protected function tearDown(): void
     {
+        $repositoriesLink = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'repositories';
+
+        if (is_link($repositoriesLink)) {
+            @unlink($repositoriesLink);
+        }
+
         if (
             isset($this->temporaryStorageRoot)
             && File::isDirectory($this->temporaryStorageRoot)
         ) {
             File::deleteDirectory(
                 $this->temporaryStorageRoot,
+            );
+        }
+
+        if (
+            isset($this->temporaryOutsideRoot)
+            && File::isDirectory($this->temporaryOutsideRoot)
+        ) {
+            File::deleteDirectory(
+                $this->temporaryOutsideRoot,
             );
         }
 
@@ -254,6 +278,80 @@ class RepositoryStorageServiceTest extends TestCase
                 $repository,
             ),
         );
+    }
+
+    public function test_relative_storage_root_is_rejected(): void
+    {
+        config([
+            'git.storage_root' => 'relative/git/storage',
+        ]);
+
+        $repository = Repository::factory()->create();
+
+        try {
+            app(RepositoryStorageService::class)
+                ->pathFor(
+                    $repository,
+                );
+
+            $this->fail(
+                'A relative repository storage root was accepted.',
+            );
+        } catch (RepositoryStorageException $exception) {
+            $this->assertSame(
+                'resolve-root',
+                $exception->operation,
+            );
+        }
+    }
+
+    public function test_symlinked_repositories_directory_outside_root_is_rejected(): void
+    {
+        File::ensureDirectoryExists(
+            $this->temporaryStorageRoot,
+        );
+
+        File::ensureDirectoryExists(
+            $this->temporaryOutsideRoot,
+        );
+
+        $repositoriesLink = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'repositories';
+
+        $linked = @symlink(
+            $this->temporaryOutsideRoot,
+            $repositoriesLink,
+        );
+
+        if (! $linked) {
+            $this->markTestSkipped(
+                'Directory symlinks are unavailable for this PHP process.',
+            );
+        }
+
+        $repository = Repository::factory()->create();
+
+        try {
+            app(RepositoryStorageService::class)
+                ->pathFor(
+                    $repository,
+                );
+
+            $this->fail(
+                'A repositories directory symlink escaping the storage root '
+                .'was accepted.',
+            );
+        } catch (RepositoryStorageException $exception) {
+            $this->assertSame(
+                'path-containment',
+                $exception->operation,
+            );
+        } finally {
+            if (is_link($repositoriesLink)) {
+                @unlink($repositoriesLink);
+            }
+        }
     }
 
     public function test_it_refuses_to_overwrite_existing_storage(): void

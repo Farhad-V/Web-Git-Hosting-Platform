@@ -19,13 +19,28 @@ class RepositoryStorageService
     public function initialize(
         Repository $repository,
     ): string {
-        $path = $this->resolveNewTarget($repository);
+        $path = null;
 
         try {
+            $repositoriesDirectory = $this->repositoriesDirectory();
+
             File::ensureDirectoryExists(
-                $this->repositoriesDirectory(),
+                $repositoriesDirectory,
                 0750,
                 true,
+            );
+
+            /*
+             * Re-check containment after the directory exists so canonical
+             * filesystem resolution can detect a symlink or junction that
+             * escapes the configured storage root.
+             */
+            $this->assertContainedPath(
+                $repositoriesDirectory,
+            );
+
+            $path = $this->resolveNewTarget(
+                $repository,
             );
 
             $initialBranch = trim(
@@ -69,7 +84,20 @@ class RepositoryStorageService
 
             return $path;
         } catch (Throwable $exception) {
-            $this->cleanupPartial($repository);
+            /*
+             * Compensation is attempted only after a repository target was
+             * successfully resolved. A root/containment failure must never
+             * trigger deletion against an untrusted path.
+             */
+            if ($path !== null) {
+                try {
+                    $this->cleanupPartial(
+                        $repository,
+                    );
+                } catch (Throwable $cleanupException) {
+                    report($cleanupException);
+                }
+            }
 
             if ($exception instanceof RepositoryStorageException) {
                 throw $exception;
@@ -89,10 +117,30 @@ class RepositoryStorageService
     public function exists(
         Repository $repository,
     ): bool {
-        $path = $this->pathFor($repository);
+        try {
+            $path = $this->pathFor(
+                $repository,
+            );
+        } catch (RepositoryStorageException) {
+            return false;
+        }
 
-        return File::isDirectory($path)
-            && ! is_link($path);
+        if (
+            ! File::isDirectory($path)
+            || is_link($path)
+        ) {
+            return false;
+        }
+
+        try {
+            $this->assertContainedPath(
+                $path,
+            );
+        } catch (RepositoryStorageException) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -125,7 +173,9 @@ class RepositoryStorageService
             .$repositoryId
             .'.git';
 
-        $this->assertContainedPath($path);
+        $this->assertContainedPath(
+            $path,
+        );
 
         return $path;
     }
@@ -136,7 +186,9 @@ class RepositoryStorageService
     public function resolveExisting(
         Repository $repository,
     ): string {
-        $path = $this->pathFor($repository);
+        $path = $this->pathFor(
+            $repository,
+        );
 
         if (
             ! File::isDirectory($path)
@@ -147,6 +199,10 @@ class RepositoryStorageService
                 repositoryId: $repository->id,
             );
         }
+
+        $this->assertContainedPath(
+            $path,
+        );
 
         $this->assertValidBareRepository(
             repository: $repository,
@@ -162,7 +218,9 @@ class RepositoryStorageService
     public function resolveNewTarget(
         Repository $repository,
     ): string {
-        $path = $this->pathFor($repository);
+        $path = $this->pathFor(
+            $repository,
+        );
 
         if (
             File::exists($path)
@@ -178,12 +236,14 @@ class RepositoryStorageService
     }
 
     /**
-     * Compatibility alias for code being normalized during M4.
+     * Compatibility alias retained while Git services are normalized.
      */
     public function repositoryPath(
         Repository $repository,
     ): string {
-        return $this->pathFor($repository);
+        return $this->pathFor(
+            $repository,
+        );
     }
 
     /**
@@ -194,7 +254,9 @@ class RepositoryStorageService
     public function defaultBranch(
         Repository $repository,
     ): ?string {
-        $path = $this->resolveExisting($repository);
+        $path = $this->resolveExisting(
+            $repository,
+        );
 
         $headReference = trim(
             $this->git->run(
@@ -237,7 +299,10 @@ class RepositoryStorageService
 
         if (
             $existingBranch === ''
-            || ! hash_equals($branch, $existingBranch)
+            || ! hash_equals(
+                $branch,
+                $existingBranch,
+            )
         ) {
             return null;
         }
@@ -254,7 +319,9 @@ class RepositoryStorageService
     public function cleanupPartial(
         Repository $repository,
     ): void {
-        $path = $this->pathFor($repository);
+        $path = $this->pathFor(
+            $repository,
+        );
 
         if (is_link($path)) {
             throw new RepositoryStorageException(
@@ -262,6 +329,10 @@ class RepositoryStorageService
                 repositoryId: $repository->id,
             );
         }
+
+        $this->assertContainedPath(
+            $path,
+        );
 
         if (! File::exists($path)) {
             return;
@@ -311,7 +382,16 @@ class RepositoryStorageService
             .DIRECTORY_SEPARATOR
             .$directory;
 
-        $this->assertContainedPath($path);
+        if (is_link($path)) {
+            throw new RepositoryStorageException(
+                operation: 'path-containment',
+                repositoryId: 0,
+            );
+        }
+
+        $this->assertContainedPath(
+            $path,
+        );
 
         return $path;
     }
@@ -321,15 +401,22 @@ class RepositoryStorageService
      */
     private function storageRoot(): string
     {
-        $root = rtrim(
+        $root = trim(
             (string) config(
                 'git.storage_root',
                 storage_path('app/git'),
             ),
+        );
+
+        $root = rtrim(
+            $root,
             '/\\',
         );
 
-        if ($root === '') {
+        if (
+            $root === ''
+            || ! $this->isAbsolutePath($root)
+        ) {
             throw new RepositoryStorageException(
                 operation: 'resolve-root',
                 repositoryId: 0,
@@ -341,21 +428,91 @@ class RepositoryStorageService
 
     /**
      * Verify that a path cannot escape the configured storage root.
+     *
+     * The lexical comparison protects non-existing targets. When the storage
+     * root exists, the nearest existing candidate ancestor is also resolved
+     * canonically so filesystem links or junctions cannot escape the root.
      */
     private function assertContainedPath(
         string $path,
     ): void {
+        $storageRoot = $this->storageRoot();
+
         $root = $this->normalizePath(
-            $this->storageRoot(),
+            $storageRoot,
         );
 
-        $candidate = $this->normalizePath($path);
+        $candidate = $this->normalizePath(
+            $path,
+        );
 
         if (
             $candidate === $root
             || ! str_starts_with(
                 $candidate,
                 $root.DIRECTORY_SEPARATOR,
+            )
+        ) {
+            throw new RepositoryStorageException(
+                operation: 'path-containment',
+                repositoryId: 0,
+            );
+        }
+
+        $canonicalRoot = realpath(
+            $storageRoot,
+        );
+
+        /*
+         * A not-yet-created storage root can only be checked lexically.
+         * initialize() re-runs this check after creating the repositories
+         * directory, at which point canonical verification becomes possible.
+         */
+        if ($canonicalRoot === false) {
+            return;
+        }
+
+        $existingAncestor = $path;
+
+        while (
+            ! File::exists($existingAncestor)
+            && ! is_link($existingAncestor)
+        ) {
+            $parent = dirname(
+                $existingAncestor,
+            );
+
+            if ($parent === $existingAncestor) {
+                break;
+            }
+
+            $existingAncestor = $parent;
+        }
+
+        $canonicalAncestor = realpath(
+            $existingAncestor,
+        );
+
+        if ($canonicalAncestor === false) {
+            throw new RepositoryStorageException(
+                operation: 'path-containment',
+                repositoryId: 0,
+            );
+        }
+
+        $canonicalRoot = $this->normalizePath(
+            $canonicalRoot,
+        );
+
+        $canonicalAncestor = $this->normalizePath(
+            $canonicalAncestor,
+        );
+
+        if (
+            $canonicalAncestor !== $canonicalRoot
+            && ! str_starts_with(
+                $canonicalAncestor,
+                $canonicalRoot.DIRECTORY_SEPARATOR,
             )
         ) {
             throw new RepositoryStorageException(
@@ -377,9 +534,40 @@ class RepositoryStorageService
             $path,
         );
 
-        return rtrim(
+        $normalized = rtrim(
             $normalized,
             DIRECTORY_SEPARATOR,
+        );
+
+        /*
+         * Windows filesystem path comparison is ordinarily
+         * case-insensitive.
+         */
+        if (PHP_OS_FAMILY === 'Windows') {
+            $normalized = mb_strtolower(
+                $normalized,
+            );
+        }
+
+        return $normalized;
+    }
+
+    /**
+     * Determine whether a configured path is absolute.
+     */
+    private function isAbsolutePath(
+        string $path,
+    ): bool {
+        if (PHP_OS_FAMILY === 'Windows') {
+            return preg_match(
+                '/\A(?:[A-Za-z]:[\\\\\/]|\\\\\\\\)/',
+                $path,
+            ) === 1;
+        }
+
+        return str_starts_with(
+            $path,
+            '/',
         );
     }
 
@@ -397,15 +585,17 @@ class RepositoryStorageService
             );
         }
 
-        $requiredPaths = [
+        $this->assertContainedPath(
+            $path,
+        );
+
+        $requiredFiles = [
             $path.DIRECTORY_SEPARATOR.'HEAD',
             $path.DIRECTORY_SEPARATOR.'config',
-            $path.DIRECTORY_SEPARATOR.'objects',
-            $path.DIRECTORY_SEPARATOR.'refs',
         ];
 
-        foreach ($requiredPaths as $requiredPath) {
-            if (! File::exists($requiredPath)) {
+        foreach ($requiredFiles as $requiredFile) {
+            if (! File::isFile($requiredFile)) {
                 throw new RepositoryStorageException(
                     operation: 'verify-repository',
                     repositoryId: $repository->id,
@@ -413,13 +603,29 @@ class RepositoryStorageService
             }
         }
 
-        $isBare = $this->git->run(
-            operation: 'verify-bare-repository',
-            arguments: [
-                '--git-dir='.$path,
-                'rev-parse',
-                '--is-bare-repository',
-            ],
+        $requiredDirectories = [
+            $path.DIRECTORY_SEPARATOR.'objects',
+            $path.DIRECTORY_SEPARATOR.'refs',
+        ];
+
+        foreach ($requiredDirectories as $requiredDirectory) {
+            if (! File::isDirectory($requiredDirectory)) {
+                throw new RepositoryStorageException(
+                    operation: 'verify-repository',
+                    repositoryId: $repository->id,
+                );
+            }
+        }
+
+        $isBare = trim(
+            $this->git->run(
+                operation: 'verify-bare-repository',
+                arguments: [
+                    '--git-dir='.$path,
+                    'rev-parse',
+                    '--is-bare-repository',
+                ],
+            ),
         );
 
         if (! hash_equals('true', $isBare)) {
