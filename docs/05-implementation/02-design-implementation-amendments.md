@@ -509,3 +509,59 @@ Approved
 
 
 Implementation may proceed using `users.username` as the stable owner namespace identifier while continuing to use the repository database ID for physical repository storage.
+
+---
+
+## 8. AMD-002 - Repository Root Configuration Semantics
+
+### Status
+
+Approved
+
+### Classification
+
+Design clarification
+
+### Affected Capability
+
+Repository storage configuration
+Deployment configuration
+Physical repository path derivation
+
+### Implementation Discovery
+
+The implementation treats GITFORGE_REPOSITORY_ROOT as the parent storage root.
+
+The application then appends the repositories directory and the internal repository database ID.
+
+Therefore:
+
+GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
+
+resolves repositories as:
+
+/var/lib/gitforge/repositories/<repository-id>.git
+
+Using:
+
+GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge/repositories
+
+would incorrectly produce:
+
+/var/lib/gitforge/repositories/repositories/<repository-id>.git
+
+### Decision
+
+For GitForge V1.0.0:
+
+GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
+
+is the approved production configuration.
+
+The authoritative physical repository mapping remains:
+
+<repository-root>/repositories/<repository-id>.git
+
+### Scope Consequence
+
+This clarification introduces no new V1.0.0 functionality and does not change repository ownership, visibility, namespace, authorization, Git protocol behavior, or browser behavior.
