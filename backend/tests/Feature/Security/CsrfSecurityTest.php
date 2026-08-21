@@ -17,10 +17,8 @@ class CsrfSecurityTest extends TestCase
          * use a middleware instance that preserves all production behavior
          * except the test-environment bypass.
          */
-        $middleware = new class(
-            $this->app,
-            $this->app['encrypter'],
-        ) extends VerifyCsrfToken {
+        $middleware = new class($this->app, $this->app['encrypter']) extends VerifyCsrfToken
+        {
             protected function runningUnitTests(): bool
             {
                 return false;
@@ -60,10 +58,8 @@ class CsrfSecurityTest extends TestCase
 
     public function test_state_changing_session_request_with_valid_csrf_token_is_accepted(): void
     {
-        $middleware = new class(
-            $this->app,
-            $this->app['encrypter'],
-        ) extends VerifyCsrfToken {
+        $middleware = new class($this->app, $this->app['encrypter']) extends VerifyCsrfToken
+        {
             protected function runningUnitTests(): bool
             {
                 return false;

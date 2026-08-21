@@ -82,7 +82,7 @@ class ProcessInjectionSecurityTest extends TestCase
 
     public function test_branch_name_cannot_be_used_as_git_option(): void
     {
-        $repository = new Repository();
+        $repository = new Repository;
 
         $repository->forceFill([
             'id' => 501,

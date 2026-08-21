@@ -69,8 +69,7 @@ class RepositoryBrowserService
         $branches = [];
 
         foreach (
-            preg_split('/\r?\n/', $output) ?: []
-            as $line
+            preg_split('/\r?\n/', $output) ?: [] as $line
         ) {
             if ($line === '') {
                 continue;
@@ -186,8 +185,7 @@ class RepositoryBrowserService
         $commits = [];
 
         foreach (
-            explode("\x1e", $output)
-            as $record
+            explode("\x1e", $output) as $record
         ) {
             $record = trim(
                 $record,
@@ -531,8 +529,7 @@ class RepositoryBrowserService
         $entries = [];
 
         foreach (
-            explode("\0", $output)
-            as $record
+            explode("\0", $output) as $record
         ) {
             if ($record === '') {
                 continue;

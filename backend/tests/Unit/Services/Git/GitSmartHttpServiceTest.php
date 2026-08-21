@@ -434,7 +434,7 @@ class GitSmartHttpServiceTest extends TestCase
      */
     private function repository(): Repository
     {
-        $repository = new Repository();
+        $repository = new Repository;
 
         $repository->setAttribute(
             'id',

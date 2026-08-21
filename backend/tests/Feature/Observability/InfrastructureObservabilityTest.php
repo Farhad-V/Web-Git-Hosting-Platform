@@ -358,7 +358,7 @@ class InfrastructureObservabilityTest extends TestCase
     private function repository(
         int $id,
     ): Repository {
-        $repository = new Repository();
+        $repository = new Repository;
 
         $repository->forceFill([
             'id' => $id,

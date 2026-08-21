@@ -826,6 +826,7 @@ class GitSmartHttpTest extends TestCase
             $response->getContent(),
         );
     }
+
     public function test_receive_pack_requires_authentication(): void
     {
         [$repository, $owner] = $this->createManagedRepository(

@@ -2,11 +2,12 @@
 
 namespace Tests\Feature\Observability;
 
+use App\Exceptions\GitAuthenticationException;
 use App\Models\PersonalAccessToken;
 use App\Models\Repository;
 use App\Models\User;
-use App\Services\Auth\PersonalAccessTokenService;
 use App\Services\Git\GitCredentialAuthenticator;
+use App\Services\Git\RepositoryStorageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -225,7 +226,7 @@ class ApplicationObservabilityTest extends TestCase
             $this->fail(
                 'Invalid PAT authentication unexpectedly succeeded.',
             );
-        } catch (\App\Exceptions\GitAuthenticationException) {
+        } catch (GitAuthenticationException) {
             //
         }
 
@@ -305,7 +306,7 @@ class ApplicationObservabilityTest extends TestCase
 
         $this->assertTrue(
             app(
-                \App\Services\Git\RepositoryStorageService::class,
+                RepositoryStorageService::class,
             )->exists(
                 $repository,
             ),

@@ -4,6 +4,7 @@ namespace Tests\Feature\Observability;
 
 use App\Models\Repository;
 use App\Models\User;
+use App\Policies\RepositoryPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Log;
 use Mockery;
@@ -150,7 +151,7 @@ class AuthorizationObservabilityTest extends TestCase
         );
 
         $allowed = app(
-            \App\Policies\RepositoryPolicy::class,
+            RepositoryPolicy::class,
         )->write(
             $otherUser,
             $repository,

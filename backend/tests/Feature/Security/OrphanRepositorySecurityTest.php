@@ -92,7 +92,7 @@ class OrphanRepositorySecurityTest extends TestCase
             ],
         );
 
-        $repository = new Repository();
+        $repository = new Repository;
 
         $repository->forceFill([
             'id' => $orphanRepositoryId,
