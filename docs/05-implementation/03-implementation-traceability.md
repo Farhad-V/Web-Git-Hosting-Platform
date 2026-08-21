@@ -418,7 +418,7 @@ AMD-002 establishes:
 
 ```text
 
-GITFORGE\_REPOSITORY\_ROOT=/var/lib/gitforge
+GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
 
 ```
 
@@ -906,7 +906,7 @@ Production configuration:
 
 ```text
 
-GITFORGE\_REPOSITORY\_ROOT=/var/lib/gitforge
+GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
 
 ```
 
@@ -1306,9 +1306,9 @@ Private repository + anonymous visitor     -> Concealed
 
 ```text
 
-invalid\_commit   -> 422
+invalid_commit   -> 422
 
-commit\_not\_found -> 404
+commit_not_found -> 404
 
 ```
 
@@ -1928,7 +1928,7 @@ Repository-root semantics:
 
 ```text
 
-GITFORGE\_REPOSITORY\_ROOT=/var/lib/gitforge
+GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
 
 ```
 
@@ -2074,7 +2074,7 @@ Repository Root Configuration Semantics
 
 ```text
 
-GITFORGE\_REPOSITORY\_ROOT=/var/lib/gitforge
+GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
 
 ```
 
