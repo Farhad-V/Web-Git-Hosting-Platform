@@ -24,7 +24,7 @@
 
 | Project owner | Farhad Valizadegan |
 
-| Status | Draft |
+| Status | Approved |
 
 | Last updated | 2026-08-21 |
 
@@ -2618,13 +2618,13 @@ The document remains:
 
 ```text
 
-Draft
+Approved
 
 ```
 
 
 
-until the traceability review is completed and the document is formally approved.
+The WP-16 traceability review is complete and the document is formally approved.
 
 
 
@@ -2702,22 +2702,22 @@ Implementation is ready for formal Testing phase
 
 ```text
 
-Draft
+Approved
 
 ```
 
 
 
-Pending:
+Approval result:
 
 
 
 ```text
 
-WP-16 document review
+WP-16 document review: Pass
 
-Traceability verification
+Traceability verification: Pass
 
-Status approval
+Status approval: Approved
 
 ```
