@@ -7,7 +7,7 @@
 | SDLC phase | 5 — Implementation |
 | Milestone | M4 — Implementation |
 | Work package | WP-18 — M4 Milestone Review |
-| Status | Draft |
+| Status | Approved |
 | Review date | 2026-08-21 |
 | Branch | `implementation/m4` |
 
