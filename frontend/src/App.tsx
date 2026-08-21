@@ -298,7 +298,7 @@ function HomePage() {
                 icon: GitFork,
                 title: 'Repository lifecycle',
                 description:
-                  'Create, archive, restore, and safely schedule repositories for deletion.',
+                  'Create repositories and control public or private visibility.',
               },
               {
                 icon: Server,
@@ -363,18 +363,15 @@ function HomePage() {
               </h2>
 
               <p className="mt-4 max-w-xl leading-7 text-slate-400">
-                Repository visibility, ownership, lifecycle state,
-                credentials, token abilities, expiration, and Git
-                protocol operations are validated before storage is
-                accessed.
+                Repository visibility, ownership, credentials, and Git protocol operations are validated before storage is accessed.
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                ['62', 'Automated tests'],
-                ['208', 'Assertions'],
-                ['2', 'Git token abilities'],
+                ['125', 'Backend tests'],
+                ['406', 'Backend assertions'],
+                ['1', 'Owner write role'],
                 ['100%', 'Managed storage'],
               ].map(([value, label]) => (
                 <div
@@ -452,17 +449,16 @@ export default function App() {
         <Route element={<RegisterPage />} path="/register" />
       </Route>
 
+      <Route
+        element={<RepositoryDetailPage />}
+        path="/repositories/:repositoryId"
+      />
       <Route element={<ProtectedRoute />}>
         <Route element={<DashboardPage />} path="/dashboard" />
 
         <Route
           element={<PersonalAccessTokensPage />}
           path="/settings/access-tokens"
-        />
-
-        <Route
-          element={<RepositoryDetailPage />}
-          path="/repositories/:repositoryId"
         />
       </Route>
 

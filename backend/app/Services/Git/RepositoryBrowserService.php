@@ -30,12 +30,15 @@ class RepositoryBrowserService
      *     subject: string
      * }>
      */
-    public function branches(Repository $repository): array
-    {
-        $path = $this->repositoryPath($repository);
+    public function branches(
+        Repository $repository,
+    ): array {
+        $path = $this->repositoryPath(
+            $repository,
+        );
 
         try {
-            $output = $this->git->run(
+            $output = $this->git->runRaw(
                 operation: 'list-repository-branches',
                 arguments: [
                     '--git-dir='.$path,
@@ -54,18 +57,29 @@ class RepositoryBrowserService
             );
         }
 
+        $output = rtrim(
+            $output,
+            "\r\n",
+        );
+
         if ($output === '') {
             return [];
         }
 
         $branches = [];
 
-        foreach (preg_split('/\r?\n/', $output) ?: [] as $line) {
+        foreach (
+            preg_split('/\r?\n/', $output) ?: [] as $line
+        ) {
             if ($line === '') {
                 continue;
             }
 
-            $fields = explode("\t", $line, 4);
+            $fields = explode(
+                "\t",
+                $line,
+                4,
+            );
 
             if (count($fields) !== 4) {
                 throw $this->failure(
@@ -75,11 +89,19 @@ class RepositoryBrowserService
                 );
             }
 
-            [$name, $commit, $committedAt, $subject] = $fields;
+            [
+                $name,
+                $commit,
+                $committedAt,
+                $subject,
+            ] = $fields;
 
             if (
                 $name === ''
-                || ! preg_match('/\A[0-9a-f]{40,64}\z/', $commit)
+                || ! preg_match(
+                    '/\A[0-9a-f]{40,64}\z/',
+                    $commit,
+                )
             ) {
                 throw $this->failure(
                     repository: $repository,
@@ -117,7 +139,9 @@ class RepositoryBrowserService
         string $branch,
         int $limit = self::DEFAULT_COMMIT_LIMIT,
     ): array {
-        $path = $this->repositoryPath($repository);
+        $path = $this->repositoryPath(
+            $repository,
+        );
 
         $commit = $this->resolveBranchCommit(
             repository: $repository,
@@ -127,11 +151,14 @@ class RepositoryBrowserService
 
         $limit = max(
             1,
-            min($limit, self::MAX_COMMIT_LIMIT),
+            min(
+                $limit,
+                self::MAX_COMMIT_LIMIT,
+            ),
         );
 
         try {
-            $output = $this->git->run(
+            $output = $this->git->runRaw(
                 operation: 'list-repository-commits',
                 arguments: [
                     '--git-dir='.$path,
@@ -157,14 +184,23 @@ class RepositoryBrowserService
 
         $commits = [];
 
-        foreach (explode("\x1e", $output) as $record) {
-            $record = trim($record);
+        foreach (
+            explode("\x1e", $output) as $record
+        ) {
+            $record = trim(
+                $record,
+                "\r\n",
+            );
 
             if ($record === '') {
                 continue;
             }
 
-            $fields = explode("\x1f", $record, 6);
+            $fields = explode(
+                "\x1f",
+                $record,
+                6,
+            );
 
             if (count($fields) !== 6) {
                 throw $this->failure(
@@ -183,7 +219,30 @@ class RepositoryBrowserService
                 $subject,
             ] = $fields;
 
-            if (! preg_match('/\A[0-9a-f]{40,64}\z/', $hash)) {
+            if (
+                ! preg_match(
+                    '/\A[0-9a-f]{40,64}\z/',
+                    $hash,
+                )
+            ) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: 'list-commits',
+                    reason: 'unexpected_git_output',
+                );
+            }
+
+            $parentHashes = $this->parseParentHashes(
+                repository: $repository,
+                operation: 'list-commits',
+                parents: $parents,
+            );
+
+            if (
+                $authorName === ''
+                || $authorEmail === ''
+                || $authoredAt === ''
+            ) {
                 throw $this->failure(
                     repository: $repository,
                     operation: 'list-commits',
@@ -193,9 +252,7 @@ class RepositoryBrowserService
 
             $commits[] = [
                 'hash' => $hash,
-                'parents' => $parents === ''
-                    ? []
-                    : (preg_split('/\s+/', $parents) ?: []),
+                'parents' => $parentHashes,
                 'author' => [
                     'name' => $authorName,
                     'email' => $authorEmail,
@@ -206,6 +263,197 @@ class RepositoryBrowserService
         }
 
         return $commits;
+    }
+
+    /**
+     * Return one Git commit and its metadata.
+     *
+     * @return array{
+     *     id: string,
+     *     tree: string,
+     *     parents: list<string>,
+     *     author_name: string,
+     *     author_email: string,
+     *     authored_at: string,
+     *     committer_name: string,
+     *     committer_email: string,
+     *     committed_at: string,
+     *     message: string
+     * }
+     */
+    public function commit(
+        Repository $repository,
+        string $commit,
+    ): array {
+        $path = $this->repositoryPath(
+            $repository,
+        );
+
+        $commit = $this->normalizeCommitIdentifier(
+            repository: $repository,
+            commit: $commit,
+        );
+
+        /*
+         * ^{commit} forces Git to resolve the supplied identifier specifically
+         * to a commit object. An unknown identifier or a non-commit object
+         * therefore fails before any commit metadata is read.
+         */
+        try {
+            $resolvedCommit = $this->git->run(
+                operation: 'resolve-repository-commit',
+                arguments: [
+                    '--git-dir='.$path,
+                    'rev-parse',
+                    '--verify',
+                    $commit.'^{commit}',
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-commit',
+                reason: 'commit_not_found',
+                previous: $exception,
+            );
+        }
+
+        if (
+            ! preg_match(
+                '/\A[0-9a-f]{40,64}\z/',
+                $resolvedCommit,
+            )
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-commit',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        try {
+            $output = $this->git->runRaw(
+                operation: 'read-repository-commit',
+                arguments: [
+                    '--git-dir='.$path,
+                    'show',
+                    '--no-patch',
+                    '--date=iso-strict',
+                    '--format=%H%x1f%T%x1f%P%x1f%an%x1f%ae%x1f%aI%x1f%cn%x1f%ce%x1f%cI%x1f%B%x1e',
+                    $resolvedCommit,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-commit',
+                reason: 'git_command_failed',
+                previous: $exception,
+            );
+        }
+
+        $output = trim(
+            $output,
+            "\r\n",
+        );
+
+        if (
+            $output === ''
+            || ! str_ends_with(
+                $output,
+                "\x1e",
+            )
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-commit',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        $record = substr(
+            $output,
+            0,
+            -1,
+        );
+
+        $fields = explode(
+            "\x1f",
+            $record,
+            10,
+        );
+
+        if (count($fields) !== 10) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-commit',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        [
+            $id,
+            $tree,
+            $parents,
+            $authorName,
+            $authorEmail,
+            $authoredAt,
+            $committerName,
+            $committerEmail,
+            $committedAt,
+            $message,
+        ] = $fields;
+
+        if (
+            ! preg_match(
+                '/\A[0-9a-f]{40,64}\z/',
+                $id,
+            )
+            || ! preg_match(
+                '/\A[0-9a-f]{40,64}\z/',
+                $tree,
+            )
+            || $authorName === ''
+            || $authorEmail === ''
+            || $authoredAt === ''
+            || $committerName === ''
+            || $committerEmail === ''
+            || $committedAt === ''
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-commit',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        $parentHashes = $this->parseParentHashes(
+            repository: $repository,
+            operation: 'read-commit',
+            parents: $parents,
+        );
+
+        /*
+         * %B returns the complete commit message. Remove only Git's final
+         * structural line break so the API does not expose formatter padding.
+         */
+        $message = rtrim(
+            $message,
+            "\r\n",
+        );
+
+        return [
+            'id' => $id,
+            'tree' => $tree,
+            'parents' => $parentHashes,
+            'author_name' => $authorName,
+            'author_email' => $authorEmail,
+            'authored_at' => $authoredAt,
+            'committer_name' => $committerName,
+            'committer_email' => $committerEmail,
+            'committed_at' => $committedAt,
+            'message' => $message,
+        ];
     }
 
     /**
@@ -225,7 +473,9 @@ class RepositoryBrowserService
         string $branch,
         string $directory = '',
     ): array {
-        $path = $this->repositoryPath($repository);
+        $path = $this->repositoryPath(
+            $repository,
+        );
 
         $commit = $this->resolveBranchCommit(
             repository: $repository,
@@ -278,7 +528,9 @@ class RepositoryBrowserService
 
         $entries = [];
 
-        foreach (explode("\0", $output) as $record) {
+        foreach (
+            explode("\0", $output) as $record
+        ) {
             if ($record === '') {
                 continue;
             }
@@ -297,6 +549,20 @@ class RepositoryBrowserService
                 );
             }
 
+            $gitType = $matches[2];
+
+            $type = match ($gitType) {
+                'tree' => 'directory',
+                'blob' => 'file',
+                'commit' => 'submodule',
+
+                default => throw $this->failure(
+                    repository: $repository,
+                    operation: 'list-tree',
+                    reason: 'unexpected_git_output',
+                ),
+            };
+
             $name = $matches[5];
 
             $entries[] = [
@@ -304,9 +570,7 @@ class RepositoryBrowserService
                 'path' => $directory === ''
                     ? $name
                     : $directory.'/'.$name,
-                'type' => $matches[2] === 'tree'
-                    ? 'directory'
-                    : 'file',
+                'type' => $type,
                 'mode' => $matches[1],
                 'object_id' => $matches[3],
                 'size' => $matches[4] === '-'
@@ -317,9 +581,26 @@ class RepositoryBrowserService
 
         usort(
             $entries,
-            static function (array $first, array $second): int {
-                if ($first['type'] !== $second['type']) {
-                    return $first['type'] === 'directory' ? -1 : 1;
+            static function (
+                array $first,
+                array $second,
+            ): int {
+                $order = [
+                    'directory' => 0,
+                    'file' => 1,
+                    'submodule' => 2,
+                ];
+
+                $firstOrder = $order[
+                    $first['type']
+                ] ?? 99;
+
+                $secondOrder = $order[
+                    $second['type']
+                ] ?? 99;
+
+                if ($firstOrder !== $secondOrder) {
+                    return $firstOrder <=> $secondOrder;
                 }
 
                 return strcasecmp(
@@ -347,7 +628,9 @@ class RepositoryBrowserService
         string $branch,
         string $file,
     ): array {
-        $path = $this->repositoryPath($repository);
+        $path = $this->repositoryPath(
+            $repository,
+        );
 
         $commit = $this->resolveBranchCommit(
             repository: $repository,
@@ -392,7 +675,7 @@ class RepositoryBrowserService
         }
 
         try {
-            $size = (int) $this->git->run(
+            $sizeOutput = $this->git->run(
                 operation: 'resolve-repository-blob-size',
                 arguments: [
                     '--git-dir='.$path,
@@ -410,12 +693,35 @@ class RepositoryBrowserService
             );
         }
 
+        if (
+            ! preg_match(
+                '/\A\d+\z/',
+                $sizeOutput,
+            )
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        $size = (int) $sizeOutput;
+
         $maximumSize = (int) config(
             'git.browser_max_blob_bytes',
             self::DEFAULT_MAX_BLOB_BYTES,
         );
 
-        if ($maximumSize < 1 || $size > $maximumSize) {
+        if ($maximumSize < 1) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'invalid_configuration',
+            );
+        }
+
+        if ($size > $maximumSize) {
             throw $this->failure(
                 repository: $repository,
                 operation: 'read-blob',
@@ -442,9 +748,23 @@ class RepositoryBrowserService
             );
         }
 
+        if (strlen($content) !== $size) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'unexpected_git_output',
+            );
+        }
+
         if (
-            str_contains($content, "\0")
-            || preg_match('//u', $content) !== 1
+            str_contains(
+                $content,
+                "\0",
+            )
+            || preg_match(
+                '//u',
+                $content,
+            ) !== 1
         ) {
             throw $this->failure(
                 repository: $repository,
@@ -464,8 +784,9 @@ class RepositoryBrowserService
     /**
      * Return the managed repository path after verifying storage.
      */
-    private function repositoryPath(Repository $repository): string
-    {
+    private function repositoryPath(
+        Repository $repository,
+    ): string {
         if (! $this->storage->exists($repository)) {
             throw $this->failure(
                 repository: $repository,
@@ -474,7 +795,9 @@ class RepositoryBrowserService
             );
         }
 
-        return $this->storage->repositoryPath($repository);
+        return $this->storage->resolveExisting(
+            $repository,
+        );
     }
 
     /**
@@ -485,13 +808,21 @@ class RepositoryBrowserService
         string $path,
         string $branch,
     ): string {
-        $branch = trim($branch);
+        $branch = trim(
+            $branch,
+        );
 
         if (
             $branch === ''
             || strlen($branch) > 255
-            || str_starts_with($branch, '-')
-            || preg_match('/[\x00-\x20\x7f]/', $branch) === 1
+            || str_starts_with(
+                $branch,
+                '-',
+            )
+            || preg_match(
+                '/[\x00-\x20\x7f]/',
+                $branch,
+            ) === 1
         ) {
             throw $this->failure(
                 repository: $repository,
@@ -538,7 +869,12 @@ class RepositoryBrowserService
             );
         }
 
-        if (! preg_match('/\A[0-9a-f]{40,64}\z/', $commit)) {
+        if (
+            ! preg_match(
+                '/\A[0-9a-f]{40,64}\z/',
+                $commit,
+            )
+        ) {
             throw $this->failure(
                 repository: $repository,
                 operation: 'resolve-branch',
@@ -547,6 +883,78 @@ class RepositoryBrowserService
         }
 
         return $commit;
+    }
+
+    /**
+     * Normalize an untrusted Git commit identifier.
+     */
+    private function normalizeCommitIdentifier(
+        Repository $repository,
+        string $commit,
+    ): string {
+        $commit = trim(
+            $commit,
+        );
+
+        /*
+         * V1 exposes immutable commit identifiers through the browser API.
+         * Accept full SHA-1 or SHA-256 object IDs only. This avoids exposing
+         * arbitrary revision-expression syntax through a client-controlled
+         * route parameter.
+         */
+        if (
+            ! preg_match(
+                '/\A(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{64})\z/',
+                $commit,
+            )
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-commit',
+                reason: 'invalid_commit',
+            );
+        }
+
+        return strtolower(
+            $commit,
+        );
+    }
+
+    /**
+     * Parse and validate a whitespace-separated parent commit list.
+     *
+     * @return list<string>
+     */
+    private function parseParentHashes(
+        Repository $repository,
+        string $operation,
+        string $parents,
+    ): array {
+        if ($parents === '') {
+            return [];
+        }
+
+        $parentHashes = preg_split(
+            '/\s+/',
+            $parents,
+        ) ?: [];
+
+        foreach ($parentHashes as $parentHash) {
+            if (
+                ! preg_match(
+                    '/\A[0-9a-f]{40,64}\z/',
+                    $parentHash,
+                )
+            ) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: $operation,
+                    reason: 'unexpected_git_output',
+                );
+            }
+        }
+
+        return $parentHashes;
     }
 
     /**
@@ -559,7 +967,11 @@ class RepositoryBrowserService
         bool $allowEmpty,
     ): string {
         $path = trim(
-            str_replace('\\', '/', $path),
+            str_replace(
+                '\\',
+                '/',
+                $path,
+            ),
             '/',
         );
 
@@ -577,8 +989,14 @@ class RepositoryBrowserService
 
         if (
             strlen($path) > 4096
-            || str_contains($path, "\0")
-            || preg_match('/[\x01-\x1f\x7f]/', $path) === 1
+            || str_contains(
+                $path,
+                "\0",
+            )
+            || preg_match(
+                '/[\x01-\x1f\x7f]/',
+                $path,
+            ) === 1
         ) {
             throw $this->failure(
                 repository: $repository,
@@ -587,7 +1005,10 @@ class RepositoryBrowserService
             );
         }
 
-        $segments = explode('/', $path);
+        $segments = explode(
+            '/',
+            $path,
+        );
 
         foreach ($segments as $segment) {
             if (
@@ -603,7 +1024,10 @@ class RepositoryBrowserService
             }
         }
 
-        return implode('/', $segments);
+        return implode(
+            '/',
+            $segments,
+        );
     }
 
     /**

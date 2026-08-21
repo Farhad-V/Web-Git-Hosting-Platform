@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\RepositoryStatus;
 use App\Enums\RepositoryVisibility;
 use App\Exceptions\GitAuthenticationException;
+use App\Exceptions\GitTransportException;
 use App\Models\Repository;
 use App\Models\User;
 use App\Services\Git\GitCredentialAuthenticator;
@@ -12,7 +12,6 @@ use App\Services\Git\GitSmartHttpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 class GitSmartHttpController extends Controller
 {
@@ -32,6 +31,7 @@ class GitSmartHttpController extends Controller
         $service = match ($request->query('service')) {
             'git-upload-pack' => 'upload-pack',
             'git-receive-pack' => 'receive-pack',
+
             default => abort(
                 Response::HTTP_BAD_REQUEST,
                 'Unsupported Git service.',
@@ -40,25 +40,39 @@ class GitSmartHttpController extends Controller
 
         $model = $this->resolveRepository(
             username: $username,
-            slug: $repository,
+            repositoryName: $repository,
         );
 
         if ($service === 'upload-pack') {
-            $this->authorizeRead($request, $model);
+            $this->authorizeRead(
+                request: $request,
+                repository: $model,
+            );
         } else {
-            $this->authorizeWrite($request, $model);
+            $this->authorizeWrite(
+                request: $request,
+                repository: $model,
+            );
         }
 
-        $body = $this->git->advertise(
-            repository: $model,
-            service: $service,
-        );
+        try {
+            $body = $this->git->advertise(
+                repository: $model,
+                service: $service,
+            );
+        } catch (GitTransportException $exception) {
+            return $this->transportErrorResponse(
+                $exception,
+            );
+        }
 
         return response(
             content: $body,
             status: Response::HTTP_OK,
             headers: $this->gitHeaders(
-                $this->git->advertisementContentType($service),
+                $this->git->advertisementContentType(
+                    $service,
+                ),
             ),
         );
     }
@@ -73,10 +87,13 @@ class GitSmartHttpController extends Controller
     ): Response {
         $model = $this->resolveRepository(
             username: $username,
-            slug: $repository,
+            repositoryName: $repository,
         );
 
-        $this->authorizeRead($request, $model);
+        $this->authorizeRead(
+            request: $request,
+            repository: $model,
+        );
 
         $this->validateContentType(
             request: $request,
@@ -85,17 +102,25 @@ class GitSmartHttpController extends Controller
             ),
         );
 
-        $body = $this->git->rpc(
-            repository: $model,
-            service: 'upload-pack',
-            requestBody: $request->getContent(),
-        );
+        try {
+            $body = $this->git->rpc(
+                repository: $model,
+                service: 'upload-pack',
+                requestBody: $request->getContent(),
+            );
+        } catch (GitTransportException $exception) {
+            return $this->transportErrorResponse(
+                $exception,
+            );
+        }
 
         return response(
             content: $body,
             status: Response::HTTP_OK,
             headers: $this->gitHeaders(
-                $this->git->resultContentType('upload-pack'),
+                $this->git->resultContentType(
+                    'upload-pack',
+                ),
             ),
         );
     }
@@ -110,10 +135,13 @@ class GitSmartHttpController extends Controller
     ): Response {
         $model = $this->resolveRepository(
             username: $username,
-            slug: $repository,
+            repositoryName: $repository,
         );
 
-        $this->authorizeWrite($request, $model);
+        $this->authorizeWrite(
+            request: $request,
+            repository: $model,
+        );
 
         $this->validateContentType(
             request: $request,
@@ -122,44 +150,60 @@ class GitSmartHttpController extends Controller
             ),
         );
 
-        $body = $this->git->rpc(
-            repository: $model,
-            service: 'receive-pack',
-            requestBody: $request->getContent(),
-        );
-
-        $this->synchronizeDefaultBranch($model);
+        try {
+            $body = $this->git->rpc(
+                repository: $model,
+                service: 'receive-pack',
+                requestBody: $request->getContent(),
+            );
+        } catch (GitTransportException $exception) {
+            return $this->transportErrorResponse(
+                $exception,
+            );
+        }
 
         return response(
             content: $body,
             status: Response::HTTP_OK,
             headers: $this->gitHeaders(
-                $this->git->resultContentType('receive-pack'),
+                $this->git->resultContentType(
+                    'receive-pack',
+                ),
             ),
         );
     }
 
     /**
-     * Resolve an accessible repository by owner namespace and slug.
+     * Resolve repository metadata from the logical owner/name namespace.
+     *
+     * Logical namespace values are used only for database lookup.
+     * Physical repository paths are derived later from the repository ID.
      */
     private function resolveRepository(
         string $username,
-        string $slug,
+        string $repositoryName,
     ): Repository {
+        $username = mb_strtolower(
+            trim($username),
+        );
+
+        $repositoryName = mb_strtolower(
+            trim($repositoryName),
+        );
+
         return Repository::query()
             ->with('owner')
             ->whereHas(
                 'owner',
-                fn ($query) => $query->where(
+                static fn ($query) => $query->where(
                     'username',
-                    mb_strtolower($username),
+                    $username,
                 ),
             )
-            ->where('slug', mb_strtolower($slug))
-            ->whereIn('status', [
-                RepositoryStatus::Active,
-                RepositoryStatus::Archived,
-            ])
+            ->where(
+                'name',
+                $repositoryName,
+            )
             ->firstOrFail();
     }
 
@@ -178,8 +222,7 @@ class GitSmartHttpController extends Controller
         }
 
         $user = $this->authenticate(
-            request: $request,
-            requiredAbility: 'repository:read',
+            $request,
         );
 
         abort_unless(
@@ -196,33 +239,24 @@ class GitSmartHttpController extends Controller
         Repository $repository,
     ): void {
         $user = $this->authenticate(
-            request: $request,
-            requiredAbility: 'repository:write',
+            $request,
         );
 
         abort_unless(
             $repository->owner_id === $user->id,
             Response::HTTP_FORBIDDEN,
         );
-
-        abort_unless(
-            $repository->status === RepositoryStatus::Active,
-            Response::HTTP_FORBIDDEN,
-            'Archived repositories are read-only.',
-        );
     }
 
     /**
-     * Authenticate supplied Git Basic credentials.
+     * Authenticate Git Smart HTTP Basic credentials.
      */
     private function authenticate(
         Request $request,
-        string $requiredAbility,
     ): User {
         try {
             $user = $this->credentials->authenticate(
-                request: $request,
-                requiredAbility: $requiredAbility,
+                $request,
             );
         } catch (GitAuthenticationException) {
             abort(
@@ -236,7 +270,9 @@ class GitSmartHttpController extends Controller
             );
         }
 
-        Auth::setUser($user);
+        Auth::setUser(
+            $user,
+        );
 
         $request->setUserResolver(
             static fn (): User => $user,
@@ -246,35 +282,7 @@ class GitSmartHttpController extends Controller
     }
 
     /**
-     * Synchronize database metadata after successful receive-pack.
-     *
-     * Git storage is authoritative for refs. Metadata synchronization
-     * is best-effort because a completed push must not be reported as
-     * failed if the secondary database update encounters a problem.
-     */
-    private function synchronizeDefaultBranch(
-        Repository $repository,
-    ): void {
-        try {
-            $defaultBranch = $this->git->defaultBranch(
-                $repository,
-            );
-
-            if (
-                $defaultBranch !== null
-                && $repository->default_branch !== $defaultBranch
-            ) {
-                $repository->update([
-                    'default_branch' => $defaultBranch,
-                ]);
-            }
-        } catch (Throwable $exception) {
-            report($exception);
-        }
-    }
-
-    /**
-     * Require the exact Git protocol request content type.
+     * Require the Git protocol request media type.
      */
     private function validateContentType(
         Request $request,
@@ -284,15 +292,67 @@ class GitSmartHttpController extends Controller
             trim(
                 explode(
                     ';',
-                    (string) $request->header('Content-Type'),
+                    (string) $request->header(
+                        'Content-Type',
+                    ),
                     2,
                 )[0],
             ),
         );
 
         abort_unless(
-            hash_equals($expected, $actual),
+            hash_equals(
+                $expected,
+                $actual,
+            ),
             Response::HTTP_UNSUPPORTED_MEDIA_TYPE,
+        );
+    }
+
+    /**
+     * Convert controlled transport failures into safe HTTP responses.
+     */
+    private function transportErrorResponse(
+        GitTransportException $exception,
+    ): Response {
+        $status = match ($exception->processExitCode) {
+            Response::HTTP_REQUEST_ENTITY_TOO_LARGE => (
+                Response::HTTP_REQUEST_ENTITY_TOO_LARGE
+            ),
+
+            124 => Response::HTTP_GATEWAY_TIMEOUT,
+
+            default => Response::HTTP_INTERNAL_SERVER_ERROR,
+        };
+
+        report(
+            $exception,
+        );
+
+        $message = match ($status) {
+            Response::HTTP_REQUEST_ENTITY_TOO_LARGE => (
+                'Git request body exceeds the configured limit.'
+            ),
+
+            Response::HTTP_GATEWAY_TIMEOUT => (
+                'Git transport operation timed out.'
+            ),
+
+            default => (
+                'Git transport operation failed.'
+            ),
+        };
+
+        return response(
+            content: $message,
+            status: $status,
+            headers: [
+                'Content-Type' => 'text/plain; charset=UTF-8',
+                'Cache-Control' => 'no-cache, max-age=0, must-revalidate',
+                'Pragma' => 'no-cache',
+                'Expires' => 'Fri, 01 Jan 1980 00:00:00 GMT',
+                'X-Content-Type-Options' => 'nosniff',
+            ],
         );
     }
 
@@ -301,8 +361,9 @@ class GitSmartHttpController extends Controller
      *
      * @return array<string, string>
      */
-    private function gitHeaders(string $contentType): array
-    {
+    private function gitHeaders(
+        string $contentType,
+    ): array {
         return [
             'Content-Type' => $contentType,
             'Cache-Control' => 'no-cache, max-age=0, must-revalidate',

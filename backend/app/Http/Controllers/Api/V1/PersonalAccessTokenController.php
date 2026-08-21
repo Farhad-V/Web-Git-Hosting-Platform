@@ -5,66 +5,72 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StorePersonalAccessTokenRequest;
 use App\Http\Resources\PersonalAccessTokenResource;
+use App\Services\Auth\PersonalAccessTokenService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class PersonalAccessTokenController extends Controller
 {
+    public function __construct(
+        private readonly PersonalAccessTokenService $tokens,
+    ) {}
+
     /**
-     * List repository-access tokens owned by the authenticated user.
+     * List PATs owned by the authenticated user.
      */
     public function index(
         Request $request,
     ): AnonymousResourceCollection {
         $tokens = $request
             ->user()
-            ->tokens()
+            ->personalAccessTokens()
             ->latest()
-            ->get()
-            ->filter(
-                fn (PersonalAccessToken $token): bool => $this->isRepositoryToken($token),
-            )
-            ->values();
+            ->get();
 
-        return PersonalAccessTokenResource::collection($tokens);
+        return PersonalAccessTokenResource::collection(
+            $tokens,
+        );
     }
 
     /**
-     * Create a repository-access token.
+     * Create a GitForge personal access token.
      *
-     * The plain-text token is returned only in this response.
+     * The complete plaintext token is returned exactly once.
      */
     public function store(
         StorePersonalAccessTokenRequest $request,
     ): JsonResponse {
-        $validated = $request->validated();
+        [$token, $plainTextToken] = $this->tokens->issue(
+            user: $request->user(),
+            name: $request->validated()['name'],
+        );
 
-        $expiresAt = isset($validated['expires_at'])
-            ? now()->parse($validated['expires_at'])
-            : null;
-
-        $createdToken = $request
-            ->user()
-            ->createToken(
-                name: $validated['name'],
-                abilities: $validated['abilities'],
-                expiresAt: $expiresAt,
-            );
+        Log::info(
+            'pat_created',
+            [
+                'event' => 'pat_created',
+                'request_id' => $request->attributes->get('request_id'),
+                'user_id' => $request->user()->id,
+                'token_id' => $token->id,
+                'token_identifier' => $token->token_identifier,
+                'result' => 'success',
+            ],
+        );
 
         return response()->json([
             'message' => 'Personal access token created successfully.',
             'token' => new PersonalAccessTokenResource(
-                $createdToken->accessToken,
+                $token,
             ),
-            'plain_text_token' => $createdToken->plainTextToken,
+            'plain_text_token' => $plainTextToken,
         ], Response::HTTP_CREATED);
     }
 
     /**
-     * Revoke one repository-access token owned by the current user.
+     * Revoke a PAT owned by the current user.
      */
     public function destroy(
         Request $request,
@@ -72,38 +78,44 @@ class PersonalAccessTokenController extends Controller
     ): JsonResponse {
         $accessToken = $request
             ->user()
-            ->tokens()
-            ->whereKey($token)
+            ->personalAccessTokens()
+            ->whereKey(
+                $token,
+            )
             ->firstOrFail();
 
-        abort_unless(
-            $this->isRepositoryToken($accessToken),
-            Response::HTTP_NOT_FOUND,
-        );
+        if ($accessToken->revoked_at === null) {
+            $accessToken->forceFill([
+                'revoked_at' => now(),
+            ])->save();
 
-        $accessToken->delete();
+            Log::info(
+                'pat_revoked',
+                [
+                    'event' => 'pat_revoked',
+                    'request_id' => $request->attributes->get('request_id'),
+                    'user_id' => $request->user()->id,
+                    'token_id' => $accessToken->id,
+                    'token_identifier' => $accessToken->token_identifier,
+                    'result' => 'success',
+                ],
+            );
+        } else {
+            Log::info(
+                'pat_already_revoked',
+                [
+                    'event' => 'pat_already_revoked',
+                    'request_id' => $request->attributes->get('request_id'),
+                    'user_id' => $request->user()->id,
+                    'token_id' => $accessToken->id,
+                    'token_identifier' => $accessToken->token_identifier,
+                    'result' => 'completed',
+                ],
+            );
+        }
 
         return response()->json([
             'message' => 'Personal access token revoked successfully.',
         ]);
-    }
-
-    /**
-     * Determine whether a token is dedicated to repository access.
-     */
-    private function isRepositoryToken(
-        PersonalAccessToken $token,
-    ): bool {
-        $abilities = $token->abilities ?? [];
-
-        return in_array(
-            'repository:read',
-            $abilities,
-            true,
-        ) || in_array(
-            'repository:write',
-            $abilities,
-            true,
-        );
     }
 }

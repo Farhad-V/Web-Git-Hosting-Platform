@@ -11,8 +11,6 @@ export interface User {
 export interface AuthResponse {
   message: string
   user: User
-  access_token: string
-  token_type: 'Bearer'
 }
 
 export interface CurrentUserResponse {
@@ -22,7 +20,6 @@ export interface CurrentUserResponse {
 export interface LoginCredentials {
   email: string
   password: string
-  device_name?: string
 }
 
 export interface RegisterCredentials {
@@ -31,7 +28,6 @@ export interface RegisterCredentials {
   email: string
   password: string
   password_confirmation: string
-  device_name?: string
 }
 
 export interface MessageResponse {

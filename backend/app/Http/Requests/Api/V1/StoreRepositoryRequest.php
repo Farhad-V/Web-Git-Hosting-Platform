@@ -6,7 +6,6 @@ use App\Enums\RepositoryVisibility;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class StoreRepositoryRequest extends FormRequest
@@ -32,28 +31,15 @@ class StoreRepositoryRequest extends FormRequest
                 'string',
                 'min:1',
                 'max:100',
-                'regex:/\A[a-zA-Z0-9][a-zA-Z0-9._-]*\z/',
-                'not_regex:/\.git\z/i',
-                Rule::notIn(['.', '..']),
-            ],
-            'slug' => [
-                'required',
-                'string',
-                'max:100',
-                'regex:/\A[a-z0-9][a-z0-9-]*\z/',
-                Rule::unique('repositories', 'slug')
+                'regex:/\A[a-z0-9](?:[a-z0-9._-]{0,98}[a-z0-9])?\z/',
+                'not_regex:/\.\./',
+                Rule::unique('repositories', 'name')
                     ->where(
                         fn (Builder $query): Builder => $query->where(
                             'owner_id',
                             $this->user()->id,
                         ),
-                    )
-                    ->withoutTrashed(),
-            ],
-            'description' => [
-                'nullable',
-                'string',
-                'max:2000',
+                    ),
             ],
             'visibility' => [
                 'required',
@@ -67,23 +53,18 @@ class StoreRepositoryRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $name = trim((string) $this->input('name', ''));
-
-        $description = $this->input('description');
-
-        if (is_string($description)) {
-            $description = trim($description);
-            $description = $description === '' ? null : $description;
+        if ($this->has('name')) {
+            $this->merge([
+                'name' => mb_strtolower(
+                    trim((string) $this->input('name')),
+                ),
+            ]);
         }
 
-        $this->merge([
-            'name' => $name,
-            'slug' => Str::slug($name),
-            'description' => $description,
-            'visibility' => $this->input(
-                'visibility',
-                RepositoryVisibility::PrivateAccess->value,
-            ),
-        ]);
+        if (! $this->has('visibility')) {
+            $this->merge([
+                'visibility' => RepositoryVisibility::PrivateAccess->value,
+            ]);
+        }
     }
 }

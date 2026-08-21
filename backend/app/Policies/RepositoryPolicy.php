@@ -2,102 +2,153 @@
 
 namespace App\Policies;
 
-use App\Enums\RepositoryStatus;
 use App\Enums\RepositoryVisibility;
 use App\Models\Repository;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Log;
 
 class RepositoryPolicy
 {
     /**
-     * Determine whether repositories may be listed.
+     * Determine whether the authenticated user may list repositories.
      */
-    public function viewAny(?User $user): bool
-    {
-        return true;
+    public function viewAny(
+        User $user,
+    ): bool {
+        return $this->decision(
+            operation: 'view_any',
+            allowed: true,
+            user: $user,
+        );
     }
 
     /**
-     * Determine whether the repository may be viewed.
+     * Determine whether the repository may be read.
+     *
+     * Unauthorized reads of private repositories are externally concealed
+     * as not-found responses so callers cannot distinguish a private
+     * repository from a repository that does not exist.
      */
-    public function view(?User $user, Repository $repository): bool
-    {
-        if (
+    public function view(
+        ?User $user,
+        Repository $repository,
+    ): Response {
+        $allowed = (
             $repository->visibility
             === RepositoryVisibility::PublicAccess
-        ) {
-            return true;
-        }
+        )
+            || (
+                $user !== null
+                && $repository->owner_id === $user->id
+            );
 
-        return $user !== null
-            && $repository->owner_id === $user->id;
+        $this->decision(
+            operation: 'view',
+            allowed: $allowed,
+            user: $user,
+            repository: $repository,
+        );
+
+        return $allowed
+            ? Response::allow()
+            : Response::denyAsNotFound();
     }
 
     /**
      * Determine whether the user may create repositories.
      */
-    public function create(User $user): bool
-    {
-        return true;
+    public function create(
+        User $user,
+    ): bool {
+        return $this->decision(
+            operation: 'create',
+            allowed: true,
+            user: $user,
+        );
     }
 
     /**
-     * Determine whether the user may update the repository.
+     * Determine whether repository settings may be changed.
      */
-    public function update(User $user, Repository $repository): bool
-    {
-        return $repository->owner_id === $user->id
-            && $repository->status === RepositoryStatus::Active;
+    public function update(
+        User $user,
+        Repository $repository,
+    ): bool {
+        return $this->decision(
+            operation: 'update',
+            allowed: $repository->owner_id === $user->id,
+            user: $user,
+            repository: $repository,
+        );
     }
 
     /**
-     * Determine whether the user may archive the repository.
+     * Determine whether the repository may receive Git writes.
      */
-    public function archive(User $user, Repository $repository): bool
-    {
-        return $repository->owner_id === $user->id
-            && $repository->status === RepositoryStatus::Active;
+    public function write(
+        User $user,
+        Repository $repository,
+    ): bool {
+        return $this->decision(
+            operation: 'write',
+            allowed: $repository->owner_id === $user->id,
+            user: $user,
+            repository: $repository,
+        );
     }
 
     /**
-     * Determine whether the user may restore an archived repository.
+     * Emit a structured authorization decision and return the decision.
      */
-    public function unarchive(User $user, Repository $repository): bool
-    {
-        return $repository->owner_id === $user->id
-            && $repository->status === RepositoryStatus::Archived;
+    private function decision(
+        string $operation,
+        bool $allowed,
+        ?User $user = null,
+        ?Repository $repository = null,
+    ): bool {
+        Log::info(
+            'authorization_decision',
+            [
+                'event' => 'authorization_decision',
+                'request_id' => $this->requestId(),
+                'user_id' => $user?->id,
+                'actor_state' => $user === null
+                    ? 'anonymous'
+                    : 'authenticated',
+                'repository_id' => $repository?->id,
+                'operation' => $operation,
+                'decision' => $allowed
+                    ? 'allow'
+                    : 'deny',
+                'result' => $allowed
+                    ? 'allowed'
+                    : 'denied',
+                'failure_category' => $allowed
+                    ? null
+                    : 'authorization_denied',
+            ],
+        );
+
+        return $allowed;
     }
 
     /**
-     * Determine whether the user may request repository deletion.
+     * Return the current request correlation identifier when available.
      */
-    public function delete(User $user, Repository $repository): bool
+    private function requestId(): ?string
     {
-        return $repository->owner_id === $user->id
-            && in_array(
-                $repository->status,
-                [
-                    RepositoryStatus::Active,
-                    RepositoryStatus::Archived,
-                    RepositoryStatus::DeletionFailed,
-                ],
-                true,
-            );
-    }
+        if (! app()->bound('request')) {
+            return null;
+        }
 
-    /**
-     * Restoring soft-deleted repositories is not exposed in V1.
-     */
-    public function restore(User $user, Repository $repository): bool
-    {
-        return false;
-    }
+        $requestId = request()->attributes->get(
+            'request_id',
+        );
 
-    /**
-     * Force deletion is handled only by the internal storage workflow.
-     */
-    public function forceDelete(User $user, Repository $repository): bool
-    {
-        return false;
+        return is_string($requestId)
+            && $requestId !== ''
+                ? $requestId
+                : null;
     }
 }

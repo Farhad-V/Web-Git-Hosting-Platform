@@ -17,13 +17,20 @@ class RepositoryStorageServiceTest extends TestCase
 
     private string $temporaryStorageRoot;
 
+    private string $temporaryOutsideRoot;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->temporaryStorageRoot = sys_get_temp_dir()
             .DIRECTORY_SEPARATOR
-            .'git-hosting-platform-tests-'
+            .'gitforge-storage-tests-'
+            .Str::uuid();
+
+        $this->temporaryOutsideRoot = sys_get_temp_dir()
+            .DIRECTORY_SEPARATOR
+            .'gitforge-storage-outside-tests-'
             .Str::uuid();
 
         config([
@@ -37,12 +44,29 @@ class RepositoryStorageServiceTest extends TestCase
 
     protected function tearDown(): void
     {
+        $repositoriesLink = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'repositories';
+
+        if (is_link($repositoriesLink)) {
+            @unlink($repositoriesLink);
+        }
+
         if (
             isset($this->temporaryStorageRoot)
             && File::isDirectory($this->temporaryStorageRoot)
         ) {
             File::deleteDirectory(
                 $this->temporaryStorageRoot,
+            );
+        }
+
+        if (
+            isset($this->temporaryOutsideRoot)
+            && File::isDirectory($this->temporaryOutsideRoot)
+        ) {
+            File::deleteDirectory(
+                $this->temporaryOutsideRoot,
             );
         }
 
@@ -53,9 +77,13 @@ class RepositoryStorageServiceTest extends TestCase
     {
         $repository = Repository::factory()->create();
 
-        $service = app(RepositoryStorageService::class);
+        $service = app(
+            RepositoryStorageService::class,
+        );
 
-        $path = $service->initialize($repository);
+        $path = $service->initialize(
+            $repository,
+        );
 
         $this->assertTrue(
             File::isDirectory($path),
@@ -86,16 +114,9 @@ class RepositoryStorageServiceTest extends TestCase
         );
 
         $this->assertTrue(
-            $service->exists($repository),
-        );
-
-        $head = File::get(
-            $path.DIRECTORY_SEPARATOR.'HEAD',
-        );
-
-        $this->assertStringContainsString(
-            'refs/heads/main',
-            $head,
+            $service->exists(
+                $repository,
+            ),
         );
     }
 
@@ -103,12 +124,18 @@ class RepositoryStorageServiceTest extends TestCase
     {
         $repository = Repository::factory()->create();
 
-        $service = app(RepositoryStorageService::class);
+        $service = app(
+            RepositoryStorageService::class,
+        );
 
-        $service->initialize($repository);
+        $service->initialize(
+            $repository,
+        );
 
         $this->assertNull(
-            $service->defaultBranch($repository),
+            $service->defaultBranch(
+                $repository,
+            ),
         );
     }
 
@@ -116,8 +143,13 @@ class RepositoryStorageServiceTest extends TestCase
     {
         $repository = Repository::factory()->create();
 
-        $service = app(RepositoryStorageService::class);
-        $git = app(GitCommandRunner::class);
+        $service = app(
+            RepositoryStorageService::class,
+        );
+
+        $git = app(
+            GitCommandRunner::class,
+        );
 
         $bareRepositoryPath = $service->initialize(
             $repository,
@@ -186,95 +218,249 @@ class RepositoryStorageServiceTest extends TestCase
 
         $this->assertSame(
             'main',
-            $service->defaultBranch($repository),
+            $service->defaultBranch(
+                $repository,
+            ),
         );
     }
 
-    public function test_storage_path_uses_immutable_repository_uuid(): void
+    public function test_storage_path_uses_database_repository_id(): void
     {
         $repository = Repository::factory()->create();
 
-        $service = app(RepositoryStorageService::class);
+        $service = app(
+            RepositoryStorageService::class,
+        );
 
         $expectedPath = $this->temporaryStorageRoot
             .DIRECTORY_SEPARATOR
             .'repositories'
             .DIRECTORY_SEPARATOR
-            .$repository->storage_uuid
+            .$repository->id
             .'.git';
 
         $this->assertSame(
             $expectedPath,
-            $service->repositoryPath($repository),
+            $service->pathFor(
+                $repository,
+            ),
+        );
+
+        $this->assertSame(
+            $expectedPath,
+            $service->repositoryPath(
+                $repository,
+            ),
         );
     }
 
-    public function test_it_deletes_managed_repository_storage(): void
+    public function test_repository_name_does_not_affect_physical_storage_path(): void
     {
-        $repository = Repository::factory()->create();
+        $repository = Repository::factory()->create([
+            'name' => 'original-name',
+        ]);
 
-        $service = app(RepositoryStorageService::class);
-
-        $path = $service->initialize($repository);
-
-        $this->assertTrue(
-            File::isDirectory($path),
+        $service = app(
+            RepositoryStorageService::class,
         );
 
-        $service->delete($repository);
-
-        $this->assertFalse(
-            File::exists($path),
+        $originalPath = $service->pathFor(
+            $repository,
         );
 
-        $this->assertFalse(
-            $service->exists($repository),
+        $repository->forceFill([
+            'name' => 'changed-name',
+        ]);
+
+        $this->assertSame(
+            $originalPath,
+            $service->pathFor(
+                $repository,
+            ),
         );
     }
 
-    public function test_deleting_missing_storage_is_idempotent(): void
+    public function test_relative_storage_root_is_rejected(): void
     {
+        config([
+            'git.storage_root' => 'relative/git/storage',
+        ]);
+
         $repository = Repository::factory()->create();
 
-        $service = app(RepositoryStorageService::class);
+        try {
+            app(RepositoryStorageService::class)
+                ->pathFor(
+                    $repository,
+                );
 
-        $service->delete($repository);
-        $service->delete($repository);
+            $this->fail(
+                'A relative repository storage root was accepted.',
+            );
+        } catch (RepositoryStorageException $exception) {
+            $this->assertSame(
+                'resolve-root',
+                $exception->operation,
+            );
+        }
+    }
 
-        $this->assertFalse(
-            $service->exists($repository),
+    public function test_symlinked_repositories_directory_outside_root_is_rejected(): void
+    {
+        File::ensureDirectoryExists(
+            $this->temporaryStorageRoot,
         );
+
+        File::ensureDirectoryExists(
+            $this->temporaryOutsideRoot,
+        );
+
+        $repositoriesLink = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'repositories';
+
+        $linked = @symlink(
+            $this->temporaryOutsideRoot,
+            $repositoriesLink,
+        );
+
+        if (! $linked) {
+            $this->markTestSkipped(
+                'Directory symlinks are unavailable for this PHP process.',
+            );
+        }
+
+        $repository = Repository::factory()->create();
+
+        try {
+            app(RepositoryStorageService::class)
+                ->pathFor(
+                    $repository,
+                );
+
+            $this->fail(
+                'A repositories directory symlink escaping the storage root '
+                .'was accepted.',
+            );
+        } catch (RepositoryStorageException $exception) {
+            $this->assertSame(
+                'path-containment',
+                $exception->operation,
+            );
+        } finally {
+            if (is_link($repositoriesLink)) {
+                @unlink($repositoriesLink);
+            }
+        }
     }
 
     public function test_it_refuses_to_overwrite_existing_storage(): void
     {
         $repository = Repository::factory()->create();
 
-        $service = app(RepositoryStorageService::class);
+        $service = app(
+            RepositoryStorageService::class,
+        );
 
-        $service->initialize($repository);
+        $service->initialize(
+            $repository,
+        );
 
         $this->expectException(
             RepositoryStorageException::class,
         );
 
-        $service->initialize($repository);
+        $service->initialize(
+            $repository,
+        );
     }
 
-    public function test_it_rejects_invalid_storage_uuid(): void
+    public function test_resolve_existing_returns_managed_repository_path(): void
     {
         $repository = Repository::factory()->create();
 
-        $repository->forceFill([
-            'storage_uuid' => '../outside-root',
-        ]);
+        $service = app(
+            RepositoryStorageService::class,
+        );
+
+        $path = $service->initialize(
+            $repository,
+        );
+
+        $this->assertSame(
+            $path,
+            $service->resolveExisting(
+                $repository,
+            ),
+        );
+    }
+
+    public function test_resolve_existing_rejects_missing_storage(): void
+    {
+        $repository = Repository::factory()->create();
 
         $this->expectException(
             RepositoryStorageException::class,
         );
 
         app(RepositoryStorageService::class)
-            ->repositoryPath($repository);
+            ->resolveExisting(
+                $repository,
+            );
+    }
+
+    public function test_cleanup_partial_removes_failed_creation_storage(): void
+    {
+        $repository = Repository::factory()->create();
+
+        $service = app(
+            RepositoryStorageService::class,
+        );
+
+        $path = $service->initialize(
+            $repository,
+        );
+
+        $this->assertTrue(
+            File::isDirectory($path),
+        );
+
+        $service->cleanupPartial(
+            $repository,
+        );
+
+        $this->assertFalse(
+            File::exists($path),
+        );
+
+        $this->assertFalse(
+            $service->exists(
+                $repository,
+            ),
+        );
+    }
+
+    public function test_cleanup_partial_is_idempotent_for_missing_storage(): void
+    {
+        $repository = Repository::factory()->create();
+
+        $service = app(
+            RepositoryStorageService::class,
+        );
+
+        $service->cleanupPartial(
+            $repository,
+        );
+
+        $service->cleanupPartial(
+            $repository,
+        );
+
+        $this->assertFalse(
+            $service->exists(
+                $repository,
+            ),
+        );
     }
 
     public function test_failed_initialization_leaves_no_repository_directory(): void
@@ -285,11 +471,18 @@ class RepositoryStorageServiceTest extends TestCase
 
         $repository = Repository::factory()->create();
 
-        $service = app(RepositoryStorageService::class);
-        $path = $service->repositoryPath($repository);
+        $service = app(
+            RepositoryStorageService::class,
+        );
+
+        $path = $service->pathFor(
+            $repository,
+        );
 
         try {
-            $service->initialize($repository);
+            $service->initialize(
+                $repository,
+            );
 
             $this->fail(
                 'Invalid branch initialization did not fail.',

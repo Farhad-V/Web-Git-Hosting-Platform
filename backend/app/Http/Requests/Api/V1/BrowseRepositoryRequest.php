@@ -8,11 +8,11 @@ use Illuminate\Foundation\Http\FormRequest;
 class BrowseRepositoryRequest extends FormRequest
 {
     /**
-     * Determine whether the user may make this request.
+     * Determine whether the request may proceed to policy authorization.
      */
     public function authorize(): bool
     {
-        return $this->user() !== null;
+        return true;
     }
 
     /**

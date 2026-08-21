@@ -2,41 +2,28 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Models\PersonalAccessToken;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Sanctum\PersonalAccessToken;
 use Tests\TestCase;
 
 class PersonalAccessTokenTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_create_repository_access_token(): void
+    public function test_authenticated_user_can_create_personal_access_token(): void
     {
-        $user = User::factory()->create([
-            'password' => 'StrongPassword!123',
-        ]);
-
-        $sessionToken = $user
-            ->createToken('web', ['api'])
-            ->plainTextToken;
-
-        $expiresAt = now()
-            ->addDays(30)
-            ->startOfSecond();
+        $user = User::factory()->create();
 
         $response = $this
-            ->withToken($sessionToken)
+            ->actingAs(
+                $user,
+                'web',
+            )
             ->postJson(
                 route('api.v1.personal-access-tokens.store'),
                 [
                     'name' => 'Development laptop',
-                    'current_password' => 'StrongPassword!123',
-                    'abilities' => [
-                        'repository:read',
-                        'repository:write',
-                    ],
-                    'expires_at' => $expiresAt->toISOString(),
                 ],
             );
 
@@ -48,11 +35,7 @@ class PersonalAccessTokenTest extends TestCase
                 ),
                 'token' => [
                     'name' => 'Development laptop',
-                    'abilities' => [
-                        'repository:read',
-                        'repository:write',
-                    ],
-                    'is_expired' => false,
+                    'revoked_at' => null,
                 ],
             ])
             ->assertJsonStructure([
@@ -60,11 +43,9 @@ class PersonalAccessTokenTest extends TestCase
                 'token' => [
                     'id',
                     'name',
-                    'abilities',
-                    'last_used_at',
-                    'expires_at',
-                    'is_expired',
+                    'revoked_at',
                     'created_at',
+                    'updated_at',
                 ],
                 'plain_text_token',
             ]);
@@ -73,169 +54,262 @@ class PersonalAccessTokenTest extends TestCase
             'plain_text_token',
         );
 
-        $this->assertIsString($plainTextToken);
-        $this->assertStringContainsString(
-            '|',
+        $this->assertIsString(
+            $plainTextToken,
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/\Agitforge_pat_[0-9a-f]{32}_[0-9a-f]{64}\z/',
             $plainTextToken,
         );
 
         $storedToken = PersonalAccessToken::query()
-            ->where('name', 'Development laptop')
+            ->where(
+                'name',
+                'Development laptop',
+            )
             ->firstOrFail();
 
         $this->assertSame(
-            [
-                'repository:read',
-                'repository:write',
-            ],
-            $storedToken->abilities,
+            32,
+            strlen(
+                $storedToken->token_identifier,
+            ),
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/\A[0-9a-f]{32}\z/',
+            $storedToken->token_identifier,
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/\A[0-9a-f]{64}\z/',
+            $storedToken->token_hash,
         );
 
         $this->assertNotSame(
             $plainTextToken,
-            $storedToken->token,
+            $storedToken->token_hash,
         );
 
-        $this->assertTrue(
-            $storedToken->expires_at->equalTo($expiresAt),
+        $this->assertSame(
+            hash(
+                'sha256',
+                $plainTextToken,
+            ),
+            $storedToken->token_hash,
+        );
+
+        $this->assertNull(
+            $storedToken->revoked_at,
         );
     }
 
-    public function test_user_can_list_only_repository_access_tokens(): void
+    public function test_plaintext_token_is_not_exposed_when_listing_tokens(): void
     {
         $user = User::factory()->create();
 
-        $sessionToken = $user
-            ->createToken('web', ['api'])
-            ->plainTextToken;
-
-        $user->createToken(
-            'Read only',
-            ['repository:read'],
-        );
-
-        $user->createToken(
-            'Read and write',
-            [
-                'repository:read',
-                'repository:write',
-            ],
-        );
+        $user
+            ->personalAccessTokens()
+            ->create([
+                'name' => 'Laptop',
+                'token_identifier' => str_repeat(
+                    'a',
+                    32,
+                ),
+                'token_hash' => str_repeat(
+                    'b',
+                    64,
+                ),
+                'revoked_at' => null,
+            ]);
 
         $response = $this
-            ->withToken($sessionToken)
+            ->actingAs(
+                $user,
+                'web',
+            )
             ->getJson(
                 route('api.v1.personal-access-tokens.index'),
             );
 
         $response
             ->assertOk()
-            ->assertJsonCount(2, 'data')
+            ->assertJsonCount(
+                1,
+                'data',
+            )
             ->assertJsonFragment([
-                'name' => 'Read only',
-                'abilities' => ['repository:read'],
-            ])
-            ->assertJsonFragment([
-                'name' => 'Read and write',
-                'abilities' => [
-                    'repository:read',
-                    'repository:write',
-                ],
-            ])
-            ->assertJsonMissing([
-                'name' => 'web',
+                'name' => 'Laptop',
             ]);
+
+        $token = $response->json(
+            'data.0',
+        );
 
         $this->assertArrayNotHasKey(
             'plain_text_token',
-            $response->json('data.0'),
+            $token,
+        );
+
+        $this->assertArrayNotHasKey(
+            'token_hash',
+            $token,
+        );
+
+        $this->assertArrayNotHasKey(
+            'token_identifier',
+            $token,
         );
     }
 
-    public function test_token_creation_requires_correct_password(): void
+    public function test_user_lists_only_their_own_tokens(): void
     {
-        $user = User::factory()->create([
-            'password' => 'StrongPassword!123',
-        ]);
+        $user = User::factory()->create();
 
-        $sessionToken = $user
-            ->createToken('web', ['api'])
-            ->plainTextToken;
+        $otherUser = User::factory()->create();
 
-        $this
-            ->withToken($sessionToken)
-            ->postJson(
-                route('api.v1.personal-access-tokens.store'),
-                [
-                    'name' => 'Laptop',
-                    'current_password' => 'IncorrectPassword!123',
-                    'abilities' => ['repository:read'],
-                ],
+        $user
+            ->personalAccessTokens()
+            ->create([
+                'name' => 'Owned token',
+                'token_identifier' => str_repeat(
+                    'a',
+                    32,
+                ),
+                'token_hash' => str_repeat(
+                    'b',
+                    64,
+                ),
+                'revoked_at' => null,
+            ]);
+
+        $otherUser
+            ->personalAccessTokens()
+            ->create([
+                'name' => 'Other token',
+                'token_identifier' => str_repeat(
+                    'c',
+                    32,
+                ),
+                'token_hash' => str_repeat(
+                    'd',
+                    64,
+                ),
+                'revoked_at' => null,
+            ]);
+
+        $response = $this
+            ->actingAs(
+                $user,
+                'web',
             )
-            ->assertUnprocessable()
-            ->assertJsonValidationErrors('current_password');
+            ->getJson(
+                route('api.v1.personal-access-tokens.index'),
+            );
 
-        $this->assertDatabaseCount(
-            'personal_access_tokens',
-            1,
-        );
+        $response
+            ->assertOk()
+            ->assertJsonCount(
+                1,
+                'data',
+            )
+            ->assertJsonFragment([
+                'name' => 'Owned token',
+            ])
+            ->assertJsonMissing([
+                'name' => 'Other token',
+            ]);
     }
 
-    public function test_token_creation_rejects_invalid_input(): void
+    public function test_token_creation_requires_valid_name(): void
     {
-        $user = User::factory()->create([
-            'password' => 'StrongPassword!123',
-        ]);
-
-        $sessionToken = $user
-            ->createToken('web', ['api'])
-            ->plainTextToken;
+        $user = User::factory()->create();
 
         $this
-            ->withToken($sessionToken)
+            ->actingAs(
+                $user,
+                'web',
+            )
             ->postJson(
                 route('api.v1.personal-access-tokens.store'),
                 [
                     'name' => '',
-                    'current_password' => 'StrongPassword!123',
-                    'abilities' => ['administrator'],
-                    'expires_at' => now()
-                        ->subDay()
-                        ->toISOString(),
                 ],
             )
             ->assertUnprocessable()
-            ->assertJsonValidationErrors([
+            ->assertJsonValidationErrors(
                 'name',
-                'abilities.0',
-                'expires_at',
-            ]);
+            );
 
         $this->assertDatabaseCount(
             'personal_access_tokens',
-            1,
+            0,
         );
     }
 
-    public function test_user_can_revoke_owned_repository_token(): void
+    public function test_token_name_is_trimmed(): void
     {
         $user = User::factory()->create();
 
-        $sessionToken = $user
-            ->createToken('web', ['api'])
-            ->plainTextToken;
+        $response = $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.personal-access-tokens.store'),
+                [
+                    'name' => '  Development laptop  ',
+                ],
+            );
 
-        $repositoryToken = $user->createToken(
-            'Laptop',
-            ['repository:read'],
-        )->accessToken;
+        $response
+            ->assertCreated()
+            ->assertJsonPath(
+                'token.name',
+                'Development laptop',
+            );
+
+        $this->assertDatabaseHas(
+            'personal_access_tokens',
+            [
+                'user_id' => $user->id,
+                'name' => 'Development laptop',
+            ],
+        );
+    }
+
+    public function test_user_can_revoke_owned_token(): void
+    {
+        $user = User::factory()->create();
+
+        $token = $user
+            ->personalAccessTokens()
+            ->create([
+                'name' => 'Laptop',
+                'token_identifier' => str_repeat(
+                    'a',
+                    32,
+                ),
+                'token_hash' => str_repeat(
+                    'b',
+                    64,
+                ),
+                'revoked_at' => null,
+            ]);
 
         $this
-            ->withToken($sessionToken)
+            ->actingAs(
+                $user,
+                'web',
+            )
             ->deleteJson(
                 route(
                     'api.v1.personal-access-tokens.destroy',
-                    ['token' => $repositoryToken->id],
+                    [
+                        'token' => $token->id,
+                    ],
                 ),
             )
             ->assertOk()
@@ -245,50 +319,110 @@ class PersonalAccessTokenTest extends TestCase
                 ),
             ]);
 
-        $this->assertDatabaseMissing(
-            'personal_access_tokens',
-            [
-                'id' => $repositoryToken->id,
-            ],
+        $token->refresh();
+
+        $this->assertNotNull(
+            $token->revoked_at,
         );
 
         $this->assertDatabaseHas(
             'personal_access_tokens',
             [
-                'name' => 'web',
+                'id' => $token->id,
+                'user_id' => $user->id,
             ],
+        );
+    }
+
+    public function test_revocation_is_idempotent(): void
+    {
+        $user = User::factory()->create();
+
+        $token = $user
+            ->personalAccessTokens()
+            ->create([
+                'name' => 'Laptop',
+                'token_identifier' => str_repeat(
+                    'a',
+                    32,
+                ),
+                'token_hash' => str_repeat(
+                    'b',
+                    64,
+                ),
+                'revoked_at' => now(),
+            ]);
+
+        $originalRevokedAt = $token
+            ->revoked_at
+            ->copy();
+
+        $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->deleteJson(
+                route(
+                    'api.v1.personal-access-tokens.destroy',
+                    [
+                        'token' => $token->id,
+                    ],
+                ),
+            )
+            ->assertOk();
+
+        $token->refresh();
+
+        $this->assertTrue(
+            $token
+                ->revoked_at
+                ->equalTo(
+                    $originalRevokedAt,
+                ),
         );
     }
 
     public function test_user_cannot_revoke_another_users_token(): void
     {
         $user = User::factory()->create();
+
         $otherUser = User::factory()->create();
 
-        $sessionToken = $user
-            ->createToken('web', ['api'])
-            ->plainTextToken;
-
-        $otherToken = $otherUser->createToken(
-            'Other laptop',
-            ['repository:read'],
-        )->accessToken;
+        $otherToken = $otherUser
+            ->personalAccessTokens()
+            ->create([
+                'name' => 'Other laptop',
+                'token_identifier' => str_repeat(
+                    'a',
+                    32,
+                ),
+                'token_hash' => str_repeat(
+                    'b',
+                    64,
+                ),
+                'revoked_at' => null,
+            ]);
 
         $this
-            ->withToken($sessionToken)
+            ->actingAs(
+                $user,
+                'web',
+            )
             ->deleteJson(
                 route(
                     'api.v1.personal-access-tokens.destroy',
-                    ['token' => $otherToken->id],
+                    [
+                        'token' => $otherToken->id,
+                    ],
                 ),
             )
             ->assertNotFound();
 
-        $this->assertDatabaseHas(
-            'personal_access_tokens',
-            [
-                'id' => $otherToken->id,
-            ],
+        $otherToken->refresh();
+
+        $this->assertNull(
+            $otherToken->revoked_at,
         );
     }
 
@@ -303,7 +437,9 @@ class PersonalAccessTokenTest extends TestCase
         $this
             ->postJson(
                 route('api.v1.personal-access-tokens.store'),
-                [],
+                [
+                    'name' => 'Laptop',
+                ],
             )
             ->assertUnauthorized();
 
@@ -311,7 +447,9 @@ class PersonalAccessTokenTest extends TestCase
             ->deleteJson(
                 route(
                     'api.v1.personal-access-tokens.destroy',
-                    ['token' => 1],
+                    [
+                        'token' => 1,
+                    ],
                 ),
             )
             ->assertUnauthorized();

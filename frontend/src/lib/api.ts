@@ -1,7 +1,21 @@
 import axios from 'axios'
-import { getAccessToken } from './auth-storage'
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? '/api/v1'
+interface CsrfTokenResponse {
+  csrf_token: string
+}
+
+const apiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL
+  ?? '/api/v1'
+
+const csrfClient = axios.create({
+  baseURL: apiBaseUrl,
+  headers: {
+    Accept: 'application/json',
+  },
+  timeout: 15_000,
+  withCredentials: true,
+})
 
 export const apiClient = axios.create({
   baseURL: apiBaseUrl,
@@ -10,14 +24,36 @@ export const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
   timeout: 15_000,
+  withCredentials: true,
 })
 
-apiClient.interceptors.request.use((config) => {
-  const accessToken = getAccessToken()
+apiClient.interceptors.request.use(
+  async (config) => {
+    const method =
+      config.method?.toLowerCase()
+      ?? 'get'
 
-  if (accessToken !== null) {
-    config.headers.set('Authorization', `Bearer ${accessToken}`)
-  }
+    const requiresCsrf = [
+      'post',
+      'put',
+      'patch',
+      'delete',
+    ].includes(method)
 
-  return config
-})
+    if (!requiresCsrf) {
+      return config
+    }
+
+    const response =
+      await csrfClient.get<CsrfTokenResponse>(
+        '/auth/csrf-token',
+      )
+
+    config.headers.set(
+      'X-CSRF-TOKEN',
+      response.data.csrf_token,
+    )
+
+    return config
+  },
+)

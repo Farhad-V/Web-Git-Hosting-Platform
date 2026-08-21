@@ -8,7 +8,6 @@ import {
   AlertTriangle,
   ArrowLeft,
   CalendarDays,
-  Clock3,
   GitBranch,
   KeyRound,
   LoaderCircle,
@@ -28,71 +27,115 @@ import type { PersonalAccessToken } from '../../types/personal-access-token'
 import { CreatePersonalAccessTokenDialog } from './CreatePersonalAccessTokenDialog'
 import { personalAccessTokenQueryKeys } from './personal-access-token-query-keys'
 
-function formatDate(value: string | null): string {
-  if (value === null) {
-    return 'Never'
-  }
-
-  const date = new Date(value)
-
-  if (Number.isNaN(date.getTime())) {
+function formatDate(
+  value: string | null,
+): string {
+  if (
+    value === null
+  ) {
     return 'Unknown'
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  }).format(date)
-}
+  const date =
+    new Date(value)
 
-function permissionLabel(token: PersonalAccessToken): string {
-  return token.abilities.includes('repository:write')
-    ? 'Read and write'
-    : 'Read only'
+  if (
+    Number.isNaN(
+      date.getTime(),
+    )
+  ) {
+    return 'Unknown'
+  }
+
+  return new Intl.DateTimeFormat(
+    undefined,
+    {
+      dateStyle:
+        'medium',
+      timeStyle:
+        'short',
+    },
+  ).format(date)
 }
 
 export function PersonalAccessTokensPage() {
-  const queryClient = useQueryClient()
+  const queryClient =
+    useQueryClient()
 
-  const [isCreateDialogOpen, setIsCreateDialogOpen] =
-    useState(false)
-  const [tokenToRevoke, setTokenToRevoke] =
-    useState<PersonalAccessToken | null>(null)
+  const [
+    isCreateDialogOpen,
+    setIsCreateDialogOpen,
+  ] = useState(false)
 
-  const tokensQuery = useQuery({
-    queryKey: personalAccessTokenQueryKeys.list(),
-    queryFn: getPersonalAccessTokens,
-  })
+  const [
+    tokenToRevoke,
+    setTokenToRevoke,
+  ] = useState<PersonalAccessToken | null>(
+    null,
+  )
 
-  const revokeMutation = useMutation({
-    mutationFn: revokePersonalAccessToken,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: personalAccessTokenQueryKeys.all,
-      })
+  const tokensQuery =
+    useQuery({
+      queryKey:
+        personalAccessTokenQueryKeys.list(),
 
-      setTokenToRevoke(null)
-    },
-  })
+      queryFn:
+        getPersonalAccessTokens,
+    })
 
-  const tokens = tokensQuery.data?.data ?? []
+  const revokeMutation =
+    useMutation({
+      mutationFn:
+        revokePersonalAccessToken,
+
+      onSuccess:
+        async () => {
+          await queryClient.invalidateQueries({
+            queryKey:
+              personalAccessTokenQueryKeys.all,
+          })
+
+          setTokenToRevoke(
+            null,
+          )
+        },
+    })
+
+  const tokens =
+    tokensQuery.data
+      ?.data
+    ?? []
+
+  const activeTokens =
+    tokens.filter(
+      (token) =>
+        token.revoked_at ===
+        null,
+    )
 
   async function confirmRevocation(): Promise<void> {
-    if (tokenToRevoke === null) {
+    if (
+      tokenToRevoke ===
+      null
+    ) {
       return
     }
 
     revokeMutation.reset()
 
     try {
-      await revokeMutation.mutateAsync(tokenToRevoke.id)
+      await revokeMutation.mutateAsync(
+        tokenToRevoke.id,
+      )
     } catch {
-      // The mutation error is rendered in the confirmation dialog.
+      // Mutation error is rendered in the confirmation dialog.
     }
   }
 
   function closeRevokeDialog(): void {
-    if (revokeMutation.isPending) {
+    if (
+      revokeMutation.isPending
+    ) {
       return
     }
 
@@ -109,7 +152,10 @@ export function PersonalAccessTokensPage() {
             to="/dashboard"
           >
             <span className="grid size-9 place-items-center rounded-lg bg-blue-600">
-              <GitBranch aria-hidden="true" className="size-5" />
+              <GitBranch
+                aria-hidden="true"
+                className="size-5"
+              />
             </span>
 
             GitForge
@@ -124,16 +170,28 @@ export function PersonalAccessTokensPage() {
             className="hidden items-center gap-2 text-sm text-slate-400 transition hover:text-white sm:inline-flex"
             to="/dashboard"
           >
-            <ArrowLeft aria-hidden="true" className="size-4" />
+            <ArrowLeft
+              aria-hidden="true"
+              className="size-4"
+            />
+
             Dashboard
           </Link>
 
           <button
             className="ml-auto inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500"
-            onClick={() => setIsCreateDialogOpen(true)}
+            onClick={() =>
+              setIsCreateDialogOpen(
+                true,
+              )
+            }
             type="button"
           >
-            <Plus aria-hidden="true" className="size-4" />
+            <Plus
+              aria-hidden="true"
+              className="size-4"
+            />
+
             New token
           </button>
         </div>
@@ -150,9 +208,9 @@ export function PersonalAccessTokensPage() {
           </h1>
 
           <p className="mt-3 max-w-3xl leading-7 text-slate-400">
-            Create scoped credentials for Git clone, fetch, and push
-            operations. Tokens are separate from your browser session
-            and can be revoked independently.
+            Create credentials for Git Smart HTTP authentication.
+            Tokens are separate from your browser session and can be
+            revoked independently.
           </p>
         </section>
 
@@ -172,13 +230,13 @@ export function PersonalAccessTokensPage() {
               className="font-semibold text-white"
               id="token-security-title"
             >
-              Use tokens instead of your account password
+              Use a PAT for Git authentication
             </h2>
 
             <p className="mt-1 text-sm leading-6 text-slate-400">
-              Enter your username as the Git HTTP username and the
-              generated token as the password. Store tokens in a secure
-              credential manager.
+              Enter your GitForge username as the Git HTTP username and
+              the generated token as the password. Repository
+              authorization is enforced separately from the credential.
             </p>
           </div>
         </section>
@@ -187,27 +245,36 @@ export function PersonalAccessTokensPage() {
           <header className="flex items-center justify-between border-b border-white/10 px-6 py-5">
             <div>
               <h2 className="font-semibold text-white">
-                Repository access tokens
+                Personal access tokens
               </h2>
 
               <p className="mt-1 text-sm text-slate-500">
-                {tokens.length === 1
-                  ? '1 active or historical token'
-                  : `${tokens.length} active or historical tokens`}
+                {activeTokens.length ===
+                1
+                  ? '1 active token'
+                  : `${activeTokens.length} active tokens`}
+                {' · '}
+                {tokens.length} total
               </p>
             </div>
 
             <button
               aria-label="Refresh tokens"
               className="rounded-lg p-2 text-slate-500 transition hover:bg-white/5 hover:text-white disabled:opacity-50"
-              disabled={tokensQuery.isFetching}
-              onClick={() => tokensQuery.refetch()}
+              disabled={
+                tokensQuery.isFetching
+              }
+              onClick={() =>
+                tokensQuery.refetch()
+              }
               type="button"
             >
               <RefreshCw
                 aria-hidden="true"
                 className={`size-5 ${
-                  tokensQuery.isFetching ? 'animate-spin' : ''
+                  tokensQuery.isFetching
+                    ? 'animate-spin'
+                    : ''
                 }`}
               />
             </button>
@@ -250,13 +317,16 @@ export function PersonalAccessTokensPage() {
 
                 <button
                   className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-200 transition hover:bg-white/5"
-                  onClick={() => tokensQuery.refetch()}
+                  onClick={() =>
+                    tokensQuery.refetch()
+                  }
                   type="button"
                 >
                   <RefreshCw
                     aria-hidden="true"
                     className="size-4"
                   />
+
                   Try again
                 </button>
               </div>
@@ -272,116 +342,164 @@ export function PersonalAccessTokensPage() {
                 </span>
 
                 <h3 className="mt-5 font-semibold text-white">
-                  No repository access tokens
+                  No personal access tokens
                 </h3>
 
                 <p className="mt-2 text-sm leading-6 text-slate-500">
-                  Create a token before cloning or pushing a private
-                  repository over HTTP.
+                  Create a token before authenticating Git operations
+                  against a private repository or pushing changes.
                 </p>
 
                 <button
                   className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500"
-                  onClick={() => setIsCreateDialogOpen(true)}
+                  onClick={() =>
+                    setIsCreateDialogOpen(
+                      true,
+                    )
+                  }
                   type="button"
                 >
-                  <Plus aria-hidden="true" className="size-4" />
+                  <Plus
+                    aria-hidden="true"
+                    className="size-4"
+                  />
+
                   Create your first token
                 </button>
               </div>
             </div>
           ) : (
             <ul className="divide-y divide-white/10">
-              {tokens.map((token) => (
-                <li
-                  className="flex flex-col gap-5 px-6 py-5 sm:flex-row sm:items-center"
-                  key={token.id}
-                >
-                  <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-blue-300">
-                    <KeyRound
-                      aria-hidden="true"
-                      className="size-5"
-                    />
-                  </span>
+              {tokens.map(
+                (token) => {
+                  const isRevoked =
+                    token.revoked_at !==
+                    null
 
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="truncate font-semibold text-white">
-                        {token.name}
-                      </h3>
-
-                      <span className="rounded-full border border-white/10 px-2 py-0.5 text-xs text-slate-400">
-                        {permissionLabel(token)}
+                  return (
+                    <li
+                      className="flex flex-col gap-5 px-6 py-5 sm:flex-row sm:items-center"
+                      key={
+                        token.id
+                      }
+                    >
+                      <span
+                        className={
+                          isRevoked
+                            ? 'grid size-11 shrink-0 place-items-center rounded-lg bg-red-500/10 text-red-300'
+                            : 'grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-blue-300'
+                        }
+                      >
+                        <KeyRound
+                          aria-hidden="true"
+                          className="size-5"
+                        />
                       </span>
 
-                      {token.is_expired && (
-                        <span className="rounded-full border border-red-400/20 bg-red-500/10 px-2 py-0.5 text-xs text-red-300">
-                          Expired
-                        </span>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="truncate font-semibold text-white">
+                            {
+                              token.name
+                            }
+                          </h3>
+
+                          <span
+                            className={
+                              isRevoked
+                                ? 'rounded-full border border-red-400/20 bg-red-500/10 px-2 py-0.5 text-xs text-red-300'
+                                : 'rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-300'
+                            }
+                          >
+                            {isRevoked
+                              ? 'Revoked'
+                              : 'Active'}
+                          </span>
+                        </div>
+
+                        <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-500">
+                          <div className="flex items-center gap-1.5">
+                            <CalendarDays
+                              aria-hidden="true"
+                              className="size-3.5"
+                            />
+
+                            <dt className="sr-only">
+                              Created
+                            </dt>
+
+                            <dd>
+                              Created{' '}
+                              {formatDate(
+                                token.created_at,
+                              )}
+                            </dd>
+                          </div>
+
+                          {token.revoked_at !==
+                            null && (
+                            <div className="flex items-center gap-1.5">
+                              <CalendarDays
+                                aria-hidden="true"
+                                className="size-3.5"
+                              />
+
+                              <dt className="sr-only">
+                                Revoked
+                              </dt>
+
+                              <dd>
+                                Revoked{' '}
+                                {formatDate(
+                                  token.revoked_at,
+                                )}
+                              </dd>
+                            </div>
+                          )}
+                        </dl>
+                      </div>
+
+                      {!isRevoked && (
+                        <button
+                          className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-red-400/20 px-3 text-sm font-medium text-red-300 transition hover:bg-red-500/10"
+                          onClick={() => {
+                            revokeMutation.reset()
+
+                            setTokenToRevoke(
+                              token,
+                            )
+                          }}
+                          type="button"
+                        >
+                          <Trash2
+                            aria-hidden="true"
+                            className="size-4"
+                          />
+
+                          Revoke
+                        </button>
                       )}
-                    </div>
-
-                    <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-500">
-                      <div className="flex items-center gap-1.5">
-                        <CalendarDays
-                          aria-hidden="true"
-                          className="size-3.5"
-                        />
-                        <dt className="sr-only">Created</dt>
-                        <dd>
-                          Created {formatDate(token.created_at)}
-                        </dd>
-                      </div>
-
-                      <div className="flex items-center gap-1.5">
-                        <Clock3
-                          aria-hidden="true"
-                          className="size-3.5"
-                        />
-                        <dt className="sr-only">Last used</dt>
-                        <dd>
-                          Last used {formatDate(token.last_used_at)}
-                        </dd>
-                      </div>
-
-                      <div className="flex items-center gap-1.5">
-                        <CalendarDays
-                          aria-hidden="true"
-                          className="size-3.5"
-                        />
-                        <dt className="sr-only">Expires</dt>
-                        <dd>
-                          Expires {formatDate(token.expires_at)}
-                        </dd>
-                      </div>
-                    </dl>
-                  </div>
-
-                  <button
-                    className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-red-400/20 px-3 text-sm font-medium text-red-300 transition hover:bg-red-500/10"
-                    onClick={() => {
-                      revokeMutation.reset()
-                      setTokenToRevoke(token)
-                    }}
-                    type="button"
-                  >
-                    <Trash2
-                      aria-hidden="true"
-                      className="size-4"
-                    />
-                    Revoke
-                  </button>
-                </li>
-              ))}
+                    </li>
+                  )
+                },
+              )}
             </ul>
           )}
         </section>
       </main>
 
       <CreatePersonalAccessTokenDialog
-        isOpen={isCreateDialogOpen}
-        onClose={() => setIsCreateDialogOpen(false)}
-        onCreated={() => undefined}
+        isOpen={
+          isCreateDialogOpen
+        }
+        onClose={() =>
+          setIsCreateDialogOpen(
+            false,
+          )
+        }
+        onCreated={() =>
+          undefined
+        }
       />
 
       {tokenToRevoke !== null && (
@@ -394,8 +512,12 @@ export function PersonalAccessTokensPage() {
           <button
             aria-label="Close revoke token dialog"
             className="absolute inset-0 cursor-default"
-            disabled={revokeMutation.isPending}
-            onClick={closeRevokeDialog}
+            disabled={
+              revokeMutation.isPending
+            }
+            onClick={
+              closeRevokeDialog
+            }
             type="button"
           />
 
@@ -417,11 +539,18 @@ export function PersonalAccessTokensPage() {
               <button
                 aria-label="Close"
                 className="rounded-lg p-2 text-slate-500 transition hover:bg-white/5 hover:text-white disabled:opacity-50"
-                disabled={revokeMutation.isPending}
-                onClick={closeRevokeDialog}
+                disabled={
+                  revokeMutation.isPending
+                }
+                onClick={
+                  closeRevokeDialog
+                }
                 type="button"
               >
-                <X aria-hidden="true" className="size-5" />
+                <X
+                  aria-hidden="true"
+                  className="size-5"
+                />
               </button>
             </header>
 
@@ -433,9 +562,13 @@ export function PersonalAccessTokensPage() {
                 />
 
                 <p className="text-sm leading-6 text-red-200">
-                  Git operations using{' '}
-                  <strong>{tokenToRevoke.name}</strong> will stop
-                  working. This action cannot be undone.
+                  Git authentication using{' '}
+                  <strong>
+                    {
+                      tokenToRevoke.name
+                    }
+                  </strong>{' '}
+                  will stop working. The token cannot be reactivated.
                 </p>
               </div>
 
@@ -454,8 +587,12 @@ export function PersonalAccessTokensPage() {
               <div className="flex flex-col-reverse gap-3 border-t border-white/10 pt-5 sm:flex-row sm:justify-end">
                 <button
                   className="inline-flex h-10 items-center justify-center rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-300 transition hover:bg-white/5 disabled:opacity-50"
-                  disabled={revokeMutation.isPending}
-                  onClick={closeRevokeDialog}
+                  disabled={
+                    revokeMutation.isPending
+                  }
+                  onClick={
+                    closeRevokeDialog
+                  }
                   type="button"
                 >
                   Cancel
@@ -463,8 +600,12 @@ export function PersonalAccessTokensPage() {
 
                 <button
                   className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-red-600 px-4 text-sm font-semibold text-white transition hover:bg-red-500 disabled:opacity-60"
-                  disabled={revokeMutation.isPending}
-                  onClick={confirmRevocation}
+                  disabled={
+                    revokeMutation.isPending
+                  }
+                  onClick={
+                    confirmRevocation
+                  }
                   type="button"
                 >
                   {revokeMutation.isPending ? (

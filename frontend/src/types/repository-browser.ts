@@ -28,9 +28,27 @@ export interface RepositoryCommitsResponse {
   branch: string
 }
 
+export interface RepositoryCommitDetails {
+  id: string
+  tree: string
+  parents: string[]
+  author_name: string
+  author_email: string
+  authored_at: string
+  committer_name: string
+  committer_email: string
+  committed_at: string
+  message: string
+}
+
+export interface RepositoryCommitDetailsResponse {
+  commit: RepositoryCommitDetails
+}
+
 export type RepositoryTreeEntryType =
   | 'directory'
   | 'file'
+  | 'submodule'
 
 export interface RepositoryTreeEntry {
   name: string

@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 import {
   BookOpen,
   Globe2,
@@ -8,7 +11,7 @@ import {
   LockKeyhole,
   X,
 } from 'lucide-react'
-import { useForm, useWatch } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import {
   getApiErrorMessage,
@@ -21,40 +24,46 @@ import type {
 } from '../../types/repository'
 import { repositoryQueryKeys } from './repository-query-keys'
 
-const repositoryNamePattern = /^[A-Za-z0-9][A-Za-z0-9._-]*$/
+const repositoryNamePattern =
+  /^[a-z0-9](?:[a-z0-9._-]{0,98}[a-z0-9])?$/
 
 const createRepositorySchema = z.object({
   name: z
     .string()
     .trim()
-    .min(1, 'Repository name is required.')
-    .max(100, 'Repository name cannot exceed 100 characters.')
+    .toLowerCase()
+    .min(
+      1,
+      'Repository name is required.',
+    )
+    .max(
+      100,
+      'Repository name cannot exceed 100 characters.',
+    )
     .regex(
       repositoryNamePattern,
-      'Start with a letter or number and use only letters, numbers, dots, underscores, and hyphens.',
+      'Use lowercase letters, numbers, dots, underscores, and hyphens.',
     )
     .refine(
-      (name) => name !== '.' && name !== '..',
-      'This repository name is not allowed.',
-    )
-    .refine(
-      (name) => !name.toLowerCase().endsWith('.git'),
-      'Repository names cannot end with .git.',
+      (name) => !name.includes('..'),
+      'Repository names cannot contain consecutive dots.',
     ),
-  description: z
-    .string()
-    .max(2000, 'Description cannot exceed 2,000 characters.'),
-  visibility: z.enum(['private', 'public']),
+
+  visibility: z.enum([
+    'private',
+    'public',
+  ]),
 })
 
-type CreateRepositoryFormValues = z.infer<
-  typeof createRepositorySchema
->
+type CreateRepositoryFormValues =
+  z.infer<typeof createRepositorySchema>
 
 interface CreateRepositoryDialogProps {
   isOpen: boolean
   onClose: () => void
-  onCreated: (repository: Repository) => void
+  onCreated: (
+    repository: Repository,
+  ) => void
 }
 
 const inputClassName =
@@ -65,51 +74,63 @@ export function CreateRepositoryDialog({
   onClose,
   onCreated,
 }: CreateRepositoryDialogProps) {
-  const queryClient = useQueryClient()
+  const queryClient =
+    useQueryClient()
 
   const {
     clearErrors,
-    control,
-    formState: { errors },
+    formState: {
+      errors,
+    },
     handleSubmit,
     register,
     reset,
     setError,
   } = useForm<CreateRepositoryFormValues>({
-    resolver: zodResolver(createRepositorySchema),
+    resolver:
+      zodResolver(
+        createRepositorySchema,
+      ),
+
     defaultValues: {
       name: '',
-      description: '',
       visibility: 'private',
     },
   })
 
-  const description =
-    useWatch({
-      control,
-      name: 'description',
-    }) ?? ''
-
-  const createMutation = useMutation({
-    mutationFn: (input: CreateRepositoryInput) =>
-      createRepository(input),
-  })
+  const createMutation =
+    useMutation({
+      mutationFn:
+        (input: CreateRepositoryInput) =>
+          createRepository(input),
+    })
 
   useEffect(() => {
     if (!isOpen) {
       return
     }
 
-    function closeOnEscape(event: KeyboardEvent): void {
-      if (event.key === 'Escape' && !createMutation.isPending) {
+    function closeOnEscape(
+      event: KeyboardEvent,
+    ): void {
+      if (
+        event.key === 'Escape'
+        && !createMutation.isPending
+      ) {
         closeDialog()
       }
     }
 
-    window.addEventListener('keydown', closeOnEscape)
+    window.addEventListener(
+      'keydown',
+      closeOnEscape,
+    )
 
     return () => {
-      window.removeEventListener('keydown', closeOnEscape)
+      window.removeEventListener(
+        'keydown',
+        closeOnEscape,
+      )
     }
   })
 
@@ -118,7 +139,9 @@ export function CreateRepositoryDialog({
   }
 
   function closeDialog(): void {
-    if (createMutation.isPending) {
+    if (
+      createMutation.isPending
+    ) {
       return
     }
 
@@ -133,69 +156,79 @@ export function CreateRepositoryDialog({
   ): Promise<void> {
     createMutation.reset()
 
-    const descriptionValue = values.description.trim()
-
-    const input: CreateRepositoryInput = {
-      name: values.name.trim(),
-      description:
-        descriptionValue === ''
-          ? null
-          : descriptionValue,
-      visibility: values.visibility,
-    }
-
     try {
-      const response = await createMutation.mutateAsync(input)
+      const response =
+        await createMutation.mutateAsync({
+          name:
+            values.name
+              .trim()
+              .toLowerCase(),
+
+          visibility:
+            values.visibility,
+        })
 
       await queryClient.invalidateQueries({
-        queryKey: repositoryQueryKeys.lists(),
+        queryKey:
+          repositoryQueryKeys.lists(),
       })
 
       reset()
-      onCreated(response.repository)
+
+      onCreated(
+        response.repository,
+      )
     } catch (error) {
-      const validationErrors = getValidationErrors(error)
+      const validationErrors =
+        getValidationErrors(
+          error,
+        )
 
       const nameError =
         validationErrors.name?.[0]
-        ?? validationErrors.slug?.[0]
-
-      const descriptionError =
-        validationErrors.description?.[0]
 
       const visibilityError =
         validationErrors.visibility?.[0]
 
-      if (nameError !== undefined) {
-        setError('name', {
-          type: 'server',
-          message: nameError,
-        })
+      if (
+        nameError !== undefined
+      ) {
+        setError(
+          'name',
+          {
+            type: 'server',
+            message: nameError,
+          },
+        )
       }
 
-      if (descriptionError !== undefined) {
-        setError('description', {
-          type: 'server',
-          message: descriptionError,
-        })
-      }
-
-      if (visibilityError !== undefined) {
-        setError('visibility', {
-          type: 'server',
-          message: visibilityError,
-        })
+      if (
+        visibilityError !== undefined
+      ) {
+        setError(
+          'visibility',
+          {
+            type: 'server',
+            message:
+              visibilityError,
+          },
+        )
       }
     }
   }
 
-  const validationErrors = createMutation.isError
-    ? getValidationErrors(createMutation.error)
-    : {}
+  const validationErrors =
+    createMutation.isError
+      ? getValidationErrors(
+          createMutation.error,
+        )
+      : {}
 
   const hasGeneralError =
     createMutation.isError
-    && Object.keys(validationErrors).length === 0
+    && Object.keys(
+      validationErrors,
+    ).length === 0
 
   return (
     <div
@@ -207,8 +240,12 @@ export function CreateRepositoryDialog({
       <button
         aria-label="Close create repository dialog"
         className="absolute inset-0 cursor-default"
-        disabled={createMutation.isPending}
-        onClick={closeDialog}
+        disabled={
+          createMutation.isPending
+        }
+        onClick={
+          closeDialog
+        }
         type="button"
       />
 
@@ -223,25 +260,37 @@ export function CreateRepositoryDialog({
             </h2>
 
             <p className="mt-1 text-sm text-slate-400">
-              Repository storage will be initialized automatically.
+              GitForge creates the repository metadata and managed bare
+              Git storage together.
             </p>
           </div>
 
           <button
             aria-label="Close"
             className="rounded-lg p-2 text-slate-500 transition hover:bg-white/5 hover:text-white disabled:opacity-50"
-            disabled={createMutation.isPending}
-            onClick={closeDialog}
+            disabled={
+              createMutation.isPending
+            }
+            onClick={
+              closeDialog
+            }
             type="button"
           >
-            <X aria-hidden="true" className="size-5" />
+            <X
+              aria-hidden="true"
+              className="size-5"
+            />
           </button>
         </header>
 
         <form
           className="space-y-6 p-6"
           noValidate
-          onSubmit={handleSubmit(submit)}
+          onSubmit={
+            handleSubmit(
+              submit,
+            )
+          }
         >
           {hasGeneralError && (
             <div
@@ -269,70 +318,53 @@ export function CreateRepositoryDialog({
                   ? 'repository-name-error'
                   : 'repository-name-help'
               }
-              aria-invalid={errors.name ? 'true' : 'false'}
+              aria-invalid={
+                errors.name
+                  ? 'true'
+                  : 'false'
+              }
               autoComplete="off"
               autoFocus
-              className={inputClassName}
+              className={
+                inputClassName
+              }
               id="repository-name"
               placeholder="my-project"
               spellCheck="false"
               type="text"
-              {...register('name')}
+              {...register(
+                'name',
+                {
+                  setValueAs:
+                    (
+                      value: string,
+                    ) =>
+                      value
+                        .trim()
+                        .toLowerCase(),
+                },
+              )}
             />
 
-            {errors.name?.message !== undefined ? (
+            {errors.name
+              ?.message !==
+            undefined ? (
               <p
                 className="mt-2 text-sm text-red-400"
                 id="repository-name-error"
               >
-                {errors.name.message}
+                {
+                  errors.name
+                    .message
+                }
               </p>
             ) : (
               <p
                 className="mt-2 text-xs text-slate-500"
                 id="repository-name-help"
               >
-                The URL-safe repository slug is generated automatically.
-              </p>
-            )}
-          </div>
-
-          <div>
-            <div className="mb-2 flex items-center justify-between">
-              <label
-                className="block text-sm font-medium text-slate-200"
-                htmlFor="repository-description"
-              >
-                Description
-                <span className="ml-1 text-slate-500">
-                  (optional)
-                </span>
-              </label>
-
-              <span className="text-xs text-slate-500">
-                {description.length}/2000
-              </span>
-            </div>
-
-            <textarea
-              aria-describedby={
-                errors.description
-                  ? 'repository-description-error'
-                  : undefined
-              }
-              aria-invalid={errors.description ? 'true' : 'false'}
-              className="min-h-28 w-full resize-y rounded-lg border border-white/10 bg-[#0d1117] px-3 py-2.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-              id="repository-description"
-              placeholder="What is this repository for?"
-              {...register('description')}
-            />
-
-            {errors.description?.message !== undefined && (
-              <p
-                className="mt-2 text-sm text-red-400"
-                id="repository-description-error"
-              >
-                {errors.description.message}
+                Names are normalized to lowercase and must be unique
+                inside your username namespace.
               </p>
             )}
           </div>
@@ -348,7 +380,9 @@ export function CreateRepositoryDialog({
                   className="peer sr-only"
                   type="radio"
                   value="private"
-                  {...register('visibility')}
+                  {...register(
+                    'visibility',
+                  )}
                 />
 
                 <span className="flex h-full gap-3 rounded-xl border border-white/10 bg-[#0d1117] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
@@ -363,7 +397,7 @@ export function CreateRepositoryDialog({
                     </span>
 
                     <span className="mt-1 block text-xs leading-5 text-slate-500">
-                      Only you can view and manage this repository.
+                      Only the repository owner may read or manage it.
                     </span>
                   </span>
                 </span>
@@ -374,7 +408,9 @@ export function CreateRepositoryDialog({
                   className="peer sr-only"
                   type="radio"
                   value="public"
-                  {...register('visibility')}
+                  {...register(
+                    'visibility',
+                  )}
                 />
 
                 <span className="flex h-full gap-3 rounded-xl border border-white/10 bg-[#0d1117] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
@@ -389,33 +425,33 @@ export function CreateRepositoryDialog({
                     </span>
 
                     <span className="mt-1 block text-xs leading-5 text-slate-500">
-                      Any authenticated user can discover and view it.
+                      Anyone may view and clone the repository.
                     </span>
                   </span>
                 </span>
               </label>
             </div>
-
-            {errors.visibility?.message !== undefined && (
-              <p className="mt-2 text-sm text-red-400">
-                {errors.visibility.message}
-              </p>
-            )}
           </fieldset>
 
           <div className="flex flex-col-reverse gap-3 border-t border-white/10 pt-5 sm:flex-row sm:justify-end">
             <button
-              className="inline-flex h-10 items-center justify-center rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-300 transition hover:bg-white/5 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={createMutation.isPending}
-              onClick={closeDialog}
+              className="inline-flex h-10 items-center justify-center rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-300 transition hover:bg-white/5 hover:text-white"
+              disabled={
+                createMutation.isPending
+              }
+              onClick={
+                closeDialog
+              }
               type="button"
             >
               Cancel
             </button>
 
             <button
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
-              disabled={createMutation.isPending}
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:opacity-60"
+              disabled={
+                createMutation.isPending
+              }
               type="submit"
             >
               {createMutation.isPending ? (

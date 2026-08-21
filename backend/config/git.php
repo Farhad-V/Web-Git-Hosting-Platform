@@ -6,12 +6,15 @@ return [
     | Git Executable
     |--------------------------------------------------------------------------
     |
-    | Use only a configured executable. Commands are passed as argument arrays,
-    | never concatenated into shell command strings.
+    | GitForge invokes only a configured Git executable. Commands must be
+    | supplied as structured argument arrays and must not pass through a shell.
     |
     */
 
-    'binary' => env('GIT_BINARY', 'git'),
+    'binary' => env(
+        'GITFORGE_GIT_BINARY',
+        'git',
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -33,10 +36,6 @@ return [
     |--------------------------------------------------------------------------
     | Repository Browser Limits
     |--------------------------------------------------------------------------
-    |
-    | Repository files larger than this value are not returned through the
-    | JSON browsing API. Git clone and fetch operations are unaffected.
-    |
     */
 
     'browser_max_blob_bytes' => (int) env(
@@ -46,19 +45,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Managed Storage
+    | Repository Storage
     |--------------------------------------------------------------------------
     |
-    | Production:
-    | /var/lib/git-host/repositories/{repository-uuid}.git
+    | Application metadata uses PostgreSQL repository IDs.
     |
-    | Local default:
-    | storage/app/git/repositories/{repository-uuid}.git
+    | Physical repository mapping:
+    |
+    | <storage-root>/repositories/<repository-id>.git
+    |
+    | Logical owner/repository namespaces are never authoritative filesystem
+    | paths.
     |
     */
 
     'storage_root' => env(
-        'GIT_STORAGE_ROOT',
+        'GITFORGE_REPOSITORY_ROOT',
         storage_path('app/git'),
     ),
 

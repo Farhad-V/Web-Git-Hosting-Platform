@@ -20,28 +20,53 @@ import { getApiErrorMessage } from '../../lib/api-errors'
 import {
   getRepositoryBlob,
   getRepositoryBranches,
+  getRepositoryCommit,
   getRepositoryCommits,
   getRepositoryTree,
 } from '../../services/repository-browser-service'
 import type { Repository } from '../../types/repository'
+import type {
+  RepositoryCommitDetails,
+  RepositoryTreeEntry,
+} from '../../types/repository-browser'
 import { repositoryQueryKeys } from './repository-query-keys'
 
 interface RepositoryBrowserProps {
   repository: Repository
 }
 
-function formatDate(value: string | null): string {
+function formatDate(
+  value: string | null,
+): string {
   if (value === null) {
     return 'Unknown'
   }
 
-  return new Intl.DateTimeFormat('en', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  }).format(new Date(value))
+  const date =
+    new Date(value)
+
+  if (
+    Number.isNaN(
+      date.getTime(),
+    )
+  ) {
+    return 'Unknown'
+  }
+
+  return new Intl.DateTimeFormat(
+    'en',
+    {
+      dateStyle:
+        'medium',
+      timeStyle:
+        'short',
+    },
+  ).format(date)
 }
 
-function formatFileSize(value: number | null): string {
+function formatFileSize(
+  value: number | null,
+): string {
   if (value === null) {
     return '—'
   }
@@ -50,131 +75,335 @@ function formatFileSize(value: number | null): string {
     return `${value} B`
   }
 
-  if (value < 1024 * 1024) {
-    return `${(value / 1024).toFixed(1)} KB`
+  if (
+    value <
+    1024 * 1024
+  ) {
+    return `${(
+      value / 1024
+    ).toFixed(1)} KB`
   }
 
-  return `${(value / (1024 * 1024)).toFixed(1)} MB`
+  return `${(
+    value /
+    (1024 * 1024)
+  ).toFixed(1)} MB`
 }
 
-function shortHash(value: string): string {
-  return value.slice(0, 7)
+function shortHash(
+  value: string,
+): string {
+  return value.slice(
+    0,
+    7,
+  )
 }
 
 export function RepositoryBrowser({
   repository,
 }: RepositoryBrowserProps) {
-  const queryClient = useQueryClient()
+  const queryClient =
+    useQueryClient()
 
-  const [branch, setBranch] = useState(
-    repository.default_branch ?? '',
+  const [
+    branch,
+    setBranch,
+  ] = useState('')
+
+  const [
+    currentPath,
+    setCurrentPath,
+  ] = useState('')
+
+  const [
+    selectedFile,
+    setSelectedFile,
+  ] = useState<string | null>(
+    null,
   )
 
-  const [currentPath, setCurrentPath] = useState('')
-  const [selectedFile, setSelectedFile] =
-    useState<string | null>(null)
+  const [
+    selectedCommit,
+    setSelectedCommit,
+  ] = useState<string | null>(
+    null,
+  )
 
-  const branchesQuery = useQuery({
-    queryKey: repositoryQueryKeys.branches(repository.id),
-    queryFn: () => getRepositoryBranches(repository.id),
-    enabled: !repository.is_empty,
-    retry: false,
-  })
+  const branchesQuery =
+    useQuery({
+      queryKey:
+        repositoryQueryKeys.branches(
+          repository.id,
+        ),
 
-  const treeQuery = useQuery({
-    queryKey: repositoryQueryKeys.tree(
-      repository.id,
-      branch,
-      currentPath,
-    ),
-    queryFn: () =>
-      getRepositoryTree(repository.id, {
-        branch,
-        path: currentPath,
-      }),
-    enabled:
-      !repository.is_empty
-      && branch !== ''
-      && selectedFile === null,
-    retry: false,
-  })
+      queryFn:
+        () =>
+          getRepositoryBranches(
+            repository.id,
+          ),
 
-  const commitsQuery = useQuery({
-    queryKey: repositoryQueryKeys.commits(
-      repository.id,
-      branch,
-      10,
-    ),
-    queryFn: () =>
-      getRepositoryCommits(repository.id, {
-        branch,
-        limit: 10,
-      }),
-    enabled:
-      !repository.is_empty
-      && branch !== '',
-    retry: false,
-  })
+      retry: false,
+    })
 
-  const blobQuery = useQuery({
-    queryKey: repositoryQueryKeys.blob(
-      repository.id,
-      branch,
-      selectedFile ?? '',
-    ),
-    queryFn: () =>
-      getRepositoryBlob(repository.id, {
-        branch,
-        path: selectedFile ?? '',
-      }),
-    enabled:
-      !repository.is_empty
-      && branch !== ''
-      && selectedFile !== null,
-    retry: false,
-  })
+  const isEmpty =
+    branchesQuery.isSuccess
+    && branchesQuery.data.data.length ===
+      0
+    && branchesQuery.data.default_branch ===
+      null
 
-  const pathSegments = currentPath === ''
-    ? []
-    : currentPath.split('/')
+  const selectedBranch =
+    branch !== ''
+      ? branch
+      : branchesQuery.data?.default_branch
+        ?? ''
+
+  const treeQuery =
+    useQuery({
+      queryKey:
+        repositoryQueryKeys.tree(
+          repository.id,
+          selectedBranch,
+          currentPath,
+        ),
+
+      queryFn:
+        () =>
+          getRepositoryTree(
+            repository.id,
+            {
+              branch:
+                selectedBranch,
+              path:
+                currentPath,
+            },
+          ),
+
+      enabled:
+        selectedBranch !== ''
+        && selectedFile ===
+          null,
+
+      retry: false,
+    })
+
+  const commitsQuery =
+    useQuery({
+      queryKey:
+        repositoryQueryKeys.commits(
+          repository.id,
+          selectedBranch,
+          10,
+        ),
+
+      queryFn:
+        () =>
+          getRepositoryCommits(
+            repository.id,
+            {
+              branch:
+                selectedBranch,
+              limit: 10,
+            },
+          ),
+
+      enabled:
+        selectedBranch !== '',
+
+      retry: false,
+    })
+
+  const commitQuery =
+    useQuery({
+      queryKey:
+        repositoryQueryKeys.commit(
+          repository.id,
+          selectedCommit
+            ?? '',
+        ),
+
+      queryFn:
+        () =>
+          getRepositoryCommit(
+            repository.id,
+            selectedCommit
+              ?? '',
+          ),
+
+      enabled:
+        selectedCommit !==
+        null,
+
+      retry: false,
+    })
+
+  const blobQuery =
+    useQuery({
+      queryKey:
+        repositoryQueryKeys.blob(
+          repository.id,
+          selectedBranch,
+          selectedFile
+            ?? '',
+        ),
+
+      queryFn:
+        () =>
+          getRepositoryBlob(
+            repository.id,
+            {
+              branch:
+                selectedBranch,
+              path:
+                selectedFile
+                ?? '',
+            },
+          ),
+
+      enabled:
+        selectedBranch !== ''
+        && selectedFile !==
+          null,
+
+      retry: false,
+    })
+
+  const pathSegments =
+    currentPath === ''
+      ? []
+      : currentPath.split(
+          '/',
+        )
 
   function handleBranchChange(
     nextBranch: string,
   ): void {
-    setBranch(nextBranch)
+    setBranch(
+      nextBranch,
+    )
+
     setCurrentPath('')
     setSelectedFile(null)
+    setSelectedCommit(null)
   }
 
-  function openDirectory(path: string): void {
-    setCurrentPath(path)
+  function openDirectory(
+    path: string,
+  ): void {
+    setCurrentPath(
+      path,
+    )
+
     setSelectedFile(null)
   }
 
-  function openFile(path: string): void {
-    setSelectedFile(path)
+  function openFile(
+    path: string,
+  ): void {
+    setSelectedFile(
+      path,
+    )
   }
 
   function returnToDirectory(): void {
     setSelectedFile(null)
   }
 
-  function openBreadcrumb(index: number): void {
-    const nextPath = pathSegments
-      .slice(0, index + 1)
-      .join('/')
+  function openCommit(
+    commit: string,
+  ): void {
+    setSelectedCommit(
+      commit,
+    )
+  }
 
-    openDirectory(nextPath)
+  function returnToCommits(): void {
+    setSelectedCommit(null)
+  }
+
+  function openBreadcrumb(
+    index: number,
+  ): void {
+    const nextPath =
+      pathSegments
+        .slice(
+          0,
+          index + 1,
+        )
+        .join('/')
+
+    openDirectory(
+      nextPath,
+    )
   }
 
   function refreshBrowser(): void {
     void queryClient.invalidateQueries({
-      queryKey: repositoryQueryKeys.browser(repository.id),
+      queryKey:
+        repositoryQueryKeys.browser(
+          repository.id,
+        ),
     })
   }
 
-  if (repository.is_empty) {
-    return null
+  if (
+    branchesQuery.isPending
+  ) {
+    return (
+      <section className="rounded-xl border border-white/10 bg-[#161b22]">
+        <LoadingState message="Loading repository state..." />
+      </section>
+    )
+  }
+
+  if (
+    branchesQuery.isError
+  ) {
+    return (
+      <section className="rounded-xl border border-white/10 bg-[#161b22]">
+        <ErrorState
+          error={
+            branchesQuery.error
+          }
+          fallback="The repository browser could not be initialized."
+        />
+      </section>
+    )
+  }
+
+  if (isEmpty) {
+    return (
+      <section className="rounded-xl border border-white/10 bg-[#161b22] p-6">
+        <div className="flex items-start gap-4">
+          <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-blue-300">
+            <GitBranch
+              aria-hidden="true"
+              className="size-5"
+            />
+          </span>
+
+          <div>
+            <h2 className="font-semibold text-white">
+              Empty repository
+            </h2>
+
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+              This repository does not contain a committed branch yet.
+              Push the first branch through Git Smart HTTP and the
+              repository browser will use the Git-native default branch.
+            </p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (selectedBranch === '') {
+    return (
+      <section className="rounded-xl border border-white/10 bg-[#161b22]">
+        <LoadingState message="Resolving default branch..." />
+      </section>
+    )
   }
 
   return (
@@ -194,7 +423,7 @@ export function RepositoryBrowser({
             </h2>
 
             <p className="mt-0.5 text-sm text-slate-500">
-              Browse branches, files, and recent commits.
+              Browse Git-native branches, files, and recent commits.
             </p>
           </div>
         </div>
@@ -202,7 +431,9 @@ export function RepositoryBrowser({
         <button
           aria-label="Refresh repository browser"
           className="inline-flex size-9 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
-          onClick={refreshBrowser}
+          onClick={
+            refreshBrowser
+          }
           type="button"
         >
           <RefreshCw
@@ -230,28 +461,35 @@ export function RepositoryBrowser({
 
               <select
                 className="h-10 min-w-44 appearance-none rounded-lg border border-white/10 bg-[#0d1117] pl-9 pr-8 text-sm font-medium text-slate-300 outline-none transition focus:border-blue-500/60"
-                disabled={branchesQuery.isPending}
                 id="repository-browser-branch"
-                onChange={(event) => {
-                  handleBranchChange(event.target.value)
-                }}
-                value={branch}
+                onChange={(
+                  event,
+                ) =>
+                  handleBranchChange(
+                    event.target.value,
+                  )
+                }
+                value={
+                  selectedBranch
+                }
               >
-                {branchesQuery.data?.data.map(
-                  (repositoryBranch) => (
+                {branchesQuery.data.data.map(
+                  (
+                    repositoryBranch,
+                  ) => (
                     <option
-                      key={repositoryBranch.name}
-                      value={repositoryBranch.name}
+                      key={
+                        repositoryBranch.name
+                      }
+                      value={
+                        repositoryBranch.name
+                      }
                     >
-                      {repositoryBranch.name}
+                      {
+                        repositoryBranch.name
+                      }
                     </option>
                   ),
-                )}
-
-                {branchesQuery.isPending && (
-                  <option value={branch}>
-                    Loading branches...
-                  </option>
                 )}
               </select>
             </div>
@@ -263,9 +501,11 @@ export function RepositoryBrowser({
               <button
                 aria-label="Repository root"
                 className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1.5 text-slate-400 transition hover:bg-white/5 hover:text-white"
-                onClick={() => {
-                  openDirectory('')
-                }}
+                onClick={() =>
+                  openDirectory(
+                    '',
+                  )
+                }
                 type="button"
               >
                 <Home
@@ -274,86 +514,221 @@ export function RepositoryBrowser({
                 />
               </button>
 
-              {pathSegments.map((segment, index) => (
-                <span
-                  className="flex items-center gap-1"
-                  key={`${segment}-${index}`}
-                >
-                  <ChevronRight
-                    aria-hidden="true"
-                    className="size-4 shrink-0 text-slate-600"
-                  />
-
-                  <button
-                    className="max-w-48 truncate rounded-md px-2 py-1.5 text-slate-400 transition hover:bg-white/5 hover:text-white"
-                    onClick={() => {
-                      openBreadcrumb(index)
-                    }}
-                    title={segment}
-                    type="button"
+              {pathSegments.map(
+                (
+                  segment,
+                  index,
+                ) => (
+                  <span
+                    className="flex items-center gap-1"
+                    key={`${segment}-${index}`}
                   >
-                    {segment}
-                  </button>
-                </span>
-              ))}
+                    <ChevronRight
+                      aria-hidden="true"
+                      className="size-4 shrink-0 text-slate-600"
+                    />
+
+                    <button
+                      className="max-w-48 truncate rounded-md px-2 py-1.5 text-slate-400 transition hover:bg-white/5 hover:text-white"
+                      onClick={() =>
+                        openBreadcrumb(
+                          index,
+                        )
+                      }
+                      title={
+                        segment
+                      }
+                      type="button"
+                    >
+                      {
+                        segment
+                      }
+                    </button>
+                  </span>
+                ),
+              )}
             </nav>
           </div>
 
-          {selectedFile !== null ? (
+          {selectedFile !==
+          null ? (
             <FileViewer
-              error={blobQuery.error}
-              filePath={selectedFile}
-              isError={blobQuery.isError}
-              isPending={blobQuery.isPending}
-              onBack={returnToDirectory}
-              size={blobQuery.data?.data.size ?? null}
+              error={
+                blobQuery.error
+              }
+              filePath={
+                selectedFile
+              }
+              isError={
+                blobQuery.isError
+              }
+              isPending={
+                blobQuery.isPending
+              }
+              onBack={
+                returnToDirectory
+              }
+              size={
+                blobQuery.data?.data.size
+                ?? null
+              }
             >
-              {blobQuery.data?.data.content ?? ''}
+              {blobQuery.data?.data.content
+                ?? ''}
             </FileViewer>
           ) : (
             <TreeViewer
-              error={treeQuery.error}
-              isError={treeQuery.isError}
-              isPending={treeQuery.isPending}
-              onOpenDirectory={openDirectory}
-              onOpenFile={openFile}
-              tree={treeQuery.data?.data ?? []}
+              error={
+                treeQuery.error
+              }
+              isError={
+                treeQuery.isError
+              }
+              isPending={
+                treeQuery.isPending
+              }
+              onOpenDirectory={
+                openDirectory
+              }
+              onOpenFile={
+                openFile
+              }
+              tree={
+                treeQuery.data?.data
+                ?? []
+              }
             />
           )}
         </div>
 
         <aside>
-          <header className="flex items-center gap-2 border-b border-white/10 px-5 py-4">
-            <History
-              aria-hidden="true"
-              className="size-4 text-blue-300"
+          {selectedCommit ===
+          null ? (
+            <RecentCommits
+              commits={
+                commitsQuery.data?.data
+                ?? []
+              }
+              error={
+                commitsQuery.error
+              }
+              isError={
+                commitsQuery.isError
+              }
+              isPending={
+                commitsQuery.isPending
+              }
+              onOpenCommit={
+                openCommit
+              }
             />
+          ) : (
+            <CommitDetails
+              commit={
+                commitQuery.data?.commit
+                ?? null
+              }
+              error={
+                commitQuery.error
+              }
+              isError={
+                commitQuery.isError
+              }
+              isPending={
+                commitQuery.isPending
+              }
+              onBack={
+                returnToCommits
+              }
+            />
+          )}
+        </aside>
+      </div>
+    </section>
+  )
+}
 
-            <h3 className="font-semibold text-white">
-              Recent commits
-            </h3>
-          </header>
+interface RecentCommitsProps {
+  commits: {
+    hash: string
+    parents: string[]
+    author: {
+      name: string
+      email: string
+    }
+    authored_at: string
+    subject: string
+  }[]
 
-          <div className="max-h-[32rem] overflow-y-auto">
-            {commitsQuery.isPending && (
-              <LoadingState message="Loading commits..." />
-            )}
+  isPending: boolean
+  isError: boolean
+  error: unknown
+  onOpenCommit: (
+    commit: string,
+  ) => void
+}
 
-            {commitsQuery.isError && (
-              <ErrorState
-                error={commitsQuery.error}
-                fallback="Recent commits could not be loaded."
-              />
-            )}
+function RecentCommits({
+  commits,
+  isPending,
+  isError,
+  error,
+  onOpenCommit,
+}: RecentCommitsProps) {
+  return (
+    <>
+      <header className="flex items-center gap-2 border-b border-white/10 px-5 py-4">
+        <History
+          aria-hidden="true"
+          className="size-4 text-blue-300"
+        />
 
-            {commitsQuery.data?.data.length === 0 && (
-              <EmptyState message="No commits found on this branch." />
-            )}
+        <h3 className="font-semibold text-white">
+          Recent commits
+        </h3>
+      </header>
 
-            {commitsQuery.data?.data.map((commit) => (
-              <article
-                className="border-b border-white/10 px-5 py-4 last:border-b-0"
-                key={commit.hash}
+      <div className="max-h-[32rem] overflow-y-auto">
+        {isPending && (
+          <LoadingState message="Loading commits..." />
+        )}
+
+        {isError && (
+          <ErrorState
+            error={
+              error
+            }
+            fallback="Recent commits could not be loaded."
+          />
+        )}
+
+        {!isPending
+          && !isError
+          && commits.length ===
+            0 && (
+          <EmptyState message="No commits found on this branch." />
+        )}
+
+        {!isPending
+          && !isError
+          && commits.map(
+            (
+              commit,
+            ) => (
+              <button
+                aria-label={`View commit ${shortHash(
+                  commit.hash,
+                )}`}
+                className="block w-full border-b border-white/10 px-5 py-4 text-left transition last:border-b-0 hover:bg-white/[0.03]"
+                key={
+                  commit.hash
+                }
+                onClick={() =>
+                  onOpenCommit(
+                    commit.hash,
+                  )
+                }
+                type="button"
               >
                 <div className="flex items-start gap-3">
                   <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-white/5 text-slate-400">
@@ -366,49 +741,264 @@ export function RepositoryBrowser({
                   <div className="min-w-0">
                     <h4
                       className="line-clamp-2 text-sm font-medium leading-5 text-slate-200"
-                      title={commit.subject}
+                      title={
+                        commit.subject
+                      }
                     >
-                      {commit.subject}
+                      {
+                        commit.subject
+                      }
                     </h4>
 
                     <p className="mt-1 truncate text-xs text-slate-500">
-                      {commit.author.name}
+                      {
+                        commit.author.name
+                      }
                     </p>
 
                     <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-600">
                       <code className="rounded bg-black/20 px-1.5 py-0.5 font-mono text-blue-300">
-                        {shortHash(commit.hash)}
+                        {shortHash(
+                          commit.hash,
+                        )}
                       </code>
 
                       <span>
-                        {formatDate(commit.authored_at)}
+                        {formatDate(
+                          commit.authored_at,
+                        )}
                       </span>
                     </div>
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
-        </aside>
+              </button>
+            ),
+          )}
       </div>
-    </section>
+    </>
+  )
+}
+
+interface CommitDetailsProps {
+  commit: RepositoryCommitDetails | null
+  isPending: boolean
+  isError: boolean
+  error: unknown
+  onBack: () => void
+}
+
+function CommitDetails({
+  commit,
+  isPending,
+  isError,
+  error,
+  onBack,
+}: CommitDetailsProps) {
+  return (
+    <>
+      <header className="flex items-center gap-3 border-b border-white/10 px-5 py-4">
+        <button
+          aria-label="Back to recent commits"
+          className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
+          onClick={
+            onBack
+          }
+          type="button"
+        >
+          <ArrowLeft
+            aria-hidden="true"
+            className="size-4"
+          />
+        </button>
+
+        <div className="flex min-w-0 items-center gap-2">
+          <GitCommitHorizontal
+            aria-hidden="true"
+            className="size-4 shrink-0 text-blue-300"
+          />
+
+          <h3 className="font-semibold text-white">
+            Commit details
+          </h3>
+        </div>
+      </header>
+
+      {isPending && (
+        <LoadingState message="Loading commit details..." />
+      )}
+
+      {isError && (
+        <ErrorState
+          error={
+            error
+          }
+          fallback="The commit details could not be loaded."
+        />
+      )}
+
+      {!isPending
+        && !isError
+        && commit !==
+          null && (
+          <div className="max-h-[32rem] space-y-5 overflow-y-auto p-5">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+                Message
+              </p>
+
+              <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-slate-200">
+                {
+                  commit.message
+                }
+              </p>
+            </div>
+
+            <CommitIdentity
+              email={
+                commit.author_email
+              }
+              label="Author"
+              name={
+                commit.author_name
+              }
+              timestamp={
+                commit.authored_at
+              }
+            />
+
+            <CommitIdentity
+              email={
+                commit.committer_email
+              }
+              label="Committer"
+              name={
+                commit.committer_name
+              }
+              timestamp={
+                commit.committed_at
+              }
+            />
+
+            <CommitReference
+              label="Commit"
+              value={
+                commit.id
+              }
+            />
+
+            <CommitReference
+              label="Tree"
+              value={
+                commit.tree
+              }
+            />
+
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+                Parents
+              </p>
+
+              {commit.parents.length ===
+              0 ? (
+                <p className="mt-2 text-sm text-slate-500">
+                  Root commit
+                </p>
+              ) : (
+                <div className="mt-2 space-y-2">
+                  {commit.parents.map(
+                    (
+                      parent,
+                    ) => (
+                      <code
+                        className="block break-all rounded-lg bg-black/20 px-3 py-2 font-mono text-xs text-slate-400"
+                        key={
+                          parent
+                        }
+                      >
+                        {
+                          parent
+                        }
+                      </code>
+                    ),
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+    </>
+  )
+}
+
+interface CommitIdentityProps {
+  label: string
+  name: string
+  email: string
+  timestamp: string
+}
+
+function CommitIdentity({
+  label,
+  name,
+  email,
+  timestamp,
+}: CommitIdentityProps) {
+  return (
+    <div>
+      <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+        {label}
+      </p>
+
+      <p className="mt-2 text-sm font-medium text-slate-300">
+        {name}
+      </p>
+
+      <p className="mt-1 break-all text-xs text-slate-500">
+        {email}
+      </p>
+
+      <p className="mt-1 text-xs text-slate-600">
+        {formatDate(
+          timestamp,
+        )}
+      </p>
+    </div>
+  )
+}
+
+interface CommitReferenceProps {
+  label: string
+  value: string
+}
+
+function CommitReference({
+  label,
+  value,
+}: CommitReferenceProps) {
+  return (
+    <div>
+      <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+        {label}
+      </p>
+
+      <code className="mt-2 block break-all rounded-lg bg-black/20 px-3 py-2 font-mono text-xs text-blue-300">
+        {value}
+      </code>
+    </div>
   )
 }
 
 interface TreeViewerProps {
-  tree: {
-    name: string
-    path: string
-    type: 'directory' | 'file'
-    size: number | null
-    object_id: string
-    mode: string
-  }[]
+  tree: RepositoryTreeEntry[]
   isPending: boolean
   isError: boolean
   error: unknown
-  onOpenDirectory: (path: string) => void
-  onOpenFile: (path: string) => void
+  onOpenDirectory: (
+    path: string,
+  ) => void
+  onOpenFile: (
+    path: string,
+  ) => void
 }
 
 function TreeViewer({
@@ -428,7 +1018,9 @@ function TreeViewer({
   if (isError) {
     return (
       <ErrorState
-        error={error}
+        error={
+          error
+        }
         fallback="The repository directory could not be loaded."
       />
     )
@@ -442,51 +1034,95 @@ function TreeViewer({
 
   return (
     <div className="divide-y divide-white/10">
-      {tree.map((entry) => {
-        const isDirectory = entry.type === 'directory'
+      {tree.map(
+        (
+          entry,
+        ) => {
+          const isDirectory =
+            entry.type ===
+            'directory'
 
-        return (
-          <button
-            className="flex w-full items-center gap-3 px-5 py-3.5 text-left transition hover:bg-white/[0.03]"
-            key={entry.object_id}
-            onClick={() => {
-              if (isDirectory) {
-                onOpenDirectory(entry.path)
-              } else {
-                onOpenFile(entry.path)
+          const isSubmodule =
+            entry.type ===
+            'submodule'
+
+          const isBrowsable =
+            !isSubmodule
+
+          return (
+            <button
+              className="flex w-full items-center gap-3 px-5 py-3.5 text-left transition enabled:hover:bg-white/[0.03] disabled:cursor-default"
+              disabled={
+                !isBrowsable
               }
-            }}
-            type="button"
-          >
-            {isDirectory ? (
-              <Folder
-                aria-hidden="true"
-                className="size-5 shrink-0 text-blue-400"
-              />
-            ) : (
-              <FileCode2
-                aria-hidden="true"
-                className="size-5 shrink-0 text-slate-500"
-              />
-            )}
+              key={
+                `${entry.path}-${entry.object_id}`
+              }
+              onClick={() => {
+                if (
+                  isDirectory
+                ) {
+                  onOpenDirectory(
+                    entry.path,
+                  )
 
-            <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-300">
-              {entry.name}
-            </span>
+                  return
+                }
 
-            <span className="shrink-0 text-xs text-slate-600">
-              {isDirectory
-                ? 'Directory'
-                : formatFileSize(entry.size)}
-            </span>
+                if (
+                  entry.type ===
+                  'file'
+                ) {
+                  onOpenFile(
+                    entry.path,
+                  )
+                }
+              }}
+              type="button"
+            >
+              {isDirectory ? (
+                <Folder
+                  aria-hidden="true"
+                  className="size-5 shrink-0 text-blue-400"
+                />
+              ) : isSubmodule ? (
+                <GitCommitHorizontal
+                  aria-hidden="true"
+                  className="size-5 shrink-0 text-slate-500"
+                />
+              ) : (
+                <FileCode2
+                  aria-hidden="true"
+                  className="size-5 shrink-0 text-slate-500"
+                />
+              )}
 
-            <ChevronRight
-              aria-hidden="true"
-              className="size-4 shrink-0 text-slate-600"
-            />
-          </button>
-        )
-      })}
+              <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-300">
+                {
+                  entry.name
+                }
+              </span>
+
+              <span className="shrink-0 text-xs text-slate-600">
+                {isDirectory
+                  ? 'Directory'
+                  : isSubmodule
+                    ? 'Submodule'
+                    : formatFileSize(
+                        entry.size,
+                      )}
+              </span>
+
+              {isBrowsable && (
+                <ChevronRight
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-slate-600"
+                />
+              )}
+            </button>
+          )
+        },
+      )}
     </div>
   )
 }
@@ -517,7 +1153,9 @@ function FileViewer({
           <button
             aria-label="Return to directory"
             className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
-            onClick={onBack}
+            onClick={
+              onBack
+            }
             type="button"
           >
             <ArrowLeft
@@ -529,13 +1167,19 @@ function FileViewer({
           <div className="min-w-0">
             <p
               className="truncate text-sm font-medium text-slate-300"
-              title={filePath}
+              title={
+                filePath
+              }
             >
-              {filePath}
+              {
+                filePath
+              }
             </p>
 
             <p className="mt-0.5 text-xs text-slate-600">
-              {formatFileSize(size)}
+              {formatFileSize(
+                size,
+              )}
             </p>
           </div>
         </div>
@@ -547,16 +1191,21 @@ function FileViewer({
 
       {isError && (
         <ErrorState
-          error={error}
+          error={
+            error
+          }
           fallback="The repository file could not be loaded."
         />
       )}
 
-      {!isPending && !isError && (
-        <pre className="max-h-[38rem] overflow-auto bg-[#0d1117] p-5 text-sm leading-6 text-slate-300">
-          <code>{children}</code>
-        </pre>
-      )}
+      {!isPending
+        && !isError && (
+          <pre className="max-h-[38rem] overflow-auto bg-[#0d1117] p-5 text-sm leading-6 text-slate-300">
+            <code>
+              {children}
+            </code>
+          </pre>
+        )}
     </div>
   )
 }
@@ -574,6 +1223,7 @@ function LoadingState({
         aria-hidden="true"
         className="size-5 animate-spin text-blue-400"
       />
+
       {message}
     </div>
   )
@@ -598,7 +1248,10 @@ function ErrorState({
       </span>
 
       <p className="mt-3 max-w-md text-sm leading-6 text-red-200">
-        {getApiErrorMessage(error, fallback)}
+        {getApiErrorMessage(
+          error,
+          fallback,
+        )}
       </p>
     </div>
   )
