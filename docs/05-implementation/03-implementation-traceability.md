@@ -50,19 +50,19 @@ The traceability chain is:
 
 Approved Requirements
 
-&#x20;       Ã¢â€ â€œ
+    ->
 
 System Analysis
 
-&#x20;       Ã¢â€ â€œ
+    ->
 
 System Design
 
-&#x20;       Ã¢â€ â€œ
+    ->
 
 Implementation
 
-&#x20;       Ã¢â€ â€œ
+    ->
 
 Automated Verification
 
@@ -162,23 +162,23 @@ The required implementation relationship is:
 
 Requirement
 
-&#x20;   Ã¢â€ â€œ
+    ->
 
 Use Case / Analysis Concern
 
-&#x20;   Ã¢â€ â€œ
+    ->
 
 Design Element
 
-&#x20;   Ã¢â€ â€œ
+    ->
 
 Implemented Component
 
-&#x20;   Ã¢â€ â€œ
+    ->
 
 Route / Model / Service / Policy / Adapter
 
-&#x20;   Ã¢â€ â€œ
+    ->
 
 Automated Verification
 
