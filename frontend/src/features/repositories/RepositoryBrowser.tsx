@@ -20,10 +20,15 @@ import { getApiErrorMessage } from '../../lib/api-errors'
 import {
   getRepositoryBlob,
   getRepositoryBranches,
+  getRepositoryCommit,
   getRepositoryCommits,
   getRepositoryTree,
 } from '../../services/repository-browser-service'
 import type { Repository } from '../../types/repository'
+import type {
+  RepositoryCommitDetails,
+  RepositoryTreeEntry,
+} from '../../types/repository-browser'
 import { repositoryQueryKeys } from './repository-query-keys'
 
 interface RepositoryBrowserProps {
@@ -117,6 +122,13 @@ export function RepositoryBrowser({
     null,
   )
 
+  const [
+    selectedCommit,
+    setSelectedCommit,
+  ] = useState<string | null>(
+    null,
+  )
+
   const branchesQuery =
     useQuery({
       queryKey:
@@ -146,7 +158,6 @@ export function RepositoryBrowser({
       : branchesQuery.data?.default_branch
         ?? ''
 
-
   const treeQuery =
     useQuery({
       queryKey:
@@ -161,7 +172,8 @@ export function RepositoryBrowser({
           getRepositoryTree(
             repository.id,
             {
-              branch: selectedBranch,
+              branch:
+                selectedBranch,
               path:
                 currentPath,
             },
@@ -189,13 +201,38 @@ export function RepositoryBrowser({
           getRepositoryCommits(
             repository.id,
             {
-              branch: selectedBranch,
+              branch:
+                selectedBranch,
               limit: 10,
             },
           ),
 
       enabled:
         selectedBranch !== '',
+
+      retry: false,
+    })
+
+  const commitQuery =
+    useQuery({
+      queryKey:
+        repositoryQueryKeys.commit(
+          repository.id,
+          selectedCommit
+            ?? '',
+        ),
+
+      queryFn:
+        () =>
+          getRepositoryCommit(
+            repository.id,
+            selectedCommit
+              ?? '',
+          ),
+
+      enabled:
+        selectedCommit !==
+        null,
 
       retry: false,
     })
@@ -215,7 +252,8 @@ export function RepositoryBrowser({
           getRepositoryBlob(
             repository.id,
             {
-              branch: selectedBranch,
+              branch:
+                selectedBranch,
               path:
                 selectedFile
                 ?? '',
@@ -246,6 +284,7 @@ export function RepositoryBrowser({
 
     setCurrentPath('')
     setSelectedFile(null)
+    setSelectedCommit(null)
   }
 
   function openDirectory(
@@ -268,6 +307,18 @@ export function RepositoryBrowser({
 
   function returnToDirectory(): void {
     setSelectedFile(null)
+  }
+
+  function openCommit(
+    commit: string,
+  ): void {
+    setSelectedCommit(
+      commit,
+    )
+  }
+
+  function returnToCommits(): void {
+    setSelectedCommit(null)
   }
 
   function openBreadcrumb(
@@ -551,107 +602,394 @@ export function RepositoryBrowser({
         </div>
 
         <aside>
-          <header className="flex items-center gap-2 border-b border-white/10 px-5 py-4">
-            <History
-              aria-hidden="true"
-              className="size-4 text-blue-300"
+          {selectedCommit ===
+          null ? (
+            <RecentCommits
+              commits={
+                commitsQuery.data?.data
+                ?? []
+              }
+              error={
+                commitsQuery.error
+              }
+              isError={
+                commitsQuery.isError
+              }
+              isPending={
+                commitsQuery.isPending
+              }
+              onOpenCommit={
+                openCommit
+              }
             />
-
-            <h3 className="font-semibold text-white">
-              Recent commits
-            </h3>
-          </header>
-
-          <div className="max-h-[32rem] overflow-y-auto">
-            {commitsQuery.isPending && (
-              <LoadingState message="Loading commits..." />
-            )}
-
-            {commitsQuery.isError && (
-              <ErrorState
-                error={
-                  commitsQuery.error
-                }
-                fallback="Recent commits could not be loaded."
-              />
-            )}
-
-            {commitsQuery.data?.data.length ===
-              0 && (
-              <EmptyState message="No commits found on this branch." />
-            )}
-
-            {commitsQuery.data?.data.map(
-              (
-                commit,
-              ) => (
-                <article
-                  className="border-b border-white/10 px-5 py-4 last:border-b-0"
-                  key={
-                    commit.hash
-                  }
-                >
-                  <div className="flex items-start gap-3">
-                    <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-white/5 text-slate-400">
-                      <GitCommitHorizontal
-                        aria-hidden="true"
-                        className="size-4"
-                      />
-                    </span>
-
-                    <div className="min-w-0">
-                      <h4
-                        className="line-clamp-2 text-sm font-medium leading-5 text-slate-200"
-                        title={
-                          commit.subject
-                        }
-                      >
-                        {
-                          commit.subject
-                        }
-                      </h4>
-
-                      <p className="mt-1 truncate text-xs text-slate-500">
-                        {
-                          commit.author.name
-                        }
-                      </p>
-
-                      <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-600">
-                        <code className="rounded bg-black/20 px-1.5 py-0.5 font-mono text-blue-300">
-                          {shortHash(
-                            commit.hash,
-                          )}
-                        </code>
-
-                        <span>
-                          {formatDate(
-                            commit.authored_at,
-                          )}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              ),
-            )}
-          </div>
+          ) : (
+            <CommitDetails
+              commit={
+                commitQuery.data?.commit
+                ?? null
+              }
+              error={
+                commitQuery.error
+              }
+              isError={
+                commitQuery.isError
+              }
+              isPending={
+                commitQuery.isPending
+              }
+              onBack={
+                returnToCommits
+              }
+            />
+          )}
         </aside>
       </div>
     </section>
   )
 }
 
-interface TreeViewerProps {
-  tree: {
-    name: string
-    path: string
-    type: 'directory' | 'file'
-    size: number | null
-    object_id: string
-    mode: string
+interface RecentCommitsProps {
+  commits: {
+    hash: string
+    parents: string[]
+    author: {
+      name: string
+      email: string
+    }
+    authored_at: string
+    subject: string
   }[]
 
+  isPending: boolean
+  isError: boolean
+  error: unknown
+  onOpenCommit: (
+    commit: string,
+  ) => void
+}
+
+function RecentCommits({
+  commits,
+  isPending,
+  isError,
+  error,
+  onOpenCommit,
+}: RecentCommitsProps) {
+  return (
+    <>
+      <header className="flex items-center gap-2 border-b border-white/10 px-5 py-4">
+        <History
+          aria-hidden="true"
+          className="size-4 text-blue-300"
+        />
+
+        <h3 className="font-semibold text-white">
+          Recent commits
+        </h3>
+      </header>
+
+      <div className="max-h-[32rem] overflow-y-auto">
+        {isPending && (
+          <LoadingState message="Loading commits..." />
+        )}
+
+        {isError && (
+          <ErrorState
+            error={
+              error
+            }
+            fallback="Recent commits could not be loaded."
+          />
+        )}
+
+        {!isPending
+          && !isError
+          && commits.length ===
+            0 && (
+          <EmptyState message="No commits found on this branch." />
+        )}
+
+        {!isPending
+          && !isError
+          && commits.map(
+            (
+              commit,
+            ) => (
+              <button
+                aria-label={`View commit ${shortHash(
+                  commit.hash,
+                )}`}
+                className="block w-full border-b border-white/10 px-5 py-4 text-left transition last:border-b-0 hover:bg-white/[0.03]"
+                key={
+                  commit.hash
+                }
+                onClick={() =>
+                  onOpenCommit(
+                    commit.hash,
+                  )
+                }
+                type="button"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-white/5 text-slate-400">
+                    <GitCommitHorizontal
+                      aria-hidden="true"
+                      className="size-4"
+                    />
+                  </span>
+
+                  <div className="min-w-0">
+                    <h4
+                      className="line-clamp-2 text-sm font-medium leading-5 text-slate-200"
+                      title={
+                        commit.subject
+                      }
+                    >
+                      {
+                        commit.subject
+                      }
+                    </h4>
+
+                    <p className="mt-1 truncate text-xs text-slate-500">
+                      {
+                        commit.author.name
+                      }
+                    </p>
+
+                    <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-600">
+                      <code className="rounded bg-black/20 px-1.5 py-0.5 font-mono text-blue-300">
+                        {shortHash(
+                          commit.hash,
+                        )}
+                      </code>
+
+                      <span>
+                        {formatDate(
+                          commit.authored_at,
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            ),
+          )}
+      </div>
+    </>
+  )
+}
+
+interface CommitDetailsProps {
+  commit: RepositoryCommitDetails | null
+  isPending: boolean
+  isError: boolean
+  error: unknown
+  onBack: () => void
+}
+
+function CommitDetails({
+  commit,
+  isPending,
+  isError,
+  error,
+  onBack,
+}: CommitDetailsProps) {
+  return (
+    <>
+      <header className="flex items-center gap-3 border-b border-white/10 px-5 py-4">
+        <button
+          aria-label="Back to recent commits"
+          className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
+          onClick={
+            onBack
+          }
+          type="button"
+        >
+          <ArrowLeft
+            aria-hidden="true"
+            className="size-4"
+          />
+        </button>
+
+        <div className="flex min-w-0 items-center gap-2">
+          <GitCommitHorizontal
+            aria-hidden="true"
+            className="size-4 shrink-0 text-blue-300"
+          />
+
+          <h3 className="font-semibold text-white">
+            Commit details
+          </h3>
+        </div>
+      </header>
+
+      {isPending && (
+        <LoadingState message="Loading commit details..." />
+      )}
+
+      {isError && (
+        <ErrorState
+          error={
+            error
+          }
+          fallback="The commit details could not be loaded."
+        />
+      )}
+
+      {!isPending
+        && !isError
+        && commit !==
+          null && (
+          <div className="max-h-[32rem] space-y-5 overflow-y-auto p-5">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+                Message
+              </p>
+
+              <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-slate-200">
+                {
+                  commit.message
+                }
+              </p>
+            </div>
+
+            <CommitIdentity
+              email={
+                commit.author_email
+              }
+              label="Author"
+              name={
+                commit.author_name
+              }
+              timestamp={
+                commit.authored_at
+              }
+            />
+
+            <CommitIdentity
+              email={
+                commit.committer_email
+              }
+              label="Committer"
+              name={
+                commit.committer_name
+              }
+              timestamp={
+                commit.committed_at
+              }
+            />
+
+            <CommitReference
+              label="Commit"
+              value={
+                commit.id
+              }
+            />
+
+            <CommitReference
+              label="Tree"
+              value={
+                commit.tree
+              }
+            />
+
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+                Parents
+              </p>
+
+              {commit.parents.length ===
+              0 ? (
+                <p className="mt-2 text-sm text-slate-500">
+                  Root commit
+                </p>
+              ) : (
+                <div className="mt-2 space-y-2">
+                  {commit.parents.map(
+                    (
+                      parent,
+                    ) => (
+                      <code
+                        className="block break-all rounded-lg bg-black/20 px-3 py-2 font-mono text-xs text-slate-400"
+                        key={
+                          parent
+                        }
+                      >
+                        {
+                          parent
+                        }
+                      </code>
+                    ),
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+    </>
+  )
+}
+
+interface CommitIdentityProps {
+  label: string
+  name: string
+  email: string
+  timestamp: string
+}
+
+function CommitIdentity({
+  label,
+  name,
+  email,
+  timestamp,
+}: CommitIdentityProps) {
+  return (
+    <div>
+      <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+        {label}
+      </p>
+
+      <p className="mt-2 text-sm font-medium text-slate-300">
+        {name}
+      </p>
+
+      <p className="mt-1 break-all text-xs text-slate-500">
+        {email}
+      </p>
+
+      <p className="mt-1 text-xs text-slate-600">
+        {formatDate(
+          timestamp,
+        )}
+      </p>
+    </div>
+  )
+}
+
+interface CommitReferenceProps {
+  label: string
+  value: string
+}
+
+function CommitReference({
+  label,
+  value,
+}: CommitReferenceProps) {
+  return (
+    <div>
+      <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+        {label}
+      </p>
+
+      <code className="mt-2 block break-all rounded-lg bg-black/20 px-3 py-2 font-mono text-xs text-blue-300">
+        {value}
+      </code>
+    </div>
+  )
+}
+
+interface TreeViewerProps {
+  tree: RepositoryTreeEntry[]
   isPending: boolean
   isError: boolean
   error: unknown
@@ -704,11 +1042,21 @@ function TreeViewer({
             entry.type ===
             'directory'
 
+          const isSubmodule =
+            entry.type ===
+            'submodule'
+
+          const isBrowsable =
+            !isSubmodule
+
           return (
             <button
-              className="flex w-full items-center gap-3 px-5 py-3.5 text-left transition hover:bg-white/[0.03]"
+              className="flex w-full items-center gap-3 px-5 py-3.5 text-left transition enabled:hover:bg-white/[0.03] disabled:cursor-default"
+              disabled={
+                !isBrowsable
+              }
               key={
-                entry.object_id
+                `${entry.path}-${entry.object_id}`
               }
               onClick={() => {
                 if (
@@ -717,7 +1065,14 @@ function TreeViewer({
                   onOpenDirectory(
                     entry.path,
                   )
-                } else {
+
+                  return
+                }
+
+                if (
+                  entry.type ===
+                  'file'
+                ) {
                   onOpenFile(
                     entry.path,
                   )
@@ -729,6 +1084,11 @@ function TreeViewer({
                 <Folder
                   aria-hidden="true"
                   className="size-5 shrink-0 text-blue-400"
+                />
+              ) : isSubmodule ? (
+                <GitCommitHorizontal
+                  aria-hidden="true"
+                  className="size-5 shrink-0 text-slate-500"
                 />
               ) : (
                 <FileCode2
@@ -746,15 +1106,19 @@ function TreeViewer({
               <span className="shrink-0 text-xs text-slate-600">
                 {isDirectory
                   ? 'Directory'
-                  : formatFileSize(
-                      entry.size,
-                    )}
+                  : isSubmodule
+                    ? 'Submodule'
+                    : formatFileSize(
+                        entry.size,
+                      )}
               </span>
 
-              <ChevronRight
-                aria-hidden="true"
-                className="size-4 shrink-0 text-slate-600"
-              />
+              {isBrowsable && (
+                <ChevronRight
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-slate-600"
+                />
+              )}
             </button>
           )
         },

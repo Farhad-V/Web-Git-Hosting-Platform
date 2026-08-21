@@ -5,6 +5,7 @@ namespace Tests\Feature\Api\V1;
 use App\Models\Repository;
 use App\Models\User;
 use App\Services\Git\GitCommandRunner;
+use App\Services\Git\RepositoryBrowserService;
 use App\Services\Git\RepositoryStorageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
@@ -140,6 +141,158 @@ class RepositoryBrowserTest extends TestCase
                 'data.0.author.name',
                 'Repository Browser API Test',
             );
+    }
+
+    public function test_owner_can_view_repository_commit_details(): void
+    {
+        $owner = User::factory()->create();
+
+        $repository = $this->createRepositoryWithHistory(
+            owner: $owner,
+        );
+
+        $commit = app(
+            RepositoryBrowserService::class,
+        )->commits(
+            repository: $repository,
+            branch: 'main',
+            limit: 1,
+        )[0];
+
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commit',
+                    [
+                        'repository' => $repository,
+                        'commit' => $commit['hash'],
+                    ],
+                ),
+            )
+            ->assertOk()
+            ->assertJsonPath(
+                'commit.id',
+                $commit['hash'],
+            )
+            ->assertJsonPath(
+                'commit.author_name',
+                'Repository Browser API Test',
+            )
+            ->assertJsonPath(
+                'commit.author_email',
+                'browser-api@example.test',
+            )
+            ->assertJsonPath(
+                'commit.committer_name',
+                'Repository Browser API Test',
+            )
+            ->assertJsonPath(
+                'commit.committer_email',
+                'browser-api@example.test',
+            )
+            ->assertJsonPath(
+                'commit.message',
+                'Initial repository content',
+            )
+            ->assertJsonCount(
+                0,
+                'commit.parents',
+            );
+
+        $response = $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commit',
+                    [
+                        'repository' => $repository,
+                        'commit' => $commit['hash'],
+                    ],
+                ),
+            );
+
+        $this->assertMatchesRegularExpression(
+            '/\A[0-9a-f]{40,64}\z/',
+            $response->json('commit.tree'),
+        );
+
+        $this->assertNotSame(
+            '',
+            $response->json('commit.authored_at'),
+        );
+
+        $this->assertNotSame(
+            '',
+            $response->json('commit.committed_at'),
+        );
+    }
+
+    public function test_invalid_commit_identifier_is_rejected(): void
+    {
+        $owner = User::factory()->create();
+
+        $repository = $this->createRepositoryWithHistory(
+            owner: $owner,
+        );
+
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commit',
+                    [
+                        'repository' => $repository,
+                        'commit' => 'not-a-valid-commit',
+                    ],
+                ),
+            )
+            ->assertUnprocessable()
+            ->assertJson([
+                'message' => 'The requested commit identifier is invalid.',
+                'error' => 'invalid_commit',
+            ]);
+    }
+
+    public function test_unknown_commit_identifier_returns_not_found(): void
+    {
+        $owner = User::factory()->create();
+
+        $repository = $this->createRepositoryWithHistory(
+            owner: $owner,
+        );
+
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commit',
+                    [
+                        'repository' => $repository,
+                        'commit' => str_repeat(
+                            'f',
+                            40,
+                        ),
+                    ],
+                ),
+            )
+            ->assertNotFound()
+            ->assertJson([
+                'message' => 'The requested commit was not found.',
+                'error' => 'commit_not_found',
+            ]);
     }
 
     public function test_owner_can_browse_repository_tree(): void
@@ -369,6 +522,14 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
+        $commit = app(
+            RepositoryBrowserService::class,
+        )->commits(
+            repository: $repository,
+            branch: 'main',
+            limit: 1,
+        )[0];
+
         $this
             ->actingAs(
                 $viewer,
@@ -404,6 +565,22 @@ class RepositoryBrowserTest extends TestCase
                 route(
                     'api.v1.repositories.commits',
                     $repository,
+                ),
+            )
+            ->assertNotFound();
+
+        $this
+            ->actingAs(
+                $viewer,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.commit',
+                    [
+                        'repository' => $repository,
+                        'commit' => $commit['hash'],
+                    ],
                 ),
             )
             ->assertNotFound();
@@ -433,6 +610,14 @@ class RepositoryBrowserTest extends TestCase
             owner: $owner,
         );
 
+        $commit = app(
+            RepositoryBrowserService::class,
+        )->commits(
+            repository: $repository,
+            branch: 'main',
+            limit: 1,
+        )[0];
+
         $this
             ->getJson(
                 route(
@@ -456,6 +641,18 @@ class RepositoryBrowserTest extends TestCase
                 route(
                     'api.v1.repositories.commits',
                     $repository,
+                ),
+            )
+            ->assertNotFound();
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.commit',
+                    [
+                        'repository' => $repository,
+                        'commit' => $commit['hash'],
+                    ],
                 ),
             )
             ->assertNotFound();
@@ -511,6 +708,14 @@ class RepositoryBrowserTest extends TestCase
             public: true,
         );
 
+        $commit = app(
+            RepositoryBrowserService::class,
+        )->commits(
+            repository: $repository,
+            branch: 'main',
+            limit: 1,
+        )[0];
+
         $this
             ->getJson(
                 route(
@@ -535,6 +740,22 @@ class RepositoryBrowserTest extends TestCase
             ->assertJsonPath(
                 'branch',
                 'main',
+            );
+
+        $this
+            ->getJson(
+                route(
+                    'api.v1.repositories.commit',
+                    [
+                        'repository' => $repository,
+                        'commit' => $commit['hash'],
+                    ],
+                ),
+            )
+            ->assertOk()
+            ->assertJsonPath(
+                'commit.id',
+                $commit['hash'],
             );
 
         $this

@@ -189,11 +189,6 @@ class RepositoryBrowserService
             explode("\x1e", $output)
             as $record
         ) {
-            /*
-             * Git places a line break between formatted records.
-             * Remove only those structural line breaks; do not trim spaces
-             * from commit metadata such as the subject.
-             */
             $record = trim(
                 $record,
                 "\r\n",
@@ -239,29 +234,11 @@ class RepositoryBrowserService
                 );
             }
 
-            $parentHashes = [];
-
-            if ($parents !== '') {
-                $parentHashes = preg_split(
-                    '/\s+/',
-                    $parents,
-                ) ?: [];
-
-                foreach ($parentHashes as $parentHash) {
-                    if (
-                        ! preg_match(
-                            '/\A[0-9a-f]{40,64}\z/',
-                            $parentHash,
-                        )
-                    ) {
-                        throw $this->failure(
-                            repository: $repository,
-                            operation: 'list-commits',
-                            reason: 'unexpected_git_output',
-                        );
-                    }
-                }
-            }
+            $parentHashes = $this->parseParentHashes(
+                repository: $repository,
+                operation: 'list-commits',
+                parents: $parents,
+            );
 
             if (
                 $authorName === ''
@@ -288,6 +265,197 @@ class RepositoryBrowserService
         }
 
         return $commits;
+    }
+
+    /**
+     * Return one Git commit and its metadata.
+     *
+     * @return array{
+     *     id: string,
+     *     tree: string,
+     *     parents: list<string>,
+     *     author_name: string,
+     *     author_email: string,
+     *     authored_at: string,
+     *     committer_name: string,
+     *     committer_email: string,
+     *     committed_at: string,
+     *     message: string
+     * }
+     */
+    public function commit(
+        Repository $repository,
+        string $commit,
+    ): array {
+        $path = $this->repositoryPath(
+            $repository,
+        );
+
+        $commit = $this->normalizeCommitIdentifier(
+            repository: $repository,
+            commit: $commit,
+        );
+
+        /*
+         * ^{commit} forces Git to resolve the supplied identifier specifically
+         * to a commit object. An unknown identifier or a non-commit object
+         * therefore fails before any commit metadata is read.
+         */
+        try {
+            $resolvedCommit = $this->git->run(
+                operation: 'resolve-repository-commit',
+                arguments: [
+                    '--git-dir='.$path,
+                    'rev-parse',
+                    '--verify',
+                    $commit.'^{commit}',
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-commit',
+                reason: 'commit_not_found',
+                previous: $exception,
+            );
+        }
+
+        if (
+            ! preg_match(
+                '/\A[0-9a-f]{40,64}\z/',
+                $resolvedCommit,
+            )
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-commit',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        try {
+            $output = $this->git->runRaw(
+                operation: 'read-repository-commit',
+                arguments: [
+                    '--git-dir='.$path,
+                    'show',
+                    '--no-patch',
+                    '--date=iso-strict',
+                    '--format=%H%x1f%T%x1f%P%x1f%an%x1f%ae%x1f%aI%x1f%cn%x1f%ce%x1f%cI%x1f%B%x1e',
+                    $resolvedCommit,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-commit',
+                reason: 'git_command_failed',
+                previous: $exception,
+            );
+        }
+
+        $output = trim(
+            $output,
+            "\r\n",
+        );
+
+        if (
+            $output === ''
+            || ! str_ends_with(
+                $output,
+                "\x1e",
+            )
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-commit',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        $record = substr(
+            $output,
+            0,
+            -1,
+        );
+
+        $fields = explode(
+            "\x1f",
+            $record,
+            10,
+        );
+
+        if (count($fields) !== 10) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-commit',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        [
+            $id,
+            $tree,
+            $parents,
+            $authorName,
+            $authorEmail,
+            $authoredAt,
+            $committerName,
+            $committerEmail,
+            $committedAt,
+            $message,
+        ] = $fields;
+
+        if (
+            ! preg_match(
+                '/\A[0-9a-f]{40,64}\z/',
+                $id,
+            )
+            || ! preg_match(
+                '/\A[0-9a-f]{40,64}\z/',
+                $tree,
+            )
+            || $authorName === ''
+            || $authorEmail === ''
+            || $authoredAt === ''
+            || $committerName === ''
+            || $committerEmail === ''
+            || $committedAt === ''
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-commit',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        $parentHashes = $this->parseParentHashes(
+            repository: $repository,
+            operation: 'read-commit',
+            parents: $parents,
+        );
+
+        /*
+         * %B returns the complete commit message. Remove only Git's final
+         * structural line break so the API does not expose formatter padding.
+         */
+        $message = rtrim(
+            $message,
+            "\r\n",
+        );
+
+        return [
+            'id' => $id,
+            'tree' => $tree,
+            'parents' => $parentHashes,
+            'author_name' => $authorName,
+            'author_email' => $authorEmail,
+            'authored_at' => $authoredAt,
+            'committer_name' => $committerName,
+            'committer_email' => $committerEmail,
+            'committed_at' => $committedAt,
+            'message' => $message,
+        ];
     }
 
     /**
@@ -583,11 +751,6 @@ class RepositoryBrowserService
             );
         }
 
-        /*
-         * cat-file -s and cat-file blob should describe the same immutable
-         * object. Fail closed if the returned payload does not match the
-         * previously verified size.
-         */
         if (strlen($content) !== $size) {
             throw $this->failure(
                 repository: $repository,
@@ -635,12 +798,6 @@ class RepositoryBrowserService
             );
         }
 
-        /*
-         * exists() is a lightweight presence check. resolveExisting()
-         * additionally verifies containment and that the target is still a
-         * valid managed bare Git repository before repository content is
-         * treated as browsable.
-         */
         return $this->storage->resolveExisting(
             $repository,
         );
@@ -729,6 +886,78 @@ class RepositoryBrowserService
         }
 
         return $commit;
+    }
+
+    /**
+     * Normalize an untrusted Git commit identifier.
+     */
+    private function normalizeCommitIdentifier(
+        Repository $repository,
+        string $commit,
+    ): string {
+        $commit = trim(
+            $commit,
+        );
+
+        /*
+         * V1 exposes immutable commit identifiers through the browser API.
+         * Accept full SHA-1 or SHA-256 object IDs only. This avoids exposing
+         * arbitrary revision-expression syntax through a client-controlled
+         * route parameter.
+         */
+        if (
+            ! preg_match(
+                '/\A(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{64})\z/',
+                $commit,
+            )
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'resolve-commit',
+                reason: 'invalid_commit',
+            );
+        }
+
+        return strtolower(
+            $commit,
+        );
+    }
+
+    /**
+     * Parse and validate a whitespace-separated parent commit list.
+     *
+     * @return list<string>
+     */
+    private function parseParentHashes(
+        Repository $repository,
+        string $operation,
+        string $parents,
+    ): array {
+        if ($parents === '') {
+            return [];
+        }
+
+        $parentHashes = preg_split(
+            '/\s+/',
+            $parents,
+        ) ?: [];
+
+        foreach ($parentHashes as $parentHash) {
+            if (
+                ! preg_match(
+                    '/\A[0-9a-f]{40,64}\z/',
+                    $parentHash,
+                )
+            ) {
+                throw $this->failure(
+                    repository: $repository,
+                    operation: $operation,
+                    reason: 'unexpected_git_output',
+                );
+            }
+        }
+
+        return $parentHashes;
     }
 
     /**

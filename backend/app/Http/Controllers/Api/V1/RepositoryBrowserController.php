@@ -95,6 +95,36 @@ class RepositoryBrowserController extends Controller
     }
 
     /**
+     * Return one repository commit and its Git-native metadata.
+     */
+    public function commit(
+        Repository $repository,
+        string $commit,
+    ): JsonResponse {
+        Gate::authorize(
+            'view',
+            $repository,
+        );
+
+        try {
+            return response()->json([
+                'commit' => $this->browser->commit(
+                    repository: $repository,
+                    commit: $commit,
+                ),
+            ]);
+        } catch (RepositoryBrowserException $exception) {
+            return $this->browserErrorResponse(
+                $exception,
+            );
+        } catch (RepositoryStorageException $exception) {
+            return $this->storageErrorResponse(
+                $exception,
+            );
+        }
+    }
+
+    /**
      * List immediate entries from a repository directory.
      */
     public function tree(
@@ -223,12 +253,14 @@ class RepositoryBrowserController extends Controller
     ): JsonResponse {
         $status = match ($exception->reason) {
             'branch_not_found',
-            'path_not_found' => Response::HTTP_NOT_FOUND,
+            'path_not_found',
+            'commit_not_found' => Response::HTTP_NOT_FOUND,
 
             'invalid_branch',
             'invalid_path',
             'path_required',
-            'path_is_not_file' => Response::HTTP_UNPROCESSABLE_ENTITY,
+            'path_is_not_file',
+            'invalid_commit' => Response::HTTP_UNPROCESSABLE_ENTITY,
 
             'blob_too_large' => Response::HTTP_REQUEST_ENTITY_TOO_LARGE,
 
@@ -255,12 +287,20 @@ class RepositoryBrowserController extends Controller
                 'The requested repository path was not found.'
             ),
 
+            'commit_not_found' => (
+                'The requested commit was not found.'
+            ),
+
             'invalid_branch' => (
                 'The requested branch is invalid.'
             ),
 
             'invalid_path' => (
                 'The requested repository path is invalid.'
+            ),
+
+            'invalid_commit' => (
+                'The requested commit identifier is invalid.'
             ),
 
             'path_required' => (

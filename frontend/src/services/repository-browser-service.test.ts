@@ -3,6 +3,7 @@ import { apiClient } from '../lib/api'
 import {
   getRepositoryBlob,
   getRepositoryBranches,
+  getRepositoryCommit,
   getRepositoryCommits,
   getRepositoryTree,
 } from './repository-browser-service'
@@ -71,6 +72,49 @@ describe('repository browser service', () => {
           limit: 25,
         },
       },
+    )
+  })
+
+  it('requests repository commit details', async () => {
+    const commit =
+      '0123456789abcdef0123456789abcdef01234567'
+
+    const payload = {
+      commit: {
+        id: commit,
+        tree:
+          'abcdef0123456789abcdef0123456789abcdef01',
+        parents: [],
+        author_name:
+          'Repository Browser Test',
+        author_email:
+          'browser@example.test',
+        authored_at:
+          '2026-08-20T10:00:00+00:00',
+        committer_name:
+          'Repository Committer',
+        committer_email:
+          'committer@example.test',
+        committed_at:
+          '2026-08-20T10:05:00+00:00',
+        message:
+          'Initial repository content',
+      },
+    }
+
+    mockedGet.mockResolvedValueOnce({
+      data: payload,
+    })
+
+    await expect(
+      getRepositoryCommit(
+        37,
+        commit,
+      ),
+    ).resolves.toEqual(payload)
+
+    expect(mockedGet).toHaveBeenCalledWith(
+      `/repositories/37/commits/${commit}`,
     )
   })
 

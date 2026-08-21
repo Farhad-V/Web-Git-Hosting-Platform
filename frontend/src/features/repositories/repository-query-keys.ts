@@ -46,6 +46,15 @@ export const repositoryQueryKeys = {
     },
   ] as const,
 
+  commit: (
+    repositoryId: number,
+    commit: string,
+  ) => [
+    ...repositoryQueryKeys.browser(repositoryId),
+    'commit',
+    commit,
+  ] as const,
+
   tree: (
     repositoryId: number,
     branch: string,

@@ -3,6 +3,7 @@ import type {
   RepositoryBlobResponse,
   RepositoryBranchesResponse,
   RepositoryBrowserParameters,
+  RepositoryCommitDetailsResponse,
   RepositoryCommitParameters,
   RepositoryCommitsResponse,
   RepositoryTreeResponse,
@@ -29,6 +30,18 @@ export async function getRepositoryCommits(
       {
         params: parameters,
       },
+    )
+
+  return response.data
+}
+
+export async function getRepositoryCommit(
+  repositoryId: number,
+  commit: string,
+): Promise<RepositoryCommitDetailsResponse> {
+  const response =
+    await apiClient.get<RepositoryCommitDetailsResponse>(
+      `/repositories/${repositoryId}/commits/${commit}`,
     )
 
   return response.data

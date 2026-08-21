@@ -180,6 +180,217 @@ class RepositoryBrowserServiceTest extends TestCase
         );
     }
 
+    public function test_it_returns_commit_details(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        $commits = app(RepositoryBrowserService::class)
+            ->commits(
+                repository: $repository,
+                branch: 'main',
+                limit: 1,
+            );
+
+        $commitHash = $commits[0]['hash'];
+
+        $commit = app(RepositoryBrowserService::class)
+            ->commit(
+                repository: $repository,
+                commit: $commitHash,
+            );
+
+        $this->assertSame(
+            $commitHash,
+            $commit['id'],
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/\A[0-9a-f]{40,64}\z/',
+            $commit['tree'],
+        );
+
+        $this->assertCount(
+            1,
+            $commit['parents'],
+        );
+
+        $this->assertSame(
+            'Repository Browser Test',
+            $commit['author_name'],
+        );
+
+        $this->assertSame(
+            'browser@example.test',
+            $commit['author_email'],
+        );
+
+        $this->assertNotSame(
+            '',
+            $commit['authored_at'],
+        );
+
+        $this->assertSame(
+            'Repository Browser Test',
+            $commit['committer_name'],
+        );
+
+        $this->assertSame(
+            'browser@example.test',
+            $commit['committer_email'],
+        );
+
+        $this->assertNotSame(
+            '',
+            $commit['committed_at'],
+        );
+
+        $this->assertSame(
+            'Add application source',
+            $commit['message'],
+        );
+    }
+
+    public function test_it_returns_root_commit_details_without_parents(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        $commits = app(RepositoryBrowserService::class)
+            ->commits(
+                repository: $repository,
+                branch: 'main',
+            );
+
+        $rootCommitHash = $commits[1]['hash'];
+
+        $commit = app(RepositoryBrowserService::class)
+            ->commit(
+                repository: $repository,
+                commit: $rootCommitHash,
+            );
+
+        $this->assertSame(
+            $rootCommitHash,
+            $commit['id'],
+        );
+
+        $this->assertSame(
+            [],
+            $commit['parents'],
+        );
+
+        $this->assertSame(
+            'Initial commit',
+            $commit['message'],
+        );
+    }
+
+    public function test_it_rejects_invalid_commit_identifier(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        try {
+            app(RepositoryBrowserService::class)
+                ->commit(
+                    repository: $repository,
+                    commit: '../main',
+                );
+
+            $this->fail(
+                'An invalid commit identifier was accepted.',
+            );
+        } catch (RepositoryBrowserException $exception) {
+            $this->assertSame(
+                'invalid_commit',
+                $exception->reason,
+            );
+
+            $this->assertSame(
+                'resolve-commit',
+                $exception->operation,
+            );
+
+            $this->assertSame(
+                $repository->id,
+                $exception->repositoryId,
+            );
+        }
+    }
+
+    public function test_it_rejects_unknown_commit_identifier(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        try {
+            app(RepositoryBrowserService::class)
+                ->commit(
+                    repository: $repository,
+                    commit: str_repeat(
+                        'f',
+                        40,
+                    ),
+                );
+
+            $this->fail(
+                'An unknown commit identifier was accepted.',
+            );
+        } catch (RepositoryBrowserException $exception) {
+            $this->assertSame(
+                'commit_not_found',
+                $exception->reason,
+            );
+
+            $this->assertSame(
+                'resolve-commit',
+                $exception->operation,
+            );
+
+            $this->assertSame(
+                $repository->id,
+                $exception->repositoryId,
+            );
+        }
+    }
+
+    public function test_it_rejects_non_commit_git_object(): void
+    {
+        $repository = $this->createRepositoryWithHistory();
+
+        $runner = app(
+            GitCommandRunner::class,
+        );
+
+        $blobHash = $runner->run(
+            operation: 'resolve-browser-test-blob',
+            arguments: [
+                'rev-parse',
+                'HEAD:README.md',
+            ],
+            workingDirectory: $this->worktreePath,
+        );
+
+        try {
+            app(RepositoryBrowserService::class)
+                ->commit(
+                    repository: $repository,
+                    commit: $blobHash,
+                );
+
+            $this->fail(
+                'A non-commit Git object was accepted as a commit.',
+            );
+        } catch (RepositoryBrowserException $exception) {
+            $this->assertSame(
+                'commit_not_found',
+                $exception->reason,
+            );
+
+            $this->assertSame(
+                'resolve-commit',
+                $exception->operation,
+            );
+        }
+    }
+
     public function test_it_lists_root_and_nested_tree_entries(): void
     {
         $repository = $this->createRepositoryWithHistory();

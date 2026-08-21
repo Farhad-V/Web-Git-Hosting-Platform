@@ -68,6 +68,11 @@ Route::middleware('web')
                 )->name('repositories.commits');
 
                 Route::get(
+                    '/repositories/{repository}/commits/{commit}',
+                    [RepositoryBrowserController::class, 'commit'],
+                )->name('repositories.commit');
+
+                Route::get(
                     '/repositories/{repository}/tree',
                     [RepositoryBrowserController::class, 'tree'],
                 )->name('repositories.tree');

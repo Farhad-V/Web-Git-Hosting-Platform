@@ -3,6 +3,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import {
+  fireEvent,
   render,
   screen,
   waitFor,
@@ -17,6 +18,7 @@ import {
 import {
   getRepositoryBlob,
   getRepositoryBranches,
+  getRepositoryCommit,
   getRepositoryCommits,
   getRepositoryTree,
 } from '../../services/repository-browser-service'
@@ -30,6 +32,9 @@ vi.mock(
       vi.fn(),
 
     getRepositoryBranches:
+      vi.fn(),
+
+    getRepositoryCommit:
       vi.fn(),
 
     getRepositoryCommits:
@@ -61,6 +66,9 @@ const repository: Repository = {
     '2026-08-20T10:00:00.000Z',
 }
 
+const commitHash =
+  '0123456789abcdef0123456789abcdef01234567'
+
 function renderBrowser() {
   const queryClient =
     new QueryClient({
@@ -89,6 +97,73 @@ function renderBrowser() {
   )
 }
 
+function mockBrowsableRepository(): void {
+  vi.mocked(
+    getRepositoryBranches,
+  ).mockResolvedValue({
+    data: [
+      {
+        name: 'main',
+        commit:
+          commitHash,
+        committed_at:
+          '2026-08-20T10:00:00+00:00',
+        subject:
+          'Initial repository content',
+      },
+    ],
+    default_branch:
+      'main',
+  })
+
+  vi.mocked(
+    getRepositoryTree,
+  ).mockResolvedValue({
+    data: [
+      {
+        name:
+          'README.md',
+        path:
+          'README.md',
+        type:
+          'file',
+        mode:
+          '100644',
+        object_id:
+          'abcdef0123456789abcdef0123456789abcdef01',
+        size: 42,
+      },
+    ],
+    branch:
+      'main',
+    path: '',
+  })
+
+  vi.mocked(
+    getRepositoryCommits,
+  ).mockResolvedValue({
+    data: [
+      {
+        hash:
+          commitHash,
+        parents: [],
+        author: {
+          name:
+            'Repository Browser Test',
+          email:
+            'browser@example.test',
+        },
+        authored_at:
+          '2026-08-20T10:00:00+00:00',
+        subject:
+          'Initial repository content',
+      },
+    ],
+    branch:
+      'main',
+  })
+}
+
 describe(
   'RepositoryBrowser',
   () => {
@@ -101,6 +176,10 @@ describe(
 
       vi.mocked(
         getRepositoryTree,
+      ).mockReset()
+
+      vi.mocked(
+        getRepositoryCommit,
       ).mockReset()
 
       vi.mocked(
@@ -149,70 +228,7 @@ describe(
     })
 
     it('uses the Git-native default branch returned by the branches endpoint', async () => {
-      vi.mocked(
-        getRepositoryBranches,
-      ).mockResolvedValue({
-        data: [
-          {
-            name: 'main',
-            commit:
-              '0123456789abcdef0123456789abcdef01234567',
-            committed_at:
-              '2026-08-20T10:00:00+00:00',
-            subject:
-              'Initial repository content',
-          },
-        ],
-        default_branch:
-          'main',
-      })
-
-      vi.mocked(
-        getRepositoryTree,
-      ).mockResolvedValue({
-        data: [
-          {
-            name:
-              'README.md',
-            path:
-              'README.md',
-            type:
-              'file',
-            mode:
-              '100644',
-            object_id:
-              'abcdef0123456789abcdef0123456789abcdef01',
-            size: 42,
-          },
-        ],
-        branch:
-          'main',
-        path: '',
-      })
-
-      vi.mocked(
-        getRepositoryCommits,
-      ).mockResolvedValue({
-        data: [
-          {
-            hash:
-              '0123456789abcdef0123456789abcdef01234567',
-            parents: [],
-            author: {
-              name:
-                'Repository Browser Test',
-              email:
-                'browser@example.test',
-            },
-            authored_at:
-              '2026-08-20T10:00:00+00:00',
-            subject:
-              'Initial repository content',
-          },
-        ],
-        branch:
-          'main',
-      })
+      mockBrowsableRepository()
 
       renderBrowser()
 
@@ -263,6 +279,110 @@ describe(
       ).toBeInTheDocument()
     })
 
+    it('loads and displays commit details when a recent commit is selected', async () => {
+      mockBrowsableRepository()
+
+      vi.mocked(
+        getRepositoryCommit,
+      ).mockResolvedValue({
+        commit: {
+          id:
+            commitHash,
+          tree:
+            'abcdef0123456789abcdef0123456789abcdef01',
+          parents: [],
+          author_name:
+            'Repository Browser Test',
+          author_email:
+            'browser@example.test',
+          authored_at:
+            '2026-08-20T10:00:00+00:00',
+          committer_name:
+            'Repository Committer',
+          committer_email:
+            'committer@example.test',
+          committed_at:
+            '2026-08-20T10:05:00+00:00',
+          message:
+            'Initial repository content',
+        },
+      })
+
+      renderBrowser()
+
+      const commitButton =
+        await screen.findByRole(
+          'button',
+          {
+            name:
+              /view commit 0123456/i,
+          },
+        )
+
+      fireEvent.click(
+        commitButton,
+      )
+
+      await waitFor(() => {
+        expect(
+          getRepositoryCommit,
+        ).toHaveBeenCalledWith(
+          36,
+          commitHash,
+        )
+      })
+
+      expect(
+        await screen.findByRole(
+          'heading',
+          {
+            name:
+              /commit details/i,
+          },
+        ),
+      ).toBeInTheDocument()
+
+      expect(
+        screen.getByText(
+          'Repository Committer',
+        ),
+      ).toBeInTheDocument()
+
+      expect(
+        screen.getByText(
+          'committer@example.test',
+        ),
+      ).toBeInTheDocument()
+
+      expect(
+        screen.getByText(
+          'browser@example.test',
+        ),
+      ).toBeInTheDocument()
+
+      expect(
+        screen.getByText(
+          commitHash,
+        ),
+      ).toBeInTheDocument()
+
+      expect(
+        screen.getByText(
+          'abcdef0123456789abcdef0123456789abcdef01',
+        ),
+      ).toBeInTheDocument()
+
+      expect(
+        screen.getByRole(
+          'button',
+          {
+            name:
+              /back to recent commits/i,
+          },
+        ),
+      ).toBeInTheDocument()
+    })
+
     it('renders repository-controlled values as text instead of executable HTML', async () => {
       const maliciousSubject =
         '<img src=x onerror="window.__gitforge_xss = true">'
@@ -281,7 +401,7 @@ describe(
             name:
               'main',
             commit:
-              '0123456789abcdef0123456789abcdef01234567',
+              commitHash,
             committed_at:
               '2026-08-20T10:00:00+00:00',
             subject:
@@ -321,7 +441,7 @@ describe(
         data: [
           {
             hash:
-              '0123456789abcdef0123456789abcdef01234567',
+              commitHash,
             parents: [],
             author: {
               name:
