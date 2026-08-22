@@ -231,6 +231,32 @@ class AuthenticationTest extends TestCase
         );
     }
 
+    public function test_login_rejects_unknown_user(): void
+    {
+        $response = $this->postJson(
+            route('api.v1.auth.login'),
+            [
+                'email' => 'unknown@example.com',
+                'password' => 'StrongPassword1!',
+            ],
+        );
+
+        $response
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(
+                'email',
+            );
+
+        $this->assertGuest(
+            'web',
+        );
+
+        $this->assertDatabaseCount(
+            'users',
+            0,
+        );
+    }
+
     public function test_authenticated_user_can_view_profile(): void
     {
         $user = User::factory()->create();
