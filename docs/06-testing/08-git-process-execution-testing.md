@@ -26,7 +26,7 @@
 
 
 
-\---
+---
 
 
 
@@ -94,7 +94,7 @@ TC-GEXEC-007
 
 
 
-\---
+---
 
 
 
@@ -140,7 +140,7 @@ WP-08 verifies that:
 
 
 
-\---
+---
 
 
 
@@ -232,7 +232,7 @@ App\\Services\\Git\\RepositoryStorageService
 
 
 
-\---
+---
 
 
 
@@ -344,7 +344,7 @@ The architecture therefore does not require every security decision to exist ins
 
 
 
-\---
+---
 
 
 
@@ -420,7 +420,7 @@ No arbitrary client-provided Git operation name is permitted to become a subproc
 
 
 
-\---
+---
 
 
 
@@ -460,7 +460,7 @@ No controller or external client directly launches the Git executable.
 
 
 
-\---
+---
 
 
 
@@ -502,7 +502,7 @@ This preserves the approved no-shell design.
 
 
 
-\---
+---
 
 
 
@@ -530,7 +530,7 @@ This reduces dependency on uncontrolled host configuration and prevents terminal
 
 
 
-\---
+---
 
 
 
@@ -596,7 +596,7 @@ existing repository validation
 
 
 
-\---
+---
 
 
 
@@ -642,7 +642,7 @@ WP-08 covers:
 
 
 
-\---
+---
 
 
 
@@ -684,7 +684,7 @@ Those concerns are covered by separate M5 work packages or are outside V1.0.0.
 
 
 
-\---
+---
 
 
 
@@ -760,7 +760,7 @@ WP-08 execution: COMPLETE
 
 
 
-\---
+---
 
 
 
@@ -802,7 +802,7 @@ NOT EXECUTED
 
 
 
-\---
+---
 
 
 
@@ -848,7 +848,7 @@ Formal totals:
 
 
 
-\---
+---
 
 
 
@@ -878,7 +878,7 @@ Tests\\Feature\\Git\\GitSmartHttpTest
 
 
 
-\---
+---
 
 
 
@@ -948,7 +948,7 @@ process timeout is mapped to git command exception
 
 
 
-\---
+---
 
 
 
@@ -1006,7 +1006,7 @@ timeout logs classified timeout without process payload
 
 
 
-\---
+---
 
 
 
@@ -1062,7 +1062,7 @@ branch name cannot be used as git option
 
 
 
-\---
+---
 
 
 
@@ -1130,7 +1130,7 @@ git command timeout is translated to transport timeout
 
 
 
-\---
+---
 
 
 
@@ -1226,7 +1226,7 @@ This skip does not block `TC-GEXEC-004`, because traversal and absolute-path esc
 
 
 
-\---
+---
 
 
 
@@ -1284,7 +1284,7 @@ This provides feature-level evidence that unsupported external Git service selec
 
 
 
-\---
+---
 
 
 
@@ -1322,7 +1322,7 @@ No WP-08 source-code formatting changes were required.
 
 
 
-\---
+---
 
 
 
@@ -1440,7 +1440,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -1670,7 +1670,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -1832,7 +1832,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2020,7 +2020,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2152,7 +2152,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2358,7 +2358,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2532,7 +2532,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2584,7 +2584,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2632,7 +2632,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2688,7 +2688,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2756,7 +2756,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2824,7 +2824,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2880,7 +2880,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2954,7 +2954,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3002,7 +3002,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3070,7 +3070,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3126,7 +3126,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3206,7 +3206,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3296,7 +3296,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3374,7 +3374,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3432,7 +3432,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3492,7 +3492,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -3524,7 +3524,7 @@ The existing layered test suite already provides sufficient evidence for all sev
 
 
 
-\---
+---
 
 
 
@@ -3544,7 +3544,7 @@ WP-08 required:
 
 
 
-\---
+---
 
 
 
@@ -3568,7 +3568,7 @@ Existing tests provided sufficient formal coverage.
 
 
 
-\---
+---
 
 
 
@@ -3622,7 +3622,7 @@ The single skip is supporting storage evidence and does not represent an unexecu
 
 
 
-\---
+---
 
 
 
@@ -3668,7 +3668,7 @@ Formal result:
 
 
 
-\---
+---
 
 
 
@@ -3768,7 +3768,7 @@ This matches the approved architecture.
 
 
 
-\---
+---
 
 
 
@@ -3820,7 +3820,7 @@ TC-GEXEC-002 = PASS
 
 
 
-\---
+---
 
 
 
@@ -3864,7 +3864,7 @@ TC-GEXEC-004 = PASS
 
 
 
-\---
+---
 
 
 
@@ -3910,7 +3910,7 @@ noninteractive Git execution
 
 
 
-\---
+---
 
 
 
@@ -3950,7 +3950,7 @@ WP-08 Execution Evidence
 
 
 
-\---
+---
 
 
 
@@ -4028,7 +4028,7 @@ Current assessment:
 
 
 
-\---
+---
 
 
 
@@ -4130,7 +4130,7 @@ APPROVAL PENDING
 
 
 
-\---
+---
 
 
 
@@ -4186,7 +4186,7 @@ WP-08 — Git Process Execution Testing: COMPLETE
 
 
 
-\---
+---
 
 
 

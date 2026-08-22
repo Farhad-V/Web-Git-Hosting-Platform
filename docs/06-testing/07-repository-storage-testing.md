@@ -26,7 +26,7 @@
 
 
 
-\---
+---
 
 
 
@@ -106,7 +106,7 @@ TC-STORE-007
 
 
 
-\---
+---
 
 
 
@@ -148,7 +148,7 @@ WP-07 verifies that:
 
 
 
-\---
+---
 
 
 
@@ -220,7 +220,7 @@ App\\Services\\Git\\GitCommandRunner
 
 
 
-\---
+---
 
 
 
@@ -268,7 +268,7 @@ This design reduces exposure to user-controlled path traversal and path injectio
 
 
 
-\---
+---
 
 
 
@@ -322,7 +322,7 @@ When possible, canonical filesystem resolution is also applied to detect symlink
 
 
 
-\---
+---
 
 
 
@@ -370,7 +370,7 @@ WP-07 covers:
 
 
 
-\---
+---
 
 
 
@@ -418,7 +418,7 @@ Those areas are either deferred from V1.0.0 or covered by later M5 work packages
 
 
 
-\---
+---
 
 
 
@@ -482,7 +482,7 @@ WP-07 execution: COMPLETE
 
 
 
-\---
+---
 
 
 
@@ -518,7 +518,7 @@ For `TC-STORE-007`, environment capability is explicitly part of the formal prec
 
 
 
-\---
+---
 
 
 
@@ -568,7 +568,7 @@ Formal case totals:
 
 
 
-\---
+---
 
 
 
@@ -656,7 +656,7 @@ Tests\\Feature\\Observability\\InfrastructureObservabilityTest
 
 
 
-\---
+---
 
 
 
@@ -706,7 +706,7 @@ No persistent development repository storage is used.
 
 
 
-\---
+---
 
 
 
@@ -762,7 +762,7 @@ This established the pre-change WP-07 baseline.
 
 
 
-\---
+---
 
 
 
@@ -820,7 +820,7 @@ No production code changes were required.
 
 
 
-\---
+---
 
 
 
@@ -914,7 +914,7 @@ symlinked repositories directory outside root is rejected
 
 
 
-\---
+---
 
 
 
@@ -972,7 +972,7 @@ This provides direct evidence for `TC-STORE-006`.
 
 
 
-\---
+---
 
 
 
@@ -1048,7 +1048,7 @@ unsafe storage path records security relevant event
 
 
 
-\---
+---
 
 
 
@@ -1122,7 +1122,7 @@ Final Pint verification will be repeated before WP-07 approval.
 
 
 
-\---
+---
 
 
 
@@ -1242,7 +1242,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -1372,7 +1372,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -1494,7 +1494,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -1614,7 +1614,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -1744,7 +1744,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -1852,7 +1852,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2022,7 +2022,7 @@ ENVIRONMENT-SKIPPED
 
 
 
-\---
+---
 
 
 
@@ -2090,7 +2090,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2134,7 +2134,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2196,7 +2196,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2236,7 +2236,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2282,7 +2282,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2332,7 +2332,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2374,7 +2374,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2442,7 +2442,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2470,7 +2470,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2514,7 +2514,7 @@ Implementation protection remains present and testable on environments with requ
 
 
 
-\---
+---
 
 
 
@@ -2558,7 +2558,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2604,7 +2604,7 @@ PASS
 
 
 
-\---
+---
 
 
 
@@ -2668,7 +2668,7 @@ RESOLVED
 
 
 
-\---
+---
 
 
 
@@ -2704,7 +2704,7 @@ backend/tests/Unit/Services/Git/RepositoryStorageServiceTest.php
 
 
 
-\---
+---
 
 
 
@@ -2742,7 +2742,7 @@ No existing test behavior was removed.
 
 
 
-\---
+---
 
 
 
@@ -2786,7 +2786,7 @@ Aggregate result:
 
 
 
-\---
+---
 
 
 
@@ -2830,7 +2830,7 @@ Formal result:
 
 
 
-\---
+---
 
 
 
@@ -2882,7 +2882,7 @@ The limitation must remain documented for later execution on a symlink-capable e
 
 
 
-\---
+---
 
 
 
@@ -2926,7 +2926,7 @@ No formal storage requirement was expanded beyond the approved V1.0.0 scope.
 
 
 
-\---
+---
 
 
 
@@ -3004,7 +3004,7 @@ Symlink-specific execution remains environment-dependent and does not block WP-0
 
 
 
-\---
+---
 
 
 
@@ -3096,7 +3096,7 @@ APPROVAL PENDING
 
 
 
-\---
+---
 
 
 
@@ -3152,7 +3152,7 @@ WP-07 — Repository Storage Testing: COMPLETE
 
 
 
-\---
+---
 
 
 
