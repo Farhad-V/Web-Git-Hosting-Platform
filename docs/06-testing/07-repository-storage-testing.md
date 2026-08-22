@@ -46,27 +46,27 @@ The work package covers:
 
 
 
-\- bare repository initialization;
+- bare repository initialization;
 
-\- deterministic physical repository paths;
+- deterministic physical repository paths;
 
-\- storage-root containment;
+- storage-root containment;
 
-\- path traversal rejection;
+- path traversal rejection;
 
-\- absolute path injection rejection;
+- absolute path injection rejection;
 
-\- missing repository storage handling;
+- missing repository storage handling;
 
-\- orphan physical repository handling;
+- orphan physical repository handling;
 
-\- symlink escape protection;
+- symlink escape protection;
 
-\- partial-storage cleanup;
+- partial-storage cleanup;
 
-\- overwrite prevention;
+- overwrite prevention;
 
-\- storage integrity observability.
+- storage integrity observability.
 
 
 
@@ -118,33 +118,33 @@ WP-07 verifies that:
 
 
 
-\- repository creation initializes a valid bare Git repository;
+- repository creation initializes a valid bare Git repository;
 
-\- physical repository storage remains inside the configured storage root;
+- physical repository storage remains inside the configured storage root;
 
-\- physical repository location is derived deterministically from database repository identity;
+- physical repository location is derived deterministically from database repository identity;
 
-\- repository names do not control physical filesystem paths;
+- repository names do not control physical filesystem paths;
 
-\- traversal-oriented repository-directory configuration is rejected;
+- traversal-oriented repository-directory configuration is rejected;
 
-\- absolute repository-directory injection is rejected;
+- absolute repository-directory injection is rejected;
 
-\- relative storage-root configuration is rejected;
+- relative storage-root configuration is rejected;
 
-\- missing physical storage is detected and fails safely;
+- missing physical storage is detected and fails safely;
 
-\- orphan physical storage is not automatically exposed or adopted;
+- orphan physical storage is not automatically exposed or adopted;
 
-\- symlink-based escape attempts are rejected when the runtime environment supports symlink construction;
+- symlink-based escape attempts are rejected when the runtime environment supports symlink construction;
 
-\- existing storage is not overwritten during repository creation;
+- existing storage is not overwritten during repository creation;
 
-\- partial storage from failed initialization can be removed safely;
+- partial storage from failed initialization can be removed safely;
 
-\- failed initialization does not leave residual repository directories;
+- failed initialization does not leave residual repository directories;
 
-\- storage failures generate controlled observability events.
+- storage failures generate controlled observability events.
 
 
 
@@ -334,39 +334,39 @@ WP-07 covers:
 
 
 
-\- repository storage initialization;
+- repository storage initialization;
 
-\- bare Git repository verification;
+- bare Git repository verification;
 
-\- deterministic storage path derivation;
+- deterministic storage path derivation;
 
-\- repository-ID-based physical storage;
+- repository-ID-based physical storage;
 
-\- repository-name independence;
+- repository-name independence;
 
-\- configured storage-root validation;
+- configured storage-root validation;
 
-\- repository-directory validation;
+- repository-directory validation;
 
-\- lexical containment validation;
+- lexical containment validation;
 
-\- canonical containment validation;
+- canonical containment validation;
 
-\- traversal rejection;
+- traversal rejection;
 
-\- absolute-path injection rejection;
+- absolute-path injection rejection;
 
-\- symlink escape rejection;
+- symlink escape rejection;
 
-\- missing-storage detection;
+- missing-storage detection;
 
-\- orphan-storage handling;
+- orphan-storage handling;
 
-\- overwrite protection;
+- overwrite protection;
 
-\- failed initialization cleanup;
+- failed initialization cleanup;
 
-\- storage observability.
+- storage observability.
 
 
 
@@ -382,35 +382,35 @@ The following are outside WP-07:
 
 
 
-\- complete Git process-execution testing;
+- complete Git process-execution testing;
 
-\- complete Git Smart HTTP testing;
+- complete Git Smart HTTP testing;
 
-\- repository tree/browser semantics;
+- repository tree/browser semantics;
 
-\- branch and commit browsing behavior;
+- branch and commit browsing behavior;
 
-\- clone/fetch protocol verification;
+- clone/fetch protocol verification;
 
-\- push protocol verification;
+- push protocol verification;
 
-\- repository deletion functionality;
+- repository deletion functionality;
 
-\- backup and restore;
+- backup and restore;
 
-\- storage replication;
+- storage replication;
 
-\- distributed storage;
+- distributed storage;
 
-\- object storage;
+- object storage;
 
-\- repository quotas;
+- repository quotas;
 
-\- repository garbage collection;
+- repository garbage collection;
 
-\- SSH repository transport;
+- SSH repository transport;
 
-\- cloud filesystem integration.
+- cloud filesystem integration.
 
 
 
@@ -430,27 +430,27 @@ WP-07 may execute when:
 
 
 
-\- M4 Implementation is complete;
+- M4 Implementation is complete;
 
-\- WP-01 Testing Plan is approved;
+- WP-01 Testing Plan is approved;
 
-\- WP-02 Test Case Specification is approved;
+- WP-02 Test Case Specification is approved;
 
-\- WP-03 Test Environment Validation is approved;
+- WP-03 Test Environment Validation is approved;
 
-\- WP-04 Authentication Testing is approved;
+- WP-04 Authentication Testing is approved;
 
-\- WP-05 Repository Metadata Testing is approved;
+- WP-05 Repository Metadata Testing is approved;
 
-\- WP-06 Authorization Testing is approved;
+- WP-06 Authorization Testing is approved;
 
-\- Git executable integration is operational;
+- Git executable integration is operational;
 
-\- temporary repository storage can be created;
+- temporary repository storage can be created;
 
-\- PostgreSQL test persistence is operational;
+- PostgreSQL test persistence is operational;
 
-\- branch `testing/m5` is active.
+- branch `testing/m5` is active.
 
 
 
@@ -1202,17 +1202,17 @@ The test verifies:
 
 
 
-\- physical repository directory exists;
+- physical repository directory exists;
 
-\- `HEAD` exists;
+- `HEAD` exists;
 
-\- `config` exists;
+- `config` exists;
 
-\- `objects` directory exists;
+- `objects` directory exists;
 
-\- `refs` directory exists;
+- `refs` directory exists;
 
-\- storage service reports repository existence.
+- storage service reports repository existence.
 
 
 
@@ -2310,13 +2310,13 @@ These tests verify that:
 
 
 
-\- failed creation does not leave abandoned repository directories;
+- failed creation does not leave abandoned repository directories;
 
-\- cleanup removes partial storage;
+- cleanup removes partial storage;
 
-\- repeated cleanup remains safe;
+- repeated cleanup remains safe;
 
-\- missing partial storage does not cause unsafe behavior.
+- missing partial storage does not cause unsafe behavior.
 
 
 
@@ -2482,15 +2482,15 @@ The production implementation protects against filesystem redirection by:
 
 
 
-\- rejecting direct repository symlinks;
+- rejecting direct repository symlinks;
 
-\- rejecting a symlinked repositories directory;
+- rejecting a symlinked repositories directory;
 
-\- rechecking containment after directory creation;
+- rechecking containment after directory creation;
 
-\- resolving existing ancestors canonically;
+- resolving existing ancestors canonically;
 
-\- verifying canonical ancestors remain beneath the canonical storage root.
+- verifying canonical ancestors remain beneath the canonical storage root.
 
 
 
@@ -3168,35 +3168,35 @@ The executed evidence confirms that:
 
 
 
-\- valid repository creation initializes bare Git repository storage;
+- valid repository creation initializes bare Git repository storage;
 
-\- physical repository paths are deterministic and repository-ID-based;
+- physical repository paths are deterministic and repository-ID-based;
 
-\- repository names do not influence physical filesystem locations;
+- repository names do not influence physical filesystem locations;
 
-\- relative storage roots are rejected;
+- relative storage roots are rejected;
 
-\- traversal-oriented repository-directory values are rejected;
+- traversal-oriented repository-directory values are rejected;
 
-\- absolute repository-directory injection is rejected;
+- absolute repository-directory injection is rejected;
 
-\- missing repository storage fails safely;
+- missing repository storage fails safely;
 
-\- orphan physical repository storage is not automatically adopted;
+- orphan physical repository storage is not automatically adopted;
 
-\- existing physical repository targets are not overwritten;
+- existing physical repository targets are not overwritten;
 
-\- failed initialization does not leave unmanaged repository directories;
+- failed initialization does not leave unmanaged repository directories;
 
-\- partial storage cleanup is safe and idempotent;
+- partial storage cleanup is safe and idempotent;
 
-\- storage security and integrity failures are observable;
+- storage security and integrity failures are observable;
 
-\- symlink escape protection exists in the implementation and has a dedicated automated test;
+- symlink escape protection exists in the implementation and has a dedicated automated test;
 
-\- the current runtime cannot execute the symlink scenario because directory symlink creation is unavailable;
+- the current runtime cannot execute the symlink scenario because directory symlink creation is unavailable;
 
-\- no production repository-storage defect remains unresolved.
+- no production repository-storage defect remains unresolved.
 
 
 
