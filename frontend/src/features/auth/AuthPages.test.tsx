@@ -276,13 +276,13 @@ describe('authentication pages', () => {
 
     expect(
       await screen.findByText(
-        /name must be at least 2 characters/i,
+        /name must contain at least 2 characters/i,
       ),
     ).toBeInTheDocument()
 
     expect(
       screen.getByText(
-        /username must be at least 3 characters/i,
+        /username must contain at least 3 characters/i,
       ),
     ).toBeInTheDocument()
 
@@ -294,13 +294,13 @@ describe('authentication pages', () => {
 
     expect(
       screen.getByText(
-        /password must be at least 12 characters/i,
+        /password must contain at least 12 characters/i,
       ),
     ).toBeInTheDocument()
 
     expect(
       screen.getByText(
-        /password confirmation is required/i,
+        /confirm your password/i,
       ),
     ).toBeInTheDocument()
 
