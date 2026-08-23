@@ -3,25 +3,15 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge — Web Git Hosting Platform |
-
 | Version | V1.0.0 |
-
 | SDLC phase | 6 — Testing |
-
 | Milestone | M5 — Testing |
-
 | Work package | WP-07 — Repository Storage Testing |
-
 | Document | Repository Storage Testing |
-
 | Status | Approved |
-
 | Date | 2026-08-22 |
-
 | Branch | `testing/m5` |
 
 
@@ -495,17 +485,11 @@ Each formal test case uses one of the following states.
 
 
 | State | Meaning |
-
 |---|---|
-
 | PASS | Actual behavior satisfies the expected result |
-
 | FAIL | Actual behavior differs from the expected result |
-
 | BLOCKED | Execution cannot proceed because of an external prerequisite |
-
 | NOT EXECUTED | Test has not yet been executed |
-
 | ENVIRONMENT-SKIPPED | Test is valid but the current runtime lacks a required environment capability |
 
 
@@ -527,21 +511,13 @@ For `TC-STORE-007`, environment capability is explicitly part of the formal prec
 
 
 | Test ID | Description | Priority | Result |
-
 |---|---|---|---|
-
 | TC-STORE-001 | Repository Creation Initializes Bare Repository Storage | P1 | PASS |
-
 | TC-STORE-002 | Repository Path Is Derived Safely | P1 | PASS |
-
 | TC-STORE-003 | Reject Path Traversal Attempt | P1 | PASS |
-
 | TC-STORE-004 | Reject Absolute Path Injection | P1 | PASS |
-
 | TC-STORE-005 | Detect Missing Repository Storage | P2 | PASS |
-
 | TC-STORE-006 | Handle Orphan Repository Storage Safely | P1 | PASS |
-
 | TC-STORE-007 | Symlink Escape Protection | P1 | ENVIRONMENT-SKIPPED |
 
 
@@ -2755,15 +2731,10 @@ Unique full-suite executions used as WP-07 evidence:
 
 
 | Suite | Passed | Assertions | Skipped | Failed |
-
 |---|---:|---:|---:|---:|
-
 | RepositoryStorageServiceTest | 14 | 22 | 1 | 0 |
-
 | OrphanRepositorySecurityTest | 1 | 5 | 0 | 0 |
-
 | InfrastructureObservabilityTest | 4 | 13 | 0 | 0 |
-
 | \*\*Total\*\* | \*\*19\*\* | \*\*40\*\* | \*\*1\*\* | \*\*0\*\* |
 
 
@@ -2795,21 +2766,13 @@ Aggregate result:
 
 
 | Test ID | Primary Evidence | Result |
-
 |---|---|---|
-
 | TC-STORE-001 | `it initializes valid bare repository` | PASS |
-
 | TC-STORE-002 | ID-based path + repository-name independence tests | PASS |
-
 | TC-STORE-003 | `traversal repository directory is rejected` | PASS |
-
 | TC-STORE-004 | `absolute repository directory is rejected` | PASS |
-
 | TC-STORE-005 | missing-storage resolution rejection + observability | PASS |
-
 | TC-STORE-006 | orphan repository security test | PASS |
-
 | TC-STORE-007 | symlink escape test | ENVIRONMENT-SKIPPED |
 
 
@@ -2987,15 +2950,10 @@ Current assessment:
 
 
 | Exit Criterion | Status |
-
 |---|---|
-
 | 1–18 | PASS |
-
 | 19 | PENDING FINAL VERIFICATION |
-
 | 20 | PENDING |
-
 | 21 | PENDING |
 
 

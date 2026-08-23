@@ -3,25 +3,15 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge — Web Git Hosting Platform |
-
 | Version | V1.0.0 |
-
 | SDLC phase | 6 — Testing |
-
 | Milestone | M5 — Testing |
-
 | Work package | WP-08 — Git Process Execution Testing |
-
 | Document | Git Process Execution Testing |
-
 | Status | Approved |
-
 | Date | 2026-08-22 |
-
 | Branch | `testing/m5` |
 
 
@@ -773,15 +763,10 @@ Formal cases use:
 
 
 | State | Meaning |
-
 |---|---|
-
 | PASS | Behavior satisfies the expected result |
-
 | FAIL | Behavior contradicts the expected result |
-
 | BLOCKED | Required prerequisite prevents execution |
-
 | NOT EXECUTED | Test has not yet been executed |
 
 
@@ -811,21 +796,13 @@ NOT EXECUTED
 
 
 | Test ID | Description | Priority | Result |
-
 |---|---|---|---|
-
 | TC-GEXEC-001 | Execute Approved Git Operation | P1 | PASS |
-
 | TC-GEXEC-002 | Reject Unsupported Git Subcommand | P1 | PASS |
-
 | TC-GEXEC-003 | Reject Shell Metacharacter Injection | P1 | PASS |
-
 | TC-GEXEC-004 | Repository Argument Cannot Escape Storage Root | P1 | PASS |
-
 | TC-GEXEC-005 | Capture Non-Zero Git Exit Status | P2 | PASS |
-
 | TC-GEXEC-006 | Capture Git Standard Error Safely | P2 | PASS |
-
 | TC-GEXEC-007 | Enforce Git Process Timeout | P1 | PASS |
 
 
@@ -3581,21 +3558,13 @@ Fresh WP-08 execution evidence:
 
 
 | Suite | Passed | Assertions | Skipped | Failed |
-
 |---|---:|---:|---:|---:|
-
 | GitCommandRunnerTest | 9 | 15 | 0 | 0 |
-
 | GitCommandRunnerObservabilityTest | 3 | 6 | 0 | 0 |
-
 | ProcessInjectionSecurityTest | 2 | 8 | 0 | 0 |
-
 | GitSmartHttpServiceTest | 8 | 28 | 0 | 0 |
-
 | RepositoryStorageServiceTest | 14 | 22 | 1 | 0 |
-
 | Unsupported Git service feature test | 1 | 1 | 0 | 0 |
-
 | \*\*Total\*\* | \*\*37\*\* | \*\*80\*\* | \*\*1\*\* | \*\*0\*\* |
 
 
@@ -3631,21 +3600,13 @@ The single skip is supporting storage evidence and does not represent an unexecu
 
 
 | Test ID | Primary Evidence | Result |
-
 |---|---|---|
-
 | TC-GEXEC-001 | GitCommandRunner successful execution tests | PASS |
-
 | TC-GEXEC-002 | Smart HTTP allowlist + unsupported service rejection | PASS |
-
 | TC-GEXEC-003 | ProcessInjectionSecurityTest | PASS |
-
 | TC-GEXEC-004 | RepositoryStorageService containment tests | PASS |
-
 | TC-GEXEC-005 | Failed Git command exception test | PASS |
-
 | TC-GEXEC-006 | Git stderr exception + bounded observability tests | PASS |
-
 | TC-GEXEC-007 | Git process timeout test | PASS |
 
 
@@ -4015,15 +3976,10 @@ Current assessment:
 
 
 | Exit Criterion | Status |
-
 |---|---|
-
 | 1–20 | PASS |
-
 | 21 | PENDING FINAL VERIFICATION |
-
 | 22 | PENDING |
-
 | 23 | PENDING |
 
 

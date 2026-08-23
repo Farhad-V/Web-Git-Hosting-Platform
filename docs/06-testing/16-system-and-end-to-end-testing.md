@@ -3,21 +3,13 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge — Web Git Hosting Platform |
-
 | Release | V1.0.0 |
-
 | Milestone | M5 — Testing |
-
 | SDLC phase | Testing |
-
 | Work package | WP-16 — System and End-to-End Testing |
-
 | Status | Approved |
-
 | Last updated | 2026-08-22 |
 
 
@@ -135,21 +127,13 @@ The suite uses:
 
 
 | Test Case | Description | Priority | Result |
-
 |---|---|---:|---|
-
 | TC-E2E-001 | Registration to Repository Creation Flow | P1 | PASS |
-
 | TC-E2E-002 | Public Repository Create, Push, Browse, Clone Flow | P1 | PASS |
-
 | TC-E2E-003 | Private Repository Owner Workflow | P1 | PASS |
-
 | TC-E2E-004 | Private Repository Unauthorized User Workflow | P1 | PASS |
-
 | TC-E2E-005 | PAT Revocation End-to-End | P1 | PASS |
-
 | TC-E2E-006 | Push-to-Browser Consistency | P1 | PASS |
-
 | TC-E2E-007 | Logout Terminates Browser Session Access | P2 | PASS |
 
 
@@ -1171,21 +1155,13 @@ All seven formal system/E2E cases subsequently passed.
 
 
 | Test Case | Dedicated Automated Evidence |
-
 |---|---|
-
 | TC-E2E-001 | `test_registration_to_repository_creation_flow` |
-
 | TC-E2E-002 | `test_public_repository_create_push_browse_clone_flow` |
-
 | TC-E2E-003 | `test_private_repository_owner_workflow` |
-
 | TC-E2E-004 | `test_private_repository_unauthorized_user_workflow` |
-
 | TC-E2E-005 | `test_pat_revocation_end_to_end` |
-
 | TC-E2E-006 | `test_push_to_browser_consistency` |
-
 | TC-E2E-007 | `test_logout_terminates_browser_session_access` |
 
 
