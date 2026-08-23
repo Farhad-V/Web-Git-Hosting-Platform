@@ -2,7 +2,7 @@
 
 ## GitForge — Web Git Hosting Platform
 
-**Target release:** V1.0.0  
+**Stable release:** V1.0.0  
 **Development approach:** Eight-phase SDLC  
 **Last reconciled:** 2026-08-23
 
@@ -16,35 +16,37 @@
 | 4. System Design | M3 | Complete | `docs/04-system-design/` |
 | 5. Implementation | M4 | Complete | `docs/05-implementation/` + source |
 | 6. Testing | M5 | Complete | `docs/06-testing/` + automated suites |
-| 7. Deployment | M6 | Complete | `docs/07-deployment/` + deployment validation |
-| 8. Maintenance | M7 | In Validation | `docs/08-maintenance/` + release-readiness gate |
+| 7. Deployment | M6 | Complete | `docs/07-deployment/` + Deployment Validation |
+| 8. Maintenance | M7 | Complete | `docs/08-maintenance/` + Release Readiness + V1.0.0 publication |
 
 ## Phase 8 — Maintenance and Release Readiness
 
 ### Objective
 
-Establish a stable V1.0.0 baseline that is locally usable, tested, documented, maintainable, versioned, and ready for portfolio publication without requiring a public live deployment.
+Establish a stable V1.0.0 baseline that is locally usable, tested, documented, maintainable, versioned, and portfolio-ready without requiring a public live deployment.
 
-### Work Products
+### Completed Work Products
 
-Phase 8 defines corrective/adaptive/preventive maintenance, semantic versioning, dependency updates, security maintenance, incident and defect handling, backup/recovery maintenance, final release audit, release checklist, changelog, release notes, and an integrated release-readiness CI gate.
+Phase 8 defines corrective/adaptive/preventive maintenance, semantic versioning, dependency updates, security maintenance, incident and defect handling, backup/recovery maintenance, final release audit, completed release checklist, changelog, release notes, and an integrated release-readiness CI gate.
 
-### Product Stability Rule
+### Validation
 
-M7 is not a feature-development phase. Product changes are limited to confirmed release blockers or defects. New capabilities require change control and a later release plan.
+The final M7 release candidate passed Backend CI and the integrated Release Readiness workflow, including PostgreSQL migrations, the full backend suite, Composer audit, clean frontend install, lint, tests, production build, npm production audit, and release-documentation checks.
+
+### Publication
+
+GitForge V1.0.0 was published under tag `v1.0.0`. The tag points to commit `c941302d32c5e1f494703437824efbd6feeaacca` and the release uses the approved `RELEASE_NOTES.md`.
 
 ### Hosting Boundary
 
-GitForge V1.0.0 is a GitHub portfolio/local-use release. Public hosting, a VPS, public DNS, and a live domain are not Phase 8 acceptance criteria. The existing deployment package remains part of the engineering evidence.
-
-### Exit Criteria
-
-Phase 8 completes when the final release candidate has no known critical/high blocker, all release-readiness checks are green, documentation matches the implemented product, the M7 review is approved, and the approved baseline is merged for V1.0.0 publication.
+GitForge V1.0.0 is a GitHub portfolio/local-use release. Public hosting, a VPS, public DNS, and a live domain are not acceptance criteria. The deployment package remains part of the engineering evidence.
 
 ## Scope Integrity
 
-The current implementation and approved evidence take precedence over stale planning statements. GitForge V1.0.0 uses an owner-centric repository permission model and does not claim organization/team collaboration, SSH Git transport, distributed repository storage, or other unimplemented capabilities.
+The implementation and approved evidence take precedence over stale planning statements. V1.0.0 uses an owner-centric repository permission model and does not claim organization/team collaboration, SSH Git transport, distributed repository storage, or other unimplemented capabilities.
 
-## Current Position
+## Final Position
 
-M0 through M6 are Complete. M7 / Phase 8 is the active final lifecycle stage for V1.0.0 release and maintenance readiness.
+**All eight SDLC phases (M0–M7) are Complete for GitForge V1.0.0.**
+
+Future changes are maintenance work or belong to a separately approved later release. The `v1.0.0` tag remains immutable as the published baseline.
