@@ -1,15 +1,15 @@
-# Git Hosting Platform - Frontend
+# GitForge Frontend
 
-React and TypeScript client for the self-hosted Git Hosting Platform.
+React and TypeScript client for GitForge, the self-hosted Web Git Hosting Platform.
 
-## Technology
+## Stack
 
 - React 19
-- TypeScript
-- Vite
-- Tailwind CSS
-- React Router
-- TanStack Query
+- TypeScript 6
+- Vite 8
+- Tailwind CSS 4
+- React Router 7
+- TanStack Query 5
 - Axios
 - React Hook Form
 - Zod
@@ -21,65 +21,86 @@ React and TypeScript client for the self-hosted Git Hosting Platform.
 
 - Node.js 24
 - npm 11 or later
-- Git Hosting Platform backend
+- GitForge backend
 
 ## Installation
 
-From the frontend directory, run:
+From the `frontend` directory:
 
-    npm.cmd install
+```bash
+npm ci
+```
 
 ## Development
 
-Start the Vite development server:
+```bash
+npm run dev
+```
 
-    npm.cmd run dev
+Default Vite URL:
 
-The application is available at:
+```text
+http://127.0.0.1:5173
+```
 
-    http://127.0.0.1:5173
+## Implemented V1.0.0 UI
+
+The frontend currently includes:
+
+- responsive GitForge landing page;
+- registration and login flows;
+- guest and protected routing;
+- authenticated dashboard;
+- repository creation and listing;
+- repository detail and visibility controls;
+- repository browser navigation;
+- branch selection, commit display, tree navigation, breadcrumbs, and text-file viewing;
+- personal access token management;
+- live integration with the Laravel API;
+- TanStack Query data management;
+- form validation and controlled error states.
+
+The V1.0.0 UI intentionally reflects the implemented owner-centric repository model. Organization/team collaboration features are not claimed as implemented.
 
 ## Testing
 
-Run the frontend test suite:
+Run the frontend suite:
 
-    npm.cmd run test
+```bash
+npm run test
+```
 
-Run tests in watch mode:
+Watch mode:
 
-    npm.cmd run test:watch
+```bash
+npm run test:watch
+```
 
 ## Code Quality
 
-Run ESLint:
-
-    npm.cmd run lint
-
-Audit npm dependencies:
-
-    npm.cmd audit
+```bash
+npm run lint
+npm audit --omit=dev
+```
 
 ## Production Build
 
-Create the production bundle:
-
-    npm.cmd run build
+```bash
+npm run build
+```
 
 Preview the production bundle:
 
-    npm.cmd run preview
+```bash
+npm run preview
+```
 
-## Current Foundation
+GitHub Actions validates dependency installation, linting, tests, the production build, and the production dependency audit.
 
-The frontend foundation currently includes:
+## Backend Integration
 
-- responsive GitForge landing page
-- browser routing
-- TanStack Query provider
-- Tailwind CSS design foundation
-- authentication route placeholders
-- Vitest and Testing Library configuration
-- GitHub Actions frontend CI
+The backend lives in `../backend` and exposes versioned APIs under `/api/v1`. Production routing is defined in `../deployment/nginx/gitforge.conf`.
 
-Authentication forms, authenticated navigation, repository management screens,
-and live Laravel API integration are implemented in subsequent feature stages.
+## Documentation
+
+Project-wide lifecycle and verification documentation is maintained in `../docs/`.
