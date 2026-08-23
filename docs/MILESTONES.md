@@ -13,53 +13,44 @@ This file is the authoritative milestone summary for the GitForge V1.0.0 enginee
 | M4 | Implementation | Complete | `docs/05-implementation/` + source |
 | M5 | Testing | Complete | `docs/06-testing/` + CI |
 | M6 | Deployment | Complete | `docs/07-deployment/` + Deployment Validation |
-| M7 | Release and Maintenance Readiness | In Validation | `docs/08-maintenance/` + Release Readiness |
+| M7 | Release and Maintenance Readiness | Complete | `docs/08-maintenance/` + Release Readiness + `v1.0.0` |
 
-## M4 — Implemented V1.0.0 Scope
+## V1.0.0 Product Scope
 
-The approved implementation includes Laravel 12, React/TypeScript, PostgreSQL persistence, registration/login/logout, repository creation/list/detail/visibility, public/private authorization, managed bare Git storage, Git Smart HTTP clone/fetch/push, personal access tokens, repository browsing, and observability/health support.
+The stable release includes Laravel 12, React/TypeScript, PostgreSQL persistence, registration/login/logout, repository creation/list/detail/visibility, public/private authorization, managed bare Git storage, Git Smart HTTP clone/fetch/push, personal access tokens, repository browsing, and observability/health support.
 
 The release does not claim organization/team collaboration, SSH Git transport, distributed storage, or other unimplemented features.
 
 ## M5 — Testing
 
-Formal testing contains 141 test cases. The automated backend suite has previously passed 205 tests with 1008 assertions together with PostgreSQL migrations, Pint, Composer audit, real-Git transport flows, security, observability, performance, and system tests. Frontend CI covers linting, tests, production build, and production dependency audit.
+Formal testing contains 141 test cases. Automated validation covers the full backend suite, real Git Smart HTTP read/write end-to-end flows, PostgreSQL integrity, security, observability, performance, system workflows, frontend lint/tests/build, and dependency audits.
 
 ## M6 — Deployment
 
-M6 is Complete. The repository contains production-oriented Nginx/PHP-FPM/environment configuration, deployment scripts, backup/recovery/rollback guidance, and a clean-runner Deployment Validation workflow. Public hosting is intentionally not required for the portfolio release.
+M6 is Complete. The repository includes production-oriented Nginx/PHP-FPM/environment configuration, deployment scripts, backup/recovery/rollback guidance, and clean-runner Deployment Validation. Public hosting is not required for this portfolio release.
 
 ## M7 — Release and Maintenance Readiness
 
-M7 prepares the stable V1.0.0 baseline and post-release maintenance model.
-
-### Deliverables
+M7 is Complete. It delivered:
 
 - maintenance plan;
-- versioning policy;
+- semantic versioning policy;
 - dependency-update policy;
 - security maintenance procedure;
 - incident/defect handling;
 - backup/recovery maintenance guidance;
-- final release-readiness audit;
-- V1.0.0 release checklist;
+- approved V1.0.0 release-readiness audit;
+- completed release checklist;
 - CHANGELOG and release notes;
 - integrated Release Readiness workflow;
-- final README/SDLC reconciliation.
+- final README/SDLC reconciliation;
+- Git tag `v1.0.0`;
+- GitHub Release `GitForge V1.0.0`.
 
-### Exit Criteria
+The V1.0.0 tag points to release commit `c941302d32c5e1f494703437824efbd6feeaacca`.
 
-- no known critical/high release blocker;
-- backend release gate green;
-- frontend lint/tests/build/audit green;
-- Composer audit green;
-- PostgreSQL migrations green;
-- release documentation consistent with implemented scope;
-- final PR reviewed for unintended behavior changes/secrets;
-- milestone review approved;
-- approved baseline merged to `main`;
-- release publication uses that approved baseline.
+## Final Position
 
-## Current Position
+**M0 through M7 are Complete. GitForge V1.0.0 is released.**
 
-GitForge has completed M0–M6. M7 is the final V1.0.0 release-readiness and maintenance milestone. No new V1.0.0 feature is introduced during M7 unless required to resolve a verified release blocker.
+Subsequent work belongs to maintenance or a separately approved future release; it must not retroactively change the V1.0.0 tag.
