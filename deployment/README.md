@@ -1,451 +1,175 @@
-# GitForge V1.0.0 Deployment Guide
+# GitForge V1.0.0 Deployment
+
+This directory contains the production-oriented deployment package for GitForge V1.0.0.
+
+## Deployment Profile
+
+Reference production stack:
+
+- Linux host;
+- Nginx;
+- PHP 8.4 with PHP-FPM;
+- Laravel 12;
+- PostgreSQL 18;
+- Node.js/npm for frontend build;
+- System Git;
+- persistent bare Git repository storage.
+
+V1.0.0 does not require Docker, Kubernetes, Redis, SSH Git transport or distributed Git storage.
+
+## Topology
+
+```text
+HTTPS
+  |
+Nginx
+  |-------------------------|
+  |                         |
+frontend/dist               PHP-FPM socket
+                            |
+                         Laravel
+                       /    |     \
+              PostgreSQL   Git    /var/lib/gitforge/repositories
+```
+
+## Canonical Paths
+
+```text
+Application root:          /var/www/gitforge
+Backend:                   /var/www/gitforge/backend
+Frontend:                  /var/www/gitforge/frontend
+Repository root:           /var/lib/gitforge
+Managed repositories:      /var/lib/gitforge/repositories
+Production backend env:    /var/www/gitforge/backend/.env
+```
+
+## Configuration Files
+
+- `env/production.env.example` — production-safe environment template;
+- `nginx/gitforge.conf` — HTTPS, SPA, API and Git Smart HTTP ingress;
+- `php-fpm/gitforge.conf` — dedicated least-privilege PHP-FPM pool;
+- `scripts/preflight.sh` — host/tool/template checks;
+- `scripts/smoke-test.sh` — basic HTTPS and `/up` verification;
+- `scripts/backup.sh` — PostgreSQL + repository-storage backup;
+- `scripts/verify-backup.sh` — checksum/archive verification.
+
+## Production Security and Recovery Invariants
+
+The following statements are V1.0.0 deployment invariants and are intentionally explicit because automated security tests enforce them:
 
-## 1. Purpose
-
-This document defines the production-like deployment procedure for
-GitForge V1.0.0.
-
-## 2. Deployment Profile
-
-GitForge V1.0.0 uses:
-
-- Nginx
-- PHP 8.4 with PHP-FPM
-- Laravel 12
-- PostgreSQL 18
-- System Git
-- Persistent bare Git repository storage
-
-V1.0.0 does not require:
-
-- Docker
-- Kubernetes
-- Redis
-- Queue workers
-- SSH Git transport
-- Distributed Git storage
-
-## 3. Production Topology
-
-External traffic enters through Nginx over HTTPS.
-
-Nginx serves the compiled frontend SPA from:
-
-/var/www/gitforge/frontend/dist
-
-Application API requests and Git Smart HTTP requests are forwarded to:
-
-/var/www/gitforge/backend/public/index.php
-
-Laravel communicates with PostgreSQL and launches the deployment-controlled
-Git executable.
-
-Bare Git repositories are stored persistently outside all public web roots.
-
-## 4. Production Paths
-
-Application root:
-
-/var/www/gitforge
-
-Backend:
-
-/var/www/gitforge/backend
-
-Frontend:
-
-/var/www/gitforge/frontend
-
-Repository storage root:
-
-/var/lib/gitforge
-
-Physical repository mapping:
-
-/var/lib/gitforge/repositories/<repository-id>.git
-
-Production environment file:
-
-/var/www/gitforge/backend/.env
-
-## 5. Service Identity
-
-The production application runtime should execute under a dedicated
-least-privilege service identity named:
-
-gitforge
-
-Normal Laravel and Git subprocess execution must not require root or
-administrator privileges.
-
-Nginx may use its normal web-server identity.
-
-## 6. Runtime Requirements
-
-The production host requires:
-
-- Nginx
-- PHP 8.4
-- PHP-FPM 8.4
-- Composer
-- Node.js
-- npm
-- PostgreSQL 18
-- Git
-
-Required PHP capabilities include:
-
-- PDO
-- PDO PostgreSQL
-- PostgreSQL extension
-- OpenSSL
-- JSON
-- Mbstring
-- Filesystem support
-- Session support
-- Process execution support
-
-## 7. Persistent Repository Storage
-
-Repository storage must:
-
-- persist across application deployments;
-- persist across application and web-server restarts;
-- remain outside backend/public;
-- remain outside frontend/dist;
-- not be exposed through an Nginx static alias;
-- be readable, writable, and traversable by the GitForge runtime identity;
-- not be writable by unrelated users.
-
-Configured production root:
-
-GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
-
-Physical repositories therefore resolve beneath:
-
-/var/lib/gitforge/repositories
-
-## 8. Laravel Writable Directories
-
-The GitForge runtime identity requires controlled write access to:
-
-- backend/storage
-- backend/bootstrap/cache
-
-The remaining application source should not be broadly writable by the
-runtime or unrelated users unless explicitly required.
-
-## 9. Production Environment
-
-The production template is:
-
-deployment/env/production.env.example
-
-The deployed backend environment must provide valid production values for:
-
-- APP_KEY
-- APP_URL
-- DB_HOST
-- DB_PORT
-- DB_DATABASE
-- DB_USERNAME
-- DB_PASSWORD
-- GITFORGE_GIT_BINARY
-- GITFORGE_REPOSITORY_ROOT
-
-Production requirements include:
-
-APP_ENV=production
-
-APP_DEBUG=false
-
-SESSION_SECURE_COOKIE=true
-
-SESSION_HTTP_ONLY=true
-
-Production secrets must not be committed to Git.
-
-The production .env file must have restricted filesystem permissions.
-
-## 10. Git Configuration
-
-The production deployment uses a deployment-controlled Git executable.
-
-Recommended production value:
-
-GITFORGE_GIT_BINARY=/usr/bin/git
-
-Application users must never select arbitrary executables or command paths.
-
-## 11. PostgreSQL
-
-GitForge uses the application database role:
-
-git_hosting_app
-
-The application role must not require:
-
-- SUPERUSER
-- CREATEDB
-- CREATEROLE
-- REPLICATION
-
-PostgreSQL should be restricted to localhost or another trusted application
-network and must not be exposed publicly unless explicitly required and
-secured.
-
-## 12. Frontend Build
-
-Production deployment installs frontend dependencies and runs the approved
-production build.
-
-Expected build artifact:
-
-/var/www/gitforge/frontend/dist
-
-Nginx serves this directory as the SPA document root.
-
-A failed frontend build blocks deployment success.
-
-## 13. Backend Dependencies
-
-Production deployment installs Composer dependencies using production
-settings without development dependencies.
-
-Dependency installation failure blocks deployment success.
-
-## 14. Configuration Validation
-
-Production configuration must be loaded successfully before traffic is
-enabled.
-
-Laravel configuration caching should succeed.
-
-Missing or invalid critical configuration blocks deployment success.
-
-## 15. Database Migrations
-
-Only version-controlled Laravel migrations are approved sources of schema
-change.
-
-Production migrations are applied before new code depends on the new schema.
-
-Migration failure blocks deployment success.
-
-Untracked manual production schema mutation should be avoided.
-
-## 16. PHP-FPM
-
-The production PHP-FPM profile is:
-
-deployment/php-fpm/gitforge.conf
-
-The pool runs application requests under the dedicated GitForge service
-identity and exposes a controlled local FastCGI socket to Nginx.
-
-Invalid PHP-FPM configuration blocks deployment success.
-
-## 17. Nginx
-
-The production Nginx profile is:
-
-deployment/nginx/gitforge.conf
-
-Nginx is responsible for:
-
-- HTTPS ingress;
-- HTTP-to-HTTPS redirection;
-- serving frontend/dist;
-- forwarding API requests to Laravel;
-- forwarding Git Smart HTTP routes to Laravel;
-- forwarding the application health endpoint;
-- preventing exposure of hidden or sensitive files;
-- supporting Git Smart HTTP request streaming.
-
-Invalid Nginx configuration blocks deployment success.
-
-## 18. TLS
-
-Externally accessible production traffic uses HTTPS.
-
-Port 443 is the normal public application port.
-
-Port 80 may exist only to redirect traffic to HTTPS.
-
-PAT credentials must not be intentionally transmitted over unencrypted
-production HTTP.
-
-## 19. Liveness
-
-The application liveness endpoint is:
-
-GET /up
-
-Liveness confirms that the application runtime can respond.
-
-A production health response must not expose secrets or internal sensitive
-configuration.
-
-## 20. Readiness
-
-Readiness verifies critical dependencies including:
-
-- PostgreSQL connectivity;
-- repository storage accessibility;
-- Git executable availability;
-- critical configuration.
-
-Deployment must not be declared successful while readiness fails.
-
-## 21. Smoke Tests
-
-After deployment verify:
-
-- frontend loads over HTTPS;
-- SPA navigation works;
-- API traffic reaches Laravel;
-- registration and login work as approved;
-- logout works;
-- repository creation works;
-- repository metadata and physical storage remain consistent;
-- public repository reads work;
-- private repositories remain concealed from unauthorized callers;
-- PAT authentication works;
-- public clone/fetch works;
-- private owner clone/fetch works;
-- owner push works;
-- anonymous and non-owner push attempts fail;
-- repository browser branches, commits, trees, and blobs work.
-
-## 22. Logging
-
-Application logs must be writable by the GitForge service identity.
-
-Logs must not contain:
-
-- passwords;
-- plaintext PATs;
-- PAT hashes;
-- Authorization headers;
-- session secrets;
-- Git protocol payloads.
-
-Production log rotation, retention, and disk-space controls must be configured.
-
-## 23. Backup Scope
-
-A complete GitForge backup requires both:
-
-- PostgreSQL metadata;
-- persistent Git repository storage.
-
-Repository storage path:
-
-/var/lib/gitforge/repositories
-
-Neither component alone represents a complete recovery set.
-
-Backups must be protected because they may contain private repositories,
-account metadata, and PAT verification hashes.
-
-## 24. Restore
-
-Recovery requires:
-
-- an approved application release;
-- production configuration and secrets;
-- PostgreSQL metadata;
-- persistent repository storage.
-
-After restore verify:
-
-- database connectivity;
-- repository ID to physical storage mapping;
-- Git executable availability;
-- authentication;
-- authorization;
-- public/private repository behavior;
-- clone and fetch;
-- push;
-- repository browsing.
-
-If metadata exists but physical repository storage is missing, GitForge must
-not silently recreate it.
-
-If repository storage exists without metadata, GitForge must not
-automatically adopt it.
-
-## 25. Rollback
-
-Application code may be rolled back to a previously approved release.
-
-Application rollback must not casually replace or revert:
-
-- PostgreSQL user data;
-- Git repository contents.
-
-Database rollback requires independent migration analysis.
-
-## 26. Deployment Failure Conditions
-
-Deployment fails when any required condition occurs:
-
-- invalid production configuration;
-- missing APP_KEY;
-- unavailable database;
-- migration failure;
-- unavailable repository storage;
-- invalid repository permissions;
-- unavailable Git executable;
-- frontend build failure;
-- backend dependency installation failure;
-- PHP-FPM configuration failure;
-- Nginx configuration failure;
-- TLS failure;
-- readiness failure;
-- critical smoke-test failure.
-
-## 27. Production Security Checklist
-
-Before declaring deployment successful verify:
-
-- APP_ENV is production.
 - APP_DEBUG is false.
-- HTTPS is enabled.
-- HTTP redirects to HTTPS.
-- A production APP_KEY exists.
-- Database credentials are securely configured.
-- The production .env file is access restricted.
-- PostgreSQL is not unnecessarily publicly exposed.
-- A dedicated GitForge runtime identity is used.
-- Normal runtime execution does not require root.
 - Repository storage remains outside all public web roots.
-- Repository storage permissions are restricted.
-- Git executable selection is deployment controlled.
-- Nginx serves only the approved frontend build.
-- API requests reach Laravel.
-- Git Smart HTTP requests reach Laravel.
-- Git protocol buffering is disabled where required.
-- Secrets are excluded from logs.
-- Health responses do not expose sensitive information.
-- Readiness checks pass.
-- Database backup procedure exists.
-- Repository storage backup procedure exists.
+- Normal runtime execution does not require root.
+- A complete recovery set contains PostgreSQL metadata.
+- A complete recovery set also contains persistent Git repository storage.
+- If PostgreSQL metadata exists but the corresponding physical repository storage is missing, GitForge must not silently recreate it.
+- If physical repository storage exists without corresponding PostgreSQL metadata, GitForge must not automatically adopt it.
 
-## 28. Deployment Success Criteria
+## Production Rules
 
-GitForge V1.0.0 deployment is successful only when:
+- `APP_ENV=production`;
+- `APP_DEBUG=false`;
+- use a unique production `APP_KEY`;
+- never commit the real production `.env`;
+- use HTTPS for external traffic;
+- keep PostgreSQL private by default;
+- run Laravel/Git processes under a dedicated `gitforge` identity;
+- keep managed repositories outside all public web roots;
+- preserve PostgreSQL and repository storage across releases;
+- never log passwords, plaintext PATs, Authorization headers or Git protocol payloads.
 
-- production configuration is valid;
-- frontend build succeeds;
-- backend dependencies are installed;
-- database migrations succeed;
-- repository storage is verified;
-- Git executable is verified;
-- PHP-FPM configuration is valid;
-- Nginx configuration is valid;
-- TLS is active;
-- liveness succeeds;
-- readiness succeeds;
-- smoke tests pass;
-- backup boundaries are confirmed.
+## Release Procedure
+
+1. Provision the Linux runtime and dedicated `gitforge` service identity.
+2. Check out the approved release under `/var/www/gitforge`.
+3. Run `deployment/scripts/preflight.sh`.
+4. Create `backend/.env` from the production template and inject real secrets.
+5. Run backend production dependency installation:
+
+```bash
+cd backend
+composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+php artisan key:generate --force   # first deployment only
+php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+```
+
+6. Build the frontend:
+
+```bash
+cd frontend
+npm ci
+npm run build
+```
+
+7. Install the PHP-FPM pool and Nginx configuration, replacing the example hostname/certificate paths for the real host.
+8. Validate configurations before service reload.
+9. Reload PHP-FPM and Nginx.
+10. Run liveness and smoke verification.
+
+## Automated Deployment Validation
+
+`.github/workflows/deployment-validation.yml` reproduces the critical deployment path on a clean GitHub-hosted runner. It validates:
+
+- production template security values;
+- shell-script syntax;
+- production Composer install without dev dependencies;
+- PostgreSQL 18 migrations;
+- Laravel config and route caching;
+- clean frontend install and production build;
+- Nginx syntax with temporary test TLS material;
+- Laravel `/up` liveness.
+
+M6 approval evidence:
+
+- Deployment Validation run `32659338381` — PASS;
+- Backend CI run `32659338516` — PASS.
+
+## Smoke Test on a Real Host
+
+```bash
+BASE_URL=https://gitforge.example.com deployment/scripts/smoke-test.sh
+```
+
+After the basic smoke test, verify the approved acceptance workflows: registration/login/logout, repository creation and visibility, PAT management, public/private authorization, clone/fetch/push, and repository browsing.
+
+## Backup
+
+A complete GitForge backup contains both PostgreSQL metadata and persistent Git repository storage.
+
+Example:
+
+```bash
+export BACKUP_DIR=/srv/backups/gitforge
+export DB_HOST=127.0.0.1
+export DB_PORT=5432
+export DB_DATABASE=git_hosting_platform
+export DB_USERNAME=git_hosting_app
+export PGPASSWORD='set-at-runtime'
+export GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
+
+deployment/scripts/backup.sh
+```
+
+Verify a produced backup with:
+
+```bash
+deployment/scripts/verify-backup.sh /srv/backups/gitforge/gitforge-<timestamp>
+```
+
+Backups contain sensitive data and require appropriate access controls and encryption at rest.
+
+## Restore and Rollback
+
+Restore is a coordinated operation: verify the backup, restore PostgreSQL with `pg_restore`, restore the repository archive with correct ownership, deploy a schema-compatible application version, rebuild caches, and run acceptance checks before resuming writes.
+
+If PostgreSQL metadata exists but physical repository storage is missing, GitForge must not silently recreate it. If repository storage exists without PostgreSQL metadata, GitForge must not automatically adopt it.
+
+Normal application rollback changes application code only. It must not casually replace PostgreSQL data or Git repository contents. Database rollback requires migration-specific compatibility analysis.
+
+## Portfolio Deployment Scope
+
+GitForge V1.0.0 is validated as a reproducible production-ready repository package. A paid VPS, public DNS name and public certificate are optional demonstration infrastructure; they are not required for M6 completion. The same package is ready to be attached to a real Linux host later.
+
+Formal M6 evidence is maintained in `docs/07-deployment/`.
