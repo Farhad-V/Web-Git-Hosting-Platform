@@ -4,11 +4,11 @@ GitForge is a self-hosted Git hosting platform built as a full-stack software-en
 
 ## Release Status
 
-**Target:** V1.0.0  
-**Completed engineering milestones:** M0 through M6  
-**Active milestone:** M7 — Release and Maintenance Readiness
+**Stable release:** V1.0.0  
+**Git tag:** `v1.0.0`  
+**SDLC milestones:** M0 through M7 Complete
 
-V1.0.0 is being finalized through a release-readiness audit and integrated quality gate. GitForge is a GitHub portfolio/local-use project and **does not require public hosting**.
+GitForge V1.0.0 is released as a GitHub portfolio/local-use project. It is designed to be cloned, inspected, run locally, tested, and evaluated without requiring public hosting.
 
 ## Core Capabilities
 
@@ -57,7 +57,7 @@ Use the validated V1.0.0 baseline for reproducible setup:
 - npm;
 - system Git.
 
-The backend Composer manifest retains Laravel-skeleton compatibility metadata, but the V1.0.0 CI/deployment/release baseline is PHP 8.4. Use PHP 8.4 rather than relying on the broader root constraint.
+The backend Composer manifest retains Laravel-skeleton compatibility metadata, but the validated V1.0.0 CI/deployment/release baseline is PHP 8.4.
 
 ## Local Quick Start
 
@@ -96,11 +96,7 @@ npm ci
 npm run dev
 ```
 
-Open:
-
-```text
-http://127.0.0.1:5173
-```
+Open `http://127.0.0.1:5173`.
 
 The Vite development server proxies `/api` to `http://127.0.0.1:8000`, so the default local frontend/backend configuration works without a separate API base URL.
 
@@ -116,26 +112,18 @@ The Vite development server proxies `/api` to `http://127.0.0.1:8000`, so the de
 
 ## Quality Gates
 
-### Backend CI
+Backend CI validates Composer configuration/install, PostgreSQL migrations, Laravel Pint, Composer security audit, and the full Laravel suite. Existing coverage includes real Git Smart HTTP read/write end-to-end flows, authorization, database integrity, security, observability, performance, and system workflows.
 
-Validates Composer configuration/install, PostgreSQL migrations, Laravel Pint, Composer security audit, and the full Laravel suite. Existing test coverage includes real Git Smart HTTP read/write end-to-end flows, authorization, database integrity, security, observability, performance, and system workflows.
+Frontend CI validates clean dependency installation, ESLint, Vitest, production build, and production dependency audit.
 
-### Frontend CI
+Deployment Validation validates production-mode dependency installation, PostgreSQL 18 migrations, Laravel caching, clean frontend build, Nginx syntax, and `/up` liveness.
 
-Validates clean dependency installation, ESLint, Vitest, production build, and production dependency audit.
-
-### Deployment Validation
-
-Validates production-mode dependency installation, PostgreSQL 18 migrations, Laravel caching, clean frontend build, Nginx syntax, and `/up` liveness from a clean runner.
-
-### Release Readiness
-
-The M7 workflow reruns the release-critical backend and frontend gates together with release-documentation checks before the V1.0.0 baseline is approved.
+Release Readiness reruns the release-critical backend/frontend gates together with release-documentation checks before release approval.
 
 ## Repository Structure
 
 ```text
-.github/workflows/       CI and release gates
+.github/workflows/       CI, deployment, release gates, and publication automation
 backend/                 Laravel API and Git transport
 frontend/                React/TypeScript SPA
 deployment/              Production-oriented deployment package
@@ -166,7 +154,7 @@ The V1.0.0 portfolio release does not require a VPS, domain, or public live demo
 
 ## Maintenance and Versioning
 
-GitForge uses Semantic Versioning for published releases. Corrective, adaptive, preventive, security, and documentation maintenance procedures are defined in `docs/08-maintenance/`.
+GitForge uses Semantic Versioning. Corrective, adaptive, preventive, security, incident, dependency, and recovery maintenance procedures are defined in `docs/08-maintenance/`.
 
 ## Security Principles
 
