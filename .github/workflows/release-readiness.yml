@@ -1,0 +1,128 @@
+name: Release Readiness
+
+on:
+  push:
+    branches:
+      - main
+      - maintenance/m7-release-readiness
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-readiness-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-readiness:
+    name: V1.0.0 release gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: git_hosting_platform_release
+          POSTGRES_USER: git_hosting_app
+          POSTGRES_PASSWORD: ci_database_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready --username=git_hosting_app --dbname=git_hosting_platform_release"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      APP_ENV: testing
+      APP_DEBUG: false
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_DATABASE: git_hosting_platform_release
+      DB_USERNAME: git_hosting_app
+      DB_PASSWORD: ci_database_password
+      CACHE_STORE: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: array
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: mbstring, pdo_pgsql, pgsql
+          coverage: none
+          tools: composer:v2
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Validate release documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f CHANGELOG.md
+          test -f RELEASE_NOTES.md
+          test -f docs/08-maintenance/07-release-readiness-audit.md
+          test -f docs/08-maintenance/08-v1.0.0-release-checklist.md
+          test -f docs/08-maintenance/09-m7-milestone-review.md
+          grep -Fq '## [1.0.0]' CHANGELOG.md
+          grep -Fq 'GitForge V1.0.0' RELEASE_NOTES.md
+          grep -Fq 'Public hosting is not part of the V1.0.0 acceptance criteria' RELEASE_NOTES.md
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
+
+      - name: Prepare backend
+        working-directory: backend
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp .env.example .env
+          php artisan key:generate --force
+          php artisan config:clear
+          php artisan migrate --force
+
+      - name: Backend formatting and dependency audit
+        working-directory: backend
+        run: |
+          vendor/bin/pint --test
+          composer audit --locked --no-interaction
+
+      - name: Run full backend suite
+        working-directory: backend
+        run: php artisan test
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Validate frontend
+        working-directory: frontend
+        run: |
+          npm run lint
+          npm run test
+          npm run build
+          npm audit --omit=dev --audit-level=high
+
+      - name: Validate release scope declarations
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'owner-centric repository permission model' README.md
+          grep -Fq 'does not require public hosting' README.md
+          grep -Fq 'PHP 8.4' README.md

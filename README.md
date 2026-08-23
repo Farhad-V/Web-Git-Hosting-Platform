@@ -1,32 +1,32 @@
-# GitForge - Web Git Hosting Platform
+# GitForge — Web Git Hosting Platform
 
 GitForge is a self-hosted Git hosting platform built as a full-stack software-engineering portfolio project. It combines a Laravel API, React/TypeScript frontend, PostgreSQL persistence, managed bare Git repositories, and Git Smart HTTP transport.
 
-## Current Status
+## Release Status
 
-**Target release:** V1.0.0  
-**Completed milestones:** M0 through M6  
-**Next milestone:** M7 — V1.0.0 Release and Maintenance Readiness
+**Target:** V1.0.0  
+**Completed engineering milestones:** M0 through M6  
+**Active milestone:** M7 — Release and Maintenance Readiness
 
-Implementation, formal testing and portfolio-grade deployment validation are complete for the approved V1.0.0 scope.
+V1.0.0 is being finalized through a release-readiness audit and integrated quality gate. GitForge is a GitHub portfolio/local-use project and **does not require public hosting**.
 
 ## Core Capabilities
 
 - user registration and session authentication;
 - authenticated profile retrieval and logout;
 - repository creation, listing, metadata retrieval, and visibility updates;
-- public and private repository authorization;
+- owner-centric public/private repository authorization;
 - managed bare Git repository storage;
 - Git clone, fetch, and push over Smart HTTP;
 - personal access token creation, listing, revocation, and Git authentication;
 - repository branch and commit browsing;
 - repository tree navigation and text-file viewing;
 - request correlation, structured operational logging, liveness, and readiness support;
-- automated backend, frontend and deployment validation CI.
+- automated backend, frontend, deployment-validation, and release-readiness quality gates.
 
 ## V1.0.0 Scope Boundary
 
-GitForge V1.0.0 uses an owner-centric repository permission model. It does **not** claim organization/team collaboration, SSH Git transport, distributed repository storage, or other unimplemented platform features.
+GitForge V1.0.0 uses an **owner-centric repository permission model**. It does not claim organization/team collaboration, SSH Git transport, distributed repository storage, or other unimplemented platform features.
 
 ## Architecture
 
@@ -34,76 +34,61 @@ GitForge V1.0.0 uses an owner-centric repository permission model. It does **not
 Browser / Git CLI
        |
        v
-      Nginx
+      Nginx (production profile)
        |----------------------|
        |                      |
-React + TypeScript SPA      PHP-FPM 8.4
+React + TypeScript SPA      PHP-FPM / Laravel 12
                               |
-                           Laravel 12
-                         /     |      \
-                PostgreSQL 18 Git   Managed bare repositories
+                    |---------|---------|
+                    v         v         v
+              PostgreSQL 18  Git   Managed bare repositories
 ```
 
-## Technology Stack
+For local development, Vite runs separately and proxies `/api` to Laravel.
 
-### Backend
+## Validated Toolchain
 
-- PHP / Laravel 12
-- PostgreSQL 18 reference profile
-- System Git
-- PHPUnit
-- Laravel Pint
+Use the validated V1.0.0 baseline for reproducible setup:
 
-### Frontend
+- PHP 8.4;
+- Composer 2;
+- PostgreSQL 18;
+- Node.js 24;
+- npm;
+- system Git.
 
-- React 19
-- TypeScript
-- Vite
-- Tailwind CSS
-- React Router
-- TanStack Query
-- Axios
-- React Hook Form
-- Zod
-- Vitest / Testing Library
-- ESLint
+The backend Composer manifest retains Laravel-skeleton compatibility metadata, but the V1.0.0 CI/deployment/release baseline is PHP 8.4. Use PHP 8.4 rather than relying on the broader root constraint.
 
-### Infrastructure and Delivery
+## Local Quick Start
 
-- Nginx
-- PHP-FPM
-- GitHub Actions
-- HTTPS/TLS production profile
-- persistent repository storage outside public web roots
-- automated deployment validation
+### 1. PostgreSQL
 
-## Repository Structure
+Create a local database and application role matching the backend environment, for example:
 
 ```text
-.github/workflows/       Backend, frontend and deployment validation CI
-backend/                 Laravel backend and Git transport
-frontend/                React/TypeScript SPA
-deployment/              Production deployment profiles, scripts and guide
-docs/                    Formal SDLC engineering documentation
+Database: git_hosting_platform
+User:     git_hosting_app
 ```
 
-## Local Development
+Set the password you choose in `backend/.env`.
 
-### Backend
+### 2. Backend
 
 ```bash
 cd backend
 composer install
 cp .env.example .env
 php artisan key:generate
-# Configure PostgreSQL in .env
+# Edit DB_PASSWORD (and other DB values if needed) in .env
 php artisan migrate
-php artisan serve
+php artisan serve --host=127.0.0.1 --port=8000
 ```
 
-The Composer compatibility constraint allows PHP 8.2+, while the reference CI and production deployment profile use PHP 8.4.
+If `GITFORGE_REPOSITORY_ROOT` is omitted, local managed repositories use Laravel storage under `backend/storage/app/git/repositories`.
 
-### Frontend
+### 3. Frontend
+
+In a second terminal:
 
 ```bash
 cd frontend
@@ -111,37 +96,53 @@ npm ci
 npm run dev
 ```
 
-Default development endpoints:
+Open:
 
 ```text
-Backend:  http://127.0.0.1:8000
-Frontend: http://127.0.0.1:5173
+http://127.0.0.1:5173
 ```
+
+The Vite development server proxies `/api` to `http://127.0.0.1:8000`, so the default local frontend/backend configuration works without a separate API base URL.
+
+## Typical Product Workflow
+
+1. Register or log in through the web UI.
+2. Create a public or private repository.
+3. Create a personal access token for authenticated Git operations.
+4. Clone/fetch using the repository Smart HTTP URL.
+5. Push as the repository owner using the PAT.
+6. Browse branches, commits, trees, and text files in the web UI.
+7. Revoke PATs that are no longer needed.
 
 ## Quality Gates
 
-Backend CI validates Composer configuration/install, PostgreSQL migrations, Pint, Composer audit and the full Laravel test suite.
+### Backend CI
 
-Frontend CI validates clean dependency installation, ESLint, Vitest, production build and production dependency audit.
+Validates Composer configuration/install, PostgreSQL migrations, Laravel Pint, Composer security audit, and the full Laravel suite. Existing test coverage includes real Git Smart HTTP read/write end-to-end flows, authorization, database integrity, security, observability, performance, and system workflows.
 
-Deployment Validation independently validates production-mode backend installation, PostgreSQL 18 migrations, Laravel configuration/route caching, clean frontend production build, Nginx syntax and Laravel `/up` liveness.
+### Frontend CI
 
-Formal testing evidence is maintained in `docs/06-testing/`; deployment evidence is maintained in `docs/07-deployment/`.
+Validates clean dependency installation, ESLint, Vitest, production build, and production dependency audit.
 
-## Deployment
+### Deployment Validation
 
-The production-ready portfolio deployment package is in `deployment/` and includes:
+Validates production-mode dependency installation, PostgreSQL 18 migrations, Laravel caching, clean frontend build, Nginx syntax, and `/up` liveness from a clean runner.
 
-- `env/production.env.example`;
-- `nginx/gitforge.conf`;
-- `php-fpm/gitforge.conf`;
-- deployment preflight and HTTPS smoke-test scripts;
-- PostgreSQL + Git repository backup and backup verification scripts;
-- restore and rollback guidance.
+### Release Readiness
 
-The package is validated automatically on a clean GitHub runner. A paid VPS/domain is optional for V1.0.0 portfolio presentation; the same package can later be installed on a standard Linux host.
+The M7 workflow reruns the release-critical backend and frontend gates together with release-documentation checks before the V1.0.0 baseline is approved.
 
-See `deployment/README.md` and `docs/07-deployment/`.
+## Repository Structure
+
+```text
+.github/workflows/       CI and release gates
+backend/                 Laravel API and Git transport
+frontend/                React/TypeScript SPA
+deployment/              Production-oriented deployment package
+docs/                    Formal SDLC artifacts
+CHANGELOG.md              Version history
+RELEASE_NOTES.md          V1.0.0 release overview
+```
 
 ## SDLC Documentation
 
@@ -152,18 +153,32 @@ See `deployment/README.md` and `docs/07-deployment/`.
 5. Implementation — `docs/05-implementation/`
 6. Testing — `docs/06-testing/`
 7. Deployment — `docs/07-deployment/`
+8. Maintenance — `docs/08-maintenance/`
 
 Lifecycle summary: `docs/SDLC.md`  
 Milestone tracker: `docs/MILESTONES.md`
 
+## Deployment Position
+
+A production-oriented deployment package is included to demonstrate reproducible deployment engineering. It contains Nginx/PHP-FPM profiles, production environment guidance, preflight/smoke scripts, backup verification, restore, and rollback procedures.
+
+The V1.0.0 portfolio release does not require a VPS, domain, or public live demo.
+
+## Maintenance and Versioning
+
+GitForge uses Semantic Versioning for published releases. Corrective, adaptive, preventive, security, and documentation maintenance procedures are defined in `docs/08-maintenance/`.
+
 ## Security Principles
 
-GitForge applies server-side authorization, private repository concealment, CSRF protection for state-changing session requests, throttling, non-reversible PAT storage, path traversal protection, controlled Git command arguments, bounded request/blob sizes, least-privilege deployment identity, repository storage outside public roots, and logging rules that exclude credentials and Git protocol payloads.
+GitForge uses server-side authorization, private repository concealment, CSRF protection for state-changing session requests, throttling, non-reversible PAT storage, path validation, controlled Git arguments, bounded request/blob sizes, credential-safe logging, and storage separation from public web roots.
 
-## Release Status
+## Release Files
 
-`v1.0.0` has **not** been tagged yet. The next step is M7: final release-readiness audit and portfolio release preparation. The release tag is created only after M7 confirms there are no release blockers.
+- `CHANGELOG.md`
+- `RELEASE_NOTES.md`
+- `docs/08-maintenance/07-release-readiness-audit.md`
+- `docs/08-maintenance/08-v1.0.0-release-checklist.md`
 
 ## License
 
-The backend Composer package currently declares MIT. A repository-level license file should be added only when the final public licensing decision is intentionally confirmed.
+The backend Composer package currently declares MIT. No repository-level `LICENSE` file is claimed until the project owner intentionally confirms the final public licensing terms.
