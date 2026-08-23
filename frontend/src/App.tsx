@@ -128,9 +128,9 @@ function HomePage() {
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-400">
-                A focused Git hosting platform for teams that want
-                secure repositories, straightforward collaboration,
-                and complete control over their source code.
+                A focused self-hosted Git platform for developers who want
+                secure repositories, familiar Git workflows, and control over
+                their source-code infrastructure.
               </p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -273,7 +273,7 @@ function HomePage() {
         >
           <div className="max-w-2xl">
             <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">
-              Built for focused teams
+              Built for self-hosted workflows
             </p>
 
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -369,10 +369,10 @@ function HomePage() {
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                ['125', 'Backend tests'],
-                ['406', 'Backend assertions'],
-                ['1', 'Owner write role'],
-                ['100%', 'Managed storage'],
+                ['PHP 8.4', 'Reference runtime'],
+                ['PostgreSQL 18', 'Reference database'],
+                ['Owner', 'Write authorization'],
+                ['Managed', 'Git storage'],
               ].map(([value, label]) => (
                 <div
                   className="rounded-xl border border-white/10 bg-[#0d1117] p-5"
@@ -427,7 +427,7 @@ function HomePage() {
       <footer className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <p>
-            © 2026 GitForge. Self-hosted Git collaboration.
+            © 2026 GitForge. Self-hosted Git repository hosting.
           </p>
 
           <p>
