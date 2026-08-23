@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\Git\RepositoryStorageService;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -19,6 +20,8 @@ class DatabaseIntegrityTest extends TestCase
     use RefreshDatabase;
 
     private string $temporaryStorageRoot;
+
+    private int $constraintSavepointCounter = 0;
 
     protected function setUp(): void
     {
@@ -117,29 +120,25 @@ class DatabaseIntegrityTest extends TestCase
             'email' => 'identity-one@example.test',
         ]);
 
-        try {
+        $this->assertConstraintViolation(function (): void {
             User::factory()->create([
                 'name' => 'Duplicate Email User',
                 'username' => 'identity-user-two',
                 'email' => 'identity-one@example.test',
             ]);
+        });
 
-            $this->fail('Duplicate email was accepted.');
-        } catch (QueryException) {
-            $this->assertDatabaseCount('users', 1);
-        }
+        $this->assertDatabaseCount('users', 1);
 
-        try {
+        $this->assertConstraintViolation(function (): void {
             User::factory()->create([
                 'name' => 'Duplicate Username User',
                 'username' => 'identity-user-one',
                 'email' => 'identity-two@example.test',
             ]);
+        });
 
-            $this->fail('Duplicate username was accepted.');
-        } catch (QueryException) {
-            $this->assertDatabaseCount('users', 1);
-        }
+        $this->assertDatabaseCount('users', 1);
     }
 
     public function test_repository_owner_relationship_and_constraints_are_preserved(): void
@@ -161,17 +160,15 @@ class DatabaseIntegrityTest extends TestCase
         $this->assertSame($owner->id, $repository->owner_id);
         $this->assertTrue($repository->owner->is($owner));
 
-        try {
+        $this->assertConstraintViolation(function () use ($owner): void {
             Repository::factory()->create([
                 'owner_id' => $owner->id,
                 'name' => 'project',
                 'visibility' => RepositoryVisibility::PublicAccess,
             ]);
+        });
 
-            $this->fail('Duplicate repository name for the same owner was accepted.');
-        } catch (QueryException) {
-            $this->assertDatabaseCount('repositories', 1);
-        }
+        $this->assertDatabaseCount('repositories', 1);
     }
 
     public function test_personal_access_token_owner_relationship_and_constraints_are_preserved(): void
@@ -208,7 +205,7 @@ class DatabaseIntegrityTest extends TestCase
             'email' => 'other-pat-owner@example.test',
         ]);
 
-        try {
+        $this->assertConstraintViolation(function () use ($otherOwner, $identifier): void {
             PersonalAccessToken::query()->create([
                 'user_id' => $otherOwner->id,
                 'name' => 'Duplicate identifier token',
@@ -216,11 +213,9 @@ class DatabaseIntegrityTest extends TestCase
                 'token_hash' => hash('sha256', 'different-token-value'),
                 'revoked_at' => null,
             ]);
+        });
 
-            $this->fail('Duplicate PAT identifier was accepted.');
-        } catch (QueryException) {
-            $this->assertDatabaseCount('personal_access_tokens', 1);
-        }
+        $this->assertDatabaseCount('personal_access_tokens', 1);
 
         $owner->delete();
 
@@ -290,5 +285,22 @@ class DatabaseIntegrityTest extends TestCase
             'ref: refs/heads/main',
             $head,
         );
+    }
+
+    private function assertConstraintViolation(callable $operation): void
+    {
+        $this->constraintSavepointCounter++;
+        $savepoint = 'constraint_check_'.$this->constraintSavepointCounter;
+
+        DB::statement("SAVEPOINT {$savepoint}");
+
+        try {
+            $operation();
+            $this->fail('Expected database constraint violation was not raised.');
+        } catch (QueryException) {
+            DB::statement("ROLLBACK TO SAVEPOINT {$savepoint}");
+        } finally {
+            DB::statement("RELEASE SAVEPOINT {$savepoint}");
+        }
     }
 }
