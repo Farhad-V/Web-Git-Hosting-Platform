@@ -24,15 +24,9 @@ class DatabaseFailureTest extends TestCase
                 'name' => 'database-failure-test',
             ]);
 
-        DB::statement(
-            <<<'SQL'
-            CREATE TRIGGER fail_repository_visibility_update
-            BEFORE UPDATE ON repositories
-            BEGIN
-                SELECT RAISE(ABORT, 'simulated repository database failure');
-            END
-            SQL,
-        );
+        $this->installVisibilityUpdateFailureTrigger();
+
+        DB::statement('SAVEPOINT simulated_database_failure');
 
         $response = $this
             ->actingAs(
@@ -48,6 +42,9 @@ class DatabaseFailureTest extends TestCase
                     'visibility' => 'public',
                 ],
             );
+
+        DB::statement('ROLLBACK TO SAVEPOINT simulated_database_failure');
+        DB::statement('RELEASE SAVEPOINT simulated_database_failure');
 
         $response->assertServerError();
 
@@ -71,6 +68,39 @@ class DatabaseFailureTest extends TestCase
                 'name' => 'database-failure-test',
                 'visibility' => RepositoryVisibility::PrivateAccess->value,
             ],
+        );
+    }
+
+    private function installVisibilityUpdateFailureTrigger(): void
+    {
+        if (DB::getDriverName() === 'pgsql') {
+            DB::unprepared(
+                <<<'SQL'
+                CREATE OR REPLACE FUNCTION fail_repository_visibility_update()
+                RETURNS trigger AS $$
+                BEGIN
+                    RAISE EXCEPTION 'simulated repository database failure';
+                END;
+                $$ LANGUAGE plpgsql;
+
+                CREATE TRIGGER fail_repository_visibility_update
+                BEFORE UPDATE ON repositories
+                FOR EACH ROW
+                EXECUTE FUNCTION fail_repository_visibility_update();
+                SQL,
+            );
+
+            return;
+        }
+
+        DB::statement(
+            <<<'SQL'
+            CREATE TRIGGER fail_repository_visibility_update
+            BEFORE UPDATE ON repositories
+            BEGIN
+                SELECT RAISE(ABORT, 'simulated repository database failure');
+            END
+            SQL,
         );
     }
 }
