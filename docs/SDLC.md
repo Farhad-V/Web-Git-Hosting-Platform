@@ -2,27 +2,23 @@
 
 ## GitForge - Web Git Hosting Platform
 
-**Target release:** V1.0.0
-
-**Development approach:** Classic eight-phase SDLC
-
-**Milestone tracking:** Maintained separately in `MILESTONES.md`
+**Target release:** V1.0.0  
+**Development approach:** Eight-phase SDLC  
+**Last reconciled:** 2026-08-23
 
 ---
 
 ## 1. Purpose
 
-This document defines the Software Development Life Cycle used to develop GitForge.
+This document is the authoritative lifecycle summary for GitForge V1.0.0. Detailed evidence for each completed phase is stored in the corresponding `docs/<phase>/` directory. Milestone state is tracked in `docs/MILESTONES.md`.
 
-GitForge is a self-hosted Git hosting platform that provides repository management, Git Smart HTTP transport, authentication, scoped access tokens, and repository browsing through a web application.
-
-The SDLC describes the engineering lifecycle of the project. Implementation progress is tracked separately through milestones containing deliverables and exit criteria.
+GitForge is a self-hosted Git hosting platform with a Laravel API backend, React/TypeScript frontend, PostgreSQL persistence, managed bare Git repository storage, Git Smart HTTP transport, session authentication, personal access tokens, repository authorization, repository browsing, observability, and production deployment profiles.
 
 ---
 
 ## 2. SDLC Phases
 
-GitForge follows these eight phases:
+GitForge follows these phases:
 
 1. Project Definition
 2. Requirements Engineering
@@ -33,377 +29,178 @@ GitForge follows these eight phases:
 7. Deployment
 8. Maintenance
 
-The phases provide logical engineering boundaries. Necessary feedback and
-controlled revision between phases are permitted.
+Controlled feedback between phases is permitted, but approved V1.0.0 scope changes must remain traceable.
 
 ---
 
-## 3. Phase 1 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Project Definition
+## 3. Current Phase Status
 
-### Purpose
-
-Establish why GitForge should exist, what problem it solves, and what the V1.0.0 release must accomplish.
-
-### Required artifacts
-
-- Project charter
-- Problem statement
-- Product vision
-- Project goals
-- Stakeholder identification
-- Project scope
-- Constraints and assumptions
-- Feasibility assessment
-- Initial risk register
-- Success metrics
-- Development and release strategy
-
-### Current status
-
-**Engineering work performed; formal documentation required.**
-
-The product direction and technical scope have been established during development, but the corresponding project-definition documents must be reconstructed and reviewed.
-
-### Exit criteria
-
-- The problem and product vision are documented.
-- V1.0.0 goals and exclusions are explicit.
-- Stakeholders and constraints are identified.
-- Major risks and success measurements are recorded.
-- The project charter is approved.
+| Phase | Milestone | Status | Primary evidence |
+|---|---|---|---|
+| 1. Project Definition | M0 | Complete | `docs/01-project-definition/` |
+| 2. Requirements Engineering | M1 | Complete | `docs/02-requirements-engineering/` |
+| 3. System Analysis | M2 | Complete | `docs/03-system-analysis/` |
+| 4. System Design | M3 | Complete | `docs/04-system-design/` |
+| 5. Implementation | M4 | Complete | `docs/05-implementation/` plus application source |
+| 6. Testing | M5 | Complete | `docs/06-testing/`, automated suites, CI evidence |
+| 7. Deployment | M6 | In progress | `deployment/`; production-like verification still required |
+| 8. Maintenance | M7 | Not started | Begins after V1.0.0 release |
 
 ---
 
-## 4. Phase 2 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Requirements Engineering
+## 4. Phase 1 - Project Definition
 
-### Purpose
+### Objective
+Establish product purpose, scope, constraints, stakeholders, feasibility, risks, success criteria, and release direction.
 
-Define the functional and non-functional behavior required from GitForge V1.0.0.
-
-### Required artifacts
-
-- Stakeholder requirements
-- Functional requirements
-- Non-functional requirements
-- User roles and permissions
-- User stories
-- Use cases
-- Acceptance criteria
-- Requirements traceability matrix
-- V1.0.0 scope specification
-
-### Implemented requirement areas
-
-- Account registration and authentication
-- Authenticated session management
-- Repository creation and metadata management
-- Public and private repository visibility
-- Repository archive and deletion lifecycle
-- Managed bare Git repository storage
-- Git clone, fetch, and push over Smart HTTP
-- Scoped personal access tokens
-- Repository branch discovery
-- Commit history browsing
-- Directory and file browsing
-- Text blob viewing
-
-### Current status
-
-**Core requirements implemented; formal specification and traceability required.**
-
-### Exit criteria
-
-- Every V1.0.0 feature has a documented requirement.
-- Every requirement has acceptance criteria.
-- Security and operational requirements are included.
-- Requirements are uniquely identified and traceable.
-- Out-of-scope capabilities are explicitly listed.
+### Status
+**Complete.** The approved artifacts are maintained in `docs/01-project-definition/`.
 
 ---
 
-## 5. Phase 3 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â System Analysis
+## 5. Phase 2 - Requirements Engineering
 
-### Purpose
+### Objective
+Define authoritative functional, non-functional, data, interface, business-rule, use-case, user-story, and traceability requirements for V1.0.0.
 
-Analyze the system domain, workflows, data, actors, security boundaries, and operational behavior before documenting the final design.
+### Status
+**Complete.** The approved requirements set is maintained in `docs/02-requirements-engineering/`.
 
-### Required artifacts
+The formal primary requirement inventory contains:
 
-- System context analysis
-- Actor analysis
-- Domain model
-- Repository lifecycle analysis
-- Authentication and authorization analysis
-- Git Smart HTTP workflow analysis
-- Personal access token lifecycle analysis
-- Repository browsing analysis
-- Data-flow analysis
-- Failure and exception analysis
-- Security threat analysis
-- PlantUML analysis diagrams
-
-### Current status
-
-**Behavior implemented and tested; formal analysis artifacts required.**
-
-### Exit criteria
-
-- Actors and system boundaries are defined.
-- Major workflows and alternate flows are documented.
-- Domain entities and relationships are analyzed.
-- Trust boundaries and security threats are identified.
-- Failure states and recovery behavior are documented.
-- Analysis results map to requirements.
+- 98 functional requirements;
+- 98 non-functional requirements;
+- 94 data requirements;
+- 100 interface requirements.
 
 ---
 
-## 6. Phase 4 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â System Design
+## 6. Phase 3 - System Analysis
 
-### Purpose
+### Objective
+Analyze actors, domain behavior, workflows, state transitions, trust boundaries, threats, failures, Git transport behavior, storage behavior, and system interactions.
 
-Define how the analyzed requirements are realized through architecture, components, APIs, storage, security controls, and user interfaces.
-
-### Required artifacts
-
-- Architecture decisions
-- System architecture
-- Container architecture
-- Component design
-- Database design
-- REST API design
-- Authorization matrix
-- Git repository-storage design
-- Git process-execution design
-- Git Smart HTTP transport design
-- Personal access token design
-- Repository browser design
-- Frontend information architecture
-- UI wireframes
-- Deployment architecture
-- Observability design
-- Security design
-- PlantUML design diagrams
-
-### Implemented architecture
-
-- Laravel 12 REST API backend
-- React and TypeScript frontend
-- PostgreSQL application database
-- Laravel Sanctum authentication
-- Managed bare Git repositories
-- Git subprocess execution through validated argument arrays
-- Git Smart HTTP clone, fetch, and push transport
-- Database-backed asynchronous repository deletion
-- Scoped and expiring repository access tokens
-- Repository metadata synchronization after successful pushes
-- Repository tree, commit, branch, and blob inspection services
-
-### Current status
-
-**Architecture implemented; formal design documentation requires reconstruction and verification.**
-
-### Exit criteria
-
-- Every major requirement maps to a component.
-- APIs and database structures are documented.
-- Authorization rules are explicit.
-- Storage and Git execution boundaries are documented.
-- Security controls and deployment topology are defined.
-- Design decisions are supported by PlantUML diagrams.
+### Status
+**Complete.** Analysis artifacts and diagrams are maintained in `docs/03-system-analysis/`.
 
 ---
 
-## 7. Phase 5 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Implementation
+## 7. Phase 4 - System Design
 
-### Purpose
+### Objective
+Define the architecture, components, APIs, persistence model, authorization rules, Git execution boundaries, repository storage, frontend structure, observability, security, and deployment topology.
 
-Construct the backend, frontend, Git transport, persistence, security, and supporting infrastructure required for V1.0.0.
-
-### Completed implementation areas
-
-- Laravel project foundation
-- PostgreSQL integration
-- User authentication
-- Repository domain and API
-- Managed Git repository storage
-- Git Smart HTTP transport
-- React application foundation
-- Frontend authentication flow
-- Frontend repository management
-- Repository lifecycle controls
-- Scoped personal access token management
-- Git token permission enforcement
-- Default-branch metadata synchronization
-- Backend repository browser
-- Frontend repository browser
-
-### Current status
-
-**In progress.**
-
-The core vertical product flow is operational. Remaining V1.0.0 scope must be determined through milestone reconciliation and requirements traceability.
-
-### Exit criteria
-
-- Every approved V1.0.0 requirement is implemented.
-- No unfinished critical user workflow remains.
-- Configuration examples are complete.
-- Security-sensitive operations are validated.
-- Implementation is traceable to requirements and tests.
-- The release candidate can be produced from a clean checkout.
+### Status
+**Complete.** Approved design artifacts are maintained in `docs/04-system-design/`.
 
 ---
 
-## 8. Phase 6 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Testing
+## 8. Phase 5 - Implementation
 
-### Purpose
+### Objective
+Implement the approved V1.0.0 design without introducing unapproved scope.
 
-Verify functional correctness, integration behavior, security controls, Git transport behavior, and frontend quality.
+### Implemented product capabilities
 
-### Existing verification practices
+- Laravel 12 API backend;
+- React 19 and TypeScript frontend;
+- PostgreSQL persistence;
+- user registration, login, profile retrieval, and logout;
+- repository creation, listing, detail retrieval, and visibility updates;
+- public/private repository authorization;
+- managed bare Git repository storage;
+- Git Smart HTTP clone, fetch, and push;
+- personal access token creation, listing, revocation, and Git authentication;
+- repository branch, commit, tree, and text-blob browsing;
+- request correlation, structured operational logging, liveness, and readiness checks;
+- production-oriented Nginx, PHP-FPM, and environment templates.
 
-- Laravel unit tests
-- Laravel feature tests
-- Git storage tests
-- Git Smart HTTP integration tests
-- Authentication and authorization tests
-- Personal access token tests
-- Repository browser tests
-- Vitest frontend tests
-- React Testing Library tests
-- ESLint validation
-- TypeScript compilation
-- Production frontend builds
-- Laravel Pint formatting validation
-- GitHub Actions continuous integration
-- Manual browser verification
-- Manual Git clone and push smoke tests
+### Status
+**Complete for the approved V1.0.0 implementation scope.** Implementation evidence and validation are maintained in `docs/05-implementation/`.
 
-### Current status
-
-**Continuous testing active; formal V1.0.0 test completion pending.**
-
-### Exit criteria
-
-- All automated tests pass.
-- Backend and frontend CI checks pass.
-- Critical user journeys pass end-to-end verification.
-- Authorization and token boundaries are tested.
-- Git clone, fetch, and push workflows are verified.
-- Security testing produces no unresolved critical findings.
-- Release acceptance testing is complete.
+Capabilities not represented by the current implementation must not be described as implemented merely because they appeared in earlier planning drafts.
 
 ---
 
-## 9. Phase 7 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Deployment
+## 9. Phase 6 - Testing
 
-### Purpose
+### Objective
+Verify functional correctness, security boundaries, persistence, Git process behavior, Smart HTTP transport, frontend behavior, observability, failure handling, performance, regression behavior, system workflows, and acceptance criteria.
 
-Prepare, deploy, verify, and document a reproducible GitForge V1.0.0 environment.
+### Verification model
 
-### Required artifacts
+Testing includes:
 
-- Production environment specification
-- Deployment architecture
-- Environment-variable reference
-- Database migration procedure
-- Git storage provisioning procedure
-- Queue-worker configuration
-- Web-server configuration
-- TLS and domain configuration
-- Backup and restoration procedure
-- Deployment checklist
-- Rollback procedure
-- Release runbook
+- PHPUnit/Laravel unit and feature tests;
+- real-Git Smart HTTP end-to-end tests;
+- PostgreSQL integrity tests;
+- security tests;
+- performance tests;
+- Vitest and React Testing Library tests;
+- ESLint and TypeScript build validation;
+- Laravel Pint;
+- Composer and npm dependency audits;
+- GitHub Actions CI;
+- formal test traceability and milestone validation.
 
-### Current status
+### Status
+**Complete.** The formal testing package contains 141 test cases and is maintained in `docs/06-testing/`.
 
-**Pending.**
-
-Local development and continuous integration are operational, but a complete production deployment has not yet been verified.
-
-### Exit criteria
-
-- A production-like environment is deployed.
-- HTTPS and production configuration are active.
-- Database, queue, and Git storage services are operational.
-- Backup and restoration are verified.
-- Monitoring and logging are available.
-- Rollback instructions are tested.
-- The V1.0.0 release is tagged and published.
+The latest audited backend CI execution passed 205 tests with 1008 assertions, migrations, formatting validation, and Composer security audit. Frontend CI validates lint, tests, production build, and production dependency audit.
 
 ---
 
-## 10. Phase 8 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Maintenance
+## 10. Phase 7 - Deployment
 
-### Purpose
+### Objective
+Deploy GitForge reproducibly in a production-like environment and verify application, infrastructure, security, backup, recovery, and rollback behavior.
 
-Operate GitForge after release and manage defects, security updates, performance, and future changes.
+### Existing deployment assets
 
-### Required artifacts
+- `deployment/README.md`;
+- `deployment/env/production.env.example`;
+- `deployment/nginx/gitforge.conf`;
+- `deployment/php-fpm/gitforge.conf`.
 
-- Maintenance policy
-- Incident-management procedure
-- Defect triage process
-- Security-update policy
-- Dependency-update procedure
-- Backup schedule
-- Monitoring and alerting procedure
-- Release and versioning policy
-- V2.0.0 change-request process
+### Remaining verification
 
-### Current status
+- provision a production-like host;
+- configure the real domain and TLS certificates;
+- validate Nginx and PHP-FPM configuration on the target host;
+- install production dependencies and build the frontend;
+- run database migrations;
+- provision persistent repository storage and permissions;
+- verify liveness and readiness;
+- execute production smoke tests;
+- verify database and Git-repository backup/restore;
+- test rollback procedure;
+- approve the V1.0.0 release candidate.
 
-**Not started.**
-
-Maintenance begins after the V1.0.0 production release.
-
-### Exit criteria
-
-Maintenance does not have a final completion point. It is considered operational when:
-
-- Ownership and support procedures are documented.
-- Incidents and defects can be tracked.
-- Security and dependency updates are scheduled.
-- Backup and recovery checks are recurring.
-- Future scope changes follow a controlled process.
+### Status
+**In progress.** Configuration artifacts exist, but deployment is not complete until target-environment verification succeeds.
 
 ---
 
-## 11. Current SDLC Position
+## 11. Phase 8 - Maintenance
 
-| Phase | Status |
-|---|---|
-| 1. Project Definition | Documentation required |
-| 2. Requirements Engineering | Core behavior established; documentation required |
-| 3. System Analysis | Implementation evidence exists; documentation required |
-| 4. System Design | Architecture implemented; documentation required |
-| 5. Implementation | In progress |
-| 6. Testing | In progress continuously |
-| 7. Deployment | Pending |
-| 8. Maintenance | Not started |
+### Objective
+Operate the released system, manage defects and incidents, update dependencies, verify backups, handle security updates, and control future scope changes.
+
+### Status
+**Not started.** Maintenance begins after the V1.0.0 production release.
 
 ---
 
-## 12. Documentation Rule
+## 12. Scope Integrity Rule
 
-SDLC phases and milestones serve different purposes:
+The implementation and approved phase artifacts take precedence over stale planning statements. A capability is considered part of V1.0.0 only when it is supported by the approved requirements/design and implemented and verified in the current codebase.
 
-- SDLC phases organize the complete software-engineering lifecycle.
-- Milestones organize measurable project progress.
-- Every milestone must define deliverables and exit criteria.
-- A milestone may include work from more than one SDLC phase.
-- Milestone completion must be supported by verifiable evidence.
-- V2.0.0 work must not begin before V1.0.0 satisfies its Definition of Done.
+Future capabilities such as organization/team collaboration, SSH Git transport, distributed storage, and other unapproved extensions remain outside V1.0.0 unless formally introduced through change control.
 
 ---
 
-## 13. Document Status
+## 13. Current SDLC Position
 
-**Status:** Draft
+GitForge has completed M0 through M5 and is entering **M6 - Deployment**. The next engineering objective is a reproducible production-like deployment followed by release approval and then maintenance readiness.
 
-**Target release:** V1.0.0
-
-**Next action:** Create `docs/MILESTONES.md` and reconcile completed work
-
-against milestones M0ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œM9.
+**Document status:** Approved and reconciled with `main` as of 2026-08-23.
