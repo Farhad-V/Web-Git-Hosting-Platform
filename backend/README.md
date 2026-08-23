@@ -4,7 +4,7 @@ Laravel API and Git transport backend for GitForge, a self-hosted Web Git Hostin
 
 ## Stack
 
-- PHP 8.4
+- PHP 8.2+ (reference CI/deployment baseline: PHP 8.4)
 - Laravel 12
 - PostgreSQL 18
 - System Git
@@ -28,7 +28,7 @@ The separate React/TypeScript application is located in `../frontend`.
 
 ## Requirements
 
-- PHP 8.4
+- PHP 8.2 or later; PHP 8.4 is the reference environment used by CI and deployment documentation
 - Composer 2
 - PostgreSQL 18
 - Git
@@ -78,7 +78,7 @@ Audit PHP dependencies:
 composer audit --locked
 ```
 
-GitHub Actions runs migrations, formatting validation, dependency audit, and the full backend suite against PostgreSQL 18.
+GitHub Actions runs migrations, formatting validation, dependency audit, and the full backend suite against PostgreSQL 18 using PHP 8.4.
 
 ## API
 
@@ -118,7 +118,7 @@ Production deployment guidance and infrastructure profiles are maintained in:
 ../deployment/
 ```
 
-The production deployment uses Nginx, PHP-FPM, PostgreSQL, HTTPS, and persistent managed repository storage.
+The production deployment uses Nginx, PHP-FPM 8.4, PostgreSQL 18, HTTPS, and persistent managed repository storage.
 
 ## Documentation
 
