@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "farhad-valizadegan/gitforge-backend",
+    "name": "laravel/laravel",
     "type": "project",
-    "description": "Laravel backend for the GitForge self-hosted Web Git Hosting Platform.",
-    "keywords": ["git", "git-hosting", "laravel", "self-hosted"],
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
