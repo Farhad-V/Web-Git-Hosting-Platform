@@ -5,11 +5,50 @@ namespace Tests\Feature\Security;
 use App\Models\Repository;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class SqlInjectionSecurityTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_login_sql_injection_payload_does_not_bypass_authentication(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'owner@example.test',
+            'password' => Hash::make(
+                'CorrectPassword123!',
+            ),
+        ]);
+
+        $payload = "owner@example.test' OR '1'='1";
+
+        $response = $this->postJson(
+            route('api.v1.auth.login'),
+            [
+                'email' => $payload,
+                'password' => 'incorrect-password',
+            ],
+        );
+
+        $response
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors([
+                'email',
+            ]);
+
+        $this->assertGuest(
+            'web',
+        );
+
+        $this->assertDatabaseHas(
+            'users',
+            [
+                'id' => $user->id,
+                'email' => 'owner@example.test',
+            ],
+        );
+    }
 
     public function test_repository_name_sql_injection_payload_is_rejected_as_invalid_input(): void
     {

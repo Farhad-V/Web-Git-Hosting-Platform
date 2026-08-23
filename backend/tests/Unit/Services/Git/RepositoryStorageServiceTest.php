@@ -305,6 +305,60 @@ class RepositoryStorageServiceTest extends TestCase
         }
     }
 
+    public function test_traversal_repository_directory_is_rejected(): void
+    {
+        config([
+            'git.repositories_directory' => '../outside',
+        ]);
+
+        $repository = Repository::factory()->create();
+
+        try {
+            app(RepositoryStorageService::class)
+                ->pathFor(
+                    $repository,
+                );
+
+            $this->fail(
+                'A traversal-oriented repositories directory was accepted.',
+            );
+        } catch (RepositoryStorageException $exception) {
+            $this->assertSame(
+                'resolve-root',
+                $exception->operation,
+            );
+        }
+    }
+
+    public function test_absolute_repository_directory_is_rejected(): void
+    {
+        $absoluteDirectory = PHP_OS_FAMILY === 'Windows'
+            ? 'C:\\gitforge\\outside'
+            : '/tmp/gitforge/outside';
+
+        config([
+            'git.repositories_directory' => $absoluteDirectory,
+        ]);
+
+        $repository = Repository::factory()->create();
+
+        try {
+            app(RepositoryStorageService::class)
+                ->pathFor(
+                    $repository,
+                );
+
+            $this->fail(
+                'An absolute repositories directory was accepted.',
+            );
+        } catch (RepositoryStorageException $exception) {
+            $this->assertSame(
+                'resolve-root',
+                $exception->operation,
+            );
+        }
+    }
+
     public function test_symlinked_repositories_directory_outside_root_is_rejected(): void
     {
         File::ensureDirectoryExists(

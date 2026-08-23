@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Mockery;
 use ReflectionMethod;
+use RuntimeException;
 use Tests\TestCase;
 
 class InfrastructureObservabilityTest extends TestCase
@@ -347,6 +348,81 @@ class InfrastructureObservabilityTest extends TestCase
                             === 'dependency_unavailable'
                         && in_array(
                             'database',
+                            $context['failed_checks'],
+                            true,
+                        );
+                },
+            ),
+        )->once();
+    }
+
+    public function test_git_dependency_failure_marks_readiness_unavailable(): void
+    {
+        File::ensureDirectoryExists(
+            $this->temporaryStorageRoot,
+        );
+
+        $git = Mockery::mock(
+            GitCommandRunner::class,
+        );
+
+        $git->shouldReceive(
+            'version',
+        )
+            ->once()
+            ->andThrow(
+                new RuntimeException(
+                    'Git executable unavailable.',
+                ),
+            );
+
+        Log::spy();
+
+        $health = new HealthService(
+            $git,
+        );
+
+        $result = $health->readiness();
+
+        $this->assertFalse(
+            $result['ready'],
+        );
+
+        $this->assertSame(
+            'unavailable',
+            $result['checks']['git'],
+        );
+
+        $this->assertSame(
+            'available',
+            $result['checks']['database'],
+        );
+
+        $this->assertSame(
+            'available',
+            $result['checks']['repository_storage'],
+        );
+
+        $this->assertSame(
+            'available',
+            $result['checks']['configuration'],
+        );
+
+        Log::shouldHaveReceived(
+            'error',
+        )->with(
+            'readiness_failed',
+            Mockery::on(
+                function (array $context): bool {
+                    return $context['event']
+                            === 'readiness_failed'
+                        && $context['request_id']
+                            === 'infrastructure-request-id'
+                        && $context['result'] === 'failure'
+                        && $context['failure_category']
+                            === 'dependency_unavailable'
+                        && in_array(
+                            'git',
                             $context['failed_checks'],
                             true,
                         );

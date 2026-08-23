@@ -882,6 +882,36 @@ class RepositoryBrowserTest extends TestCase
             );
     }
 
+    public function test_repository_browser_rejects_path_traversal_attempt(): void
+    {
+        $owner = User::factory()->create();
+
+        $repository = $this->createRepositoryWithHistory(
+            owner: $owner,
+        );
+
+        $this
+            ->actingAs(
+                $owner,
+                'web',
+            )
+            ->getJson(
+                route(
+                    'api.v1.repositories.blob',
+                    [
+                        'repository' => $repository,
+                        'branch' => 'main',
+                        'path' => '../README.md',
+                    ],
+                ),
+            )
+            ->assertUnprocessable()
+            ->assertJsonPath(
+                'error',
+                'invalid_path',
+            );
+    }
+
     public function test_missing_repository_storage_fails_closed(): void
     {
         $owner = User::factory()->create();

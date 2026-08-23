@@ -6,6 +6,7 @@ use App\Enums\RepositoryVisibility;
 use App\Models\PersonalAccessToken;
 use App\Models\Repository;
 use App\Models\User;
+use App\Services\Git\GitCommandRunner;
 use App\Services\Git\RepositoryStorageService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
@@ -654,6 +655,20 @@ class GitSmartHttpTest extends TestCase
             visibility: RepositoryVisibility::PublicAccess,
         );
 
+        $repositoryPath = app(
+            RepositoryStorageService::class,
+        )->repositoryPath(
+            $repository,
+        );
+
+        $this->seedMainRef(
+            $repositoryPath,
+        );
+
+        $refsBefore = $this->showRefs(
+            $repositoryPath,
+        );
+
         $otherUser = User::factory()->create([
             'username' => 'other-user',
         ]);
@@ -684,6 +699,15 @@ class GitSmartHttpTest extends TestCase
         );
 
         $response->assertForbidden();
+
+        $refsAfter = $this->showRefs(
+            $repositoryPath,
+        );
+
+        $this->assertSame(
+            $refsBefore,
+            $refsAfter,
+        );
     }
 
     public function test_receive_pack_rejects_incorrect_content_type(): void
@@ -973,6 +997,79 @@ class GitSmartHttpTest extends TestCase
             $plainTextToken,
             $token,
         ];
+    }
+
+    /**
+     * Seed the bare repository with one known main branch ref.
+     */
+    private function seedMainRef(
+        string $repositoryPath,
+    ): void {
+        $git = app(
+            GitCommandRunner::class,
+        );
+
+        $blob = $git->run(
+            operation: 'test_seed_blob',
+            arguments: [
+                '--git-dir='.$repositoryPath,
+                'hash-object',
+                '-w',
+                '--stdin',
+            ],
+            input: "initial\n",
+        );
+
+        $tree = $git->run(
+            operation: 'test_seed_tree',
+            arguments: [
+                '--git-dir='.$repositoryPath,
+                'mktree',
+            ],
+            input: "100644 blob {$blob}\tREADME.md\n",
+        );
+
+        $commit = $git->run(
+            operation: 'test_seed_commit',
+            arguments: [
+                '-c',
+                'user.name=GitForge Test',
+                '-c',
+                'user.email=gitforge@example.test',
+                '--git-dir='.$repositoryPath,
+                'commit-tree',
+                $tree,
+                '-m',
+                'Initial commit',
+            ],
+        );
+
+        $git->run(
+            operation: 'test_seed_main_ref',
+            arguments: [
+                '--git-dir='.$repositoryPath,
+                'update-ref',
+                'refs/heads/main',
+                $commit,
+            ],
+        );
+    }
+
+    /**
+     * Return the complete repository ref state for integrity comparison.
+     */
+    private function showRefs(
+        string $repositoryPath,
+    ): string {
+        return app(
+            GitCommandRunner::class,
+        )->run(
+            operation: 'test_show_refs',
+            arguments: [
+                '--git-dir='.$repositoryPath,
+                'show-ref',
+            ],
+        );
     }
 
     /**

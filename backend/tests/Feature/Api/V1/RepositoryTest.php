@@ -116,6 +116,113 @@ class RepositoryTest extends TestCase
         );
     }
 
+    public function test_authenticated_user_can_create_public_repository(): void
+    {
+        $user = User::factory()->create([
+            'username' => 'public-owner',
+        ]);
+
+        $response = $this
+            ->actingAs(
+                $user,
+                'web',
+            )
+            ->postJson(
+                route('api.v1.repositories.store'),
+                [
+                    'name' => 'Public-Project',
+                    'visibility' => 'public',
+                ],
+            );
+
+        $response
+            ->assertCreated()
+            ->assertJson([
+                'message' => 'Repository created successfully.',
+                'repository' => [
+                    'name' => 'public-project',
+                    'full_name' => 'public-owner/public-project',
+                    'visibility' => 'public',
+                    'owner' => [
+                        'id' => $user->id,
+                        'username' => 'public-owner',
+                    ],
+                ],
+            ]);
+
+        $this->assertDatabaseHas(
+            'repositories',
+            [
+                'owner_id' => $user->id,
+                'name' => 'public-project',
+                'visibility' => (
+                    RepositoryVisibility::PublicAccess->value
+                ),
+            ],
+        );
+
+        $repository = Repository::query()
+            ->where('owner_id', $user->id)
+            ->where('name', 'public-project')
+            ->firstOrFail();
+
+        $expectedPath = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'repositories'
+            .DIRECTORY_SEPARATOR
+            .$repository->id
+            .'.git';
+
+        $this->assertSame(
+            $expectedPath,
+            app(RepositoryStorageService::class)
+                ->pathFor($repository),
+        );
+
+        $this->assertTrue(
+            app(RepositoryStorageService::class)
+                ->exists($repository),
+        );
+    }
+
+    public function test_unauthenticated_user_cannot_create_repository_or_storage(): void
+    {
+        $response = $this->postJson(
+            route('api.v1.repositories.store'),
+            [
+                'name' => 'unauthorized-project',
+                'visibility' => 'private',
+            ],
+        );
+
+        $response->assertUnauthorized();
+
+        $this->assertDatabaseCount(
+            'repositories',
+            0,
+        );
+
+        $repositoriesDirectory = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR
+            .'repositories';
+
+        if (File::isDirectory($repositoriesDirectory)) {
+            $this->assertCount(
+                0,
+                File::directories(
+                    $repositoriesDirectory,
+                ),
+            );
+
+            $this->assertCount(
+                0,
+                File::files(
+                    $repositoriesDirectory,
+                ),
+            );
+        }
+    }
+
     public function test_repository_creation_does_not_persist_deferred_metadata(): void
     {
         $user = User::factory()->create();
