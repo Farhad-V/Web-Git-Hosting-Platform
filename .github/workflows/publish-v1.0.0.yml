@@ -1,0 +1,75 @@
+name: Publish V1.0.0
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/publish-v1.0.0.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-v1.0.0
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Tag and publish GitForge V1.0.0
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out release commit
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Verify release inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f CHANGELOG.md
+          test -f RELEASE_NOTES.md
+          grep -Fq '## [1.0.0]' CHANGELOG.md
+          grep -Fq 'GitForge V1.0.0' RELEASE_NOTES.md
+
+      - name: Publish tag and GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RELEASE_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if gh release view v1.0.0 --repo "$REPOSITORY" >/dev/null 2>&1; then
+            echo 'GitForge V1.0.0 is already published; nothing to do.'
+            exit 0
+          fi
+
+          if git ls-remote --exit-code --tags origin refs/tags/v1.0.0 >/dev/null 2>&1; then
+            gh release create v1.0.0 \
+              --repo "$REPOSITORY" \
+              --title 'GitForge V1.0.0' \
+              --notes-file RELEASE_NOTES.md \
+              --verify-tag
+          else
+            gh release create v1.0.0 \
+              --repo "$REPOSITORY" \
+              --target "$RELEASE_SHA" \
+              --title 'GitForge V1.0.0' \
+              --notes-file RELEASE_NOTES.md
+          fi
+
+      - name: Verify published release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release view v1.0.0 --repo "$REPOSITORY" --json tagName,name,isDraft,isPrerelease \
+            --jq 'select(.tagName == "v1.0.0" and .name == "GitForge V1.0.0" and .isDraft == false and .isPrerelease == false) | .tagName' \
+            | grep -Fxq 'v1.0.0'
