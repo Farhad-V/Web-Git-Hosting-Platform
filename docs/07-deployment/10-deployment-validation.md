@@ -5,7 +5,7 @@
 | Project | GitForge — Web Git Hosting Platform |
 | Version | V1.0.0 |
 | Milestone | M6 — Deployment |
-| Status | In Validation |
+| Status | Approved |
 
 ## Automated Validation
 
@@ -24,6 +24,11 @@ The `.github/workflows/deployment-validation.yml` workflow performs the followin
 11. validates Nginx syntax using temporary test TLS material;
 12. starts Laravel and verifies `GET /up`;
 13. confirms generated production cache artifacts.
+
+## Evidence
+
+Deployment Validation run `32659338381`: **PASS**.  
+Backend CI run `32659338516`: **PASS**.
 
 ## Interpretation
 

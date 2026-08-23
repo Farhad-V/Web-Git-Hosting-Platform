@@ -5,7 +5,7 @@
 | Project | GitForge — Web Git Hosting Platform |
 | Version | V1.0.0 |
 | Milestone | M6 — Deployment |
-| Status | In Validation |
+| Status | Approved |
 
 ## Liveness
 
@@ -27,4 +27,4 @@ Laravel and Nginx logs must not contain passwords, plaintext PATs, PAT hashes, A
 
 ## Deployment Evidence
 
-The GitHub Actions `Deployment Validation` workflow provides reproducible evidence for the portfolio release that production dependency installation, migration, build, Nginx syntax and application liveness are valid from a clean runner.
+Deployment Validation run `32659338381` passed on a clean GitHub-hosted runner, providing reproducible evidence that production dependency installation, migration, build, Nginx syntax and application liveness are valid.

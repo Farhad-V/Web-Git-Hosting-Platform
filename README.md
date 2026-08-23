@@ -1,16 +1,14 @@
 # GitForge - Web Git Hosting Platform
 
-GitForge is a self-hosted Git hosting platform built as a full-stack software-engineering project. It combines a Laravel API, React/TypeScript frontend, PostgreSQL persistence, managed bare Git repositories, and Git Smart HTTP transport.
-
-The project is developed against a formal SDLC with requirements, system analysis, system design, implementation traceability, testing, deployment planning, and milestone reviews stored in the repository.
+GitForge is a self-hosted Git hosting platform built as a full-stack software-engineering portfolio project. It combines a Laravel API, React/TypeScript frontend, PostgreSQL persistence, managed bare Git repositories, and Git Smart HTTP transport.
 
 ## Current Status
 
 **Target release:** V1.0.0  
-**Completed milestones:** M0 through M5  
-**Active milestone:** M6 - Deployment
+**Completed milestones:** M0 through M6  
+**Next milestone:** M7 — V1.0.0 Release and Maintenance Readiness
 
-The application implementation and formal testing phases are complete for the approved V1.0.0 scope. Production-like deployment verification is the current lifecycle stage.
+Implementation, formal testing and portfolio-grade deployment validation are complete for the approved V1.0.0 scope.
 
 ## Core Capabilities
 
@@ -23,48 +21,35 @@ The application implementation and formal testing phases are complete for the ap
 - personal access token creation, listing, revocation, and Git authentication;
 - repository branch and commit browsing;
 - repository tree navigation and text-file viewing;
-- request correlation, structured operational logging, liveness, and readiness checks;
-- automated backend and frontend CI;
-- production-oriented Nginx, PHP-FPM, environment, backup, restore, and rollback guidance.
+- request correlation, structured operational logging, liveness, and readiness support;
+- automated backend, frontend and deployment validation CI.
 
 ## V1.0.0 Scope Boundary
 
-GitForge V1.0.0 uses an owner-centric repository permission model. The repository does **not** claim organization/team collaboration, SSH Git transport, distributed repository storage, or other unimplemented platform features.
+GitForge V1.0.0 uses an owner-centric repository permission model. It does **not** claim organization/team collaboration, SSH Git transport, distributed repository storage, or other unimplemented platform features.
 
 ## Architecture
 
 ```text
-Browser
-  |
-  v
-React + TypeScript SPA
-  |
-  | /api/v1
-  v
-Laravel 12 API -------------------- PostgreSQL 18
-  |
-  | controlled Git subprocesses
-  v
-System Git
-  |
-  v
-Managed bare repositories
-
-Git CLI
-  |
-  | Git Smart HTTP
-  v
-Laravel Git transport endpoints
+Browser / Git CLI
+       |
+       v
+      Nginx
+       |----------------------|
+       |                      |
+React + TypeScript SPA      PHP-FPM 8.4
+                              |
+                           Laravel 12
+                         /     |      \
+                PostgreSQL 18 Git   Managed bare repositories
 ```
-
-Production ingress is designed around Nginx and PHP-FPM, with the compiled frontend served as a static SPA and API/Git Smart HTTP traffic forwarded to Laravel.
 
 ## Technology Stack
 
 ### Backend
 
 - PHP / Laravel 12
-- PostgreSQL
+- PostgreSQL 18 reference profile
 - System Git
 - PHPUnit
 - Laravel Pint
@@ -88,18 +73,18 @@ Production ingress is designed around Nginx and PHP-FPM, with the compiled front
 - Nginx
 - PHP-FPM
 - GitHub Actions
-- HTTPS/TLS deployment profile
+- HTTPS/TLS production profile
 - persistent repository storage outside public web roots
+- automated deployment validation
 
 ## Repository Structure
 
 ```text
-.github/
-  workflows/          GitHub Actions CI
-backend/              Laravel backend and Git transport
-frontend/             React/TypeScript SPA
-deployment/           Production deployment profiles and guide
-docs/                 SDLC engineering documentation
+.github/workflows/       Backend, frontend and deployment validation CI
+backend/                 Laravel backend and Git transport
+frontend/                React/TypeScript SPA
+deployment/              Production deployment profiles, scripts and guide
+docs/                    Formal SDLC engineering documentation
 ```
 
 ## Local Development
@@ -133,79 +118,52 @@ Backend:  http://127.0.0.1:8000
 Frontend: http://127.0.0.1:5173
 ```
 
-## Testing and Quality Gates
+## Quality Gates
 
-Backend CI performs:
+Backend CI validates Composer configuration/install, PostgreSQL migrations, Pint, Composer audit and the full Laravel test suite.
 
-```text
-Composer validation
-Composer install
-Laravel environment preparation
-PostgreSQL migrations
-Laravel Pint validation
-Composer security audit
-Full Laravel test suite
-```
+Frontend CI validates clean dependency installation, ESLint, Vitest, production build and production dependency audit.
 
-Frontend CI performs:
+Deployment Validation independently validates production-mode backend installation, PostgreSQL 18 migrations, Laravel configuration/route caching, clean frontend production build, Nginx syntax and Laravel `/up` liveness.
 
-```text
-npm ci
-ESLint
-Vitest
-TypeScript/Vite production build
-production dependency audit
-```
+Formal testing evidence is maintained in `docs/06-testing/`; deployment evidence is maintained in `docs/07-deployment/`.
 
-The latest audited backend CI run passed **205 tests with 1008 assertions**. The formal testing specification contains **141 test cases**, with traceability across the approved V1.0.0 requirement set.
+## Deployment
 
-## Documentation
+The production-ready portfolio deployment package is in `deployment/` and includes:
 
-The repository contains formal engineering artifacts for:
+- `env/production.env.example`;
+- `nginx/gitforge.conf`;
+- `php-fpm/gitforge.conf`;
+- deployment preflight and HTTPS smoke-test scripts;
+- PostgreSQL + Git repository backup and backup verification scripts;
+- restore and rollback guidance.
 
-1. Project Definition - `docs/01-project-definition/`
-2. Requirements Engineering - `docs/02-requirements-engineering/`
-3. System Analysis - `docs/03-system-analysis/`
-4. System Design - `docs/04-system-design/`
-5. Implementation - `docs/05-implementation/`
-6. Testing - `docs/06-testing/`
-7. Deployment - `deployment/`
+The package is validated automatically on a clean GitHub runner. A paid VPS/domain is optional for V1.0.0 portfolio presentation; the same package can later be installed on a standard Linux host.
+
+See `deployment/README.md` and `docs/07-deployment/`.
+
+## SDLC Documentation
+
+1. Project Definition — `docs/01-project-definition/`
+2. Requirements Engineering — `docs/02-requirements-engineering/`
+3. System Analysis — `docs/03-system-analysis/`
+4. System Design — `docs/04-system-design/`
+5. Implementation — `docs/05-implementation/`
+6. Testing — `docs/06-testing/`
+7. Deployment — `docs/07-deployment/`
 
 Lifecycle summary: `docs/SDLC.md`  
 Milestone tracker: `docs/MILESTONES.md`
 
-## Production Deployment
-
-Production guidance is maintained in `deployment/README.md` and includes:
-
-- Nginx HTTPS ingress;
-- PHP-FPM least-privilege runtime identity;
-- PostgreSQL configuration boundaries;
-- persistent Git repository storage;
-- secure production environment defaults;
-- liveness and readiness verification;
-- smoke tests;
-- backup and restore boundaries;
-- rollback guidance.
-
-Deployment is not considered complete until the M6 production-like verification criteria are satisfied.
-
 ## Security Principles
 
-GitForge applies defense-in-depth controls including:
+GitForge applies server-side authorization, private repository concealment, CSRF protection for state-changing session requests, throttling, non-reversible PAT storage, path traversal protection, controlled Git command arguments, bounded request/blob sizes, least-privilege deployment identity, repository storage outside public roots, and logging rules that exclude credentials and Git protocol payloads.
 
-- server-side authorization;
-- private repository concealment;
-- CSRF protection for state-changing session requests;
-- throttling;
-- non-reversible PAT storage;
-- path traversal protection;
-- controlled Git command arguments;
-- bounded Git request and browser blob sizes;
-- least-privilege deployment identity;
-- repository storage outside public web roots;
-- logs designed to exclude passwords, PATs, authorization headers, and Git protocol payloads.
+## Release Status
+
+`v1.0.0` has **not** been tagged yet. The next step is M7: final release-readiness audit and portfolio release preparation. The release tag is created only after M7 confirms there are no release blockers.
 
 ## License
 
-The backend Composer package declares the project under the MIT license. A repository-level license file should be added only when the project owner intentionally confirms the final public licensing terms.
+The backend Composer package currently declares MIT. A repository-level license file should be added only when the final public licensing decision is intentionally confirmed.

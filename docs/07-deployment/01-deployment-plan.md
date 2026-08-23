@@ -6,7 +6,7 @@
 | Version | V1.0.0 |
 | SDLC phase | 7 — Deployment |
 | Milestone | M6 — Deployment |
-| Status | In Validation |
+| Status | Approved |
 | Date | 2026-08-23 |
 
 ## Purpose
@@ -29,6 +29,8 @@ M6 validates the deployment package in GitHub Actions using a production-like en
 
 ## Exit Criteria
 
+All repository-side M6 exit criteria passed in Deployment Validation run `32659338381` and Backend CI run `32659338516`:
+
 - deployment configuration is version controlled;
 - production secrets are not committed;
 - deployment scripts pass shell syntax validation;
@@ -37,7 +39,6 @@ M6 validates the deployment package in GitHub Actions using a production-like en
 - PostgreSQL migrations succeed against PostgreSQL 18;
 - Laravel production configuration and route caching succeed;
 - `/up` responds in a production-like runtime;
-- Nginx configuration passes `nginx -t` with test TLS material;
+- Nginx configuration passes `nginx -t` with temporary test TLS material;
 - backup and recovery procedures are documented;
-- Deployment Validation workflow is green;
 - M6 milestone review is approved.

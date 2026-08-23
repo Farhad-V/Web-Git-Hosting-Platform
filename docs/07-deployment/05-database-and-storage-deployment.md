@@ -5,7 +5,7 @@
 | Project | GitForge — Web Git Hosting Platform |
 | Version | V1.0.0 |
 | Milestone | M6 — Deployment |
-| Status | In Validation |
+| Status | Approved |
 
 ## PostgreSQL
 
@@ -23,7 +23,7 @@ Manual, untracked production schema changes are not part of the approved deploym
 
 The canonical root is `/var/lib/gitforge`; managed bare repositories live below `/var/lib/gitforge/repositories`.
 
-Repository storage must persist independently from `/var/www/gitforge`. Deploying or rolling back application code must never delete or replace repository contents.
+Repository storage persists independently from `/var/www/gitforge`. Deploying or rolling back application code must never delete or replace repository contents.
 
 ## Consistency Rule
 

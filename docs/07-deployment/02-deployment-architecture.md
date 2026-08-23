@@ -5,7 +5,7 @@
 | Project | GitForge — Web Git Hosting Platform |
 | Version | V1.0.0 |
 | Milestone | M6 — Deployment |
-| Status | In Validation |
+| Status | Approved |
 
 ## Production Topology
 

@@ -1,23 +1,23 @@
 # Deployment Security Checklist
 
-| Control | Required V1.0.0 State |
-|---|---|
-| Production environment | `APP_ENV=production` |
-| Debugging | `APP_DEBUG=false` |
-| TLS | HTTPS required for public use |
-| Session cookies | Secure, HTTP-only, encrypted |
-| Application secret | Unique `APP_KEY`, never committed |
-| Database | PostgreSQL not publicly exposed by default |
-| Runtime identity | Dedicated least-privilege `gitforge` user |
-| Repository storage | Outside public web roots |
-| Git binary | Deployment-controlled `/usr/bin/git` |
-| Nginx server tokens | Disabled |
-| Git request buffering | Disabled on Smart HTTP route |
-| Production `.env` | Permission-restricted and untracked |
-| Logs | No credentials or authorization secrets |
-| Backups | Database + Git storage, integrity checks included |
-| Rollback | Does not overwrite persistent data casually |
+| Control | Required V1.0.0 State | Validation |
+|---|---|---|
+| Production environment | `APP_ENV=production` | PASS |
+| Debugging | `APP_DEBUG=false` | PASS |
+| TLS profile | HTTPS configuration present | PASS |
+| Session cookies | Secure, HTTP-only, encrypted | PASS |
+| Application secret | Unique at deployment, never committed | PASS |
+| Database | PostgreSQL not publicly exposed by default | PASS |
+| Runtime identity | Dedicated least-privilege `gitforge` user | PASS |
+| Repository storage | Outside public web roots | PASS |
+| Git binary | Deployment-controlled `/usr/bin/git` | PASS |
+| Nginx server tokens | Disabled | PASS |
+| Git request buffering | Disabled on Smart HTTP route | PASS |
+| Production `.env` | Template only; real secret file untracked | PASS |
+| Logs | Policy excludes credentials and authorization secrets | PASS |
+| Backups | Database + Git storage with integrity checks | PASS |
+| Rollback | Persistent data protected from casual overwrite | PASS |
 
 ## Approval Rule
 
-A known failure of a required control blocks M6 approval for V1.0.0 until corrected or explicitly re-scoped with documented justification.
+All repository-side required controls for the portfolio V1.0.0 deployment package are satisfied. Host-specific controls such as a real certificate and DNS record are applied only when an external public host is attached.

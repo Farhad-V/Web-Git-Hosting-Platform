@@ -5,7 +5,7 @@
 | Project | GitForge — Web Git Hosting Platform |
 | Version | V1.0.0 |
 | Milestone | M6 — Deployment |
-| Status | In Validation |
+| Status | Approved |
 
 ## Canonical Templates
 
@@ -15,13 +15,13 @@
 
 ## Required Production Properties
 
-The deployed environment must use `APP_ENV=production` and `APP_DEBUG=false`. A unique `APP_KEY` must be generated on the target host. Database credentials and any other secrets must never be committed.
+The deployed environment uses `APP_ENV=production` and `APP_DEBUG=false`. A unique `APP_KEY` is generated on the target host. Database credentials and other secrets are never committed.
 
 The Git executable is controlled by `GITFORGE_GIT_BINARY=/usr/bin/git`. Persistent repository storage is controlled by `GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge`.
 
 ## Session and Transport Security
 
-Production sessions use encrypted, HTTP-only, secure cookies. External traffic uses HTTPS. Port 80 may be exposed only for redirection to HTTPS.
+Production sessions use encrypted, HTTP-only, secure cookies. External traffic uses HTTPS. Port 80 exists only for redirection to HTTPS.
 
 ## Filesystem Permissions
 
