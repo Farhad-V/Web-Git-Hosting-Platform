@@ -53,6 +53,18 @@ Production backend env:    /var/www/gitforge/backend/.env
 - `scripts/backup.sh` — PostgreSQL + repository-storage backup;
 - `scripts/verify-backup.sh` — checksum/archive verification.
 
+## Production Security and Recovery Invariants
+
+The following statements are V1.0.0 deployment invariants and are intentionally explicit because automated security tests enforce them:
+
+- APP_DEBUG is false.
+- Repository storage remains outside all public web roots.
+- Normal runtime execution does not require root.
+- A complete recovery set contains PostgreSQL metadata.
+- A complete recovery set also contains persistent Git repository storage.
+- If PostgreSQL metadata exists but the corresponding physical repository storage is missing, GitForge must not silently recreate it.
+- If physical repository storage exists without corresponding PostgreSQL metadata, GitForge must not automatically adopt it.
+
 ## Production Rules
 
 - `APP_ENV=production`;
@@ -124,7 +136,7 @@ After the basic smoke test, verify the approved acceptance workflows: registrati
 
 ## Backup
 
-A complete GitForge backup contains both PostgreSQL and managed repository storage.
+A complete GitForge backup contains both PostgreSQL metadata and persistent Git repository storage.
 
 Example:
 
@@ -151,6 +163,8 @@ Backups contain sensitive data and require appropriate access controls and encry
 ## Restore and Rollback
 
 Restore is a coordinated operation: verify the backup, restore PostgreSQL with `pg_restore`, restore the repository archive with correct ownership, deploy a schema-compatible application version, rebuild caches, and run acceptance checks before resuming writes.
+
+If PostgreSQL metadata exists but physical repository storage is missing, GitForge must not silently recreate it. If repository storage exists without PostgreSQL metadata, GitForge must not automatically adopt it.
 
 Normal application rollback changes application code only. It must not casually replace PostgreSQL data or Git repository contents. Database rollback requires migration-specific compatibility analysis.
 
