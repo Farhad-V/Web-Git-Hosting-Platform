@@ -2,14 +2,15 @@
 
 | Field | Value |
 |---|---|
-| Project | Git Hosting Platform |
+| Project | GitForge — Web Git Hosting Platform |
 | Version | V1.0.0 |
+| SDLC phase | 6 — Testing |
 | Milestone | M5 — Testing |
-| SDLC Phase | Testing |
-| Work Package | WP-20 — Testing Validation |
+| Work package | WP-20 — Testing Validation |
 | Document | Testing Validation |
 | Status | Approved |
 | Date | 2026-08-23 |
+| Branch | `testing/m5` |
 
 ---
 
@@ -152,8 +153,10 @@ PASS
 Additional CSRF-related verification:
 
 ```text
-2 of 3 applicable checks PASS
+3 applicable checks PASS
 ```
+
+The three applicable checks consist of the CSRF bootstrap behavior covered by the authentication feature suite plus the two dedicated CSRF security tests recorded by WP-04.
 
 Validated behavior includes:
 

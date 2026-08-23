@@ -1,18 +1,22 @@
 # Regression Testing
 
 | Field | Value |
-| --- | --- |
-| Project | Git Hosting Platform |
+|---|---|
+| Project | GitForge — Web Git Hosting Platform |
 | Version | V1.0.0 |
+| SDLC phase | 6 — Testing |
 | Milestone | M5 — Testing |
-| SDLC Phase | Testing |
-| Work Package | WP-17 — Regression Testing |
-| Document Status | Approved |
-| Test Date | 2026-08-22 |
+| Work package | WP-17 — Regression Testing |
+| Document | Regression Testing |
+| Status | Approved |
+| Date | 2026-08-22 |
+| Branch | `testing/m5` |
+
+---
 
 ## 1. Purpose
 
-This document records the final regression verification performed for Git Hosting Platform V1.0.0 during Milestone M5.
+This document records the final regression verification performed for GitForge V1.0.0 during Milestone M5.
 
 The objective of regression testing is to confirm that the complete backend and frontend automated verification gates continue to pass after the implementation of the V1.0.0 feature set and the testing work completed in the preceding M5 work packages.
 
@@ -28,7 +32,7 @@ The regression scope covers:
 ## 2. Regression Test Cases
 
 | Test Case | Verification | Priority | Result |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | TC-REG-001 | Complete Backend Test Suite | P1 | PASS |
 | TC-REG-002 | Backend Laravel Pint Verification | P2 | PASS |
 | TC-REG-003 | Frontend TypeScript Verification | P1 | PASS |
@@ -266,7 +270,7 @@ This was therefore classified as test maintenance rather than a product defect.
 ## 10. Regression Summary
 
 | Verification Area | Result |
-| --- | --- |
+|---|---|
 | Complete backend automated suite | PASS |
 | Backend coding-style verification | PASS |
 | Frontend TypeScript verification | PASS |
@@ -290,14 +294,14 @@ The remaining Vite bundle-size warning is advisory and non-blocking.
 
 WP-17 — Regression Testing is complete.
 
-The Git Hosting Platform V1.0.0 implementation has passed the defined final backend and frontend regression gates.
+GitForge V1.0.0 has passed the defined final backend and frontend regression gates.
 
 No unresolved regression defect blocks continuation of Milestone M5.
 
 ## 12. Approval
 
 | Role | Decision | Date |
-| --- | --- | --- |
+|---|---|---|
 | Project owner | Approved | 2026-08-22 |
 
 **Final Status: Approved**
