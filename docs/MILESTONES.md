@@ -1,483 +1,224 @@
 # GitForge V1.0.0 Milestones
 
-## 1. Purpose
+**Last reconciled:** 2026-08-23
 
-This document tracks measurable progress toward GitForge V1.0.0.
+This file is the authoritative milestone summary for GitForge V1.0.0. Detailed phase evidence lives in the corresponding `docs/` directories.
 
-The SDLC lifecycle is defined separately in `SDLC.md`. Each milestone may
-contain activities from multiple SDLC phases.
-
-A milestone is complete only when:
-
-- All deliverables are present.
-- All exit criteria are satisfied.
-- Verification evidence is available.
-- Changes are merged into `main`.
-
----
-
-## 2. Status Definitions
+## Status Definitions
 
 | Status | Meaning |
 |---|---|
 | Not started | Work has not begun |
-| In progress | Some deliverables exist, but exit criteria are incomplete |
-| Implemented | Functionality exists, but documentation or verification remains |
-| Complete | Deliverables and exit criteria are fully satisfied |
+| In progress | Work is active and exit criteria are not yet fully satisfied |
+| Complete | Deliverables, verification, review, and merge evidence are present |
 
 ---
 
 ## M0 - Project Definition
 
-**SDLC phase:** Project Definition
-**Status:** In progress
+**SDLC phase:** Project Definition  
+**Status:** Complete
 
-### Deliverables
+### Evidence
 
-- Project charter
-- Problem statement
-- Product vision
-- V1.0.0 goals
-- Stakeholder list
-- Project scope
-- Constraints and assumptions
-- Feasibility assessment
-- Initial risk register
-- Success metrics
-- Development strategy
-- Release strategy
+- project charter;
+- problem statement;
+- product vision;
+- project goals;
+- stakeholders;
+- scope, constraints, feasibility, risks, success metrics, and release strategy.
 
-### Exit criteria
-
-- The business and engineering problem is clearly documented.
-- V1.0.0 scope and exclusions are explicit.
-- Stakeholders and constraints are identified.
-- Major risks and success metrics are documented.
-- The project charter is reviewed.
-
-### Current evidence
-
-- Product direction has been established.
-- V1.0.0 is defined as the current release target.
-- Laravel, React, PostgreSQL, and managed Git storage were selected.
-- A feature-branch and pull-request workflow is operational.
-
-### Remaining work
-
-- Create and review the formal project-definition artifacts.
+Primary location: `docs/01-project-definition/`.
 
 ---
 
 ## M1 - Requirements Engineering
 
-**SDLC phase:** Requirements Engineering
-**Status:** In progress
+**SDLC phase:** Requirements Engineering  
+**Status:** Complete
 
-### Deliverables
+### Evidence
 
-- Functional requirements
-- Non-functional requirements
-- User roles
-- User stories
-- Use cases
-- Acceptance criteria
-- Authorization requirements
-- Security requirements
-- Requirements traceability matrix
-- V1.0.0 scope specification
+- requirements engineering plan;
+- elicitation and actor analysis;
+- functional requirements;
+- non-functional requirements;
+- data requirements;
+- interface requirements;
+- business rules;
+- use cases and detailed use-case specifications;
+- user stories and acceptance criteria;
+- requirements traceability.
 
-### Exit criteria
-
-- Every V1.0.0 feature has an identified requirement.
-- Every requirement has acceptance criteria.
-- Security and operational requirements are included.
-- Requirements are uniquely identified.
-- Requirements are traceable to implementation and tests.
-
-### Current evidence
-
-Implemented behavior provides evidence for requirements covering:
-
-- Authentication
-- Repository management
-- Repository visibility
-- Repository lifecycle operations
-- Git Smart HTTP
-- Personal access tokens
-- Repository browsing
-
-### Remaining work
-
-- Convert implemented behavior into formal requirements.
-- Add identifiers and traceability.
-- Confirm the remaining V1.0.0 scope.
+Primary location: `docs/02-requirements-engineering/`.
 
 ---
 
 ## M2 - System Analysis
 
-**SDLC phase:** System Analysis
-**Status:** In progress
+**SDLC phase:** System Analysis  
+**Status:** Complete
 
-### Deliverables
+### Evidence
 
-- System context analysis
-- Actor analysis
-- Domain model
-- Repository lifecycle analysis
-- Authentication workflow analysis
-- Authorization analysis
-- Git Smart HTTP workflow analysis
-- Access token lifecycle analysis
-- Repository browser analysis
-- Failure-state analysis
-- Security threat analysis
-- PlantUML analysis diagrams
+Approved analysis covers system context, domain behavior, workflows, state and failure behavior, authentication, authorization, Git Smart HTTP, repository storage, personal access tokens, repository browsing, security boundaries, and supporting diagrams.
 
-### Exit criteria
-
-- Actors and system boundaries are defined.
-- Primary and alternate workflows are documented.
-- Domain entities and relationships are analyzed.
-- Trust boundaries and threats are identified.
-- Failure and recovery behavior is documented.
-- Analysis artifacts map to requirements.
-
-### Current evidence
-
-The implemented backend, frontend, tests, policies, services, and database
-models provide source material for the analysis.
-
-### Remaining work
-
-- Reconstruct and review the formal analysis artifacts.
-- Add the necessary PlantUML diagrams.
+Primary location: `docs/03-system-analysis/`.
 
 ---
 
 ## M3 - System Design
 
-**SDLC phase:** System Design
+**SDLC phase:** System Design  
+**Status:** Complete
+
+### Evidence
+
+Approved design covers architecture, components, persistence, APIs, authorization, managed Git storage, Git process execution, Smart HTTP transport, frontend structure, observability, security, deployment topology, and design diagrams.
+
+Primary location: `docs/04-system-design/`.
+
+---
+
+## M4 - Implementation
+
+**SDLC phase:** Implementation  
+**Status:** Complete
+
+### Implemented V1.0.0 capabilities
+
+- Laravel 12 backend;
+- React 19 / TypeScript frontend;
+- PostgreSQL persistence;
+- registration, login, authenticated identity, logout;
+- repository creation, owner listing, metadata retrieval, and visibility update;
+- public/private repository authorization;
+- managed bare Git repository initialization and resolution;
+- Git Smart HTTP clone, fetch, and push;
+- personal access token management and Git authentication;
+- repository branch, commit, tree, and text-blob browsing;
+- structured observability, liveness, and readiness support;
+- deployment-oriented environment, Nginx, and PHP-FPM profiles.
+
+### Important scope clarification
+
+Earlier milestone drafts referenced capabilities such as archive/unarchive, asynchronous repository deletion, token expiration/ability scopes, and other lifecycle behavior that are not part of the current implemented V1.0.0 surface. Those stale statements are not authoritative and have been removed from this milestone summary.
+
+Primary evidence: application source plus `docs/05-implementation/`.
+
+---
+
+## M5 - Testing
+
+**SDLC phase:** Testing  
+**Status:** Complete
+
+### Evidence
+
+The formal testing package includes:
+
+- testing plan;
+- 141 formal test cases;
+- environment validation;
+- authentication testing;
+- repository metadata testing;
+- authorization testing;
+- repository storage testing;
+- Git process execution testing;
+- repository browser testing;
+- Git Smart HTTP read/write testing;
+- personal access token testing;
+- Web UI testing;
+- security testing;
+- observability and failure testing;
+- system/end-to-end testing;
+- regression testing;
+- acceptance testing;
+- test traceability;
+- testing validation;
+- M5 milestone review.
+
+Primary location: `docs/06-testing/`.
+
+Latest audited CI evidence includes a backend run with **205 passing tests and 1008 assertions**, successful migrations, Pint validation, and no Composer security advisory. Frontend CI validates linting, tests, production build, and production dependency audit.
+
+---
+
+## M6 - Deployment
+
+**SDLC phase:** Deployment  
 **Status:** In progress
 
-### Deliverables
+### Existing deliverables
 
-- Architecture decisions
-- System architecture
-- Container architecture
-- Component design
-- Database design
-- API specification
-- Authorization matrix
-- Repository-storage design
-- Git process-execution design
-- Git Smart HTTP design
-- Access token design
-- Repository browser design
-- Frontend information architecture
-- Wireframes
-- Deployment architecture
-- Observability design
-- Security design
-- PlantUML design diagrams
+- production deployment guide;
+- production environment template;
+- Nginx production profile;
+- PHP-FPM least-privilege pool profile;
+- HTTPS and Git Smart HTTP routing design;
+- persistent repository storage requirements;
+- backup/restore and rollback guidance;
+- liveness/readiness expectations.
 
-### Exit criteria
+Primary location: `deployment/`.
 
-- Every major requirement maps to a component.
-- API contracts and database structures are documented.
-- Authorization rules are explicit.
-- Git execution and storage boundaries are documented.
-- Security and deployment designs are complete.
-- Major design decisions are recorded.
-- Verification approaches are identified.
+### Remaining exit criteria
 
-### Current evidence
+M6 becomes Complete only after a production-like environment has been provisioned and verified, including:
 
-The implemented system contains working architectural decisions for:
-
-- Laravel REST APIs
-- React and TypeScript frontend
-- PostgreSQL persistence
-- Laravel Sanctum authentication
-- Managed bare Git repositories
-- Git subprocess execution
-- Git Smart HTTP transport
-- Asynchronous repository deletion
-- Scoped personal access tokens
-- Repository browsing
-
-### Remaining work
-
-- Document the implemented architecture.
-- Create design diagrams.
-- Record important architectural decisions.
+- real host/domain configuration;
+- valid TLS;
+- successful dependency installation and frontend production build;
+- successful migrations;
+- correct repository-storage ownership and permissions;
+- passing liveness and readiness checks;
+- production smoke tests;
+- verified database plus repository-storage backup and restore;
+- tested rollback procedure;
+- release-candidate approval.
 
 ---
 
-## M4 - Application Foundation and Authentication
+## M7 - V1.0.0 Release and Maintenance Readiness
 
-**SDLC phases:** Implementation and Testing
-**Status:** Complete
-
-### Deliverables
-
-- Laravel backend foundation
-- React and TypeScript frontend foundation
-- PostgreSQL configuration
-- User registration
-- User login
-- Authenticated profile retrieval
-- Logout
-- Frontend authentication flow
-- Protected and guest routes
-- Authentication tests
-- Continuous integration checks
-
-### Exit criteria
-
-- Users can register, sign in, retrieve their profile, and sign out.
-- Protected routes reject unauthenticated users.
-- Authentication data is securely stored and transmitted.
-- Backend and frontend authentication tests pass.
-- The implementation is merged into `main`.
-
-### Evidence
-
-- Backend authentication feature tests passed.
-- Frontend authentication tests passed.
-- ESLint and production builds passed.
-- Authentication implementation was merged into `main`.
-
----
-
-## M5 - Repository Domain and Managed Storage
-
-**SDLC phases:** Implementation and Testing
-**Status:** Complete
-
-### Deliverables
-
-- Repository database model
-- Repository ownership
-- Public and private visibility
-- Repository creation API
-- Repository listing and detail APIs
-- Repository update API
-- Archive and unarchive operations
-- Coordinated deletion lifecycle
-- Managed bare Git storage
-- Storage cleanup job
-- Backend tests
-- Frontend repository management
-
-### Exit criteria
-
-- Authenticated users can manage their repositories.
-- Repository names are unique within an owner namespace.
-- Private repositories enforce access control.
-- Bare repositories are safely initialized and deleted.
-- Repository deletion is recoverable and asynchronous.
-- Backend and frontend tests pass.
-- The implementation is merged into `main`.
-
-### Evidence
-
-- Repository API and storage tests passed.
-- Repository lifecycle jobs were tested.
-- Frontend repository management passed tests, lint, and build.
-- Repository management was merged into `main`.
-
----
-
-## M6 - Git Transport and Repository Credentials
-
-**SDLC phases:** Implementation and Testing
-**Status:** Complete
-
-### Deliverables
-
-- Git Smart HTTP discovery
-- Upload-pack support
-- Receive-pack support
-- Private repository authentication
-- Push authorization
-- Archived repository write protection
-- Personal access token API
-- Read and write token abilities
-- Token expiration
-- Token revocation
-- Frontend token management
-- Default-branch synchronization
-
-### Exit criteria
-
-- Public repositories can be cloned according to visibility rules.
-- Private repositories require a valid scoped token.
-- Read-only tokens cannot push.
-- Write-enabled tokens can push to active repositories.
-- Expired and revoked tokens are rejected.
-- Successful pushes synchronize repository metadata.
-- Automated and manual Git transport tests pass.
-- The implementation is merged into `main`.
-
-### Evidence
-
-- Git Smart HTTP tests passed.
-- Token ability tests passed.
-- Manual private clone and push tests passed.
-- Default branch synchronized to `main`.
-- Access token functionality was merged into `main`.
-
----
-
-## M7 - Repository Browser
-
-**SDLC phases:** Implementation and Testing
-**Status:** Complete
-
-### Deliverables
-
-- Branch-listing API
-- Commit-history API
-- Repository tree API
-- Text blob API
-- Branch and path validation
-- Blob-size limit
-- Binary blob rejection
-- Repository browser service tests
-- Repository browser API tests
-- Frontend branch selector
-- Directory navigation
-- Breadcrumb navigation
-- Text file viewer
-- Recent commit display
-- Frontend service tests
-
-### Exit criteria
-
-- Authorized users can browse repository branches.
-- Authorized users can inspect recent commits.
-- Directory trees can be navigated securely.
-- Supported text files preserve their content.
-- Invalid branches and paths are rejected.
-- Oversized and unsupported blobs are controlled.
-- Automated backend and frontend tests pass.
-- GitHub Actions checks pass.
-- The implementation is merged into `main`.
-
-### Evidence
-
-- Backend repository browser tests passed.
-- Frontend repository browser tests passed.
-- Laravel Pint and ESLint passed.
-- Production frontend build passed.
-- Manual repository browser verification passed.
-- Repository browser implementation was merged into `main`.
-
----
-
-## M8 - V1.0.0 Quality and Production Readiness
-
-**SDLC phases:** Testing and Deployment
+**SDLC phase:** Maintenance / Release transition  
 **Status:** Not started
 
-### Deliverables
+### Planned deliverables
 
-- Confirmed V1.0.0 requirements
-- Requirements traceability matrix
-- Complete backend test suite
-- Complete frontend test suite
-- End-to-end critical-path tests
-- Security review
-- Performance review
-- Route-level frontend code splitting
-- Production environment specification
-- Deployment configuration
-- Queue-worker configuration
-- Web-server and TLS configuration
-- Backup and restoration procedure
-- Logging and monitoring
-- Deployment checklist
-- Rollback procedure
-- Release runbook
+- final release notes and changelog;
+- installation and operator documentation;
+- user/API documentation as required;
+- security and maintenance guidance;
+- incident and dependency-update procedures;
+- backup schedule and operational checks;
+- versioning policy;
+- Git tag `v1.0.0`;
+- GitHub V1.0.0 release.
 
 ### Exit criteria
 
-- Every approved V1.0.0 requirement is implemented.
-- All automated and end-to-end tests pass.
-- No unresolved critical security issue remains.
-- The production frontend has no avoidable bundle warning.
-- A production-like deployment is successful.
-- Backup and restoration are verified.
-- Monitoring and rollback procedures are tested.
-- A release candidate is approved.
+- M6 is Complete;
+- V1.0.0 Definition of Done is satisfied;
+- final documentation is reviewed;
+- release tag and GitHub release are created from the approved commit;
+- maintenance responsibilities and recurring operational procedures are documented.
 
 ---
 
-## M9 - V1.0.0 Release and Maintenance Readiness
-
-**SDLC phases:** Deployment and Maintenance
-**Status:** Not started
-
-### Deliverables
-
-- Final release notes
-- V1.0.0 changelog
-- Installation documentation
-- Administrator documentation
-- User documentation
-- API documentation
-- Security guidance
-- Maintenance policy
-- Incident procedure
-- Dependency-update procedure
-- Versioning policy
-- Git tag `v1.0.0`
-- GitHub V1.0.0 release
-
-### Exit criteria
-
-- The V1.0.0 Definition of Done is satisfied.
-- Final documentation is reviewed.
-- Production deployment is verified.
-- Release notes and changelog are complete.
-- The `v1.0.0` tag is created from the approved commit.
-- The GitHub release is published.
-- Maintenance responsibilities are documented.
-- V2.0.0 work remains separate from V1.0.0.
-
----
-
-## 3. Milestone Summary
+## Milestone Summary
 
 | Milestone | Status |
 |---|---|
-| M0 - Project Definition | In progress |
-| M1 - Requirements Engineering | In progress |
-| M2 - System Analysis | In progress |
-| M3 - System Design | In progress |
-| M4 - Application Foundation and Authentication | Complete |
-| M5 - Repository Domain and Managed Storage | Complete |
-| M6 - Git Transport and Repository Credentials | Complete |
-| M7 - Repository Browser | Complete |
-| M8 - V1.0.0 Quality and Production Readiness | Not started |
-| M9 - V1.0.0 Release and Maintenance Readiness | Not started |
+| M0 - Project Definition | Complete |
+| M1 - Requirements Engineering | Complete |
+| M2 - System Analysis | Complete |
+| M3 - System Design | Complete |
+| M4 - Implementation | Complete |
+| M5 - Testing | Complete |
+| M6 - Deployment | In progress |
+| M7 - Release and Maintenance Readiness | Not started |
 
----
+## Current Position
 
-## 4. Current Position
-
-The application has progressed through M7 from an implementation perspective.
-
-However, M0 through M3 remain in progress because their formal SDLC artifacts
-have not yet been committed. These milestones must be completed
-retrospectively from verified implementation evidence before V1.0.0 can enter
-production readiness.
-
-The next active milestone is:
-
-> M0 - Project Definition
-
-After completing M0, documentation should proceed sequentially through M1,
-M2, and M3. Feature development should resume only after the remaining
-V1.0.0 requirements have been confirmed.
+GitForge has completed the formal engineering lifecycle through **Testing (M5)**. The active milestone is **M6 - Deployment**. No new V1.0.0 feature should be added unless it is required to resolve a verified deployment blocker or is approved through change control.
