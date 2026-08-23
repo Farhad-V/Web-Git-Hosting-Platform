@@ -3,25 +3,15 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge — Web Git Hosting Platform |
-
 | Version | V1.0.0 |
-
 | SDLC phase | 6 — Testing |
-
 | Milestone | M5 — Testing |
-
 | Work package | WP-09 — Repository Browser Testing |
-
 | Document | Repository Browser Testing |
-
 | Status | Approved |
-
 | Date | 2026-08-22 |
-
 | Branch | `testing/m5` |
 
 
@@ -517,25 +507,15 @@ The feature suite verifies that the service behavior is preserved through the HT
 
 
 | Test case | Formal objective | Primary automated evidence | Result |
-
 |---|---|---|---|
-
 | TC-BROWSE-001 | Browse Repository Root Tree | `test\_owner\_can\_browse\_repository\_tree`; `test\_it\_lists\_root\_and\_nested\_tree\_entries` | PASS |
-
 | TC-BROWSE-002 | Browse Nested Directory | `test\_it\_lists\_root\_and\_nested\_tree\_entries` | PASS |
-
 | TC-BROWSE-003 | Read Text File Content | `test\_owner\_can\_read\_repository\_blob`; `test\_it\_reads\_blob\_without\_trimming\_content` | PASS |
-
 | TC-BROWSE-004 | Reject Missing Path | `test\_unknown\_branch\_and\_path\_return\_not\_found`; `test\_it\_rejects\_missing\_repository\_path` | PASS |
-
 | TC-BROWSE-005 | Reject Invalid Ref | `test\_invalid\_commit\_identifier\_is\_rejected`; `test\_unknown\_commit\_identifier\_returns\_not\_found`; `test\_it\_rejects\_invalid\_commit\_identifier`; `test\_it\_rejects\_unknown\_commit\_identifier`; `test\_it\_rejects\_invalid\_branch`; `test\_it\_rejects\_unknown\_branch` | PASS |
-
 | TC-BROWSE-006 | List Repository Commits | `test\_owner\_can\_list\_repository\_commits`; `test\_it\_lists\_repository\_commits` | PASS |
-
 | TC-BROWSE-007 | Retrieve Commit Detail by Full Object ID | `test\_owner\_can\_view\_repository\_commit\_details`; `test\_it\_returns\_commit\_details` | PASS |
-
 | TC-BROWSE-008 | Reject Non-Commit Object as Commit Detail | `test\_it\_rejects\_non\_commit\_git\_object` | PASS |
-
 | TC-BROWSE-009 | Enforce Private Repository Browser Authorization | `test\_private\_repository\_cannot\_be\_browsed\_by\_another\_user`; `test\_anonymous\_visitor\_cannot\_browse\_private\_repository` | PASS |
 
 
@@ -1497,13 +1477,9 @@ WP-09 fresh execution evidence:
 
 
 | Suite | Passed | Assertions | Failed |
-
 |---|---:|---:|---:|
-
 | RepositoryBrowserServiceTest | 20 | 63 | 0 |
-
 | RepositoryBrowserTest | 16 | 84 | 0 |
-
 | Total | 36 | 147 | 0 |
 
 
@@ -1599,25 +1575,15 @@ Formal coverage status:
 
 
 | Test case | Coverage status |
-
 |---|---|
-
 | TC-BROWSE-001 | Covered |
-
 | TC-BROWSE-002 | Covered |
-
 | TC-BROWSE-003 | Covered |
-
 | TC-BROWSE-004 | Covered |
-
 | TC-BROWSE-005 | Covered |
-
 | TC-BROWSE-006 | Covered |
-
 | TC-BROWSE-007 | Covered |
-
 | TC-BROWSE-008 | Covered |
-
 | TC-BROWSE-009 | Covered |
 
 
@@ -1989,25 +1955,15 @@ No browser operation bypass was identified.
 
 
 | Test ID | Result |
-
 |---|---|
-
 | TC-BROWSE-001 | PASS |
-
 | TC-BROWSE-002 | PASS |
-
 | TC-BROWSE-003 | PASS |
-
 | TC-BROWSE-004 | PASS |
-
 | TC-BROWSE-005 | PASS |
-
 | TC-BROWSE-006 | PASS |
-
 | TC-BROWSE-007 | PASS |
-
 | TC-BROWSE-008 | PASS |
-
 | TC-BROWSE-009 | PASS |
 
 

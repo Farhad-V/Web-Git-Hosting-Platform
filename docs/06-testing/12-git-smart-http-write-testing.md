@@ -3,25 +3,15 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge — Web Git Hosting Platform |
-
 | Version | V1.0.0 |
-
 | SDLC phase | 6 — Testing |
-
 | Milestone | M5 — Testing |
-
 | Work package | WP-12 — Git Smart HTTP Write Testing |
-
 | Document | Git Smart HTTP Write Testing |
-
 | Status | Approved |
-
 | Date | 2026-08-22 |
-
 | Branch | `testing/m5` |
 
 
@@ -1933,17 +1923,11 @@ PASS.
 
 
 | Repository actor | Credential | Expected result | Actual result |
-
 |---|---|---|---|
-
 | Owner | Valid active PAT | Push succeeds | PASS |
-
 | Owner | No credentials | Push rejected | PASS |
-
 | Owner | Invalid PAT | Push rejected | PASS |
-
 | Owner | Revoked PAT | Push rejected | PASS |
-
 | Non-owner | Valid active PAT | Push rejected | PASS |
 
 
@@ -1961,17 +1945,11 @@ The observed behavior matches the V1.0.0 authorization model.
 
 
 | Scenario | Ref state expected |
-
 |---|---|
-
 | Successful owner push | `main` advances |
-
 | No credentials | unchanged |
-
 | Invalid PAT | unchanged |
-
 | Revoked PAT | unchanged |
-
 | Valid non-owner PAT | unchanged |
 
 
@@ -2293,23 +2271,14 @@ The new suite adds real-client coverage for:
 
 
 | Test case | Coverage | Result |
-
 |---|---|---|
-
 | TC-GITW-001 | Receive-pack integration | PASS |
-
 | TC-GITW-002 | Real Git push E2E | PASS |
-
 | TC-GITW-003 | Real unauthenticated push E2E | PASS |
-
 | TC-GITW-004 | Real invalid-PAT push E2E + ref integrity | PASS |
-
 | TC-GITW-005 | Real revoked-PAT push E2E + ref integrity | PASS |
-
 | TC-GITW-006 | Real non-owner push E2E + integration | PASS |
-
 | TC-GITW-007 | Real push + Git refs + repository browser | PASS |
-
 | TC-GITW-008 | Controlled receive-pack failure integration | PASS |
 
 
@@ -2595,23 +2564,14 @@ Test harness defect: none
 
 
 | Test ID | Result |
-
 |---|---|
-
 | TC-GITW-001 | PASS |
-
 | TC-GITW-002 | PASS |
-
 | TC-GITW-003 | PASS |
-
 | TC-GITW-004 | PASS |
-
 | TC-GITW-005 | PASS |
-
 | TC-GITW-006 | PASS |
-
 | TC-GITW-007 | PASS |
-
 | TC-GITW-008 | PASS |
 
 

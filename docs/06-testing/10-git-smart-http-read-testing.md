@@ -3,25 +3,15 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge — Web Git Hosting Platform |
-
 | Version | V1.0.0 |
-
 | SDLC phase | 6 — Testing |
-
 | Milestone | M5 — Testing |
-
 | Work package | WP-10 — Git Smart HTTP Read Testing |
-
 | Document | Git Smart HTTP Read Testing |
-
 | Status | Approved |
-
 | Date | 2026-08-22 |
-
 | Branch | `testing/m5` |
 
 
@@ -2513,23 +2503,14 @@ Formal coverage status:
 
 
 | Test case | Coverage status |
-
 |---|---|
-
 | TC-GITR-001 | Covered |
-
 | TC-GITR-002 | Covered |
-
 | TC-GITR-003 | Covered |
-
 | TC-GITR-004 | Covered |
-
 | TC-GITR-005 | Covered |
-
 | TC-GITR-006 | Covered |
-
 | TC-GITR-007 | Covered |
-
 | TC-GITR-008 | Covered |
 
 
@@ -2797,17 +2778,11 @@ PASS.
 
 
 | Repository | Credential state | Expected | Result |
-
 |---|---|---|---|
-
 | Public | None | Read allowed | PASS |
-
 | Private | Valid active owner PAT | Read allowed | PASS |
-
 | Private | None | Read denied | PASS |
-
 | Private | Invalid PAT | Read denied | PASS |
-
 | Private | Revoked PAT | Read denied | PASS |
 
 
@@ -2825,23 +2800,14 @@ The executed behavior matches the approved V1.0.0 authorization model.
 
 
 | Test ID | Result |
-
 |---|---|
-
 | TC-GITR-001 | PASS |
-
 | TC-GITR-002 | PASS |
-
 | TC-GITR-003 | PASS |
-
 | TC-GITR-004 | PASS |
-
 | TC-GITR-005 | PASS |
-
 | TC-GITR-006 | PASS |
-
 | TC-GITR-007 | PASS |
-
 | TC-GITR-008 | PASS |
 
 

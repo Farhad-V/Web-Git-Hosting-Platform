@@ -3,25 +3,15 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge — Web Git Hosting Platform |
-
 | Version | V1.0.0 |
-
 | SDLC phase | 6 — Testing |
-
 | Milestone | M5 — Testing |
-
 | Work package | WP-06 — Authorization Testing |
-
 | Document | Authorization Testing |
-
 | Status | Approved |
-
 | Date | 2026-08-22 |
-
 | Branch | `testing/m5` |
 
 
@@ -543,15 +533,10 @@ Each formal test case uses one of the following states.
 
 
 | State | Meaning |
-
 |---|---|
-
 | PASS | Actual behavior satisfies the expected result |
-
 | FAIL | Actual behavior differs from the expected result |
-
 | BLOCKED | Execution cannot proceed because of an external prerequisite |
-
 | NOT EXECUTED | Test has not yet been executed |
 
 
@@ -569,23 +554,14 @@ WP-06 cannot be approved while any P1 authorization test remains `FAIL`, `BLOCKE
 
 
 | Test ID | Description | Priority | Result |
-
 |---|---|---|---|
-
 | TC-AUTHZ-001 | Owner Can Access Own Private Repository | P1 | PASS |
-
 | TC-AUTHZ-002 | Non-Owner Cannot Read Private Repository | P1 | PASS |
-
 | TC-AUTHZ-003 | Anonymous User Cannot Read Private Repository | P1 | PASS |
-
 | TC-AUTHZ-004 | Anonymous User Can Read Public Repository Where Allowed | P2 | PASS |
-
 | TC-AUTHZ-005 | Non-Owner Cannot Modify Repository Metadata | P1 | PASS |
-
 | TC-AUTHZ-006 | Non-Owner Cannot Push to Repository | P1 | PASS |
-
 | TC-AUTHZ-007 | Public Repository Does Not Grant Write Permission | P1 | PASS |
-
 | TC-AUTHZ-008 | Authorized Owner PAT Can Perform Push | P1 | PASS |
 
 
@@ -3023,17 +2999,11 @@ Unique full-suite executions used as WP-06 evidence:
 
 
 | Suite | Passed | Assertions | Failed |
-
 |---|---:|---:|---:|
-
 | RepositoryTest | 19 | 63 | 0 |
-
 | PrivateRepositoryConcealmentSecurityTest | 3 | 3 | 0 |
-
 | GitSmartHttpTest | 23 | 71 | 0 |
-
 | AuthorizationObservabilityTest | 3 | 6 | 0 |
-
 | \*\*Total\*\* | \*\*48\*\* | \*\*143\*\* | \*\*0\*\* |
 
 
@@ -3079,23 +3049,14 @@ Aggregate result:
 
 
 | Test ID | Primary Evidence | Result |
-
 |---|---|---|
-
 | TC-AUTHZ-001 | `owner can view private repository` | PASS |
-
 | TC-AUTHZ-002 | `non owner cannot view private repository`; concealment tests | PASS |
-
 | TC-AUTHZ-003 | `anonymous visitor cannot view private repository`; concealment tests | PASS |
-
 | TC-AUTHZ-004 | anonymous public metadata and Git read tests | PASS |
-
 | TC-AUTHZ-005 | `non owner cannot update repository` | PASS |
-
 | TC-AUTHZ-006 | non-owner receive-pack denial plus unchanged-ref assertion | PASS |
-
 | TC-AUTHZ-007 | public repository non-owner/anonymous receive-pack rejection | PASS |
-
 | TC-AUTHZ-008 | owner PAT receive-pack advertisement and RPC success | PASS |
 
 
@@ -3223,15 +3184,10 @@ Current assessment:
 
 
 | Exit Criterion | Status |
-
 |---|---|
-
 | 1–21 | PASS |
-
 | 22 | PENDING FINAL VERIFICATION |
-
 | 23 | PENDING |
-
 | 24 | PENDING |
 
 

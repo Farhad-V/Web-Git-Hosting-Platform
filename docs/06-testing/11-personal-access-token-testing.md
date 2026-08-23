@@ -3,25 +3,15 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge — Web Git Hosting Platform |
-
 | Version | V1.0.0 |
-
 | SDLC phase | 6 — Testing |
-
 | Milestone | M5 — Testing |
-
 | Work package | WP-11 — Personal Access Token Testing |
-
 | Document | Personal Access Token Testing |
-
 | Status | Approved |
-
 | Date | 2026-08-22 |
-
 | Branch | `testing/m5` |
 
 
@@ -1387,25 +1377,15 @@ No Pint issue remains in the WP-11 evidence set.
 
 
 | Test case | Primary evidence | Result |
-
 |---|---|---|
-
 | TC-PAT-001 | PAT feature + PAT service issuance tests | PASS |
-
 | TC-PAT-002 | unauthenticated PAT management test | PASS |
-
 | TC-PAT-003 | persisted hash test | PASS |
-
 | TC-PAT-004 | PAT listing tests | PASS |
-
 | TC-PAT-005 | current-user-only PAT listing test | PASS |
-
 | TC-PAT-006 | revoke + revoked-token rejection tests | PASS |
-
 | TC-PAT-007 | malformed-token rejection test | PASS |
-
 | TC-PAT-008 | active-token identity resolution test | PASS |
-
 | TC-PAT-009 | valid non-owner PAT receive-pack denial tests | PASS |
 
 
@@ -1719,25 +1699,15 @@ Test harness defect: none
 
 
 | Test ID | Result |
-
 |---|---|
-
 | TC-PAT-001 | PASS |
-
 | TC-PAT-002 | PASS |
-
 | TC-PAT-003 | PASS |
-
 | TC-PAT-004 | PASS |
-
 | TC-PAT-005 | PASS |
-
 | TC-PAT-006 | PASS |
-
 | TC-PAT-007 | PASS |
-
 | TC-PAT-008 | PASS |
-
 | TC-PAT-009 | PASS |
 
 
