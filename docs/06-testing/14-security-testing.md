@@ -3,12 +3,14 @@
 | Field | Value |
 |---|---|
 | Project | GitForge — Web Git Hosting Platform |
-| Release | V1.0.0 |
+| Version | V1.0.0 |
+| SDLC phase | 6 — Testing |
 | Milestone | M5 — Testing |
-| SDLC phase | Testing |
 | Work package | WP-14 — Security Testing |
+| Document | Security Testing |
 | Status | Approved |
-| Last updated | 2026-08-22 |
+| Date | 2026-08-22 |
+| Branch | `testing/m5` |
 
 ---
 
