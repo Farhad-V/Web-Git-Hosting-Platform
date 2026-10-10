@@ -83,7 +83,7 @@ export function LoginPage() {
         <>
           New to GitForge?{' '}
           <Link
-            className="font-semibold text-blue-400 transition hover:text-blue-300"
+            className="font-semibold text-[var(--accent)] transition hover:text-[var(--accent)]"
             to="/register"
           >
             Create an account
@@ -99,7 +99,7 @@ export function LoginPage() {
       >
         {submissionError !== null && (
           <div
-            className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+            className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-[var(--red)]"
             role="alert"
           >
             {submissionError}
@@ -108,7 +108,7 @@ export function LoginPage() {
 
         <div>
           <label
-            className="mb-2 block text-sm font-medium text-slate-200"
+            className="mb-2 block text-sm font-medium text-[var(--text)]"
             htmlFor="email"
           >
             Email address
@@ -116,13 +116,13 @@ export function LoginPage() {
           <div className="relative">
             <Mail
               aria-hidden="true"
-              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
             />
             <input
               aria-describedby={errors.email ? 'email-error' : undefined}
               aria-invalid={errors.email ? 'true' : 'false'}
               autoComplete="email"
-              className="h-11 w-full rounded-lg border border-white/10 bg-[#0d1117] pl-10 pr-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              className="h-11 w-full rounded-lg border border-[var(--border)] bg-[var(--inset)] pl-10 pr-3 text-sm text-[var(--text)] outline-none transition placeholder:text-[var(--muted)] focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
               id="email"
               placeholder="you@example.com"
               type="email"
@@ -130,7 +130,7 @@ export function LoginPage() {
             />
           </div>
           {errors.email?.message !== undefined && (
-            <p className="mt-2 text-sm text-red-400" id="email-error">
+            <p className="mt-2 text-sm text-[var(--red)]" id="email-error">
               {errors.email.message}
             </p>
           )}
@@ -139,7 +139,7 @@ export function LoginPage() {
         <div>
           <div className="mb-2 flex items-center justify-between">
             <label
-              className="block text-sm font-medium text-slate-200"
+              className="block text-sm font-medium text-[var(--text)]"
               htmlFor="password"
             >
               Password
@@ -148,13 +148,13 @@ export function LoginPage() {
           <div className="relative">
             <LockKeyhole
               aria-hidden="true"
-              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
             />
             <input
               aria-describedby={errors.password ? 'password-error' : undefined}
               aria-invalid={errors.password ? 'true' : 'false'}
               autoComplete="current-password"
-              className="h-11 w-full rounded-lg border border-white/10 bg-[#0d1117] pl-10 pr-11 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              className="h-11 w-full rounded-lg border border-[var(--border)] bg-[var(--inset)] pl-10 pr-11 text-sm text-[var(--text)] outline-none transition placeholder:text-[var(--muted)] focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
               id="password"
               placeholder="Enter your password"
               type={showPassword ? 'text' : 'password'}
@@ -162,7 +162,7 @@ export function LoginPage() {
             />
             <button
               aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 transition hover:text-slate-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted)] transition hover:text-[var(--text)]"
               onClick={() => setShowPassword((visible) => !visible)}
               type="button"
             >
@@ -174,7 +174,7 @@ export function LoginPage() {
             </button>
           </div>
           {errors.password?.message !== undefined && (
-            <p className="mt-2 text-sm text-red-400" id="password-error">
+            <p className="mt-2 text-sm text-[var(--red)]" id="password-error">
               {errors.password.message}
             </p>
           )}

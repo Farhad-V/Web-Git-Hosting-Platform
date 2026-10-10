@@ -350,7 +350,7 @@ export function RepositoryBrowser({
     branchesQuery.isPending
   ) {
     return (
-      <section className="rounded-xl border border-white/10 bg-[#161b22]">
+      <section className="rounded-xl border border-[var(--border)] glass-panel">
         <LoadingState message="Loading repository state..." />
       </section>
     )
@@ -360,7 +360,7 @@ export function RepositoryBrowser({
     branchesQuery.isError
   ) {
     return (
-      <section className="rounded-xl border border-white/10 bg-[#161b22]">
+      <section className="rounded-xl border border-[var(--border)] glass-panel">
         <ErrorState
           error={
             branchesQuery.error
@@ -373,9 +373,9 @@ export function RepositoryBrowser({
 
   if (isEmpty) {
     return (
-      <section className="rounded-xl border border-white/10 bg-[#161b22] p-6">
+      <section className="rounded-xl border border-[var(--border)] glass-panel p-6">
         <div className="flex items-start gap-4">
-          <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-blue-300">
+          <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-[var(--accent)]">
             <GitBranch
               aria-hidden="true"
               className="size-5"
@@ -383,11 +383,11 @@ export function RepositoryBrowser({
           </span>
 
           <div>
-            <h2 className="font-semibold text-white">
+            <h2 className="font-semibold text-[var(--text)]">
               Empty repository
             </h2>
 
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--muted)]">
               This repository does not contain a committed branch yet.
               Push the first branch through Git Smart HTTP and the
               repository browser will use the Git-native default branch.
@@ -400,17 +400,17 @@ export function RepositoryBrowser({
 
   if (selectedBranch === '') {
     return (
-      <section className="rounded-xl border border-white/10 bg-[#161b22]">
+      <section className="rounded-xl border border-[var(--border)] glass-panel">
         <LoadingState message="Resolving default branch..." />
       </section>
     )
   }
 
   return (
-    <section className="overflow-hidden rounded-xl border border-white/10 bg-[#161b22]">
-      <header className="flex flex-col gap-4 border-b border-white/10 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+    <section className="overflow-hidden rounded-xl border border-[var(--border)] glass-panel">
+      <header className="flex flex-col gap-4 border-b border-[var(--border)] px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
-          <span className="grid size-9 place-items-center rounded-lg bg-blue-500/10 text-blue-300">
+          <span className="grid size-9 place-items-center rounded-lg bg-blue-500/10 text-[var(--accent)]">
             <FileCode2
               aria-hidden="true"
               className="size-4"
@@ -418,11 +418,11 @@ export function RepositoryBrowser({
           </span>
 
           <div>
-            <h2 className="font-semibold text-white">
+            <h2 className="font-semibold text-[var(--text)]">
               Repository browser
             </h2>
 
-            <p className="mt-0.5 text-sm text-slate-500">
+            <p className="mt-0.5 text-sm text-[var(--muted)]">
               Browse Git-native branches, files, and recent commits.
             </p>
           </div>
@@ -430,7 +430,7 @@ export function RepositoryBrowser({
 
         <button
           aria-label="Refresh repository browser"
-          className="inline-flex size-9 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
+          className="inline-flex size-9 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)]"
           onClick={
             refreshBrowser
           }
@@ -444,8 +444,8 @@ export function RepositoryBrowser({
       </header>
 
       <div className="grid lg:grid-cols-[minmax(0,1fr)_21rem]">
-        <div className="min-w-0 border-b border-white/10 lg:border-b-0 lg:border-r">
-          <div className="flex flex-col gap-3 border-b border-white/10 p-4 sm:flex-row sm:items-center">
+        <div className="min-w-0 border-b border-[var(--border)] lg:border-b-0 lg:border-r">
+          <div className="flex flex-col gap-3 border-b border-[var(--border)] p-4 sm:flex-row sm:items-center">
             <label
               className="sr-only"
               htmlFor="repository-browser-branch"
@@ -456,11 +456,11 @@ export function RepositoryBrowser({
             <div className="relative shrink-0">
               <GitBranch
                 aria-hidden="true"
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
               />
 
               <select
-                className="h-10 min-w-44 appearance-none rounded-lg border border-white/10 bg-[#0d1117] pl-9 pr-8 text-sm font-medium text-slate-300 outline-none transition focus:border-blue-500/60"
+                className="h-10 min-w-44 appearance-none rounded-lg border border-[var(--border)] bg-[var(--inset)] pl-9 pr-8 text-sm font-medium text-[var(--text)] outline-none transition focus:border-blue-500/60"
                 id="repository-browser-branch"
                 onChange={(
                   event,
@@ -500,7 +500,7 @@ export function RepositoryBrowser({
             >
               <button
                 aria-label="Repository root"
-                className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1.5 text-slate-400 transition hover:bg-white/5 hover:text-white"
+                className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1.5 text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)]"
                 onClick={() =>
                   openDirectory(
                     '',
@@ -525,11 +525,11 @@ export function RepositoryBrowser({
                   >
                     <ChevronRight
                       aria-hidden="true"
-                      className="size-4 shrink-0 text-slate-600"
+                      className="size-4 shrink-0 text-[var(--muted)]"
                     />
 
                     <button
-                      className="max-w-48 truncate rounded-md px-2 py-1.5 text-slate-400 transition hover:bg-white/5 hover:text-white"
+                      className="max-w-48 truncate rounded-md px-2 py-1.5 text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)]"
                       onClick={() =>
                         openBreadcrumb(
                           index,
@@ -677,13 +677,13 @@ function RecentCommits({
 }: RecentCommitsProps) {
   return (
     <>
-      <header className="flex items-center gap-2 border-b border-white/10 px-5 py-4">
+      <header className="flex items-center gap-2 border-b border-[var(--border)] px-5 py-4">
         <History
           aria-hidden="true"
-          className="size-4 text-blue-300"
+          className="size-4 text-[var(--accent)]"
         />
 
-        <h3 className="font-semibold text-white">
+        <h3 className="font-semibold text-[var(--text)]">
           Recent commits
         </h3>
       </header>
@@ -719,7 +719,7 @@ function RecentCommits({
                 aria-label={`View commit ${shortHash(
                   commit.hash,
                 )}`}
-                className="block w-full border-b border-white/10 px-5 py-4 text-left transition last:border-b-0 hover:bg-white/[0.03]"
+                className="block w-full border-b border-[var(--border)] px-5 py-4 text-left transition last:border-b-0 hover:bg-[var(--subtle)]"
                 key={
                   commit.hash
                 }
@@ -731,7 +731,7 @@ function RecentCommits({
                 type="button"
               >
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-white/5 text-slate-400">
+                  <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-[var(--subtle)] text-[var(--muted)]">
                     <GitCommitHorizontal
                       aria-hidden="true"
                       className="size-4"
@@ -740,7 +740,7 @@ function RecentCommits({
 
                   <div className="min-w-0">
                     <h4
-                      className="line-clamp-2 text-sm font-medium leading-5 text-slate-200"
+                      className="line-clamp-2 text-sm font-medium leading-5 text-[var(--text)]"
                       title={
                         commit.subject
                       }
@@ -750,14 +750,14 @@ function RecentCommits({
                       }
                     </h4>
 
-                    <p className="mt-1 truncate text-xs text-slate-500">
+                    <p className="mt-1 truncate text-xs text-[var(--muted)]">
                       {
                         commit.author.name
                       }
                     </p>
 
-                    <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-600">
-                      <code className="rounded bg-black/20 px-1.5 py-0.5 font-mono text-blue-300">
+                    <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-[var(--muted)]">
+                      <code className="rounded bg-black/20 px-1.5 py-0.5 font-mono text-[var(--accent)]">
                         {shortHash(
                           commit.hash,
                         )}
@@ -796,10 +796,10 @@ function CommitDetails({
 }: CommitDetailsProps) {
   return (
     <>
-      <header className="flex items-center gap-3 border-b border-white/10 px-5 py-4">
+      <header className="flex items-center gap-3 border-b border-[var(--border)] px-5 py-4">
         <button
           aria-label="Back to recent commits"
-          className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
+          className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)]"
           onClick={
             onBack
           }
@@ -814,10 +814,10 @@ function CommitDetails({
         <div className="flex min-w-0 items-center gap-2">
           <GitCommitHorizontal
             aria-hidden="true"
-            className="size-4 shrink-0 text-blue-300"
+            className="size-4 shrink-0 text-[var(--accent)]"
           />
 
-          <h3 className="font-semibold text-white">
+          <h3 className="font-semibold text-[var(--text)]">
             Commit details
           </h3>
         </div>
@@ -842,11 +842,11 @@ function CommitDetails({
           null && (
           <div className="max-h-[32rem] space-y-5 overflow-y-auto p-5">
             <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+              <p className="text-xs font-medium uppercase tracking-wide text-[var(--muted)]">
                 Message
               </p>
 
-              <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-slate-200">
+              <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-[var(--text)]">
                 {
                   commit.message
                 }
@@ -894,13 +894,13 @@ function CommitDetails({
             />
 
             <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+              <p className="text-xs font-medium uppercase tracking-wide text-[var(--muted)]">
                 Parents
               </p>
 
               {commit.parents.length ===
               0 ? (
-                <p className="mt-2 text-sm text-slate-500">
+                <p className="mt-2 text-sm text-[var(--muted)]">
                   Root commit
                 </p>
               ) : (
@@ -910,7 +910,7 @@ function CommitDetails({
                       parent,
                     ) => (
                       <code
-                        className="block break-all rounded-lg bg-black/20 px-3 py-2 font-mono text-xs text-slate-400"
+                        className="block break-all rounded-lg bg-black/20 px-3 py-2 font-mono text-xs text-[var(--muted)]"
                         key={
                           parent
                         }
@@ -945,19 +945,19 @@ function CommitIdentity({
 }: CommitIdentityProps) {
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+      <p className="text-xs font-medium uppercase tracking-wide text-[var(--muted)]">
         {label}
       </p>
 
-      <p className="mt-2 text-sm font-medium text-slate-300">
+      <p className="mt-2 text-sm font-medium text-[var(--text)]">
         {name}
       </p>
 
-      <p className="mt-1 break-all text-xs text-slate-500">
+      <p className="mt-1 break-all text-xs text-[var(--muted)]">
         {email}
       </p>
 
-      <p className="mt-1 text-xs text-slate-600">
+      <p className="mt-1 text-xs text-[var(--muted)]">
         {formatDate(
           timestamp,
         )}
@@ -977,11 +977,11 @@ function CommitReference({
 }: CommitReferenceProps) {
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-slate-600">
+      <p className="text-xs font-medium uppercase tracking-wide text-[var(--muted)]">
         {label}
       </p>
 
-      <code className="mt-2 block break-all rounded-lg bg-black/20 px-3 py-2 font-mono text-xs text-blue-300">
+      <code className="mt-2 block break-all rounded-lg bg-black/20 px-3 py-2 font-mono text-xs text-[var(--accent)]">
         {value}
       </code>
     </div>
@@ -1051,7 +1051,7 @@ function TreeViewer({
 
           return (
             <button
-              className="flex w-full items-center gap-3 px-5 py-3.5 text-left transition enabled:hover:bg-white/[0.03] disabled:cursor-default"
+              className="flex w-full items-center gap-3 px-5 py-3.5 text-left transition enabled:hover:bg-[var(--subtle)] disabled:cursor-default"
               disabled={
                 !isBrowsable
               }
@@ -1083,27 +1083,27 @@ function TreeViewer({
               {isDirectory ? (
                 <Folder
                   aria-hidden="true"
-                  className="size-5 shrink-0 text-blue-400"
+                  className="size-5 shrink-0 text-[var(--accent)]"
                 />
               ) : isSubmodule ? (
                 <GitCommitHorizontal
                   aria-hidden="true"
-                  className="size-5 shrink-0 text-slate-500"
+                  className="size-5 shrink-0 text-[var(--muted)]"
                 />
               ) : (
                 <FileCode2
                   aria-hidden="true"
-                  className="size-5 shrink-0 text-slate-500"
+                  className="size-5 shrink-0 text-[var(--muted)]"
                 />
               )}
 
-              <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-300">
+              <span className="min-w-0 flex-1 truncate text-sm font-medium text-[var(--text)]">
                 {
                   entry.name
                 }
               </span>
 
-              <span className="shrink-0 text-xs text-slate-600">
+              <span className="shrink-0 text-xs text-[var(--muted)]">
                 {isDirectory
                   ? 'Directory'
                   : isSubmodule
@@ -1116,7 +1116,7 @@ function TreeViewer({
               {isBrowsable && (
                 <ChevronRight
                   aria-hidden="true"
-                  className="size-4 shrink-0 text-slate-600"
+                  className="size-4 shrink-0 text-[var(--muted)]"
                 />
               )}
             </button>
@@ -1148,11 +1148,11 @@ function FileViewer({
 }: FileViewerProps) {
   return (
     <div>
-      <header className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3">
+      <header className="flex items-center justify-between gap-4 border-b border-[var(--border)] px-5 py-3">
         <div className="flex min-w-0 items-center gap-3">
           <button
             aria-label="Return to directory"
-            className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition hover:bg-white/5 hover:text-white"
+            className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)]"
             onClick={
               onBack
             }
@@ -1166,7 +1166,7 @@ function FileViewer({
 
           <div className="min-w-0">
             <p
-              className="truncate text-sm font-medium text-slate-300"
+              className="truncate text-sm font-medium text-[var(--text)]"
               title={
                 filePath
               }
@@ -1176,7 +1176,7 @@ function FileViewer({
               }
             </p>
 
-            <p className="mt-0.5 text-xs text-slate-600">
+            <p className="mt-0.5 text-xs text-[var(--muted)]">
               {formatFileSize(
                 size,
               )}
@@ -1200,7 +1200,7 @@ function FileViewer({
 
       {!isPending
         && !isError && (
-          <pre className="max-h-[38rem] overflow-auto bg-[#0d1117] p-5 text-sm leading-6 text-slate-300">
+          <pre className="max-h-[38rem] overflow-auto bg-[var(--inset)] p-5 text-sm leading-6 text-[var(--text)]">
             <code>
               {children}
             </code>
@@ -1218,10 +1218,10 @@ function LoadingState({
   message,
 }: LoadingStateProps) {
   return (
-    <div className="flex min-h-40 items-center justify-center gap-3 p-6 text-sm text-slate-500">
+    <div className="flex min-h-40 items-center justify-center gap-3 p-6 text-sm text-[var(--muted)]">
       <LoaderCircle
         aria-hidden="true"
-        className="size-5 animate-spin text-blue-400"
+        className="size-5 animate-spin text-[var(--accent)]"
       />
 
       {message}
@@ -1240,14 +1240,14 @@ function ErrorState({
 }: ErrorStateProps) {
   return (
     <div className="flex min-h-40 flex-col items-center justify-center p-6 text-center">
-      <span className="grid size-10 place-items-center rounded-lg bg-red-500/10 text-red-300">
+      <span className="grid size-10 place-items-center rounded-lg bg-red-500/10 text-[var(--red)]">
         <AlertCircle
           aria-hidden="true"
           className="size-5"
         />
       </span>
 
-      <p className="mt-3 max-w-md text-sm leading-6 text-red-200">
+      <p className="mt-3 max-w-md text-sm leading-6 text-[var(--red)]">
         {getApiErrorMessage(
           error,
           fallback,
@@ -1265,7 +1265,7 @@ function EmptyState({
   message,
 }: EmptyStateProps) {
   return (
-    <div className="flex min-h-40 items-center justify-center p-6 text-center text-sm text-slate-500">
+    <div className="flex min-h-40 items-center justify-center p-6 text-center text-sm text-[var(--muted)]">
       {message}
     </div>
   )

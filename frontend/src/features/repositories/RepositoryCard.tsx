@@ -37,30 +37,30 @@ export function RepositoryCard({
   repository,
 }: RepositoryCardProps) {
   return (
-    <article className="rounded-xl border border-white/10 bg-[#161b22] p-5 transition hover:border-blue-400/30">
+    <article className="rounded-xl border border-[var(--border)] glass-panel p-5 transition hover:border-blue-400/30">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <BookOpen
               aria-hidden="true"
-              className="size-4 shrink-0 text-blue-400"
+              className="size-4 shrink-0 text-[var(--accent)]"
             />
 
             <Link
-              className="truncate font-semibold text-blue-400 transition hover:text-blue-300 hover:underline"
+              className="truncate font-semibold text-[var(--accent)] transition hover:text-[var(--accent)] hover:underline"
               to={`/repositories/${repository.id}`}
             >
               {repository.full_name}
             </Link>
 
-            <span className="rounded-full border border-white/10 px-2 py-0.5 text-xs capitalize text-slate-400">
+            <span className="rounded-full border border-[var(--border)] px-2 py-0.5 text-xs capitalize text-[var(--muted)]">
               {repository.visibility}
             </span>
           </div>
 
-          <p className="mt-3 text-sm leading-6 text-slate-500">
+          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
             Repository owned by{' '}
-            <span className="text-slate-300">
+            <span className="text-[var(--text)]">
               @{repository.owner.username}
             </span>
           </p>
@@ -69,8 +69,8 @@ export function RepositoryCard({
         <span
           className={
             repository.visibility === 'private'
-              ? 'grid size-9 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-blue-300'
-              : 'grid size-9 shrink-0 place-items-center rounded-lg bg-emerald-500/10 text-emerald-300'
+              ? 'grid size-9 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-[var(--accent)]'
+              : 'grid size-9 shrink-0 place-items-center rounded-lg bg-emerald-500/10 text-[var(--emerald)]'
           }
           title={
             repository.visibility === 'private'
@@ -92,7 +92,7 @@ export function RepositoryCard({
         </span>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/10 pt-4 text-xs text-slate-500">
+      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[var(--border)] pt-4 text-xs text-[var(--muted)]">
         <span>
           Created {formatDate(repository.created_at)}
         </span>

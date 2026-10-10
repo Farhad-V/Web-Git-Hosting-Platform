@@ -166,13 +166,13 @@ export function RepositorySettingsForm({
     ).length === 0
 
   return (
-    <section className="rounded-xl border border-white/10 bg-[#161b22]">
-      <header className="border-b border-white/10 px-6 py-5">
-        <h2 className="font-semibold text-white">
+    <section className="rounded-xl border border-[var(--border)] glass-panel">
+      <header className="border-b border-[var(--border)] px-6 py-5">
+        <h2 className="font-semibold text-[var(--text)]">
           Repository settings
         </h2>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-[var(--muted)]">
           V1 allows the repository owner to change visibility only.
         </p>
       </header>
@@ -188,7 +188,7 @@ export function RepositorySettingsForm({
       >
         {updateMutation.isSuccess && (
           <div
-            className="rounded-lg border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300"
+            className="rounded-lg border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-[var(--emerald)]"
             role="status"
           >
             Repository visibility updated successfully.
@@ -197,7 +197,7 @@ export function RepositorySettingsForm({
 
         {hasGeneralError && (
           <div
-            className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+            className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-[var(--red)]"
             role="alert"
           >
             {getApiErrorMessage(
@@ -212,7 +212,7 @@ export function RepositorySettingsForm({
             updateMutation.isPending
           }
         >
-          <legend className="mb-3 text-sm font-medium text-slate-200">
+          <legend className="mb-3 text-sm font-medium text-[var(--text)]">
             Visibility
           </legend>
 
@@ -227,18 +227,18 @@ export function RepositorySettingsForm({
                 )}
               />
 
-              <span className="flex h-full gap-3 rounded-xl border border-white/10 bg-[#0d1117] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
+              <span className="flex h-full gap-3 rounded-xl border border-[var(--border)] bg-[var(--inset)] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
                 <LockKeyhole
                   aria-hidden="true"
-                  className="mt-0.5 size-5 shrink-0 text-blue-300"
+                  className="mt-0.5 size-5 shrink-0 text-[var(--accent)]"
                 />
 
                 <span>
-                  <span className="block text-sm font-semibold text-white">
+                  <span className="block text-sm font-semibold text-[var(--text)]">
                     Private
                   </span>
 
-                  <span className="mt-1 block text-xs leading-5 text-slate-500">
+                  <span className="mt-1 block text-xs leading-5 text-[var(--muted)]">
                     Only you may read or manage this repository.
                   </span>
                 </span>
@@ -255,18 +255,18 @@ export function RepositorySettingsForm({
                 )}
               />
 
-              <span className="flex h-full gap-3 rounded-xl border border-white/10 bg-[#0d1117] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
+              <span className="flex h-full gap-3 rounded-xl border border-[var(--border)] bg-[var(--inset)] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
                 <Globe2
                   aria-hidden="true"
-                  className="mt-0.5 size-5 shrink-0 text-emerald-300"
+                  className="mt-0.5 size-5 shrink-0 text-[var(--emerald)]"
                 />
 
                 <span>
-                  <span className="block text-sm font-semibold text-white">
+                  <span className="block text-sm font-semibold text-[var(--text)]">
                     Public
                   </span>
 
-                  <span className="mt-1 block text-xs leading-5 text-slate-500">
+                  <span className="mt-1 block text-xs leading-5 text-[var(--muted)]">
                     Anyone may view and clone the repository.
                   </span>
                 </span>
@@ -277,7 +277,7 @@ export function RepositorySettingsForm({
           {errors.visibility
             ?.message !==
           undefined && (
-            <p className="mt-2 text-sm text-red-400">
+            <p className="mt-2 text-sm text-[var(--red)]">
               {
                 errors.visibility
                   .message
@@ -286,7 +286,7 @@ export function RepositorySettingsForm({
           )}
         </fieldset>
 
-        <div className="flex justify-end border-t border-white/10 pt-5">
+        <div className="flex justify-end border-t border-[var(--border)] pt-5">
           <button
             className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
             disabled={

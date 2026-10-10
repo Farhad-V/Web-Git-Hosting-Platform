@@ -144,11 +144,11 @@ export function PersonalAccessTokensPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-slate-200">
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d1117]/90 backdrop-blur-xl">
+    <div className="min-h-screen text-[var(--text)]">
+      <header className="sticky top-0 z-30 border-b border-[var(--border)] bg-[var(--glass-header)] backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-5 px-5 lg:px-8">
           <Link
-            className="flex shrink-0 items-center gap-2 font-semibold text-white"
+            className="flex shrink-0 items-center gap-2 font-semibold text-[var(--text)]"
             to="/dashboard"
           >
             <span className="grid size-9 place-items-center rounded-lg bg-blue-600">
@@ -163,11 +163,11 @@ export function PersonalAccessTokensPage() {
 
           <span
             aria-hidden="true"
-            className="hidden h-6 w-px bg-white/10 sm:block"
+            className="hidden h-6 w-px bg-[var(--hover)] sm:block"
           />
 
           <Link
-            className="hidden items-center gap-2 text-sm text-slate-400 transition hover:text-white sm:inline-flex"
+            className="hidden items-center gap-2 text-sm text-[var(--muted)] transition hover:text-[var(--text)] sm:inline-flex"
             to="/dashboard"
           >
             <ArrowLeft
@@ -198,16 +198,16 @@ export function PersonalAccessTokensPage() {
       </header>
 
       <main className="mx-auto max-w-7xl px-5 py-10 lg:px-8">
-        <section className="border-b border-white/10 pb-8">
-          <p className="text-sm text-blue-400">
+        <section className="border-b border-[var(--border)] pb-8">
+          <p className="text-sm text-[var(--accent)]">
             Developer settings
           </p>
 
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-white">
+          <h1 className="mt-1 text-3xl font-bold tracking-tight text-[var(--text)]">
             Personal access tokens
           </h1>
 
-          <p className="mt-3 max-w-3xl leading-7 text-slate-400">
+          <p className="mt-3 max-w-3xl leading-7 text-[var(--muted)]">
             Create credentials for Git Smart HTTP authentication.
             Tokens are separate from your browser session and can be
             revoked independently.
@@ -218,7 +218,7 @@ export function PersonalAccessTokensPage() {
           aria-labelledby="token-security-title"
           className="mt-8 flex gap-4 rounded-xl border border-blue-400/20 bg-blue-500/10 p-5"
         >
-          <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/15 text-blue-300">
+          <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/15 text-[var(--accent)]">
             <ShieldCheck
               aria-hidden="true"
               className="size-5"
@@ -227,13 +227,13 @@ export function PersonalAccessTokensPage() {
 
           <div>
             <h2
-              className="font-semibold text-white"
+              className="font-semibold text-[var(--text)]"
               id="token-security-title"
             >
               Use a PAT for Git authentication
             </h2>
 
-            <p className="mt-1 text-sm leading-6 text-slate-400">
+            <p className="mt-1 text-sm leading-6 text-[var(--muted)]">
               Enter your GitForge username as the Git HTTP username and
               the generated token as the password. Repository
               authorization is enforced separately from the credential.
@@ -241,14 +241,14 @@ export function PersonalAccessTokensPage() {
           </div>
         </section>
 
-        <section className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-[#161b22]">
-          <header className="flex items-center justify-between border-b border-white/10 px-6 py-5">
+        <section className="mt-8 overflow-hidden rounded-2xl border border-[var(--border)] glass-panel">
+          <header className="flex items-center justify-between border-b border-[var(--border)] px-6 py-5">
             <div>
-              <h2 className="font-semibold text-white">
+              <h2 className="font-semibold text-[var(--text)]">
                 Personal access tokens
               </h2>
 
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-[var(--muted)]">
                 {activeTokens.length ===
                 1
                   ? '1 active token'
@@ -260,7 +260,7 @@ export function PersonalAccessTokensPage() {
 
             <button
               aria-label="Refresh tokens"
-              className="rounded-lg p-2 text-slate-500 transition hover:bg-white/5 hover:text-white disabled:opacity-50"
+              className="rounded-lg p-2 text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)] disabled:opacity-50"
               disabled={
                 tokensQuery.isFetching
               }
@@ -288,10 +288,10 @@ export function PersonalAccessTokensPage() {
               <div className="text-center">
                 <LoaderCircle
                   aria-hidden="true"
-                  className="mx-auto size-7 animate-spin text-blue-400"
+                  className="mx-auto size-7 animate-spin text-[var(--accent)]"
                 />
 
-                <p className="mt-3 text-sm text-slate-500">
+                <p className="mt-3 text-sm text-[var(--muted)]">
                   Loading access tokens...
                 </p>
               </div>
@@ -301,14 +301,14 @@ export function PersonalAccessTokensPage() {
               <div className="max-w-md text-center">
                 <AlertTriangle
                   aria-hidden="true"
-                  className="mx-auto size-8 text-red-400"
+                  className="mx-auto size-8 text-[var(--red)]"
                 />
 
-                <h3 className="mt-4 font-semibold text-white">
+                <h3 className="mt-4 font-semibold text-[var(--text)]">
                   Unable to load access tokens
                 </h3>
 
-                <p className="mt-2 text-sm leading-6 text-slate-400">
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
                   {getApiErrorMessage(
                     tokensQuery.error,
                     'The token list could not be loaded. Try again.',
@@ -316,7 +316,7 @@ export function PersonalAccessTokensPage() {
                 </p>
 
                 <button
-                  className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-200 transition hover:bg-white/5"
+                  className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-4 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--subtle)]"
                   onClick={() =>
                     tokensQuery.refetch()
                   }
@@ -334,18 +334,18 @@ export function PersonalAccessTokensPage() {
           ) : tokens.length === 0 ? (
             <div className="grid min-h-72 place-items-center px-6 py-10">
               <div className="max-w-md text-center">
-                <span className="mx-auto grid size-16 place-items-center rounded-2xl border border-white/10 bg-[#0d1117] text-slate-500">
+                <span className="mx-auto grid size-16 place-items-center rounded-2xl border border-[var(--border)] bg-[var(--inset)] text-[var(--muted)]">
                   <KeyRound
                     aria-hidden="true"
                     className="size-7"
                   />
                 </span>
 
-                <h3 className="mt-5 font-semibold text-white">
+                <h3 className="mt-5 font-semibold text-[var(--text)]">
                   No personal access tokens
                 </h3>
 
-                <p className="mt-2 text-sm leading-6 text-slate-500">
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
                   Create a token before authenticating Git operations
                   against a private repository or pushing changes.
                 </p>
@@ -386,8 +386,8 @@ export function PersonalAccessTokensPage() {
                       <span
                         className={
                           isRevoked
-                            ? 'grid size-11 shrink-0 place-items-center rounded-lg bg-red-500/10 text-red-300'
-                            : 'grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-blue-300'
+                            ? 'grid size-11 shrink-0 place-items-center rounded-lg bg-red-500/10 text-[var(--red)]'
+                            : 'grid size-11 shrink-0 place-items-center rounded-lg bg-blue-500/10 text-[var(--accent)]'
                         }
                       >
                         <KeyRound
@@ -398,7 +398,7 @@ export function PersonalAccessTokensPage() {
 
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="truncate font-semibold text-white">
+                          <h3 className="truncate font-semibold text-[var(--text)]">
                             {
                               token.name
                             }
@@ -407,8 +407,8 @@ export function PersonalAccessTokensPage() {
                           <span
                             className={
                               isRevoked
-                                ? 'rounded-full border border-red-400/20 bg-red-500/10 px-2 py-0.5 text-xs text-red-300'
-                                : 'rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-300'
+                                ? 'rounded-full border border-red-400/20 bg-red-500/10 px-2 py-0.5 text-xs text-[var(--red)]'
+                                : 'rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 text-xs text-[var(--emerald)]'
                             }
                           >
                             {isRevoked
@@ -417,7 +417,7 @@ export function PersonalAccessTokensPage() {
                           </span>
                         </div>
 
-                        <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-500">
+                        <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--muted)]">
                           <div className="flex items-center gap-1.5">
                             <CalendarDays
                               aria-hidden="true"
@@ -461,7 +461,7 @@ export function PersonalAccessTokensPage() {
 
                       {!isRevoked && (
                         <button
-                          className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-red-400/20 px-3 text-sm font-medium text-red-300 transition hover:bg-red-500/10"
+                          className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg border border-red-400/20 px-3 text-sm font-medium text-[var(--red)] transition hover:bg-red-500/10"
                           onClick={() => {
                             revokeMutation.reset()
 
@@ -521,24 +521,24 @@ export function PersonalAccessTokensPage() {
             type="button"
           />
 
-          <section className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#161b22] shadow-2xl shadow-black/50">
-            <header className="flex items-start justify-between border-b border-white/10 px-6 py-5">
+          <section className="relative w-full max-w-md rounded-2xl border border-[var(--border)] glass-panel shadow-2xl shadow-black/50">
+            <header className="flex items-start justify-between border-b border-[var(--border)] px-6 py-5">
               <div>
                 <h2
-                  className="text-xl font-semibold text-white"
+                  className="text-xl font-semibold text-[var(--text)]"
                   id="revoke-token-title"
                 >
                   Revoke access token?
                 </h2>
 
-                <p className="mt-1 text-sm text-slate-400">
+                <p className="mt-1 text-sm text-[var(--muted)]">
                   This action takes effect immediately.
                 </p>
               </div>
 
               <button
                 aria-label="Close"
-                className="rounded-lg p-2 text-slate-500 transition hover:bg-white/5 hover:text-white disabled:opacity-50"
+                className="rounded-lg p-2 text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)] disabled:opacity-50"
                 disabled={
                   revokeMutation.isPending
                 }
@@ -558,10 +558,10 @@ export function PersonalAccessTokensPage() {
               <div className="flex gap-3 rounded-xl border border-red-400/20 bg-red-500/10 p-4">
                 <AlertTriangle
                   aria-hidden="true"
-                  className="mt-0.5 size-5 shrink-0 text-red-300"
+                  className="mt-0.5 size-5 shrink-0 text-[var(--red)]"
                 />
 
-                <p className="text-sm leading-6 text-red-200">
+                <p className="text-sm leading-6 text-[var(--red)]">
                   Git authentication using{' '}
                   <strong>
                     {
@@ -574,7 +574,7 @@ export function PersonalAccessTokensPage() {
 
               {revokeMutation.isError && (
                 <div
-                  className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+                  className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-[var(--red)]"
                   role="alert"
                 >
                   {getApiErrorMessage(
@@ -584,9 +584,9 @@ export function PersonalAccessTokensPage() {
                 </div>
               )}
 
-              <div className="flex flex-col-reverse gap-3 border-t border-white/10 pt-5 sm:flex-row sm:justify-end">
+              <div className="flex flex-col-reverse gap-3 border-t border-[var(--border)] pt-5 sm:flex-row sm:justify-end">
                 <button
-                  className="inline-flex h-10 items-center justify-center rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-300 transition hover:bg-white/5 disabled:opacity-50"
+                  className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border)] px-4 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--subtle)] disabled:opacity-50"
                   disabled={
                     revokeMutation.isPending
                   }
@@ -599,7 +599,7 @@ export function PersonalAccessTokensPage() {
                 </button>
 
                 <button
-                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-red-600 px-4 text-sm font-semibold text-white transition hover:bg-red-500 disabled:opacity-60"
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-red-600 px-4 text-sm font-semibold text-[var(--text)] transition hover:bg-red-500 disabled:opacity-60"
                   disabled={
                     revokeMutation.isPending
                   }

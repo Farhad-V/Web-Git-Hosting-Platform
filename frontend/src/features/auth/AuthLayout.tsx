@@ -29,7 +29,7 @@ export function AuthLayout({
 
       <section className="relative w-full max-w-md">
         <Link
-          className="mx-auto mb-8 flex w-fit items-center gap-2 font-semibold text-white"
+          className="mx-auto mb-8 flex w-fit items-center gap-2 font-semibold text-[var(--text)]"
           to="/"
         >
           <span className="grid size-10 place-items-center rounded-lg bg-blue-600 shadow-lg shadow-blue-950/40">
@@ -38,24 +38,24 @@ export function AuthLayout({
           <span className="text-lg">GitForge</span>
         </Link>
 
-        <div className="rounded-2xl border border-white/10 bg-[#161b22]/95 p-6 shadow-2xl shadow-black/40 backdrop-blur-xl sm:p-8">
+        <div className="rounded-2xl border border-[var(--border)] glass-panel p-6 shadow-2xl shadow-black/40 backdrop-blur-xl sm:p-8">
           <div className="text-center">
-            <h1 className="text-2xl font-bold tracking-tight text-white">
+            <h1 className="text-2xl font-bold tracking-tight text-[var(--text)]">
               {title}
             </h1>
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
               {description}
             </p>
           </div>
 
           <div className="mt-7">{children}</div>
 
-          <div className="mt-6 border-t border-white/10 pt-6 text-center text-sm text-slate-400">
+          <div className="mt-6 border-t border-[var(--border)] pt-6 text-center text-sm text-[var(--muted)]">
             {footer}
           </div>
         </div>
 
-        <p className="mt-6 flex items-center justify-center gap-2 text-xs text-slate-500">
+        <p className="mt-6 flex items-center justify-center gap-2 text-xs text-[var(--muted)]">
           <ShieldCheck aria-hidden="true" className="size-4" />
           Credentials are transmitted securely to your GitForge server.
         </p>

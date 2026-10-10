@@ -5,10 +5,10 @@ import { useAuth } from './auth-context'
 function AuthenticationLoader() {
   return (
     <main className="grid min-h-screen place-items-center">
-      <div className="flex items-center gap-3 text-sm text-slate-400">
+      <div className="flex items-center gap-3 text-sm text-[var(--muted)]">
         <LoaderCircle
           aria-hidden="true"
-          className="size-5 animate-spin text-blue-400"
+          className="size-5 animate-spin text-[var(--accent)]"
         />
         Verifying your session...
       </div>
