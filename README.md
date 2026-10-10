@@ -4,11 +4,15 @@ GitForge is a self-hosted Git hosting platform built as a full-stack software-en
 
 ## Release Status
 
-**Stable release:** V1.0.0  
-**Git tag:** `v1.0.0`  
+**Stable release:** V1.0.1
+
+**Git tag:** `v1.0.1`
+
 **SDLC milestones:** M0 through M7 Complete
 
 GitForge V1.0.0 is released as a GitHub portfolio/local-use project. It is designed to be cloned, inspected, run locally, tested, and evaluated, and it **does not require public hosting**.
+
+V1.0.1 fixes repository-creation data loss, production clone URLs, and backup coordination, and updates vulnerable dependencies. See [V1.0.1 patch release notes](docs/releases/v1.0.1.md) for validation, upgrade instructions, and the required backup-procedure changes.
 
 ## Core Capabilities
 

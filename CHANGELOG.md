@@ -6,6 +6,8 @@ The project follows Semantic Versioning.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-10
+
 ### Fixed
 
 - Preserve pre-existing Git storage when repository creation fails.

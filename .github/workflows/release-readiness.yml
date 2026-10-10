@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   release-readiness:
-    name: V1.0.0 release gate
+    name: Release gate
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -80,6 +80,10 @@ jobs:
           test -f docs/08-maintenance/08-v1.0.0-release-checklist.md
           test -f docs/08-maintenance/09-m7-milestone-review.md
           grep -Fq '## [1.0.0]' CHANGELOG.md
+          version="$(node -p "require('./frontend/package.json').version")"
+          test -f "docs/releases/v${version}.md"
+          grep -Fq "## [${version}]" CHANGELOG.md
+          node -e "const p = require('./frontend/package.json'); const l = require('./frontend/package-lock.json'); if (p.version !== l.version || p.version !== l.packages[''].version) process.exit(1)"
           grep -Fq 'GitForge V1.0.0' RELEASE_NOTES.md
           grep -Fq 'Public hosting is not part of the V1.0.0 acceptance criteria' RELEASE_NOTES.md
 
