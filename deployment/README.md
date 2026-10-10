@@ -138,6 +138,13 @@ After the basic smoke test, verify the approved acceptance workflows: registrati
 
 A complete GitForge backup contains both PostgreSQL metadata and persistent Git repository storage.
 
+Before every backup, block new writes with file-based Laravel maintenance mode (`php artisan down` in the deployed backend). Wait for in-flight API requests and Git pushes to finish, pause scheduled jobs and any other direct repository writers, and keep writes paused until the backup completes. Maintenance mode alone does not drain requests that already started.
+
+Set `GITFORGE_BACKEND_ROOT` to the deployed backend directory and set `GITFORGE_BACKUP_WRITES_PAUSED=1` only after confirming that all writers have stopped. The backup script refuses to run without both this confirmation and the maintenance marker, and rechecks the marker between the database dump and repository archive. The confirmation is an operator assertion, not an automatic lock on external writers.
+
+After a successful backup and verification, restore paused jobs and run `php artisan up` if you enabled maintenance mode for this backup. On failure, keep writes paused while investigating. An unattended backup must implement the same pause-and-drain coordination.
+
+
 Example:
 
 ```bash
@@ -148,6 +155,8 @@ export DB_DATABASE=git_hosting_platform
 export DB_USERNAME=git_hosting_app
 export PGPASSWORD='set-at-runtime'
 export GITFORGE_REPOSITORY_ROOT=/var/lib/gitforge
+export GITFORGE_BACKEND_ROOT=/var/www/gitforge/backend
+export GITFORGE_BACKUP_WRITES_PAUSED=1  # only after pausing and draining all writers
 
 deployment/scripts/backup.sh
 ```

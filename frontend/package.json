@@ -1,7 +1,7 @@
 {
   "name": "git-hosting-platform-frontend",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,7 +14,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.8.0",
     "@tanstack/react-query": "^5.101.4",
-    "axios": "^1.19.0",
+    "axios": "^1.20.0",
     "lucide-react": "^1.31.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

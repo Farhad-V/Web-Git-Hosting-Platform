@@ -104,3 +104,7 @@ The backend lives in `../backend` and exposes versioned APIs under `/api/v1`. Pr
 ## Documentation
 
 Project-wide lifecycle and verification documentation is maintained in `../docs/`.
+
+## Git Clone URLs
+
+Development uses the Laravel server at http://127.0.0.1:8000. Production uses the current site's origin by default. Set VITE_GIT_BASE_URL at build time when Git HTTP is served from a different origin or base path.

@@ -4,6 +4,21 @@ All notable changes to GitForge are documented in this file.
 
 The project follows Semantic Versioning.
 
+## [Unreleased]
+
+## [1.0.1] - 2026-10-10
+
+### Fixed
+
+- Preserve pre-existing Git storage when repository creation fails.
+- Use the public site origin for production clone URLs while retaining the local development address.
+- Require maintenance mode and explicit pause-and-drain confirmation for coordinated backups.
+- Restore the missing Git Smart HTTP write analysis document.
+
+### Security
+
+- Update affected Laravel, CommonMark, Flysystem, and Axios dependencies to patched compatible versions.
+
 ## [1.0.0] - 2026-08-23
 
 ### Added

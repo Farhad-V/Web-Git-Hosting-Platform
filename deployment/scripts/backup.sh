@@ -9,6 +9,19 @@ set -euo pipefail
 : "${PGPASSWORD:?Set PGPASSWORD without placing it on the command line}"
 : "${GITFORGE_REPOSITORY_ROOT:?Set GITFORGE_REPOSITORY_ROOT}"
 
+: "${GITFORGE_BACKEND_ROOT:?Set GITFORGE_BACKEND_ROOT to the deployed Laravel backend}"
+
+# Maintenance mode rejects new API and Git HTTP requests. The operator must
+# additionally drain in-flight requests and pause any other repository writers.
+assert_writes_paused() {
+    if [[ "${GITFORGE_BACKUP_WRITES_PAUSED:-}" != 1 || ! -f "$GITFORGE_BACKEND_ROOT/storage/framework/down" ]]; then
+        echo "Backup refused: enable file-based Laravel maintenance mode, drain all writers, and set GITFORGE_BACKUP_WRITES_PAUSED=1." >&2
+        return 1
+    fi
+}
+
+assert_writes_paused
+
 repository_dir="$GITFORGE_REPOSITORY_ROOT/repositories"
 [[ -d "$repository_dir" ]] || { echo "Repository directory does not exist: $repository_dir" >&2; exit 1; }
 
@@ -20,7 +33,7 @@ staging_dir="$BACKUP_DIR/.gitforge-$timestamp.tmp"
 mkdir -p "$BACKUP_DIR"
 mkdir "$staging_dir"
 cleanup() { rm -rf "$staging_dir"; }
-trap cleanup ERR INT TERM
+trap 'cleanup; exit 1' ERR INT TERM
 
 pg_dump \
     --host="$DB_HOST" \
@@ -30,7 +43,9 @@ pg_dump \
     --format=custom \
     --file="$staging_dir/database.dump"
 
+assert_writes_paused
 tar -C "$GITFORGE_REPOSITORY_ROOT" -czf "$staging_dir/repositories.tar.gz" repositories
+assert_writes_paused
 
 cat >"$staging_dir/manifest.txt" <<EOF
 format=gitforge-backup-v1

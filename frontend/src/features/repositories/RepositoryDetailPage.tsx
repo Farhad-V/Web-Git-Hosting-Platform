@@ -17,16 +17,13 @@ import {
   useParams,
 } from 'react-router-dom'
 import { getApiErrorMessage } from '../../lib/api-errors'
+import { getGitCloneUrl } from '../../lib/git-url'
 import { getRepository } from '../../services/repository-service'
 import type { Repository } from '../../types/repository'
 import { useAuth } from '../auth/auth-context'
 import { RepositoryBrowser } from './RepositoryBrowser'
 import { repositoryQueryKeys } from './repository-query-keys'
 import { RepositorySettingsForm } from './RepositorySettingsForm'
-
-const configuredGitBaseUrl =
-  import.meta.env.VITE_GIT_BASE_URL
-  ?? 'http://127.0.0.1:8000'
 
 function formatDate(
   value: string | null,
@@ -151,7 +148,7 @@ export function RepositoryDetailPage() {
     repository.owner.id
 
   const cloneUrl =
-    `${configuredGitBaseUrl.replace(/\/$/, '')}/${repository.full_name}.git`
+    getGitCloneUrl(repository.full_name)
 
   function handleRepositoryUpdated(
     updatedRepository: Repository,
