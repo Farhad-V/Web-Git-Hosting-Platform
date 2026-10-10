@@ -18,7 +18,7 @@ V1.0.1 fixes repository-creation data loss, production clone URLs, and backup co
 
 - user registration and session authentication;
 - authenticated profile retrieval and logout;
-- repository creation, listing, metadata retrieval, and visibility updates;
+- repository creation, listing, metadata retrieval, renaming, and visibility updates;
 - owner-centric public/private repository authorization;
 - managed bare Git repository storage;
 - Git clone, fetch, and push over Smart HTTP;
@@ -111,7 +111,7 @@ The Vite development server proxies `/api` to `http://127.0.0.1:8000`, so the de
 3. Create a personal access token for authenticated Git operations.
 4. Clone/fetch using the repository Smart HTTP URL.
 5. Push as the repository owner using the PAT.
-6. Browse branches, commits, trees, and text files in the web UI.
+6. Browse branches, paginated commits, tags, trees, text files, and PDFs in the web UI.
 7. Revoke PATs that are no longer needed.
 
 ## Quality Gates

@@ -208,7 +208,7 @@ class RepositoryController extends Controller
     }
 
     /**
-     * Change repository visibility.
+     * Change repository name or visibility.
      */
     public function update(
         UpdateRepositoryRequest $request,
@@ -219,17 +219,19 @@ class RepositoryController extends Controller
             $repository,
         );
 
+        $oldName = $repository->name;
         $oldVisibility = $repository->visibility->value;
-        $newVisibility = $request->validated()['visibility'];
+        $newVisibility = $request->validated()['visibility'] ?? $oldVisibility;
 
-        $repository->update([
-            'visibility' => $newVisibility,
-        ]);
+        $repository->update($request->safe()->only(['name', 'visibility']));
 
+        $event = $request->has('name') ? 'repository_settings_changed' : 'repository_visibility_changed';
         Log::info(
-            'repository_visibility_changed',
+            $event,
             [
-                'event' => 'repository_visibility_changed',
+                'event' => $event,
+                'old_name' => $oldName,
+                'new_name' => $repository->name,
                 'request_id' => $request->attributes->get('request_id'),
                 'repository_id' => $repository->id,
                 'user_id' => $request->user()->id,
@@ -240,7 +242,7 @@ class RepositoryController extends Controller
         );
 
         return response()->json([
-            'message' => 'Repository visibility updated successfully.',
+            'message' => $request->has('name') ? 'Repository settings updated successfully.' : 'Repository visibility updated successfully.',
             'repository' => new RepositoryResource(
                 $repository->fresh('owner'),
             ),

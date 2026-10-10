@@ -123,6 +123,35 @@ class RepositoryBrowserService
         return $branches;
     }
 
+    /** List annotated and lightweight Git tags in version order. */
+    public function tags(Repository $repository, int $page = 1, int $limit = 30): array
+    {
+        $path = $this->repositoryPath($repository);
+        $page = max(1, min($page, 1000));
+        $limit = max(1, min($limit, self::MAX_COMMIT_LIMIT));
+        $offset = ($page - 1) * $limit;
+        try {
+            $output = $this->git->runRaw(operation: 'list-repository-tags', arguments: [
+                '--git-dir='.$path, 'for-each-ref', '--sort=-version:refname', '--count='.($offset + $limit + 1),
+                '--format=%(refname:strip=2)%09%(objecttype)%09%(objectname)%09%(*objecttype)%09%(*objectname)%09%(creatordate:iso-strict)%09%(subject)', 'refs/tags',
+            ]);
+        } catch (GitCommandException $exception) {
+            throw $this->failure(repository: $repository, operation: 'list-tags', reason: 'git_command_failed', previous: $exception);
+        }
+        $lines = $output === '' ? [] : preg_split('/\r?\n/', rtrim($output, "\r\n"));
+        $tags = [];
+        foreach (array_slice($lines, $offset, $limit) as $line) {
+            $fields = explode("\t", $line, 7);
+            if (count($fields) !== 7) {
+                throw $this->failure(repository: $repository, operation: 'list-tags', reason: 'unexpected_git_output');
+            }
+            [$name, $type, $object, $targetType, $target, $date, $subject] = $fields;
+            $tags[] = ['name' => $name, 'object_id' => $object, 'commit' => ($type === 'commit' ? $object : ($targetType === 'commit' ? $target : null)), 'annotated' => $type === 'tag', 'created_at' => $date ?: null, 'subject' => $subject];
+        }
+
+        return ['data' => $tags, 'page' => $page, 'has_more' => count($lines) > $offset + $limit];
+    }
+
     /**
      * List commits reachable from a repository branch.
      *
@@ -138,6 +167,8 @@ class RepositoryBrowserService
         Repository $repository,
         string $branch,
         int $limit = self::DEFAULT_COMMIT_LIMIT,
+        int $page = 1,
+        bool $includeNext = false,
     ): array {
         $path = $this->repositoryPath(
             $repository,
@@ -163,7 +194,8 @@ class RepositoryBrowserService
                 arguments: [
                     '--git-dir='.$path,
                     'log',
-                    '--max-count='.$limit,
+                    '--max-count='.($limit + ($includeNext ? 1 : 0)),
+                    '--skip='.((max(1, $page) - 1) * $limit),
                     '--date=iso-strict',
                     '--format=%H%x1f%P%x1f%an%x1f%ae%x1f%aI%x1f%s%x1e',
                     $commit,

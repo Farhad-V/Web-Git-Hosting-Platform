@@ -21,9 +21,9 @@ import { getGitCloneUrl } from '../../lib/git-url'
 import { getRepository } from '../../services/repository-service'
 import type { Repository } from '../../types/repository'
 import { useAuth } from '../auth/auth-context'
-import { RepositoryBrowser } from './RepositoryBrowser'
+import { RepositoryWorkspace } from './RepositoryWorkspace'
 import { repositoryQueryKeys } from './repository-query-keys'
-import { RepositorySettingsForm } from './RepositorySettingsForm'
+
 
 function formatDate(
   value: string | null,
@@ -300,7 +300,8 @@ export function RepositoryDetailPage() {
           </div>
         </section>
 
-        <div className="grid gap-6 py-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
+        <RepositoryWorkspace repository={repository} isOwner={isOwner} onUpdated={handleRepositoryUpdated}>
+        <div className="grid gap-6 pb-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
           <section className="rounded-xl border border-[var(--border)] glass-panel">
             <header className="flex items-center gap-3 border-b border-[var(--border)] px-6 py-5">
               <span className="grid size-9 place-items-center rounded-lg bg-blue-500/10 text-[var(--accent)]">
@@ -431,36 +432,7 @@ export function RepositoryDetailPage() {
           </aside>
         </div>
 
-        <div className="pb-8">
-          <RepositoryBrowser
-            repository={
-              repository
-            }
-          />
-        </div>
-
-        {isOwner ? (
-          <RepositorySettingsForm
-            onUpdated={
-              handleRepositoryUpdated
-            }
-            repository={
-              repository
-            }
-          />
-        ) : (
-          <section className="rounded-xl border border-[var(--border)] glass-panel p-6">
-            <h2 className="font-semibold text-[var(--text)]">
-              Read-only web access
-            </h2>
-
-            <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-              Public repositories may be viewed anonymously. Only the
-              repository owner may change visibility or push changes in
-              V1.
-            </p>
-          </section>
-        )}
+        </RepositoryWorkspace>
       </main>
     </div>
   )

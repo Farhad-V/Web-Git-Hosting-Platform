@@ -25,6 +25,7 @@ import { repositoryQueryKeys } from './repository-query-keys'
 
 const repositorySettingsSchema =
   z.object({
+    name: z.string().trim().toLowerCase().min(1).max(100).regex(/^[a-z0-9](?:[a-z0-9._-]{0,98}[a-z0-9])?$/).refine(value => !value.includes('..'), 'Consecutive dots are not allowed.'),
     visibility: z.enum([
       'private',
       'public',
@@ -66,6 +67,7 @@ export function RepositorySettingsForm({
       ),
 
     defaultValues: {
+      name: repository.name,
       visibility:
         repository.visibility,
     },
@@ -85,10 +87,12 @@ export function RepositorySettingsForm({
 
   useEffect(() => {
     reset({
+      name: repository.name,
       visibility:
         repository.visibility,
     })
   }, [
+    repository.name,
     repository.visibility,
     reset,
   ])
@@ -101,6 +105,7 @@ export function RepositorySettingsForm({
     try {
       const response =
         await updateMutation.mutateAsync({
+          ...(values.name !== repository.name ? { name: values.name } : {}),
           visibility:
             values.visibility,
         })
@@ -121,6 +126,7 @@ export function RepositorySettingsForm({
       })
 
       reset({
+        name: response.repository.name,
         visibility:
           response.repository.visibility,
       })
@@ -133,6 +139,8 @@ export function RepositorySettingsForm({
         getValidationErrors(
           error,
         )
+
+      if (validationErrors.name?.[0]) setError('name', { type: 'server', message: validationErrors.name[0] })
 
       const visibilityError =
         validationErrors.visibility?.[0]
@@ -173,7 +181,7 @@ export function RepositorySettingsForm({
         </h2>
 
         <p className="mt-1 text-sm text-[var(--muted)]">
-          V1 allows the repository owner to change visibility only.
+          Rename your repository and manage who can read it.
         </p>
       </header>
 
@@ -191,7 +199,7 @@ export function RepositorySettingsForm({
             className="rounded-lg border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-[var(--emerald)]"
             role="status"
           >
-            Repository visibility updated successfully.
+            Repository settings updated successfully.
           </div>
         )}
 
@@ -202,11 +210,17 @@ export function RepositorySettingsForm({
           >
             {getApiErrorMessage(
               updateMutation.error,
-              'Unable to update repository visibility.',
+              'Unable to update repository settings.',
             )}
           </div>
         )}
 
+        <div>
+          <label className="mb-2 block text-sm font-medium" htmlFor="repository-name">Repository name</label>
+          <input id="repository-name" {...register('name')} disabled={updateMutation.isPending} aria-invalid={Boolean(errors.name)} aria-describedby="repository-name-help repository-name-error" className="w-full rounded-lg border border-[var(--border)] bg-[var(--inset)] px-3 py-2.5 text-sm" />
+          <p id="repository-name-help" className="mt-2 text-xs leading-6 text-[var(--muted)]">Names use lowercase letters, numbers, dots, hyphens, and underscores. Renaming preserves your files, commits, and tags. Existing clones must update their remote URL to the new name.</p>
+          <p id="repository-name-error" className="mt-1 text-sm text-[var(--red)]">{errors.name?.message}</p>
+        </div>
         <fieldset
           disabled={
             updateMutation.isPending
@@ -309,7 +323,7 @@ export function RepositorySettingsForm({
 
             {updateMutation.isPending
               ? 'Saving...'
-              : 'Save visibility'}
+              : 'Save settings'}
           </button>
         </div>
       </form>

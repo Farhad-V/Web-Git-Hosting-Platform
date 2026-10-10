@@ -61,6 +61,7 @@ Route::middleware('web')
                     '/repositories/{repository}/branches',
                     [RepositoryBrowserController::class, 'branches'],
                 )->name('repositories.branches');
+                Route::get('/repositories/{repository}/tags', [RepositoryBrowserController::class, 'tags'])->name('repositories.tags');
 
                 Route::get(
                     '/repositories/{repository}/commits',

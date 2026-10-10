@@ -3,8 +3,10 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import {
+  fireEvent,
   render,
   screen,
+  waitFor,
 } from '@testing-library/react'
 import {
   MemoryRouter,
@@ -267,7 +269,20 @@ describe(
       ).not.toBeInTheDocument()
     })
 
-    it('shows visibility settings to the repository owner', async () => {
+    it('saves a new name and updates the repository heading and clone URL', async () => {
+      vi.mocked(updateRepository).mockResolvedValue({message:'Repository settings updated successfully.',repository:{...repository,name:'renamed-project',full_name:'farhad-dev/renamed-project'}})
+      renderRepositoryDetail(owner)
+      fireEvent.click(await screen.findByRole('button',{name:'Settings'}))
+      fireEvent.change(screen.getByRole('textbox',{name:'Repository name'}),{target:{value:'Renamed-Project'}})
+      fireEvent.click(screen.getByRole('button',{name:'Save settings'}))
+      await waitFor(()=>expect(updateRepository).toHaveBeenCalledWith(repository.id,{name:'renamed-project',visibility:'public'}))
+      expect(await screen.findByRole('heading',{name:'farhad-dev/renamed-project'})).toBeInTheDocument()
+      expect(screen.getByRole('textbox',{name:'Repository name'})).toHaveValue('renamed-project')
+      expect((screen.getByRole('textbox',{name:'HTTP clone URL'}) as HTMLInputElement).value).toContain('/farhad-dev/renamed-project.git')
+      expect(screen.getByRole('button',{name:'Save settings'})).toBeDisabled()
+    })
+
+    it('shows editable settings in the owner settings tab', async () => {
       renderRepositoryDetail(
         owner,
       )
@@ -282,6 +297,8 @@ describe(
         ),
       ).toBeInTheDocument()
 
+      fireEvent.click(screen.getByRole('button', {name: 'Settings'}))
+
       expect(
         screen.getByRole(
           'heading',
@@ -294,7 +311,7 @@ describe(
 
       expect(
         screen.getByText(
-          /v1 allows the repository owner to change visibility only/i,
+          /rename your repository and manage who can read it/i,
         ),
       ).toBeInTheDocument()
 

@@ -52,8 +52,22 @@ class RepositoryBrowserController extends Controller
     }
 
     /**
-     * List commits reachable from a branch.
+     * List repository tags.
      */
+    public function tags(BrowseRepositoryRequest $request, Repository $repository): JsonResponse
+    {
+        Gate::authorize('view', $repository);
+        $validated = $request->validated();
+        try {
+            return response()->json($this->browser->tags($repository, $validated['page'] ?? 1, $validated['limit'] ?? 30));
+        } catch (RepositoryBrowserException $exception) {
+            return $this->browserErrorResponse($exception);
+        } catch (RepositoryStorageException $exception) {
+            return $this->storageErrorResponse($exception);
+        }
+    }
+
+    /** List commits reachable from a branch. */
     public function commits(
         BrowseRepositoryRequest $request,
         Repository $repository,
@@ -75,13 +89,20 @@ class RepositoryBrowserController extends Controller
                 return $this->emptyRepositoryResponse();
             }
 
+            $limit = $validated['limit'] ?? 50;
+            $commits = $this->browser->commits(
+                repository: $repository,
+                branch: $branch,
+                limit: $limit,
+                page: $validated['page'] ?? 1,
+                includeNext: true,
+            );
+
             return response()->json([
-                'data' => $this->browser->commits(
-                    repository: $repository,
-                    branch: $branch,
-                    limit: $validated['limit'] ?? 50,
-                ),
+                'data' => array_slice($commits, 0, $limit),
                 'branch' => $branch,
+                'page' => $validated['page'] ?? 1,
+                'has_more' => count($commits) > $limit,
             ]);
         } catch (RepositoryBrowserException $exception) {
             return $this->browserErrorResponse(
