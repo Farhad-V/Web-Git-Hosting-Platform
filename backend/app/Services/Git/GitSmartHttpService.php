@@ -57,7 +57,7 @@ class GitSmartHttpService
     public function rpc(
         Repository $repository,
         string $service,
-        string $requestBody,
+        mixed $requestBody,
     ): string {
         $this->validateService(
             $service,
@@ -74,27 +74,61 @@ class GitSmartHttpService
             );
         }
 
-        if (strlen($requestBody) > $maximumBytes) {
-            throw new GitTransportException(
+        $temporaryInput = null;
+
+        try {
+            if (is_resource($requestBody) && get_resource_type($requestBody) === 'stream') {
+                // Spool a bounded body to disk before invoking Git. This also handles
+                // chunked uploads without trusting a client Content-Length header.
+                $temporaryInput = tmpfile();
+
+                if ($temporaryInput === false) {
+                    throw new GitTransportException(
+                        operation: "rpc-{$service}",
+                        processExitCode: 500,
+                        message: 'Unable to prepare Git request input.',
+                    );
+                }
+
+                $bytes = stream_copy_to_stream($requestBody, $temporaryInput, $maximumBytes + 1);
+
+                if ($bytes === false) {
+                    throw new GitTransportException(
+                        operation: "rpc-{$service}",
+                        processExitCode: 500,
+                        message: 'Unable to read Git request input.',
+                    );
+                }
+
+                rewind($temporaryInput);
+                $input = $temporaryInput;
+            } elseif (is_string($requestBody)) {
+                $bytes = strlen($requestBody);
+                $input = $requestBody;
+            } else {
+                throw new InvalidArgumentException('Git request input must be a string or stream.');
+            }
+
+            if ($bytes > $maximumBytes) {
+                throw new GitTransportException(
+                    operation: "rpc-{$service}",
+                    processExitCode: 413,
+                    message: 'Git request body exceeds the configured limit.',
+                );
+            }
+
+            $repositoryPath = $this->requireRepositoryPath($repository);
+
+            return $this->runTransport(
                 operation: "rpc-{$service}",
-                processExitCode: 413,
-                message: 'Git request body exceeds the configured limit.',
+                arguments: [$service, '--stateless-rpc', $repositoryPath],
+                input: $input,
             );
+        } finally {
+            if (is_resource($temporaryInput)) {
+                fclose($temporaryInput);
+            }
         }
-
-        $repositoryPath = $this->requireRepositoryPath(
-            $repository,
-        );
-
-        return $this->runTransport(
-            operation: "rpc-{$service}",
-            arguments: [
-                $service,
-                '--stateless-rpc',
-                $repositoryPath,
-            ],
-            input: $requestBody,
-        );
     }
 
     /**
@@ -155,7 +189,7 @@ class GitSmartHttpService
     private function runTransport(
         string $operation,
         array $arguments,
-        ?string $input = null,
+        mixed $input = null,
     ): string {
         try {
             return $this->git->runRaw(

@@ -23,7 +23,7 @@ class GitCommandRunner
         string $operation,
         array $arguments,
         ?string $workingDirectory = null,
-        ?string $input = null,
+        mixed $input = null,
     ): string {
         return trim(
             $this->runRaw(
@@ -42,7 +42,7 @@ class GitCommandRunner
      * protocol responses because trimming or otherwise transforming stdout
      * would corrupt the returned data.
      *
-     * The optional input string is passed directly to the Git process stdin.
+     * The optional input string or stream is passed directly to the Git process stdin.
      * It may contain arbitrary binary protocol data.
      *
      * Observability intentionally records only the approved logical operation
@@ -56,7 +56,7 @@ class GitCommandRunner
         string $operation,
         array $arguments,
         ?string $workingDirectory = null,
-        ?string $input = null,
+        mixed $input = null,
     ): string {
         $this->validateArguments(
             $arguments,
