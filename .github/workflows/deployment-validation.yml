@@ -108,6 +108,10 @@ jobs:
             bash -n "$script"
           done
 
+      - name: Test backup coordination guards
+        shell: bash
+        run: bash deployment/tests/backup-test.sh
+
       - name: Install production backend dependencies
         working-directory: backend
         run: >-

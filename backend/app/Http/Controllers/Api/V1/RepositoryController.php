@@ -59,6 +59,7 @@ class RepositoryController extends Controller
         );
 
         $repository = null;
+        $storageInitialized = false;
 
         Log::info(
             'repository_create_started',
@@ -100,13 +101,15 @@ class RepositoryController extends Controller
                 $repository,
             );
 
+            $storageInitialized = true;
+
             DB::commit();
         } catch (Throwable $exception) {
             if (DB::transactionLevel() > 0) {
                 DB::rollBack();
             }
 
-            if ($repository instanceof Repository) {
+            if ($repository instanceof Repository && $storageInitialized) {
                 Log::warning(
                     'repository_creation_compensation_started',
                     [

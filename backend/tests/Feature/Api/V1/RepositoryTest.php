@@ -323,6 +323,31 @@ class RepositoryTest extends TestCase
         }
     }
 
+    public function test_failed_creation_preserves_pre_existing_repository_storage(): void
+    {
+        $user = User::factory()->create();
+        $existing = Repository::factory()->create(['owner_id' => $user->id]);
+        $orphanPath = $this->temporaryStorageRoot
+            .DIRECTORY_SEPARATOR.'repositories'
+            .DIRECTORY_SEPARATOR.($existing->id + 1).'.git';
+
+        File::ensureDirectoryExists($orphanPath);
+        $marker = $orphanPath.DIRECTORY_SEPARATOR.'preserved-data.txt';
+        File::put($marker, 'pre-existing repository data');
+
+        $this->actingAs($user, 'web')
+            ->postJson(route('api.v1.repositories.store'), [
+                'name' => 'storage-collision',
+                'visibility' => 'private',
+            ])
+            ->assertInternalServerError();
+
+        $this->assertDatabaseMissing('repositories', ['name' => 'storage-collision']);
+        $this->assertFileExists($marker);
+        $this->assertSame('pre-existing repository data', File::get($marker));
+        $this->assertDatabaseHas('repositories', ['id' => $existing->id]);
+    }
+
     public function test_repository_name_is_normalized_to_lowercase(): void
     {
         $user = User::factory()->create();
