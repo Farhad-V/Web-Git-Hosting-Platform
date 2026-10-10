@@ -2,6 +2,10 @@
 
 This document describes the current implementation of repository navigation and collaboration. Earlier v1.0.0 milestone documents and v1.0.1 release notes describe their historical scope; their deferred-feature statements do not describe the features added here.
 
+## File browser
+
+The Code tab includes a collapsible left file sidebar with branch selection, folders, and the selected file highlighted. Folder contents load only when expanded and share the directory browser cache. The sidebar remains available while viewing text files or PDFs. Selecting a nested file updates its breadcrumbs and return directory. Branch switching clears the previous file and expanded folders. Folder failures include a retry control, and submodules are identified without being opened as regular files. On narrow screens the sidebar stacks above the content and can be hidden. Both themes, keyboard focus, and reduced motion are supported.
+
 ## Branches
 
 The Branches tab lists Git-native branches, their latest commits, a search field, and the default branch. Repository owners can create a branch from an existing branch and change the default branch. View code opens the selected branch in the repository browser. New branches preserve their exact Git names, including slash-separated names. Creation uses compare-and-swap ref updates and refuses to replace an existing branch. Git pushes continue to work normally. Branch deletion and protection rules are not included in this version.

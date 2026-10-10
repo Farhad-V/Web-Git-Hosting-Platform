@@ -1,3 +1,4 @@
+import { RepositoryFileSidebar } from './RepositoryFileSidebar'
 import { PdfViewer } from './PdfViewer'
 import { useState } from 'react'
 import {
@@ -16,6 +17,7 @@ import {
   Home,
   LoaderCircle,
   RefreshCw,
+  PanelLeft,
 } from 'lucide-react'
 import { getApiErrorMessage } from '../../lib/api-errors'
 import {
@@ -131,6 +133,27 @@ export function RepositoryBrowser({
   ] = useState<string | null>(
     null,
   )
+
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set())
+
+  function revealPath(path: string): void {
+    setExpandedPaths(previous => {
+      const next = new Set(previous)
+      const parts = path.split('/')
+      for (let i = 1; i <= parts.length; i++) next.add(parts.slice(0, i).join('/'))
+      return next
+    })
+  }
+
+  function toggleDirectory(path: string): void {
+    setExpandedPaths(previous => {
+      const next = new Set(previous)
+      if (next.has(path)) next.delete(path)
+      else next.add(path)
+      return next
+    })
+  }
 
   const branchesQuery =
     useQuery({
@@ -288,6 +311,7 @@ export function RepositoryBrowser({
       nextBranch,
     )
 
+    setExpandedPaths(new Set())
     setCurrentPath('')
     setSelectedFile(null)
     setSelectedCommit(null)
@@ -296,6 +320,7 @@ export function RepositoryBrowser({
   function openDirectory(
     path: string,
   ): void {
+    revealPath(path)
     setCurrentPath(
       path,
     )
@@ -306,6 +331,9 @@ export function RepositoryBrowser({
   function openFile(
     path: string,
   ): void {
+    const parent = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : ''
+    setCurrentPath(parent)
+    revealPath(parent)
     setSelectedFile(
       path,
     )
@@ -449,57 +477,15 @@ export function RepositoryBrowser({
         </button>
       </header>
 
-      <div className="grid lg:grid-cols-[minmax(0,1fr)_21rem]">
+      <div className="flex items-center gap-3 border-b border-[var(--border)] px-4 py-2">
+        <button type="button" aria-expanded={sidebarOpen} aria-controls="repository-file-sidebar" className="inline-flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-[var(--muted)] hover:bg-[var(--subtle)] focus-visible:outline-2 focus-visible:outline-[var(--accent)]" onClick={() => setSidebarOpen(open => !open)}><PanelLeft aria-hidden="true" className="size-4" />{sidebarOpen ? 'Hide files' : 'Show files'}</button>
+        <span className="truncate text-xs text-[var(--muted)]" title={selectedBranch}>{selectedBranch}</span>
+      </div>
+      <div className={sidebarOpen ? 'grid lg:grid-cols-[16rem_minmax(0,1fr)]' : 'grid min-w-0'}>
+        {sidebarOpen && <RepositoryFileSidebar repositoryId={repository.id} branch={selectedBranch} branches={branchesQuery.data.data} selectedFile={selectedFile} currentPath={currentPath} expandedPaths={expandedPaths} onToggleDirectory={toggleDirectory} onOpenFile={openFile} onOpenDirectory={openDirectory} onBranchChange={handleBranchChange} />}
+        <div className={selectedFile === null ? 'grid min-w-0 xl:grid-cols-[minmax(0,1fr)_16rem]' : 'grid min-w-0'}>
         <div className="min-w-0 border-b border-[var(--border)] lg:border-b-0 lg:border-r">
           <div className="flex flex-col gap-3 border-b border-[var(--border)] p-4 sm:flex-row sm:items-center">
-            <label
-              className="sr-only"
-              htmlFor="repository-browser-branch"
-            >
-              Repository branch
-            </label>
-
-            <div className="relative shrink-0">
-              <GitBranch
-                aria-hidden="true"
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
-              />
-
-              <select
-                className="h-10 min-w-44 appearance-none rounded-lg border border-[var(--border)] bg-[var(--inset)] pl-9 pr-8 text-sm font-medium text-[var(--text)] outline-none transition focus:border-blue-500/60"
-                id="repository-browser-branch"
-                onChange={(
-                  event,
-                ) =>
-                  handleBranchChange(
-                    event.target.value,
-                  )
-                }
-                value={
-                  selectedBranch
-                }
-              >
-                {branchesQuery.data.data.map(
-                  (
-                    repositoryBranch,
-                  ) => (
-                    <option
-                      key={
-                        repositoryBranch.name
-                      }
-                      value={
-                        repositoryBranch.name
-                      }
-                    >
-                      {
-                        repositoryBranch.name
-                      }
-                    </option>
-                  ),
-                )}
-              </select>
-            </div>
-
             <nav
               aria-label="Repository path"
               className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto text-sm"
@@ -649,6 +635,7 @@ export function RepositoryBrowser({
             />
           )}
         </aside>
+        </div>
       </div>
     </section>
   )
