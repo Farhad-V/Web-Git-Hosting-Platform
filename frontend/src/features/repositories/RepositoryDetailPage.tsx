@@ -300,7 +300,7 @@ export function RepositoryDetailPage() {
           </div>
         </section>
 
-        <RepositoryWorkspace repository={repository} isOwner={isOwner} onUpdated={handleRepositoryUpdated}>
+        <RepositoryWorkspace repository={repository} isOwner={isOwner} canContribute={isAuthenticated} onUpdated={handleRepositoryUpdated}>
         <div className="grid gap-6 pb-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
           <section className="rounded-xl border border-[var(--border)] glass-panel">
             <header className="flex items-center gap-3 border-b border-[var(--border)] px-6 py-5">

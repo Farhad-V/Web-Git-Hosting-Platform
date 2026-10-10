@@ -174,3 +174,7 @@ GitForge uses server-side authorization, private repository concealment, CSRF pr
 ## License
 
 The backend Composer package currently declares MIT. No repository-level `LICENSE` file is claimed until the project owner intentionally confirms the final public licensing terms.
+
+## Repository collaboration
+
+Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](docs/features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.

@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { lazy, Suspense, useState, type ReactNode } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router-dom'
 import {
@@ -9,6 +9,8 @@ import {
   ArrowLeft,
   RefreshCw,
   GitBranch,
+  GitPullRequest,
+  Play,
 } from 'lucide-react'
 import { apiClient } from '../../lib/api'
 import { getApiErrorMessage } from '../../lib/api-errors'
@@ -21,6 +23,21 @@ import {
 import type { Repository } from '../../types/repository'
 import { RepositoryBrowser } from './RepositoryBrowser'
 import { RepositorySettingsForm } from './RepositorySettingsForm'
+const RepositoryBranches = lazy(() =>
+  import('./RepositoryCollaboration').then((module) => ({
+    default: module.RepositoryBranches,
+  })),
+)
+const RepositoryPullRequests = lazy(() =>
+  import('./RepositoryCollaboration').then((module) => ({
+    default: module.RepositoryPullRequests,
+  })),
+)
+const RepositoryActions = lazy(() =>
+  import('./RepositoryCollaboration').then((module) => ({
+    default: module.RepositoryActions,
+  })),
+)
 
 type RepositoryTag = {
   name: string
@@ -40,9 +57,11 @@ export function RepositoryWorkspace({
   isOwner,
   onUpdated,
   children,
+  canContribute = isOwner,
 }: {
   repository: Repository
   isOwner: boolean
+  canContribute?: boolean
   children?: ReactNode
   onUpdated: (repository: Repository) => void
 }) {
@@ -52,12 +71,18 @@ export function RepositoryWorkspace({
     'code',
     'commits',
     'tags',
+    'branches',
+    'pulls',
+    'actions',
     ...(isOwner ? ['settings'] : []),
   ].includes(selected)
     ? selected
     : 'code'
   const tabs = [
     { id: 'code', name: 'Code', icon: Code2 },
+    { id: 'branches', name: 'Branches', icon: GitBranch },
+    { id: 'pulls', name: 'Pull requests', icon: GitPullRequest },
+    { id: 'actions', name: 'Actions', icon: Play },
     { id: 'commits', name: 'Commits', icon: GitCommitHorizontal },
     { id: 'tags', name: 'Tags', icon: Tag },
     ...(isOwner ? [{ id: 'settings', name: 'Settings', icon: Settings }] : []),
@@ -87,10 +112,14 @@ export function RepositoryWorkspace({
           </button>
         ))}
       </nav>
-      {children}
+      {(tab === 'code' || tab === 'settings') && children}
       {tab === 'code' && (
         <>
-          <RepositoryBrowser repository={repository} />
+          <RepositoryBrowser
+            key={params.get('branch') ?? ''}
+            repository={repository}
+            initialBranch={params.get('branch') ?? ''}
+          />
           {!isOwner && (
             <section className="mt-6 rounded-xl border border-[var(--border)] glass-panel p-6">
               <h2 className="font-semibold">Read-only web access</h2>
@@ -108,6 +137,37 @@ export function RepositoryWorkspace({
       {tab === 'tags' && (
         <RepositoryTags key={repository.id} repository={repository} />
       )}
+      <Suspense
+        fallback={
+          <p role="status" className="glass-panel rounded-xl p-6">
+            Loading repository tools…
+          </p>
+        }
+      >
+        {tab === 'branches' && (
+          <RepositoryBranches
+            repository={repository}
+            isOwner={isOwner}
+            onBrowse={(branch) =>
+              setParams((previous) => {
+                const next = new URLSearchParams(previous)
+                next.set('tab', 'code')
+                next.set('branch', branch)
+                return next
+              })
+            }
+          />
+        )}
+        {tab === 'pulls' && (
+          <RepositoryPullRequests
+            repository={repository}
+            canContribute={canContribute}
+          />
+        )}
+        {tab === 'actions' && (
+          <RepositoryActions repository={repository} isOwner={isOwner} />
+        )}
+      </Suspense>
       {tab === 'settings' && isOwner && (
         <RepositorySettingsForm repository={repository} onUpdated={onUpdated} />
       )}

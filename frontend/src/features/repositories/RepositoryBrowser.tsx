@@ -33,6 +33,7 @@ import type {
 import { repositoryQueryKeys } from './repository-query-keys'
 
 interface RepositoryBrowserProps {
+  initialBranch?: string
   repository: Repository
 }
 
@@ -102,6 +103,7 @@ function shortHash(
 
 export function RepositoryBrowser({
   repository,
+  initialBranch = '',
 }: RepositoryBrowserProps) {
   const queryClient =
     useQueryClient()
@@ -109,7 +111,7 @@ export function RepositoryBrowser({
   const [
     branch,
     setBranch,
-  ] = useState('')
+  ] = useState(initialBranch)
 
   const [
     currentPath,

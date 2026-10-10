@@ -135,3 +135,7 @@ The repository browser displays PDF files through a dedicated, policy-controlled
 Owners may rename a repository or change its visibility through PATCH /api/v1/repositories/{repository}. Either name or visibility is required. Names follow the same normalization, path safety, and namespace uniqueness rules as creation. Repository storage remains identified by its numeric ID, preserving Git objects and refs after a rename. Existing clone URLs must be updated; old names do not redirect.
 
 The web repository page provides Code, Commits, Tags, and owner-only Settings navigation. GET /api/v1/repositories/{repository}/tags lists annotated and lightweight tags in descending Git version order, including their target commits. Commit and tag lists accept page (1–1000) and limit (1–100) and return has_more. Private repositories retain owner-only reading; public repositories support anonymous reading. Tags are created and pushed using the Git CLI.
+
+## Repository collaboration
+
+Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](../docs/features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.
