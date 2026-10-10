@@ -218,6 +218,34 @@ class RepositoryBrowserController extends Controller
     /**
      * Resolve an explicitly requested branch or Git-native default branch.
      */
+    public function pdf(BrowseRepositoryRequest $request, Repository $repository): Response
+    {
+        Gate::authorize('view', $repository);
+        $validated = $request->validated();
+        try {
+            $branch = $this->resolveBranch($repository, $validated['branch'] ?? null);
+            if ($branch === null) {
+                return $this->emptyRepositoryResponse();
+            }
+            $file = $validated['path'] ?? '';
+            $temporary = $this->browser->pdf($repository, $branch, $file);
+            try {
+                return response()->file($temporary, [
+                    'Content-Type' => 'application/pdf',
+                    'Cache-Control' => 'private, no-store',
+                    'X-Content-Type-Options' => 'nosniff',
+                ])->setContentDisposition('inline', basename($file), 'document.pdf')->deleteFileAfterSend(true);
+            } catch (\Throwable $exception) {
+                unlink($temporary);
+                throw $exception;
+            }
+        } catch (RepositoryBrowserException $exception) {
+            return $this->browserErrorResponse($exception);
+        } catch (RepositoryStorageException $exception) {
+            return $this->storageErrorResponse($exception);
+        }
+    }
+
     private function resolveBranch(
         Repository $repository,
         ?string $requestedBranch,

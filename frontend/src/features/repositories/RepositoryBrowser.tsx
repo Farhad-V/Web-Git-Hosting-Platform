@@ -1,3 +1,4 @@
+import { PdfViewer } from './PdfViewer'
 import { useState } from 'react'
 import {
   useQuery,
@@ -237,6 +238,8 @@ export function RepositoryBrowser({
       retry: false,
     })
 
+  const isPdf = selectedFile?.toLowerCase().endsWith('.pdf') ?? false
+
   const blobQuery =
     useQuery({
       queryKey:
@@ -263,7 +266,8 @@ export function RepositoryBrowser({
       enabled:
         selectedBranch !== ''
         && selectedFile !==
-          null,
+          null
+        && !isPdf,
 
       retry: false,
     })
@@ -552,7 +556,7 @@ export function RepositoryBrowser({
 
           {selectedFile !==
           null ? (
-            <FileViewer
+            isPdf ? <PdfViewer key={`${repository.id}:${selectedBranch}:${selectedFile}`} repositoryId={repository.id} branch={selectedBranch} path={selectedFile} onBack={returnToDirectory} /> : <FileViewer
               error={
                 blobQuery.error
               }

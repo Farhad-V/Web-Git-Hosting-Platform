@@ -123,3 +123,9 @@ The production deployment uses Nginx, PHP-FPM 8.4, PostgreSQL 18, HTTPS, and per
 ## Documentation
 
 The complete software-engineering lifecycle is documented in `../docs/`, including requirements, analysis, design, implementation traceability, testing, and milestone state.
+
+## PDF repository previews
+
+The repository browser displays PDF files through a dedicated, policy-controlled `GET /api/v1/repositories/{repository}/pdf?branch=main&path=document.pdf` endpoint. Public repositories allow anonymous reading; private repositories allow only their owner. Git paths are validated and the extracted file must have a PDF signature. Output goes directly to a temporary file, then is served inline with private/no-store caching and removed after sending.
+
+`GIT_BROWSER_MAX_PDF_BYTES` controls the PDF size limit (100 MiB by default). The separate 1 MiB text preview limit is unchanged. Extraction needs sufficient temporary disk space. Embedded previews use the browser PDF viewer and include a download option for browsers without inline PDF support.

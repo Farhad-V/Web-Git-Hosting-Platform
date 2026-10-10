@@ -81,6 +81,7 @@ Route::middleware('web')
                     '/repositories/{repository}/blob',
                     [RepositoryBrowserController::class, 'blob'],
                 )->name('repositories.blob');
+                Route::get('/repositories/{repository}/pdf', [RepositoryBrowserController::class, 'pdf'])->name('repositories.pdf');
             });
 
         Route::middleware([

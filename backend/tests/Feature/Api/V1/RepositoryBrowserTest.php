@@ -941,6 +941,40 @@ class RepositoryBrowserTest extends TestCase
     /**
      * Create a managed repository containing one commit.
      */
+    public function test_owner_can_preview_pdf_larger_than_text_limit(): void
+    {
+        $owner = User::factory()->create();
+        $repository = $this->createRepositoryWithHistory($owner);
+        $content = "%PDF-1.7\n".str_repeat('x', 1048577);
+        File::put($this->worktreePath.DIRECTORY_SEPARATOR.'manual.pdf', $content);
+        $runner = app(GitCommandRunner::class);
+        foreach ([['add', 'manual.pdf'], ['commit', '-m', 'Add PDF'], ['push', 'origin', 'main']] as $arguments) {
+            $runner->run(operation: 'seed-pdf-preview', arguments: $arguments, workingDirectory: $this->worktreePath);
+        }
+        $url = route('api.v1.repositories.pdf', ['repository' => $repository, 'branch' => 'main', 'path' => 'manual.pdf']);
+        $response = $this->actingAs($owner, 'web')->get($url);
+        $response->assertOk()->assertHeader('Content-Type', 'application/pdf')->assertHeader('X-Content-Type-Options', 'nosniff');
+        $temporary = $response->baseResponse->getFile()->getPathname();
+        try {
+            $this->assertSame(hash('sha256', $content), hash_file('sha256', $temporary));
+        } finally {
+            unlink($temporary);
+        }
+        config(['git.browser_max_pdf_bytes' => 10]);
+        $this->getJson($url)->assertStatus(413);
+        $this->getJson(route('api.v1.repositories.pdf', ['repository' => $repository, 'path' => '../manual.pdf']))->assertStatus(422);
+        config(['git.browser_max_pdf_bytes' => 104857600]);
+        $this->getJson(route('api.v1.repositories.pdf', ['repository' => $repository, 'path' => 'README.md']))->assertStatus(415);
+    }
+
+    public function test_pdf_endpoint_denies_anonymous_and_non_owner_private_access(): void
+    {
+        $repository = Repository::factory()->privateRepository()->create();
+        $url = route('api.v1.repositories.pdf', ['repository' => $repository, 'path' => 'manual.pdf']);
+        $this->getJson($url)->assertNotFound();
+        $this->actingAs(User::factory()->create(), 'web')->getJson($url)->assertNotFound();
+    }
+
     private function createRepositoryWithHistory(
         User $owner,
         bool $public = false,

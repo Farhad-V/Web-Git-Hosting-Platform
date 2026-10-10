@@ -784,6 +784,132 @@ class RepositoryBrowserService
     /**
      * Return the managed repository path after verifying storage.
      */
+    /** Extract a PDF to a temporary file without retaining its contents in memory. */
+    public function pdf(Repository $repository, string $branch, string $file): string
+    {
+        $path = $this->repositoryPath(
+            $repository,
+        );
+
+        $commit = $this->resolveBranchCommit(
+            repository: $repository,
+            path: $path,
+            branch: $branch,
+        );
+
+        $file = $this->normalizeRepositoryPath(
+            repository: $repository,
+            operation: 'read-blob',
+            path: $file,
+            allowEmpty: false,
+        );
+
+        $object = $commit.':'.$file;
+
+        try {
+            $type = $this->git->run(
+                operation: 'resolve-repository-object-type',
+                arguments: [
+                    '--git-dir='.$path,
+                    'cat-file',
+                    '-t',
+                    $object,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'path_not_found',
+                previous: $exception,
+            );
+        }
+
+        if ($type !== 'blob') {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'path_is_not_file',
+            );
+        }
+
+        try {
+            $sizeOutput = $this->git->run(
+                operation: 'resolve-repository-blob-size',
+                arguments: [
+                    '--git-dir='.$path,
+                    'cat-file',
+                    '-s',
+                    $object,
+                ],
+            );
+        } catch (GitCommandException $exception) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'git_command_failed',
+                previous: $exception,
+            );
+        }
+
+        if (
+            ! preg_match(
+                '/\A\d+\z/',
+                $sizeOutput,
+            )
+        ) {
+            throw $this->failure(
+                repository: $repository,
+                operation: 'read-blob',
+                reason: 'unexpected_git_output',
+            );
+        }
+
+        $size = (int) $sizeOutput;
+
+        $maximumSize = (int) config('git.browser_max_pdf_bytes', 104857600);
+        if ($maximumSize < 1 || $size > $maximumSize) {
+            throw $this->failure(repository: $repository, operation: 'read-pdf', reason: 'blob_too_large');
+        }
+        $temporary = tempnam(sys_get_temp_dir(), 'gitforge-pdf-');
+        if ($temporary === false) {
+            throw $this->failure(repository: $repository, operation: 'read-pdf', reason: 'git_command_failed');
+        }
+        $stream = null;
+        try {
+            $stream = fopen($temporary, 'w+b');
+            if ($stream === false) {
+                throw new \RuntimeException('Unable to prepare PDF output.');
+            }
+            $this->git->runRaw(
+                operation: 'read-repository-pdf',
+                arguments: ['--git-dir='.$path, 'cat-file', 'blob', $object],
+                outputStream: $stream,
+            );
+            fflush($stream);
+            rewind($stream);
+            if (fstat($stream)['size'] !== $size || fread($stream, 5) !== '%PDF-') {
+                throw $this->failure(repository: $repository, operation: 'read-pdf', reason: 'binary_blob_not_supported');
+            }
+
+            return $temporary;
+        } catch (Throwable $exception) {
+            if (is_resource($stream)) {
+                fclose($stream);
+                $stream = null;
+            }
+            unlink($temporary);
+            if ($exception instanceof RepositoryBrowserException) {
+                throw $exception;
+            }
+            throw $this->failure(repository: $repository, operation: 'read-pdf', reason: 'git_command_failed', previous: $exception);
+        } finally {
+            if (is_resource($stream)) {
+                fclose($stream);
+            }
+        }
+    }
+
     private function repositoryPath(
         Repository $repository,
     ): string {
