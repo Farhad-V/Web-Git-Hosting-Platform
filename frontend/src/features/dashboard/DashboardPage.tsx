@@ -271,7 +271,7 @@ export function DashboardPage() {
           </div>
         )}
 
-        <section className="flex flex-col gap-6 border-b border-[var(--border)] pb-8 sm:flex-row sm:items-center sm:justify-between">
+        <section className="workspace-welcome flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm text-[var(--accent)]">
               Dashboard

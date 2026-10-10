@@ -16,7 +16,7 @@ export function AuthLayout({
   footer,
 }: AuthLayoutProps) {
   return (
-    <main className="relative grid min-h-screen place-items-center overflow-hidden px-5 py-12">
+    <main className="auth-scene relative grid min-h-screen place-items-center overflow-hidden px-5 py-12">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(circle_at_center,black,transparent_80%)]"

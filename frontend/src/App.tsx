@@ -1,9 +1,8 @@
+import { HomeHero } from './components/HomeHero'
 import { ThemeToggle } from './components/ThemeToggle'
 import {
   ArrowRight,
-  BookOpen,
   Box,
-  Check,
   Code2,
   GitBranch,
   GitFork,
@@ -25,8 +24,8 @@ import { RepositoryDetailPage } from './features/repositories/RepositoryDetailPa
 
 function HomePage() {
   return (
-    <div className="min-h-screen text-[var(--text)]">
-      <header className="border-b border-[var(--border)] bg-[var(--glass-header)] backdrop-blur-xl">
+    <div className="landing-page min-h-screen text-[var(--text)]">
+      <header className="landing-header border-b border-[var(--border)] bg-[var(--glass-header)] backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-5 lg:px-8">
           <Link
             className="flex shrink-0 items-center gap-2 font-semibold text-[var(--text)]"
@@ -86,169 +85,7 @@ function HomePage() {
       </header>
 
       <main>
-        <section className="relative overflow-hidden border-b border-[var(--border)]">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:linear-gradient(to_bottom,black,transparent)]"
-          />
-
-          <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 py-24 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-32">
-            <div>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-3 py-1 text-sm text-[var(--accent)]">
-                <ShieldCheck
-                  aria-hidden="true"
-                  className="size-4"
-                />
-                Self-hosted and under your control
-              </div>
-
-              <h1 className="max-w-3xl text-5xl font-bold tracking-tight text-[var(--text)] sm:text-6xl lg:text-7xl">
-                Your code.
-
-                <span className="block bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                  Your infrastructure.
-                </span>
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-[var(--muted)]">
-                A focused self-hosted Git platform for developers who want
-                secure repositories, familiar Git workflows, and control over
-                their source-code infrastructure.
-              </p>
-
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white shadow-xl shadow-blue-950/40 transition hover:bg-blue-500"
-                  to="/register"
-                >
-                  Create your account
-
-                  <ArrowRight
-                    aria-hidden="true"
-                    className="size-4"
-                  />
-                </Link>
-
-                <a
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--subtle)] px-5 py-3 font-semibold text-[var(--text)] transition hover:border-[var(--border-strong)] hover:bg-[var(--hover)]"
-                  href="#developers"
-                >
-                  <BookOpen
-                    aria-hidden="true"
-                    className="size-4"
-                  />
-                  Read documentation
-                </a>
-              </div>
-
-              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-[var(--muted)]">
-                {[
-                  'Private repositories',
-                  'Token authentication',
-                  'Git Smart HTTP',
-                ].map((item) => (
-                  <li
-                    className="flex items-center gap-2"
-                    key={item}
-                  >
-                    <Check
-                      aria-hidden="true"
-                      className="size-4 text-[var(--emerald)]"
-                    />
-
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="relative">
-              <div
-                aria-hidden="true"
-                className="absolute -inset-8 rounded-full bg-blue-600/15 blur-3xl"
-              />
-
-              <div className="relative overflow-hidden rounded-2xl border border-[var(--border)] glass-panel shadow-2xl shadow-black/40">
-                <div className="flex h-12 items-center gap-2 border-b border-[var(--border)] px-4">
-                  <span className="size-3 rounded-full bg-red-400/80" />
-                  <span className="size-3 rounded-full bg-amber-400/80" />
-                  <span className="size-3 rounded-full bg-emerald-400/80" />
-
-                  <span className="ml-3 text-xs text-[var(--muted)]">
-                    git-hosting-platform
-                  </span>
-                </div>
-
-                <div className="p-5 font-mono text-sm leading-7">
-                  <p className="text-[var(--muted)]">
-                    $ git clone \
-                  </p>
-
-                  <p className="pl-4 text-[var(--accent)]">
-                    http://gitforge.local/farhad/platform.git
-                  </p>
-
-                  <p className="mt-4 text-[var(--muted)]">
-                    Cloning into{' '}
-                    <span className="text-[var(--text)]">
-                      'platform'
-                    </span>
-                    ...
-                  </p>
-
-                  <p className="text-[var(--muted)]">
-                    remote: Enumerating objects:{' '}
-                    <span className="text-[var(--text)]">128</span>, done.
-                  </p>
-
-                  <p className="text-[var(--muted)]">
-                    Receiving objects:{' '}
-                    <span className="text-[var(--emerald)]">
-                      100% (128/128)
-                    </span>
-                  </p>
-
-                  <p className="mt-4 text-[var(--muted)]">
-                    $ git status
-                  </p>
-
-                  <p className="text-[var(--emerald)]">
-                    On branch main
-                  </p>
-
-                  <p className="text-[var(--muted)]">
-                    Your branch is up to date with origin/main.
-                  </p>
-
-                  <p className="mt-4 animate-pulse text-[var(--accent)]">
-                    ▌
-                  </p>
-                </div>
-              </div>
-
-              <div className="absolute -bottom-6 -left-6 hidden rounded-xl border border-[var(--border)] glass-panel p-4 shadow-xl md:block">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-10 place-items-center rounded-lg bg-emerald-500/10 text-[var(--emerald)]">
-                    <ShieldCheck
-                      aria-hidden="true"
-                      className="size-5"
-                    />
-                  </span>
-
-                  <div>
-                    <p className="text-sm font-semibold text-[var(--text)]">
-                      Secure transport
-                    </p>
-
-                    <p className="text-xs text-[var(--muted)]">
-                      Authentication verified
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HomeHero />
 
         <section
           className="mx-auto max-w-7xl px-5 py-24 lg:px-8"

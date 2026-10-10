@@ -67,3 +67,105 @@ button[class*="bg-blue-600"]:hover, a[class*="bg-blue-600"]:hover { filter: brig
 }
 span[class*="bg-blue-600"] { color: #fff; }
 :root:not([data-theme="dark"]) h1 span[class*="bg-clip-text"] { background-image: linear-gradient(110deg, #2458cc, #087c8f); }
+
+/* Atmospheric glass composition inspired by the supplied visual reference. */
+:root { --preview-glass: #ffffffa6; --hero-ink: #202449; --hero-muted: #50577b; --hero-button: #262044; --preview-line: #6570a329; }
+:root[data-theme="dark"] { --preview-glass: #262940b8; --hero-ink: #f5f3ff; --hero-muted: #c3c7e1; --hero-button: #e5dcff; --preview-line: #dad4ff29; }
+body { background: radial-gradient(ellipse at 0% 5%, #8a90dc33, transparent 45%), radial-gradient(ellipse at 100% 40%, #769fde22, transparent 40%), var(--page); }
+.glass-panel { background: linear-gradient(135deg, #b4a6f50d, #84b4e80a), var(--glass); box-shadow: 0 18px 50px var(--shadow), inset 0 1px 0 #ffffff30; }
+.landing-header { position: relative; z-index: 2; background: var(--glass-header); box-shadow: none; }
+.landing-header > div { height: 80px; }
+.forge-hero { position: relative; isolation: isolate; overflow: hidden; padding: 76px 24px 0; color: var(--hero-ink); }
+.hero-atmosphere { position: absolute; inset: 0; z-index: -2; overflow: hidden; background: linear-gradient(160deg, #889edd4d, #bcc2ed40 45%, #dab5ed4d 85%, transparent); }
+.hero-atmosphere i { position: absolute; border-radius: 50%; filter: blur(55px); }
+.hero-atmosphere i:nth-child(1) { width: 80%; height: 450px; left: -15%; top: 15%; background: #8daee788; transform: rotate(-15deg); }
+.hero-atmosphere i:nth-child(2) { width: 65%; height: 300px; right: -15%; top: 40%; background: #bf97df77; }
+.hero-atmosphere i:nth-child(3) { width: 65%; height: 200px; left: 15%; bottom: 12%; background: #f4d9e788; }
+[data-theme="dark"] .hero-atmosphere { background: linear-gradient(150deg, #293b6d88, #35335c99 55%, #51294c55); }
+[data-theme="dark"] .hero-atmosphere i { opacity: .25; }
+.hero-copy { text-align: center; max-width: 860px; margin: 0 auto; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--hero-muted); }
+.hero-eyebrow > span { width: 7px; height: 7px; border-radius: 100%; background: #6d63bf; box-shadow: 0 0 0 4px #9e8be522; }
+.hero-copy h1 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.9rem); font-weight: 600; letter-spacing: -.065em; line-height: 1.08; }
+.hero-copy h1 > span { color: var(--hero-ink); opacity: .78; }
+.hero-description { max-width: 580px; margin: 22px auto 0; font-size: 17px; line-height: 1.8; color: var(--hero-muted); }
+.hero-actions { display: flex; gap: 22px; justify-content: center; align-items: center; margin-top: 28px; }
+.hero-primary { display: inline-flex; align-items: center; gap: 24px; padding: 8px 8px 8px 22px; min-height: 58px; border-radius: 16px; color: #fff; background: #25203f; border: 1px solid #b2a1ef70; box-shadow: 0 8px 24px #32234d22, inset 0 1px 0 #ffffff20; font-size: 14px; font-weight: 600; }
+.hero-primary > span { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 10px; background: radial-gradient(circle at 15% 100%, #d480c9, transparent 70%), linear-gradient(135deg, #6d59cd, #8b9ff2); }
+.hero-primary:hover > span { filter: brightness(1.15); }
+.hero-secondary { display: inline-flex; align-items: center; gap: 8px; color: var(--hero-muted); font-size: 14px; }
+.hero-secondary:hover { color: var(--hero-ink); }
+.hero-assurance { display: flex; justify-content: center; align-items: center; gap: 7px; margin-top: 18px; font-size: 12px; color: var(--hero-muted); }
+.product-stage { position: relative; max-width: 1080px; margin: 52px auto 0; padding: 28px 110px 84px; }
+.stage-orbit { position: absolute; inset: 0 5% 5%; border: 1px solid #ffffff40; border-radius: 50%; transform: rotate(-12deg); z-index: -1; }
+.preview-repository, .preview-terminal, .preview-commit, .preview-badge { background: var(--preview-glass); border: 1px solid #ffffff55; backdrop-filter: blur(28px) saturate(135%); -webkit-backdrop-filter: blur(28px) saturate(135%); box-shadow: 0 20px 70px #34365f20, inset 0 1px 0 #ffffff30; }
+.preview-repository { border-radius: 22px; overflow: hidden; transform: perspective(1400px) rotateY(-4deg) rotateX(2deg); }
+.preview-topbar { height: 52px; padding: 0 22px; display: flex; align-items: center; gap: 18px; border-bottom: 1px solid var(--preview-line); }
+.preview-brand { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; }
+.preview-caption { color: var(--hero-muted); font-size: 11px; }
+.window-dots { margin-left: auto; display: flex; gap: 5px; }
+.window-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--hero-muted); opacity: .4; }
+.preview-body { padding: 24px; }
+.preview-path { display: flex; align-items: center; gap: 9px; font-size: 16px; }
+.preview-path > span:first-of-type { opacity: .4; }
+.preview-private { margin-left: auto; border: 1px solid var(--preview-line); border-radius: 20px; padding: 3px 8px; font-size: 10px; display: flex; gap: 4px; align-items: center; }
+.preview-description { font-size: 12px; color: var(--hero-muted); margin: 7px 0 18px; }
+.preview-tabs { display: flex; gap: 24px; font-size: 11px; border-bottom: 1px solid var(--preview-line); }
+.preview-tabs > span { display: flex; gap: 7px; padding: 9px 0; align-items: center; }
+.preview-tabs > span:first-child { border-bottom: 2px solid #8e79cf; }
+.preview-branch { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; font-size: 10px; color: var(--hero-muted); }
+.preview-branch > span:first-child { display: flex; align-items: center; gap: 6px; border: 1px solid var(--preview-line); padding: 4px 9px; border-radius: 7px; }
+.preview-files { border: 1px solid var(--preview-line); border-radius: 10px; overflow: hidden; }
+.preview-files > div { display: flex; align-items: center; gap: 10px; padding: 10px 12px; font-size: 11px; }
+.preview-files > div + div { border-top: 1px solid var(--preview-line); }
+.preview-files svg { color: #9287c2; }
+.preview-files strong { font-weight: 500; }
+.preview-files div > span { margin-left: auto; color: var(--hero-muted); }
+.preview-readme { margin-top: 14px; padding: 15px; border: 1px solid var(--preview-line); border-radius: 10px; }
+.preview-readme > span { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--hero-muted); }
+.preview-readme h2 { font-size: 18px; letter-spacing: -.03em; margin: 12px 0 5px; font-weight: 600; }
+.preview-readme p { font-size: 11px; color: var(--hero-muted); }
+.preview-readme > div { display: flex; gap: 5px; margin-top: 12px; }
+.preview-readme i { width: 45px; height: 5px; background: #9989c94d; border-radius: 3px; }
+.preview-readme i:nth-child(2) { width: 70px; background: #7aa2b74d; }
+.preview-badge { position: absolute; right: 12px; top: 0; border-radius: 50px; padding: 13px 20px; display: flex; align-items: center; gap: 9px; font-size: 12px; z-index: 1; transform: rotate(3deg); }
+.preview-terminal { position: absolute; left: 0; bottom: 95px; width: 330px; border-radius: 17px; padding: 18px; transform: rotate(-4deg); }
+.preview-terminal p { display: flex; align-items: center; gap: 7px; font-size: 11px; margin-bottom: 14px; }
+.preview-terminal p > span { margin-left: auto; opacity: .5; font-size: 9px; }
+.preview-terminal code { font-size: 12px; }
+.preview-terminal code > span { color: #8c78c7; margin-right: 5px; }
+.preview-terminal > div { display: flex; align-items: center; gap: 5px; margin-top: 14px; font-size: 10px; color: var(--emerald); }
+.preview-commit { position: absolute; right: 8px; bottom: 30px; padding: 18px; border-radius: 17px; display: flex; align-items: center; gap: 12px; transform: rotate(2deg); }
+.commit-icon { display: grid; place-items: center; width: 39px; height: 39px; border-radius: 12px; background: #a395dc22; color: #9180c8; }
+.preview-commit strong { font-size: 12px; font-weight: 600; }
+.preview-commit p { font-size: 10px; margin-top: 4px; color: var(--hero-muted); }
+.preview-commit p > span { padding: 0 5px; }
+.commit-check { color: var(--emerald); margin-left: 12px; }
+.hero-foundation { display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; border-top: 1px solid var(--preview-line); max-width: 1120px; padding: 26px 0; margin: 0 auto; color: var(--hero-muted); font-size: 12px; }
+.hero-foundation > span { opacity: .8; }
+.hero-foundation p { display: flex; align-items: center; gap: 8px; }
+.workspace-welcome { border: 1px solid var(--border); border-radius: 24px; padding: 30px; background: radial-gradient(ellipse at right top, #a990db26, transparent 65%), var(--glass); box-shadow: inset 0 1px 0 #ffffff30; }
+.auth-scene { background: radial-gradient(ellipse at 20% 10%, #9da9ef38, transparent 55%), radial-gradient(ellipse at 80% 80%, #c894d838, transparent 55%); }
+.auth-scene section > div { border-radius: 24px; }
+@media (max-width: 767px) {
+  .forge-hero { padding: 48px 20px 0; }
+  .hero-copy h1 { font-size: clamp(2rem, 7vw, 3.5rem) !important; }
+  .hero-description { font-size: 14px; line-height: 1.8; }
+  .hero-eyebrow { font-size: 9px; letter-spacing: .08em; }
+  .hero-actions { flex-direction: column; gap: 16px; }
+  .product-stage { margin-top: 36px; padding: 30px 0 0; }
+  .preview-repository { transform: none; }
+  .preview-body { padding: 16px; }
+  .preview-caption { display: none; }
+  .preview-files div > span { display: none; }
+  .preview-terminal, .preview-commit { position: relative; width: auto; left: auto; right: auto; bottom: auto; margin: 12px 0; transform: none; }
+  .preview-badge { font-size: 10px; padding: 8px 12px; right: 8px; }
+  .preview-commit { margin-left: 20px; }
+  .hero-foundation { gap: 12px 22px; margin-top: 22px; padding: 22px 0; font-size: 10px; }
+  .hero-foundation > span { width: 100%; text-align: center; }
+  .workspace-welcome { padding: 22px; }
+  .landing-header > div { height: 68px; gap: 12px; }
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .preview-repository, .preview-terminal, .preview-commit, .preview-badge { background: var(--inset); }
+}
