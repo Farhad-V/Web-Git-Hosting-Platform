@@ -15,7 +15,7 @@ export function ThemeToggle() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme
     document.documentElement.style.colorScheme = theme
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#101426' : '#f4f6fc')
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0b1220' : '#eef3fb')
     try { localStorage.setItem('gitforge-theme', theme) } catch { /* Theme still works without storage. */ }
   }, [theme])
   return (

@@ -30,7 +30,7 @@ export function RepositoryFileSidebar(props: Props) {
     <nav
       aria-label="Repository files"
       id="repository-file-sidebar"
-      className="min-w-0 border-b border-[var(--border)] bg-[var(--subtle)] lg:border-b-0 lg:border-r"
+      className="repository-file-sidebar min-w-0 border-b border-[var(--border)] bg-[var(--subtle)] lg:border-b-0 lg:border-r"
     >
       <div className="border-b border-[var(--border)] p-4">
         <h3 className="mb-3 text-sm font-semibold text-[var(--text)]">Files</h3>

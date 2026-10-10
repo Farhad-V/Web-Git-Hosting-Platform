@@ -166,7 +166,7 @@ export function DashboardPage() {
 
   return (
     <div className="min-h-screen text-[var(--text)]">
-      <header className="sticky top-0 z-30 border-b border-[var(--border)] bg-[var(--glass-header)] backdrop-blur-xl">
+      <header className="app-header sticky top-0 z-30 border-b border-[var(--border)] bg-[var(--glass-header)] backdrop-blur-xl">
         <div className="mx-auto flex min-h-16 flex-wrap py-3 max-w-7xl items-center gap-3 px-5 lg:gap-5 lg:px-8">
           <Link
             className="flex shrink-0 items-center gap-2 font-semibold text-[var(--text)]"

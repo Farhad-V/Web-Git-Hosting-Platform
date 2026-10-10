@@ -185,7 +185,7 @@ export function RepositoryDetailPage() {
 
   return (
     <div className="min-h-screen text-[var(--text)]">
-      <header className="sticky top-0 z-30 border-b border-[var(--border)] bg-[var(--glass-header)] backdrop-blur-xl">
+      <header className="app-header sticky top-0 z-30 border-b border-[var(--border)] bg-[var(--glass-header)] backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5 lg:px-8">
           <Link
             aria-label="GitForge home"
@@ -232,7 +232,7 @@ export function RepositoryDetailPage() {
       </header>
 
       <main className="mx-auto max-w-7xl px-5 py-10 lg:px-8">
-        <section className="border-b border-[var(--border)] pb-8">
+        <section className="repository-heading border border-[var(--border)]">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-3">

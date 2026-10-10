@@ -37,7 +37,7 @@ export function RepositoryCard({
   repository,
 }: RepositoryCardProps) {
   return (
-    <article className="rounded-xl border border-[var(--border)] glass-panel p-5 transition hover:border-blue-400/30">
+    <article className="repository-card rounded-xl border border-[var(--border)] glass-panel p-5 transition hover:border-blue-400/30">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">

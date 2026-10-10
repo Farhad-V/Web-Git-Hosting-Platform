@@ -28,7 +28,7 @@ const repository: Repository = {
   created_at: '2026-01-01',
   updated_at: '2026-01-01',
 }
-function show(tab = 'code', isOwner = false) {
+function show(tab = 'code', isOwner = false, tools = false) {
   render(
     <QueryClientProvider
       client={
@@ -40,7 +40,15 @@ function show(tab = 'code', isOwner = false) {
           repository={repository}
           isOwner={isOwner}
           onUpdated={vi.fn()}
-        />
+        >
+          {tools && (
+            <input
+              aria-label="Clone URL"
+              readOnly
+              value="http://localhost/owner/project.git"
+            />
+          )}
+        </RepositoryWorkspace>
       </MemoryRouter>
     </QueryClientProvider>,
   )
@@ -148,4 +156,22 @@ it('paginates commit history and resets the page when changing branches', async 
       page: 1,
     }),
   )
+})
+
+it('keeps clone tools in a compact disclosure while the code browser remains available', () => {
+  show('code', false, true)
+  const summary = screen.getByText('Clone & repository details')
+  const disclosure = summary.closest('details')!
+  expect(disclosure).not.toHaveAttribute('open')
+  expect(
+    screen.getByRole('textbox', { name: 'Clone URL' }),
+  ).not.toBeVisible()
+  expect(screen.getByText('Code browser')).toBeInTheDocument()
+  fireEvent.click(summary)
+  expect(disclosure).toHaveAttribute('open')
+  expect(screen.getByRole('textbox', { name: 'Clone URL' })).toHaveValue(
+    'http://localhost/owner/project.git',
+  )
+  fireEvent.click(summary)
+  expect(disclosure).not.toHaveAttribute('open')
 })

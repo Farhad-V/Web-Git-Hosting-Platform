@@ -11,6 +11,8 @@ import {
   GitBranch,
   GitPullRequest,
   Play,
+  Terminal,
+  ChevronRight,
 } from 'lucide-react'
 import { apiClient } from '../../lib/api'
 import { getApiErrorMessage } from '../../lib/api-errors'
@@ -89,13 +91,11 @@ export function RepositoryWorkspace({
   ]
   return (
     <>
-      <nav
-        aria-label="Repository navigation"
-        className="mt-6 flex gap-1 overflow-x-auto border-b border-[var(--border)]"
-      >
+      <nav aria-label="Repository navigation" className="repository-tabs">
         {tabs.map(({ id, name, icon: Icon }) => (
           <button
             key={id}
+            data-section={id}
             type="button"
             aria-current={tab === id ? 'page' : undefined}
             className={`inline-flex min-h-12 shrink-0 items-center gap-2 border-b-2 px-4 text-sm font-medium transition ${tab === id ? 'border-[var(--accent)] text-[var(--accent)]' : 'border-transparent text-[var(--muted)] hover:bg-[var(--subtle)]'}`}
@@ -112,7 +112,21 @@ export function RepositoryWorkspace({
           </button>
         ))}
       </nav>
-      {(tab === 'code' || tab === 'settings') && children}
+      {tab === 'settings' && children}
+      {tab === 'code' && children && (
+        <details className="repository-tools">
+          <summary>
+            <Terminal size={18} aria-hidden="true" />
+            Clone &amp; repository details
+            <ChevronRight
+              size={18}
+              aria-hidden="true"
+              className="disclosure-arrow"
+            />
+          </summary>
+          <div className="repository-tools-content">{children}</div>
+        </details>
+      )}
       {tab === 'code' && (
         <>
           <RepositoryBrowser

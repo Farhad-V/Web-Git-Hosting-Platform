@@ -88,11 +88,11 @@ function Panel({
   children: ReactNode
 }) {
   return (
-    <section className="glass-panel overflow-hidden rounded-xl border border-[var(--border)]">
+    <section className="workflow-panel glass-panel overflow-hidden rounded-xl border border-[var(--border)]">
       <header className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--border)] p-5">
-        <div>
+        <div className="min-w-0 flex-1">
           <h2 className="font-semibold">{title}</h2>
-          <p className="mt-1 text-sm text-[var(--muted)]">{description}</p>
+          <p className="mt-1 break-words text-sm text-[var(--muted)]">{description}</p>
         </div>
         {tools}
       </header>
@@ -142,7 +142,7 @@ function Status({ value }: { value: string }) {
   return (
     <span
       className={
-        'inline-flex shrink-0 rounded-full px-2.5 py-1 text-xs font-medium ' +
+        'workflow-status inline-flex shrink-0 rounded-full px-2.5 py-1 text-xs font-medium ' +
         color
       }
     >
