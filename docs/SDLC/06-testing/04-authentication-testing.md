@@ -17,6 +17,12 @@
 
 
 ---
+## Document and diagram context
+
+This document preserves the historical V1.0.0 WP-04 execution record. Its recorded PASS results, counts, dates and approval apply to that historical test context, not automatically to the current candidate. Eight diagrams summarize the important workflows and security decisions; the individual case definitions and execution records remain authoritative. Adding diagrams does not rerun authentication tests or establish new product results.
+
+For fresh candidate verification, use the [current testing-plan supplement](01-testing-plan.md#50-current-candidate-testing-supplement), [authentication feature suite](../../../backend/tests/Feature/Api/V1/AuthenticationTest.php) and [CSRF security suite](../../../backend/tests/Feature/Security/CsrfSecurityTest.php). The dedicated CSRF tests override Laravel's automated-test bypass to verify missing-token rejection and valid-token acceptance at the middleware boundary; these checks do not by themselves certify a complete browser journey. Use isolated test data and record actual results without secrets.
+
 ## 1. Purpose
 
 
@@ -459,6 +465,10 @@ Passwords must never be copied into committed execution evidence.
 ---
 ## 11. Test Execution Strategy
 
+![Authentication verification strategy](diagrams/04-authentication-testing-strategy.svg)
+
+[PlantUML source](diagrams/04-authentication-testing-strategy.puml) · [Full-size SVG](diagrams/04-authentication-testing-strategy.svg)
+
 
 
 WP-04 uses automated Laravel feature and security tests as the primary execution mechanism.
@@ -589,6 +599,10 @@ PASS
 
 ---
 ## 14. TC-AUTH-001 — Register a Valid User
+
+![Registration validation and account creation](diagrams/04-authentication-testing-registration.svg)
+
+[PlantUML source](diagrams/04-authentication-testing-registration.puml) · [Full-size SVG](diagrams/04-authentication-testing-registration.svg)
 
 
 
@@ -858,6 +872,10 @@ PASS
 
 ---
 ## 17. TC-AUTH-004 — Login with Valid Credentials
+
+![Valid and invalid login verification](diagrams/04-authentication-testing-login.svg)
+
+[PlantUML source](diagrams/04-authentication-testing-login.puml) · [Full-size SVG](diagrams/04-authentication-testing-login.svg)
 
 
 
@@ -1532,6 +1550,10 @@ Validation includes:
 ---
 ## 26. Session Persistence Verification
 
+![Session persistence and logout](diagrams/04-authentication-testing-session-lifecycle.svg)
+
+[PlantUML source](diagrams/04-authentication-testing-session-lifecycle.puml) · [Full-size SVG](diagrams/04-authentication-testing-session-lifecycle.svg)
+
 
 
 Session persistence is considered valid when:
@@ -1584,6 +1606,10 @@ Detailed application logging security is tested further in WP-14 and WP-15.
 ---
 ## 28. Authentication Failure Behavior
 
+![Safe authentication failure checks](diagrams/04-authentication-testing-failure-security.svg)
+
+[PlantUML source](diagrams/04-authentication-testing-failure-security.puml) · [Full-size SVG](diagrams/04-authentication-testing-failure-security.svg)
+
 
 
 Authentication failures must fail safely.
@@ -1613,6 +1639,10 @@ Where account-enumeration resistance is required by approved security behavior, 
 ---
 ## 29. CSRF Verification
 
+![CSRF bootstrap and state-change protection](diagrams/04-authentication-testing-csrf.svg)
+
+[PlantUML source](diagrams/04-authentication-testing-csrf.puml) · [Full-size SVG](diagrams/04-authentication-testing-csrf.svg)
+
 
 
 GitForge uses session-based authentication for web/API session flows.
@@ -1641,6 +1671,10 @@ CSRF verification must not be confused with personal access token authentication
 
 ---
 ## 30. Authentication Test Isolation
+
+![Authentication fixture and evidence isolation](diagrams/04-authentication-testing-isolation.svg)
+
+[PlantUML source](diagrams/04-authentication-testing-isolation.puml) · [Full-size SVG](diagrams/04-authentication-testing-isolation.svg)
 
 
 
@@ -2015,6 +2049,10 @@ Authentication tests that pass during WP-04 must remain passing after later M5 t
 
 ---
 ## 41. WP-04 Exit Criteria
+
+![Authentication acceptance and regression gate](diagrams/04-authentication-testing-approval.svg)
+
+[PlantUML source](diagrams/04-authentication-testing-approval.puml) · [Full-size SVG](diagrams/04-authentication-testing-approval.svg)
 
 
 

@@ -1,0 +1,20 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Authentication verification strategy
+start
+:Confirm candidate, environment and isolated test identities;
+:Run authentication feature tests;
+:Run dedicated CSRF security checks;
+:Map evidence to TC-AUTH-001 through TC-AUTH-010;
+:Inspect session and password-security expectations;
+:Record failure, retest and affected regression evidence;
+:Review complete work-package acceptance;
+stop
+@enduml

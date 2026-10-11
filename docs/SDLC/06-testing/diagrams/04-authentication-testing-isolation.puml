@@ -1,0 +1,23 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Authentication fixture and evidence isolation
+component "Authentication and CSRF test suites" as Tests
+database "Isolated test database\nSynthetic users" as DB
+component "Controlled session state" as Session
+artifact "Valid / duplicate / invalid input fixtures" as Fixtures
+artifact "Sanitized outcomes and assertions" as Evidence
+Tests --> DB : account creation and uniqueness checks
+Tests --> Session : establish, reuse and invalidate
+Fixtures --> Tests
+Tests --> Evidence
+note bottom of DB : No dependence on personal accounts or unrelated data
+note bottom of Session : Reset state between cases as required
+note bottom of Evidence : Do not retain plaintext passwords or session secrets
+@enduml

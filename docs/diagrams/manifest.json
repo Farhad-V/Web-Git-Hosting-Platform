@@ -3346,5 +3346,77 @@
     "original_format": "plantuml",
     "source_sha256": "c97646b3257a4ff4527be7dadb3999bf9c9f17b144beb1060a762abf1c69c636",
     "image_sha256": "d97f36f64cb08c5d6a9ea020a1e259f42b05aa861d1f9d90b50e5ca6b81b37d6"
+  },
+  {
+    "document": "docs/SDLC/06-testing/04-authentication-testing.md",
+    "source": "docs/SDLC/06-testing/diagrams/04-authentication-testing-strategy.puml",
+    "image": "docs/SDLC/06-testing/diagrams/04-authentication-testing-strategy.svg",
+    "title": "Authentication verification strategy",
+    "original_format": "plantuml",
+    "source_sha256": "bd4566e0707d2124366a26b7121d34480e7c64b8e36c45aff92abe444a0ca967",
+    "image_sha256": "e4222319551f279f0c899a65b405f1d0e50fe1872d8c6967d6561bfcb957873a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/04-authentication-testing.md",
+    "source": "docs/SDLC/06-testing/diagrams/04-authentication-testing-registration.puml",
+    "image": "docs/SDLC/06-testing/diagrams/04-authentication-testing-registration.svg",
+    "title": "Registration validation and account creation",
+    "original_format": "plantuml",
+    "source_sha256": "76eab66426286108480932bbe121d547fac334ed1510a472e914f437bffedaac",
+    "image_sha256": "9063ef1ed5c91d186dfbc4ff15bfe8ddc8f4fbf9c2f3013cb007ff440018bbdb"
+  },
+  {
+    "document": "docs/SDLC/06-testing/04-authentication-testing.md",
+    "source": "docs/SDLC/06-testing/diagrams/04-authentication-testing-login.puml",
+    "image": "docs/SDLC/06-testing/diagrams/04-authentication-testing-login.svg",
+    "title": "Valid and invalid login verification",
+    "original_format": "plantuml",
+    "source_sha256": "655676e0fa1e59851e0f2c923ad83cc85589451aee7284baefdf001774001916",
+    "image_sha256": "067f3656752b4e8356f64f65ae9aec7aacbf3ba3ddfe41e0ae3ab602d7343013"
+  },
+  {
+    "document": "docs/SDLC/06-testing/04-authentication-testing.md",
+    "source": "docs/SDLC/06-testing/diagrams/04-authentication-testing-session-lifecycle.puml",
+    "image": "docs/SDLC/06-testing/diagrams/04-authentication-testing-session-lifecycle.svg",
+    "title": "Session persistence and logout",
+    "original_format": "plantuml",
+    "source_sha256": "130dfb2d3d808a942c8e2efd5a1ed733e8fc0c192dc37b88d1e4ba8fe843dff8",
+    "image_sha256": "70aafce824f6e028e74654c59c4f73dab5f0d27c9b4340b81b3f64640a156cdd"
+  },
+  {
+    "document": "docs/SDLC/06-testing/04-authentication-testing.md",
+    "source": "docs/SDLC/06-testing/diagrams/04-authentication-testing-failure-security.puml",
+    "image": "docs/SDLC/06-testing/diagrams/04-authentication-testing-failure-security.svg",
+    "title": "Safe authentication failure checks",
+    "original_format": "plantuml",
+    "source_sha256": "f1698ce1d36a36771b255037fdd3f957591a0ff5db0552c1e916e90e956193df",
+    "image_sha256": "fa483fcae3f9dc0f859f26160edd8df9f4cc5b7a3984146b47cd7332cb674ad9"
+  },
+  {
+    "document": "docs/SDLC/06-testing/04-authentication-testing.md",
+    "source": "docs/SDLC/06-testing/diagrams/04-authentication-testing-csrf.puml",
+    "image": "docs/SDLC/06-testing/diagrams/04-authentication-testing-csrf.svg",
+    "title": "CSRF bootstrap and state-change protection",
+    "original_format": "plantuml",
+    "source_sha256": "e5f9655a1d4f4cc9c14cd3810e64acb41b91a05382a1f00654a3935ea02a2ff3",
+    "image_sha256": "97ad1ce532fbc76244dceca7e8caec4075429884654705f92fb076d37ec170f0"
+  },
+  {
+    "document": "docs/SDLC/06-testing/04-authentication-testing.md",
+    "source": "docs/SDLC/06-testing/diagrams/04-authentication-testing-isolation.puml",
+    "image": "docs/SDLC/06-testing/diagrams/04-authentication-testing-isolation.svg",
+    "title": "Authentication fixture and evidence isolation",
+    "original_format": "plantuml",
+    "source_sha256": "19bf0bc10cb1e438d718b28561f0d20665900f19813db0b9c3730c78bf65e26e",
+    "image_sha256": "24faab588285dfc055d3014a44ecb21f9ff7ea2ee9834501ae5b87dc2b64453a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/04-authentication-testing.md",
+    "source": "docs/SDLC/06-testing/diagrams/04-authentication-testing-approval.puml",
+    "image": "docs/SDLC/06-testing/diagrams/04-authentication-testing-approval.svg",
+    "title": "Authentication acceptance and regression gate",
+    "original_format": "plantuml",
+    "source_sha256": "dd0a13bfc365ae82ee9d9ecb8d1508ff21642a1a18b4096c76905d11964d8ef6",
+    "image_sha256": "8ba3dba7eea1090cc66bf1a839c004f4680678436511c8360fa1f133d3390f7f"
   }
 ]

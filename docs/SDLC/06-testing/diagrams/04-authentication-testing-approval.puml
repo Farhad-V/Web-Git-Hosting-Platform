@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Authentication acceptance and regression gate
+start
+:Review all ten formal authentication cases;
+:Review supporting registration-validation and CSRF checks;
+:Confirm protected access, password security and session lifecycle;
+:Review defect retests and regression results;
+:Review requirement mapping and sanitized execution evidence;
+if (Required cases verified and no blocking authentication defect?) then (yes)
+ :Record acceptance for the tested candidate and scope;
+ :Hand off to dependent test work packages;
+else (no)
+ :Record failed or blocked checks;
+ :Resolve missing evidence and repeat affected verification;
+endif
+stop
+@enduml

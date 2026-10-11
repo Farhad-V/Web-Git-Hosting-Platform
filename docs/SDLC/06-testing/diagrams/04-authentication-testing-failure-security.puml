@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Safe authentication failure checks
+start
+:Submit invalid password, unknown account or invalid input;
+:Observe controlled authentication or validation rejection;
+:Verify no authenticated session was created;
+:Attempt protected access and verify rejection;
+:Inspect response and sanitized evidence for credential disclosure;
+:Check unexpected exceptions and unauthorized side effects;
+if (Expected protection established?) then (yes)
+ :Record passing negative-case evidence;
+else (no)
+ :Record defect and release impact;
+endif
+stop
+@enduml

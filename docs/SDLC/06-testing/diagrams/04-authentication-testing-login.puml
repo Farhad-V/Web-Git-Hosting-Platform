@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Valid and invalid login verification
+actor "Test browser / client" as Client
+participant "Authentication endpoint" as Auth
+database "Controlled user fixture" as User
+participant "Session state" as Session
+Client -> Auth : Submit test credentials
+Auth -> User : Resolve identity and verify password
+alt credentials valid
+ Auth -> Session : Establish authenticated state
+ Auth --> Client : Successful authentication response
+ Client -> Auth : Subsequent protected request
+ Auth -> Session : Resolve authenticated identity
+ Auth --> Client : Expected protected response
+else invalid password or unknown account
+ Auth --> Client : Controlled rejection
+ Client -> Auth : Attempt protected request
+ Auth --> Client : Authentication required
+end
+note over Client,Session : No plaintext password disclosure or false authenticated state
+@enduml

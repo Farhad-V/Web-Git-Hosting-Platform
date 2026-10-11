@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title CSRF bootstrap and state-change protection
+actor "Session-based client" as Client
+participant "CSRF bootstrap endpoint" as Bootstrap
+participant "CSRF middleware" as Middleware
+participant "State-changing application handler" as Handler
+Client -> Bootstrap : Request CSRF token for current session
+Bootstrap --> Client : Session-bound token
+alt valid token and matching session
+ Client -> Middleware : Mutating request with token
+ Middleware -> Handler : Continue permitted request
+ Handler --> Client : Application result
+else missing or invalid token
+ Client -> Middleware : Mutating request without valid protection
+ Middleware --> Client : Reject before handler execution
+end
+note over Middleware : Dedicated security tests disable the test-environment bypass
+note over Client,Handler : Session CSRF behavior is separate from Git PAT authentication
+@enduml

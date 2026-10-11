@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Registration validation and account creation
+start
+:Submit controlled registration input;
+:Validate required fields, email, username and password;
+if (Input valid and identity unique?) then (yes)
+ :Create account with protected password representation;
+ :Verify expected authenticated identity after registration;
+ :Record success response and persistence evidence;
+else (no)
+ :Verify controlled validation rejection;
+ :Verify no duplicate or invalid account is created;
+endif
+:Exclude plaintext credentials from evidence;
+stop
+@enduml

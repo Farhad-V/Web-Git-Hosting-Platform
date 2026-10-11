@@ -1,0 +1,22 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Session persistence and logout
+state "Unauthenticated" as Guest
+state "Authenticated session" as Active
+state "Session invalidated" as Ended
+[*] --> Guest
+Guest --> Active : successful registration/login as specified
+Guest --> Guest : invalid login; protected access rejected
+Active --> Active : valid subsequent request; same identity
+Active --> Ended : logout
+Ended --> Guest : protected request requires authentication
+note bottom of Active : Persistence is verified across valid requests
+note bottom of Ended : Arbitrary long-duration expiry is not implied by this test scope
+@enduml
