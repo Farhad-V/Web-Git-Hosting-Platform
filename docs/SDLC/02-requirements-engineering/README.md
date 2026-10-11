@@ -2,6 +2,10 @@
 
 Define actors, functional and non-functional requirements, authorization, acceptance criteria, and traceability.
 
+## Current requirements overview
+
+Start with the [focused requirement documents and diagrams](requirements-engineering-overview.md). They describe current scope and distinguish merged development from the historical v1.0.0 baseline.
+
 ## Phase documents
 
 - [GitForge V1.0.0 Requirements Engineering Plan](01-requirements-engineering-plan.md)
