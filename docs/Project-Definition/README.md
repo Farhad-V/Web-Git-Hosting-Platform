@@ -4,6 +4,8 @@ GitForge is the Web Git Hosting Platform: a self-hosted Git platform with a Lara
 
 This document consolidates product scope, charter, problem statement, vision, goals, and stakeholders. The current scope section describes merged development capabilities. The original v1.0.0 records remain historical evidence, including their dates, goal identifiers, assumptions, and planned capabilities; those statements do not establish that every planned capability was implemented.
 
+See the [focused definition documents and diagrams](project-definition-overview.md) for current project overview, scope, goals, constraints, risks, stakeholders, and success criteria.
+
 ## Contents
 
 - [Current product scope](#product-scope)
