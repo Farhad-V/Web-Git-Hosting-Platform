@@ -19,3 +19,7 @@ The current repository does not establish four formally planned, numbered sprint
 - Git commit history, PR #27, and candidate-specific GitHub CI runs.
 
 Future sprint records should use the [template](../Sprints/TEMPLATE.md), follow the [workflow](sprint-workflow.md), and preserve actual dates and evidence. If original sprint records are supplied later, audit them against those records without retroactively assigning milestone work to fabricated sprints.
+
+## Reconstructed navigation records
+
+The [Sprint register](../Sprints/SPRINT-REGISTER.md) now provides four evidence-based delivery groupings with backlogs, review notes, and follow-ups. These improve traceability but do not resolve the missing original sprint-planning evidence noted above.
