@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - SM-022 Git Read Missing Storage Failure
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Failure Handling" as Failure
+participant "Diagnostics" as Diag
+Client -> HTTP : Read request
+HTTP -> Resolution : Resolve repository
+Resolution -> Authz : Authorize read
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve physical repository
+Storage --> Resolution : Expected repository missing
+Resolution -> Failure : Storage consistency failure
+Failure -> Diag : Sanitized diagnostic
+Failure --> HTTP : Safe failure
+HTTP --> Client : Repository read unavailable
+@enduml

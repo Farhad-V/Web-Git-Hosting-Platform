@@ -1,0 +1,27 @@
+@startuml
+title GitForge V1.0.0 - AM-010 Branch Listing
+start
+:Receive branch-list request;
+:Resolve repository;
+if (Repository resolved?) then (yes)
+    :Authorize read;
+    if (Allowed?) then (yes)
+        :Resolve safe physical repository;
+        if (Storage available?) then (yes)
+            :Execute approved Git branch/ref read;
+            if (Git read succeeds?) then (yes)
+                :Return safe branch list;
+            else (no)
+                :Return Git-read failure;
+            endif
+        else (no)
+            :Return storage failure;
+        endif
+    else (no)
+        :Deny read;
+    endif
+else (no)
+    :Return repository-resolution failure;
+endif
+stop
+@enduml

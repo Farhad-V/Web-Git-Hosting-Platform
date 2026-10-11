@@ -1,0 +1,31 @@
+@startuml
+title GitForge V1.0.0 - Failure Containment Boundaries
+left to right direction
+actor Caller
+rectangle "Request Handling" as Request
+rectangle "Authentication" as Auth
+rectangle "Authorization" as Authz
+rectangle "Repository Resolution" as Resolve
+rectangle "Storage Coordination" as Storage
+rectangle "Git Process Coordination" as Git
+rectangle "Failure Handling" as Failure
+rectangle "Diagnostics" as Diag
+database PostgreSQL as DB
+folder "Physical Git Repository" as Repo
+Caller --> Request
+Request --> Auth
+Auth --> Authz
+Authz --> Resolve
+Resolve --> DB
+Resolve --> Storage
+Storage --> Repo
+Storage --> Git
+Request --> Failure : validation/internal failure
+Auth --> Failure : authentication failure
+Authz --> Failure : denial
+Resolve --> Failure : resolution failure
+Storage --> Failure : storage failure
+Git --> Failure : Git/protocol failure
+Failure --> Diag : sanitized diagnostic
+Failure --> Caller : safe failure response
+@enduml

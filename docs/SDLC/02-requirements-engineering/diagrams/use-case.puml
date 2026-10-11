@@ -1,0 +1,24 @@
+@startuml
+title use case diagram
+skinparam shadowing false
+left to right direction
+rectangle "Repository owner" as Owner
+rectangle "Manage repositories tokens and branches" as Manage
+rectangle "Review and merge requests" as Merge
+rectangle "Run or cancel built-in checks" as Checks
+rectangle "Permitted reader" as Reader
+rectangle "Browse code history and tags" as Browse
+rectangle "Permitted signed-in participant" as SignedIn
+rectangle "Propose and discuss requests" as Discuss
+rectangle "Authorized Git client" as Client
+rectangle "Clone fetch and permitted push" as Transport
+rectangle "Operator" as Operator
+rectangle "Health worker supervision and recovery" as Recovery
+Owner --> Manage
+Owner --> Merge
+Owner --> Checks
+Reader --> Browse
+SignedIn --> Discuss
+Client --> Transport
+Operator --> Recovery
+@enduml

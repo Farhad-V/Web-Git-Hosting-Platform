@@ -1,0 +1,9 @@
+@startuml
+title GitForge V1.0.0 - Web Authentication State
+[*] --> Unauthenticated
+Unauthenticated --> Authenticated : Login succeeds
+Unauthenticated --> Unauthenticated : Login fails
+Authenticated --> Unauthenticated : Logout
+Authenticated --> Unauthenticated : Session invalid
+Authenticated --> Authenticated : Valid authenticated request
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - AM-002 Interactive Login
+start
+:Receive login request;
+:Validate credential input;
+if (Credential input valid?) then (yes)
+    :Resolve User;
+    :Verify credential;
+    if (Credential valid?) then (yes)
+        :Establish authenticated User identity;
+        :Return authenticated context;
+    else (no)
+        :Remain unauthenticated;
+        :Return safe authentication denial;
+    endif
+else (no)
+    :Remain unauthenticated;
+    :Reject invalid authentication request;
+endif
+stop
+@enduml

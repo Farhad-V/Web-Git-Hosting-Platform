@@ -1,0 +1,64 @@
+@startuml
+title GitForge V1.0.0 - Domain Model
+hide methods
+hide stereotypes
+class User {
+    identity
+}
+class AuthenticationSession {
+    authenticatedIdentity
+}
+class Repository {
+    name
+    visibility
+}
+enum RepositoryVisibility {
+    Public
+    Private
+}
+class RepositoryNamespace {
+    ownerName
+    repositoryName
+}
+class PersonalAccessToken {
+    state
+}
+enum PATState {
+    Active
+    Revoked
+}
+class PhysicalGitRepository
+class GitReference
+class Branch
+class Commit
+class Tree
+class Blob
+class AuthorizationDecision {
+    result
+}
+enum AuthorizationResult {
+    Allow
+    Deny
+}
+class GitOperation
+class GitReadOperation
+class GitWriteOperation
+User "1" -- "0..*" AuthenticationSession : establishes >
+User "1" -- "0..*" Repository : owns >
+User "1" -- "0..*" PersonalAccessToken : owns >
+Repository "1" --> "1" RepositoryVisibility
+Repository "1" --> "1" RepositoryNamespace
+Repository "1" -- "1" PhysicalGitRepository : corresponds to >
+PersonalAccessToken "1" --> "1" PATState
+PhysicalGitRepository "1" -- "0..*" GitReference
+PhysicalGitRepository "1" -- "0..*" Commit
+PhysicalGitRepository "1" -- "0..*" Tree
+PhysicalGitRepository "1" -- "0..*" Blob
+Branch --|> GitReference
+GitReadOperation --|> GitOperation
+GitWriteOperation --|> GitOperation
+Repository --> AuthorizationDecision : subject of >
+User --> AuthorizationDecision : identity context >
+GitOperation --> AuthorizationDecision : requested operation >
+AuthorizationDecision --> AuthorizationResult
+@enduml

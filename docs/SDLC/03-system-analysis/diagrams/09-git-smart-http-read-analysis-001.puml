@@ -1,0 +1,29 @@
+@startuml
+title GitForge V1.0.0 - Git Read-Service Discovery
+start
+:Receive git-upload-pack discovery request;
+:Resolve repository metadata;
+if (Repository resolved?) then (yes)
+    if (Repository public?) then (yes)
+        :Authorize anonymous read;
+    else (no)
+        :Authenticate PAT;
+        if (Authentication succeeds?) then (yes)
+            :Authorize repository read;
+        else (no)
+            :Deny;
+            stop
+        endif
+    endif
+    if (Read authorized?) then (yes)
+        :Resolve physical repository;
+        :Execute approved discovery behavior;
+        :Return Git discovery response;
+    else (no)
+        :Deny;
+    endif
+else (no)
+    :Return safe repository failure;
+endif
+stop
+@enduml

@@ -366,59 +366,9 @@ It is launched by the Laravel application through the Git Process Execution comp
 
 ## 12. Production-Like Topology
 
-```plantuml
+![GitForge V1.0.0 Production-Like Deployment](diagrams/12-deployment-design-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 Production-Like Deployment
-
-node "Client Device" as Client {
-
-   artifact "Web Browser" as Browser
-
-   artifact "Git Client" as GitClient
-
-}
-
-node "Application Host" as AppHost {
-
-   node "Reverse Proxy / Web Server" as Proxy
-
-   node "PHP Runtime" as PHP {
-
-     component "Laravel 12 Application" as Laravel
-
-   }
-
-   artifact "Git Executable" as Git
-
-   folder "Persistent Repository Storage" as RepoStorage {
-
-     artifact "Bare Git Repositories" as BareRepos
-
-   }
-
-}
-
-database "PostgreSQL 18" as DB
-
-Browser --> Proxy : HTTPS
-
-GitClient --> Proxy : Git Smart HTTP / HTTPS
-
-Proxy --> Laravel : HTTP/FastCGI
-
-Laravel --> DB : PostgreSQL protocol
-
-Laravel --> Git : Controlled subprocess
-
-Git --> BareRepos : Git-native read/write
-
-Laravel --> BareRepos : Safe filesystem state checks
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-deployment-design-001.puml)
 
 ---
 
@@ -1814,59 +1764,9 @@ The Git process runs under controlled service-level privileges.
 
 ## 100. Trust-Zone Diagram
 
-```plantuml
+![GitForge - Deployment Trust Zones](diagrams/12-deployment-design-002.svg)
 
-@startuml
-
-title GitForge - Deployment Trust Zones
-
-rectangle "External / Untrusted" {
-
-   actor "Web Browser" as Browser
-
-   actor "Git Client" as GitClient
-
-}
-
-rectangle "Ingress" {
-
-   node "Reverse Proxy / TLS" as Proxy
-
-}
-
-rectangle "Application-Controlled" {
-
-   node "Laravel / PHP" as Laravel
-
-   artifact "Git Executable" as Git
-
-}
-
-rectangle "Persistent Internal Data" {
-
-   database "PostgreSQL" as DB
-
-   folder "Repository Storage" as Storage
-
-}
-
-Browser --> Proxy : HTTPS
-
-GitClient --> Proxy : Git Smart HTTP / HTTPS
-
-Proxy --> Laravel
-
-Laravel --> DB
-
-Laravel --> Git
-
-Git --> Storage
-
-Laravel --> Storage : Controlled state checks
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-deployment-design-002.puml)
 
 ---
 

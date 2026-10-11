@@ -737,85 +737,14 @@ The following assumptions apply:
 These assumptions will later inform System Design and Deployment.
 ---
 ## 44. System Context Diagram
-```plantuml
-@startuml
-title GitForge V1.0.0 - System Context
-left to right direction
-actor Visitor
-actor "Authenticated User" as User
-actor "Repository Owner" as Owner
-actor "System Operator" as Operator
-rectangle "Web Browser" as Browser
-rectangle "Git Client" as GitClient
-rectangle "GitForge" as GitForge
-database "PostgreSQL" as PostgreSQL
-folder "Repository Filesystem" as RepoFS
-rectangle "Git Executable" as Git
-rectangle "Runtime Configuration" as Config
-rectangle "Logging Destination" as Logs
-rectangle "Operating System" as OS
-Visitor --> Browser
-User --> Browser
-Owner --> Browser
-User --> GitClient
-Owner --> GitClient
-Browser --> GitForge : Web HTTP
-GitClient --> GitForge : Git Smart HTTP
-GitForge --> PostgreSQL : Application data
-GitForge --> RepoFS : Controlled repository access
-GitForge --> Git : Approved Git operations
-GitForge --> Config : Read configuration
-GitForge --> Logs : Diagnostic events
-GitForge --> OS : Runtime / filesystem / process APIs
-Git --> RepoFS : Git repository access
-Git --> OS : Process execution
-Operator --> Config
-Operator --> PostgreSQL
-Operator --> RepoFS
-Operator --> Logs
-Operator --> OS
-note right of GitForge
-Application responsibilities:
-- identity
-- authentication
-- repository management
-- repository browser
-- PAT management
-- authorization
-- Git HTTP coordination
-- validation
-- diagnostics
-end note
-@enduml
-```
+![GitForge V1.0.0 - System Context](diagrams/02-system-context-analysis-001.svg)
+
+[PlantUML source](diagrams/02-system-context-analysis-001.puml)
 ---
 ## 45. Simplified Trust-Boundary Diagram
-```plantuml
-@startuml
-title GitForge V1.0.0 - Context Trust Boundaries
-left to right direction
-rectangle "Untrusted Clients" {
-    actor Visitor
-    rectangle "Web Browser" as Browser
-    rectangle "Git Client" as GitClient
-}
-rectangle "GitForge Trust Boundary" {
-    rectangle "GitForge Application" as App
-}
-rectangle "Controlled Dependencies" {
-    database PostgreSQL
-    folder "Repository Filesystem" as RepoFS
-    rectangle "Git Executable" as Git
-}
-Visitor --> Browser
-Browser --> App : Untrusted HTTP input
-GitClient --> App : Untrusted Git HTTP input
-App --> PostgreSQL : Controlled DB operations
-App --> RepoFS : Controlled repository access
-App --> Git : Controlled process invocation
-Git --> RepoFS
-@enduml
-```
+![GitForge V1.0.0 - Context Trust Boundaries](diagrams/02-system-context-analysis-002.svg)
+
+[PlantUML source](diagrams/02-system-context-analysis-002.puml)
 ---
 ## 46. Context Interaction Matrix
 | Interaction | Source | Target | Authentication | Authorization |

@@ -1,0 +1,31 @@
+@startuml
+title project context diagram
+skinparam shadowing false
+left to right direction
+rectangle "Repository owner or permitted reader" as User
+rectangle "Web browser" as Browser
+rectangle "Repository owner" as Owner
+rectangle "Git client" as Client
+database "PostgreSQL metadata" as DB
+database "Managed bare Git repositories" as Bare
+package "GitForge platform" as Platform {
+  rectangle "React and TypeScript UI" as UI
+  rectangle "Laravel API and policies" as API
+  rectangle "Git Smart HTTP endpoint" as HTTP
+  rectangle "Controlled Git subprocesses" as Runner
+  rectangle "Actions queue" as Queue
+  rectangle "Built-in checks worker" as Worker
+}
+User --> Browser
+Owner --> Client
+UI --> API
+HTTP --> Runner
+API --> Runner
+API --> Queue
+Queue --> Worker
+Worker --> Runner
+Browser --> UI
+Client --> HTTP
+API --> DB
+Runner --> Bare
+@enduml

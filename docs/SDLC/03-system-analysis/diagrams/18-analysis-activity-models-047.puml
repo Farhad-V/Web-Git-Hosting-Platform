@@ -1,0 +1,13 @@
+@startuml
+title GitForge V1.0.0 - AM-047 Database Failure
+start
+:Attempt authoritative metadata operation;
+if (Database operation succeeds?) then (yes)
+    :Continue normal flow;
+else (no)
+    :Classify persistence/dependency failure;
+    :Prevent false success;
+    :Return safe failure;
+endif
+stop
+@enduml

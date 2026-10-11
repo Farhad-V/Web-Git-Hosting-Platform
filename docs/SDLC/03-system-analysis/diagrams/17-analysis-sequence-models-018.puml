@@ -1,0 +1,30 @@
+@startuml
+title GitForge V1.0.0 - SM-018 Public Git Read-Service Discovery
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Physical Git Repository" as Repo
+Client -> HTTP : Discover git-upload-pack
+HTTP -> Resolution : Resolve logical repository
+Resolution -> DB : Load repository metadata
+DB --> Resolution : Public repository
+Resolution -> Authz : Authorize read(anonymous, repository)
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve safe target
+Storage --> Resolution : Physical repository target
+Resolution -> Read : Discover read service
+Read -> Process : Execute approved discovery
+Process -> Git : git-upload-pack discovery
+Git -> Repo : Inspect repository
+Repo --> Git : Advertised refs/capabilities
+Git --> Process : Discovery result
+Process --> Read : Result
+Read --> HTTP : Git discovery response
+HTTP --> Client : Smart HTTP response
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+title GitForge V1.0.0 - AM-018 Public Git Smart HTTP Read
+start
+:Receive Git read request;
+:Resolve logical repository;
+if (Repository exists?) then (yes)
+    if (Repository Public?) then (yes)
+        :Authorize anonymous read;
+        :Resolve safe physical repository target;
+        if (Storage available?) then (yes)
+            :Select approved git-upload-pack operation;
+            :Execute Git read service;
+            if (Git operation succeeds?) then (yes)
+                :Stream Git Smart HTTP response;
+            else (no)
+                :Return safe Git-read failure;
+            endif
+        else (no)
+            :Return storage failure;
+        endif
+    else (no)
+        :Require authentication path;
+    endif
+else (no)
+    :Return safe repository-resolution result;
+endif
+stop
+@enduml

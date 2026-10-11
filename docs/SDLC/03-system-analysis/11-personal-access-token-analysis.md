@@ -910,351 +910,65 @@ A revoked PAT does not return to Active.
 
 ## 34. PAT State Transition Diagram
 
-```plantuml
+![GitForge V1.0.0 - PAT State Model](diagrams/11-personal-access-token-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT State Model
-
-\[*] --> Created
-
-Created --> Active : creation completes
-
-Active --> Revoked : owner revokes PAT
-
-Revoked --> \[*]
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-personal-access-token-analysis-001.puml)
 
 ---
 
 ## 35. PAT Creation Activity
 
-```plantuml
+![GitForge V1.0.0 - PAT Creation Activity](diagrams/11-personal-access-token-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Creation Activity
-
-start
-
-:Receive PAT creation request;
-
-if (User authenticated?) then (yes)
-
-&#x20;   :Generate strong plaintext PAT;
-
-&#x20;   :Derive verification representation;
-
-&#x20;   :Persist PAT record;
-
-&#x20;   :Associate PAT with User;
-
-&#x20;   :Present plaintext PAT once;
-
-&#x20;   :PAT becomes active;
-
-else (no)
-
-&#x20;   :Deny creation;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-personal-access-token-analysis-002.puml)
 
 ---
 
 ## 36. PAT Authentication Activity
 
-```plantuml
+![GitForge V1.0.0 - PAT Authentication Activity](diagrams/11-personal-access-token-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Authentication Activity
-
-start
-
-:Receive presented PAT;
-
-:Locate candidate PAT record;
-
-if (Candidate exists?) then (yes)
-
-&#x20;   :Verify presented PAT;
-
-&#x20;   if (Verification succeeds?) then (yes)
-
-&#x20;       :Check revocation state;
-
-&#x20;       if (Revoked?) then (yes)
-
-&#x20;           :Authentication denied;
-
-&#x20;       else (no)
-
-&#x20;           :Resolve owning User;
-
-&#x20;           :Establish authenticated identity;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Authentication denied;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Authentication denied;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-personal-access-token-analysis-003.puml)
 
 ---
 
 ## 37. PAT Revocation Activity
 
-```plantuml
+![GitForge V1.0.0 - PAT Revocation Activity](diagrams/11-personal-access-token-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Revocation Activity
-
-start
-
-:Receive PAT revocation request;
-
-if (User authenticated?) then (yes)
-
-&#x20;   :Resolve target PAT;
-
-&#x20;   if (PAT exists?) then (yes)
-
-&#x20;       :Check PAT ownership;
-
-&#x20;       if (User owns PAT?) then (yes)
-
-&#x20;           :Mark PAT revoked;
-
-&#x20;           :Persist revocation state;
-
-&#x20;           :Future PAT authentication denied;
-
-&#x20;       else (no)
-
-&#x20;           :Deny revocation;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return safe not-found result;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny request;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-personal-access-token-analysis-004.puml)
 
 ---
 
 ## 38. PAT Creation Sequence
 
-```plantuml
+![GitForge V1.0.0 - PAT Creation Sequence](diagrams/11-personal-access-token-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Creation Sequence
-
-actor "Authenticated User" as User
-
-participant "Web/API Interface" as Interface
-
-participant "PAT Coordination" as PAT
-
-participant "Credential Generation" as Generator
-
-database "PostgreSQL" as DB
-
-User -> Interface : Create PAT
-
-Interface -> PAT : Request PAT creation
-
-PAT -> Generator : Generate plaintext token
-
-Generator --> PAT : Plaintext token
-
-PAT -> PAT : Derive verification representation
-
-PAT -> DB : Persist PAT record + owner + verifier
-
-DB --> PAT : Stored
-
-PAT --> Interface : Plaintext token once
-
-Interface --> User : Display plaintext PAT
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-personal-access-token-analysis-005.puml)
 
 ---
 
 ## 39. PAT Authentication Sequence
 
-```plantuml
+![GitForge V1.0.0 - PAT Authentication Sequence](diagrams/11-personal-access-token-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Authentication Sequence
-
-actor "Git Client" as Client
-
-participant "Git Smart HTTP Interface" as HTTP
-
-participant "Git Authentication" as Auth
-
-database "PostgreSQL" as DB
-
-Client -> HTTP : Git request + PAT
-
-HTTP -> Auth : Authenticate PAT
-
-Auth -> DB : Locate candidate PAT record
-
-DB --> Auth : PAT metadata
-
-Auth -> Auth : Verify credential
-
-Auth -> Auth : Check revocation
-
-alt PAT valid and active
-
-&#x20;   Auth -> DB : Resolve owner User
-
-&#x20;   DB --> Auth : User identity
-
-&#x20;   Auth --> HTTP : Authenticated User
-
-else Invalid / revoked PAT
-
-&#x20;   Auth --> HTTP : Authentication failure
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-personal-access-token-analysis-006.puml)
 
 ---
 
 ## 40. PAT Revocation Sequence
 
-```plantuml
+![GitForge V1.0.0 - PAT Revocation Sequence](diagrams/11-personal-access-token-analysis-007.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Revocation Sequence
-
-actor "Authenticated User" as User
-
-participant "Web/API Interface" as Interface
-
-participant "PAT Coordination" as PAT
-
-database "PostgreSQL" as DB
-
-User -> Interface : Revoke PAT
-
-Interface -> PAT : Revocation request
-
-PAT -> DB : Resolve PAT + owner
-
-DB --> PAT : PAT metadata
-
-alt User owns PAT
-
-&#x20;   PAT -> DB : Persist revoked state
-
-&#x20;   DB --> PAT : Revocation confirmed
-
-&#x20;   PAT --> Interface : Success
-
-&#x20;   Interface --> User : PAT revoked
-
-else User does not own PAT
-
-&#x20;   PAT --> Interface : Deny
-
-&#x20;   Interface --> User : Safe denial response
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-personal-access-token-analysis-007.puml)
 
 ---
 
 ## 41. PAT Logical Collaboration
 
-```plantuml
+![GitForge V1.0.0 - PAT Logical Collaboration](diagrams/11-personal-access-token-analysis-008.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Logical Collaboration
-
-left to right direction
-
-actor "Authenticated User" as User
-
-actor "Git Client" as Client
-
-rectangle "Web/API Interface" as Web
-
-rectangle "PAT Coordination" as PAT
-
-rectangle "Git Authentication" as Auth
-
-rectangle "Repository Authorization" as Authz
-
-database "PostgreSQL" as DB
-
-User --> Web : create / revoke PAT
-
-Web --> PAT
-
-PAT --> DB
-
-Client --> Auth : present PAT
-
-Auth --> DB : verify / resolve owner
-
-Auth --> Authz : authenticated User identity
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-personal-access-token-analysis-008.puml)
 
 ---
 

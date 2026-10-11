@@ -2612,121 +2612,25 @@ depending on whether the condition is internal or availability-related.
 
 ## 87. Public Repository View
 
-```plantuml
+![GitForge - Public Repository HTTP Flow](diagrams/06-api-specification-001.svg)
 
-@startuml
-
-title GitForge - Public Repository HTTP Flow
-
-actor Visitor
-
-participant "Repository Controller" as Controller
-
-participant "Repository Service" as Service
-
-participant "Repository Persistence" as Persistence
-
-participant "Authorization Policy" as Policy
-
-Visitor -> Controller : GET /owner/repository
-
-Controller -> Service : getRepository(visitor, namespace)
-
-Service -> Persistence : resolve repository
-
-Persistence --> Service : public repository
-
-Service -> Policy : canRead(visitor, repository)
-
-Policy --> Service : allow
-
-Service --> Controller : repository representation
-
-Controller --> Visitor : 200 OK
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-api-specification-001.puml)
 
 ---
 
 ## 88. Private Non-Owner Repository View
 
-```plantuml
+![GitForge - Private Repository Denial](diagrams/06-api-specification-002.svg)
 
-@startuml
-
-title GitForge - Private Repository Denial
-
-actor User
-
-participant "Repository Controller" as Controller
-
-participant "Repository Service" as Service
-
-participant "Repository Persistence" as Persistence
-
-participant "Authorization Policy" as Policy
-
-User -> Controller : GET /owner/private-repo
-
-Controller -> Service : getRepository(user, namespace)
-
-Service -> Persistence : resolve repository
-
-Persistence --> Service : private repository
-
-Service -> Policy : canRead(user, repository)
-
-Policy --> Service : deny
-
-Service --> Controller : authorization denial
-
-Controller --> User : 404/403 safe response
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-api-specification-002.puml)
 
 ---
 
 ## 89. Visibility Update
 
-```plantuml
+![GitForge - Visibility Update API Flow](diagrams/06-api-specification-003.svg)
 
-@startuml
-
-title GitForge - Visibility Update API Flow
-
-actor Owner
-
-participant "Repository Controller" as Controller
-
-participant "Repository Service" as Service
-
-participant "Authorization Policy" as Policy
-
-participant "Repository Persistence" as Persistence
-
-Owner -> Controller : PATCH visibility
-
-Controller -> Service : changeVisibility(owner, repository, private)
-
-Service -> Policy : canManage(owner, repository)
-
-Policy --> Service : allow
-
-Service -> Persistence : update visibility
-
-Persistence --> Service : updated repository
-
-Service --> Controller : result
-
-Controller --> Owner : 200 OK
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-api-specification-003.puml)
 
 ---
 

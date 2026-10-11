@@ -1,0 +1,25 @@
+@startuml
+title system context diagram
+skinparam shadowing false
+left to right direction
+rectangle "Browser user" as Browser
+rectangle "React interface" as UI
+rectangle "Laravel API and policies" as API
+rectangle "Git client" as Client
+rectangle "Git Smart HTTP" as HTTP
+rectangle "Controlled Git processes" as Git
+database "PostgreSQL metadata" as DB
+rectangle "Dedicated Actions queue" as Queue
+rectangle "Built-in checks worker" as Worker
+database "Managed bare repositories" as Storage
+Browser --> UI
+UI --> API
+Client --> HTTP
+HTTP --> Git
+API --> Git
+API --> DB
+API --> Queue
+Queue --> Worker
+Worker --> Git
+Git --> Storage
+@enduml

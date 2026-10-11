@@ -1,0 +1,25 @@
+@startuml
+title GitForge V1.0.0 - AM-013 Tree Browsing
+start
+:Receive repository + revision + path;
+:Resolve repository;
+:Authorize read;
+if (Allowed?) then (yes)
+    :Resolve safe physical repository;
+    :Validate revision/path;
+    if (Input valid?) then (yes)
+        :Resolve Git tree;
+        if (Tree exists?) then (yes)
+            :Read tree entries;
+            :Return safe tree representation;
+        else (no)
+            :Return tree/path-not-found result;
+        endif
+    else (no)
+        :Reject invalid revision/path;
+    endif
+else (no)
+    :Deny read;
+endif
+stop
+@enduml

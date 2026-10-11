@@ -1,0 +1,17 @@
+@startsalt
+{
+   {
+     ^Create Repository^
+     .
+     Repository name
+     "../project"
+     Repository name is invalid.
+     .
+     Visibility
+     (X) Private
+     () Public
+     .
+     [ Create Repository ]
+   }
+}
+@endsalt

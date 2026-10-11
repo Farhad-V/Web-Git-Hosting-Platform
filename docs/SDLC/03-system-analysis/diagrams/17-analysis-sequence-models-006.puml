@@ -1,0 +1,33 @@
+@startuml
+title GitForge V1.0.0 - SM-006 View Public Repository
+actor Caller
+participant "Web/API Interface" as Web
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Repository Authorization" as Authz
+participant "Repository Browser Coordination" as Browser
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Physical Git Repository" as Repo
+Caller -> Web : View <owner>/<repository>
+Web -> Resolution : Resolve logical repository
+Resolution -> DB : Load repository metadata
+DB --> Resolution : Repository + owner + visibility
+Resolution -> Authz : Authorize read(caller, repository)
+alt Repository is Public
+    Authz --> Resolution : Allow
+    Resolution -> Browser : Build repository view
+    Browser -> Storage : Resolve physical repository
+    Storage --> Browser : Safe repository target
+    Browser -> Read : Read Git-native summary/content
+    Read -> Repo : Approved Git read
+    Repo --> Read : Git-native data
+    Read --> Browser : Result
+    Browser --> Web : Repository representation
+    Web --> Caller : Public repository view
+else Read denied
+    Authz --> Resolution : Deny
+    Resolution --> Web : Safe denial
+    Web --> Caller : Access denied
+end
+@enduml

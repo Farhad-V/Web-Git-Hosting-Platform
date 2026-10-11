@@ -1,0 +1,13 @@
+@startuml
+title GitForge V1.0.0 - AM-049 Unexpected Internal Failure
+start
+:Unexpected internal exception occurs;
+:Stop unsafe continuation;
+:Classify internal failure;
+:Sanitize diagnostic data;
+:Record diagnostic where possible;
+:Return safe external failure;
+:Do not expose raw internal detail;
+:Do not report success;
+stop
+@enduml

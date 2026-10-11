@@ -360,81 +360,9 @@ Diagnostics
 
 ## 11. High-Level Context Data Flow
 
-```plantuml
+![GitForge V1.0.0 - High-Level Data Flow](diagrams/13-data-flow-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - High-Level Data Flow
-
-left to right direction
-
-actor Visitor
-
-actor "Authenticated User" as User
-
-actor "Git Client" as GitClient
-
-actor "System Operator" as Operator
-
-rectangle "GitForge" {
-
-&#x20;   rectangle "Web/API Processing" as Web
-
-&#x20;   rectangle "Authentication" as Auth
-
-&#x20;   rectangle "Authorization" as Authz
-
-&#x20;   rectangle "Repository Coordination" as Repo
-
-&#x20;   rectangle "Git Coordination" as GitCoord
-
-&#x20;   rectangle "Diagnostics" as Diag
-
-}
-
-database PostgreSQL as DB
-
-folder "Physical Git Repositories" as GitRepos
-
-rectangle "Git Executable" as GitExe
-
-Visitor --> Web
-
-User --> Web
-
-GitClient --> GitCoord
-
-Web --> Auth
-
-Web --> Repo
-
-GitCoord --> Auth
-
-Repo --> Authz
-
-GitCoord --> Authz
-
-Repo --> DB
-
-Auth --> DB
-
-Repo --> GitRepos
-
-GitCoord --> GitExe
-
-GitExe --> GitRepos
-
-Web --> Diag
-
-Repo --> Diag
-
-GitCoord --> Diag
-
-Diag --> Operator
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-001.puml)
 
 ---
 
@@ -544,35 +472,9 @@ Visitor/User
 
 ## 15. Registration Data Flow Diagram
 
-```plantuml
+![GitForge V1.0.0 - Registration Data Flow](diagrams/13-data-flow-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Registration Data Flow
-
-actor Visitor
-
-rectangle "Web/API Interface" as Web
-
-rectangle "User Registration Coordination" as Reg
-
-database PostgreSQL as DB
-
-Visitor --> Web : registration data
-
-Web --> Reg : validated request
-
-Reg --> DB : create User metadata
-
-DB --> Reg : persistence result
-
-Reg --> Web : registration result
-
-Web --> Visitor : safe response
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-002.puml)
 
 ---
 
@@ -732,51 +634,9 @@ The owner identity shall be derived from authenticated context rather than accep
 
 ## 21. Repository Creation Flow Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Creation Data Flow](diagrams/13-data-flow-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Creation Data Flow
-
-actor "Authenticated User" as User
-
-rectangle "Web/API Interface" as Web
-
-rectangle "Repository Coordination" as Repo
-
-database PostgreSQL as DB
-
-rectangle "Repository Storage Coordination" as Storage
-
-rectangle "Git Process Coordination" as Process
-
-folder "Physical Git Repository" as GitRepo
-
-User --> Web : name + visibility
-
-Web --> Repo : validated creation request
-
-Repo --> DB : check namespace / persist metadata
-
-DB --> Repo : metadata result
-
-Repo --> Storage : resolve safe physical target
-
-Storage --> Process : approved repository initialization
-
-Process --> GitRepo : initialize repository
-
-GitRepo --> Process : result
-
-Process --> Repo : storage result
-
-Repo --> Web : creation result
-
-Web --> User : safe response
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-003.puml)
 
 ---
 
@@ -1944,289 +1804,49 @@ Internal stack traces in external responses
 
 ## 56. Registration DFD
 
-```plantuml
+![GitForge V1.0.0 - Registration DFD](diagrams/13-data-flow-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Registration DFD
-
-left to right direction
-
-actor Visitor
-
-rectangle "P1\\nRegistration" as P1
-
-database "D1\\nPostgreSQL" as D1
-
-Visitor --> P1 : registration data
-
-P1 --> D1 : User metadata
-
-D1 --> P1 : persistence result
-
-P1 --> Visitor : registration result
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-004.puml)
 
 ---
 
 ## 57. Repository Management DFD
 
-```plantuml
+![GitForge V1.0.0 - Repository Management DFD](diagrams/13-data-flow-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Management DFD
-
-left to right direction
-
-actor "Authenticated User" as User
-
-rectangle "P1\\nRepository Coordination" as P1
-
-rectangle "P2\\nRepository Authorization" as P2
-
-rectangle "P3\\nStorage Coordination" as P3
-
-database "D1\\nPostgreSQL" as DB
-
-folder "D2\\nPhysical Git Repository" as GitRepo
-
-User --> P1 : create/list/view/update request
-
-P1 --> DB : repository metadata query/update
-
-DB --> P1 : metadata
-
-P1 --> P2 : identity + repository + operation
-
-P2 --> P1 : allow/deny
-
-P1 --> P3 : approved repository context
-
-P3 --> GitRepo : initialize/read target
-
-GitRepo --> P3 : storage result
-
-P3 --> P1 : result
-
-P1 --> User : safe response
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-005.puml)
 
 ---
 
 ## 58. Repository Browser DFD
 
-```plantuml
+![GitForge V1.0.0 - Repository Browser DFD](diagrams/13-data-flow-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Browser DFD
-
-left to right direction
-
-actor Caller
-
-rectangle "P1\\nRepository Resolution" as Resolution
-
-rectangle "P2\\nAuthorization" as Authz
-
-rectangle "P3\\nGit Read Coordination" as Read
-
-database "D1\\nPostgreSQL" as DB
-
-folder "D2\\nPhysical Git Repository" as Repo
-
-Caller --> Resolution : repository + revision/path request
-
-Resolution --> DB : repository metadata
-
-DB --> Resolution : repository context
-
-Resolution --> Authz : caller + repository + read
-
-Authz --> Resolution : allow/deny
-
-Resolution --> Read : approved read request
-
-Read --> Repo : Git-native read
-
-Repo --> Read : branches/commits/tree/blob
-
-Read --> Caller : safe browser response
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-006.puml)
 
 ---
 
 ## 59. PAT DFD
 
-```plantuml
+![GitForge V1.0.0 - PAT DFD](diagrams/13-data-flow-analysis-007.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT DFD
-
-left to right direction
-
-actor "Authenticated User" as User
-
-actor "Git Client" as Client
-
-rectangle "P1\\nPAT Coordination" as PAT
-
-rectangle "P2\\nGit Authentication" as Auth
-
-database "D1\\nPostgreSQL" as DB
-
-User --> PAT : create/revoke PAT
-
-PAT --> DB : PAT metadata / revocation
-
-DB --> PAT : PAT state
-
-PAT --> User : one-time plaintext / result
-
-Client --> Auth : presented PAT
-
-Auth --> DB : verification lookup
-
-DB --> Auth : PAT metadata + owner
-
-Auth --> Client : authentication outcome/context
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-007.puml)
 
 ---
 
 ## 60. Git Read DFD
 
-```plantuml
+![GitForge V1.0.0 - Git Read DFD](diagrams/13-data-flow-analysis-008.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Read DFD
-
-left to right direction
-
-actor "Git Client" as Client
-
-rectangle "P1\\nGit Authentication" as Auth
-
-rectangle "P2\\nRepository Resolution" as Resolution
-
-rectangle "P3\\nRead Authorization" as Authz
-
-rectangle "P4\\nStorage Resolution" as Storage
-
-rectangle "P5\\ngit-upload-pack Coordination" as Read
-
-database "D1\\nPostgreSQL" as DB
-
-folder "D2\\nPhysical Git Repository" as Repo
-
-Client --> Auth : PAT when required
-
-Auth --> DB : verify PAT
-
-DB --> Auth : User identity metadata
-
-Client --> Resolution : logical repository
-
-Resolution --> DB : repository metadata
-
-DB --> Resolution : owner + visibility
-
-Auth --> Authz : identity
-
-Resolution --> Authz : repository + read operation
-
-Authz --> Storage : allow
-
-Storage --> Repo : safe repository target
-
-Storage --> Read : target
-
-Read --> Repo : Git read
-
-Repo --> Read : Git data
-
-Read --> Client : Smart HTTP response
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-008.puml)
 
 ---
 
 ## 61. Git Write DFD
 
-```plantuml
+![GitForge V1.0.0 - Git Write DFD](diagrams/13-data-flow-analysis-009.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Write DFD
-
-left to right direction
-
-actor "Git Client" as Client
-
-rectangle "P1\\nGit Authentication" as Auth
-
-rectangle "P2\\nRepository Resolution" as Resolution
-
-rectangle "P3\\nWrite Authorization" as Authz
-
-rectangle "P4\\nStorage Resolution" as Storage
-
-rectangle "P5\\ngit-receive-pack Coordination" as Write
-
-database "D1\\nPostgreSQL" as DB
-
-folder "D2\\nPhysical Git Repository" as Repo
-
-Client --> Auth : PAT
-
-Auth --> DB : verify PAT
-
-DB --> Auth : authenticated User
-
-Client --> Resolution : logical repository
-
-Resolution --> DB : repository metadata
-
-DB --> Resolution : owner + visibility
-
-Auth --> Authz : User identity
-
-Resolution --> Authz : repository + write operation
-
-Authz --> Storage : allow owner write
-
-Storage --> Repo : safe repository target
-
-Storage --> Write : target
-
-Client --> Write : Git protocol input
-
-Write --> Repo : refs/objects mutation
-
-Repo --> Write : Git result
-
-Write --> Client : Smart HTTP result
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-data-flow-analysis-009.puml)
 
 ---
 

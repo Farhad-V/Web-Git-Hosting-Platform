@@ -1,0 +1,14 @@
+@startuml
+title GitForge V1.0.0 - Personal Access Token Use Cases
+left to right direction
+actor "Authenticated User" as User
+actor "Git Client" as Client
+rectangle "Personal Access Token Management" {
+    usecase "UC-020\nCreate Personal Access Token" as Create
+    usecase "UC-021\nAuthenticate Git Request\nwith PAT" as Authenticate
+    usecase "UC-022\nRevoke Personal Access Token" as Revoke
+}
+User --> Create
+User --> Revoke
+Client --> Authenticate
+@enduml

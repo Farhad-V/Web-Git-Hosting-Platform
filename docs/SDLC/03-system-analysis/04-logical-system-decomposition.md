@@ -1251,166 +1251,25 @@ git-receive-pack
 
 ## 58. Logical Decomposition Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Logical System Decomposition
+![GitForge V1.0.0 - Logical System Decomposition](diagrams/04-logical-system-decomposition-001.svg)
 
-left to right direction
-
-actor "Web Client" as Web
-actor "Git Client" as GitClient
-
-rectangle "GitForge Logical System" {
-
-&#x20;   rectangle "Web Interaction" as WebInteraction
-&#x20;   rectangle "Identity \& Web Authentication" as WebAuth
-&#x20;   rectangle "Repository Management" as RepoMgmt
-&#x20;   rectangle "Repository Authorization" as Authz
-&#x20;   rectangle "Repository Browser" as Browser
-&#x20;   rectangle "PAT Management" as PAT
-
-&#x20;   rectangle "Git Smart HTTP Interface" as GitHTTP
-&#x20;   rectangle "Git Authentication" as GitAuth
-&#x20;   rectangle "Git Read Coordination" as GitRead
-&#x20;   rectangle "Git Write Coordination" as GitWrite
-
-&#x20;   rectangle "Repository Storage Coordination" as Storage
-&#x20;   rectangle "Git Process Coordination" as GitProcess
-&#x20;   rectangle "Application Data Persistence" as Persistence
-
-&#x20;   rectangle "Validation" as Validation
-&#x20;   rectangle "Failure \& Exception Handling" as Failure
-&#x20;   rectangle "Diagnostics \& Logging" as Diagnostics
-}
-
-database PostgreSQL
-folder "Repository Filesystem" as RepoFS
-rectangle "Git Executable" as Git
-
-Web --> WebInteraction
-GitClient --> GitHTTP
-
-WebInteraction --> WebAuth
-WebInteraction --> RepoMgmt
-WebInteraction --> Browser
-WebInteraction --> PAT
-
-RepoMgmt --> Authz
-Browser --> Authz
-
-GitHTTP --> GitAuth
-GitHTTP --> GitRead
-GitHTTP --> GitWrite
-
-GitRead --> Authz
-GitWrite --> Authz
-
-RepoMgmt --> Persistence
-PAT --> Persistence
-WebAuth --> Persistence
-Authz --> Persistence
-
-RepoMgmt --> Storage
-Browser --> Storage
-GitRead --> Storage
-GitWrite --> Storage
-
-Browser --> GitProcess
-GitRead --> GitProcess
-GitWrite --> GitProcess
-Storage --> GitProcess
-
-Persistence --> PostgreSQL
-Storage --> RepoFS
-GitProcess --> Git
-Git --> RepoFS
-
-Validation ..> WebInteraction
-Validation ..> RepoMgmt
-Validation ..> GitHTTP
-Validation ..> PAT
-
-Failure ..> RepoMgmt
-Failure ..> Browser
-Failure ..> GitRead
-Failure ..> GitWrite
-Failure ..> GitProcess
-Failure ..> Persistence
-
-Diagnostics ..> Failure
-
-@enduml
-```
+[PlantUML source](diagrams/04-logical-system-decomposition-001.puml)
 
 ---
 
 ## 59. Authorization-Centered Collaboration Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Authorization-Centered Logical Collaboration
+![GitForge V1.0.0 - Authorization-Centered Logical Collaboration](diagrams/04-logical-system-decomposition-002.svg)
 
-rectangle "Caller Identity" as Identity
-rectangle "Repository Resolution" as Resolution
-rectangle "Repository Metadata" as Metadata
-rectangle "Requested Operation" as Operation
-rectangle "Repository Authorization" as Authz
-rectangle "Protected Operation" as Protected
-
-Identity --> Authz
-Resolution --> Metadata
-Metadata --> Authz
-Operation --> Authz
-
-Authz --> Protected : Allow
-Authz --> Authz : Deny -> Stop
-
-note right of Authz
-Inputs:
-- identity
-- owner
-- visibility
-- operation
-end note
-
-@enduml
-```
+[PlantUML source](diagrams/04-logical-system-decomposition-002.puml)
 
 ---
 
 ## 60. Git Logical Collaboration Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Git Logical Collaboration
+![GitForge V1.0.0 - Git Logical Collaboration](diagrams/04-logical-system-decomposition-003.svg)
 
-actor "Git Client" as Client
-
-rectangle "Git Smart HTTP Interface" as HTTP
-rectangle "Git Authentication" as Auth
-rectangle "Repository Resolution" as Resolve
-rectangle "Repository Authorization" as Authz
-rectangle "Git Read / Write Coordination" as Operation
-rectangle "Repository Storage Coordination" as Storage
-rectangle "Git Process Coordination" as Process
-
-rectangle "Git Executable" as Git
-folder "Physical Git Repository" as Repo
-
-Client --> HTTP
-HTTP --> Auth : when authentication required
-HTTP --> Resolve
-Auth --> Authz : identity
-Resolve --> Authz : repository
-Authz --> Operation : allow
-Operation --> Storage
-Operation --> Process
-Storage --> Process : safe repository target
-Process --> Git
-Git --> Repo
-
-@enduml
-```
+[PlantUML source](diagrams/04-logical-system-decomposition-003.puml)
 
 ---
 

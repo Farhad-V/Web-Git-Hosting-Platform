@@ -1,0 +1,2450 @@
+[
+  {
+    "document": "docs/Project-Definition/project-context-diagram.md",
+    "source": "docs/Project-Definition/diagrams/project-context.puml",
+    "image": "docs/Project-Definition/diagrams/project-context.svg",
+    "title": "project context diagram",
+    "original_format": "mermaid",
+    "source_sha256": "b3aa11b160977f1ad0b37bfc4896c2f04b184792c5ea2bec7e073fb58267ee49",
+    "image_sha256": "bbe92d9e35478d38a04eb4751badf94c4fa1050074a6b94aeccf9f26b967d08a"
+  },
+  {
+    "document": "docs/Project-Definition/scope-boundary-diagram.md",
+    "source": "docs/Project-Definition/diagrams/scope-boundary.puml",
+    "image": "docs/Project-Definition/diagrams/scope-boundary.svg",
+    "title": "scope boundary diagram",
+    "original_format": "mermaid",
+    "source_sha256": "8ba36545b91f4d66f1d45f274699b6332a766cdb7aeea9baffdfa620a1743c1c",
+    "image_sha256": "32b82623a670f18d2e05bf27f17e592ea6cafbc3e9b39e78d276ecacb9b7dfd8"
+  },
+  {
+    "document": "docs/Project-Definition/stakeholder-ecosystem-diagram.md",
+    "source": "docs/Project-Definition/diagrams/stakeholder-ecosystem.puml",
+    "image": "docs/Project-Definition/diagrams/stakeholder-ecosystem.svg",
+    "title": "stakeholder ecosystem diagram",
+    "original_format": "mermaid",
+    "source_sha256": "20b0969846fb124be6917022fc867ac9613df29bf72b94e87dc72bf7ca28d4be",
+    "image_sha256": "7d3967e29bcf2b5c05b6c2a6010bb967cb914b20d6ae84673f6f956f507b2b6f"
+  },
+  {
+    "document": "docs/Project-Management/milestone-sprint-release-relationship.md",
+    "source": "docs/Project-Management/diagrams/milestone-sprint-release.puml",
+    "image": "docs/Project-Management/diagrams/milestone-sprint-release.svg",
+    "title": "milestone sprint release relationship",
+    "original_format": "mermaid",
+    "source_sha256": "69d20a06bd730af35d6344a44949ba39dd7433062c79af03fa9016cdb0303f7d",
+    "image_sha256": "161b774119a28f25caccfd26d4813e2fd1163264cac0db758d7b0cd2d887a79b"
+  },
+  {
+    "document": "docs/Project-Management/product-roadmap.md",
+    "source": "docs/Project-Management/diagrams/product-roadmap.puml",
+    "image": "docs/Project-Management/diagrams/product-roadmap.svg",
+    "title": "product roadmap",
+    "original_format": "mermaid",
+    "source_sha256": "f8ae85643a90804045bfa67dc3b324d3ad2756c8c1a03c4625274d5381db4907",
+    "image_sha256": "ccee5887b933c99faaf5ec44c042f360b8d56ceb5f7487a75cd7112d20920e24"
+  },
+  {
+    "document": "docs/Project-Management/release-pipeline.md",
+    "source": "docs/Project-Management/diagrams/release-pipeline.puml",
+    "image": "docs/Project-Management/diagrams/release-pipeline.svg",
+    "title": "release pipeline",
+    "original_format": "mermaid",
+    "source_sha256": "6fca6f3498359121f1e1b31e92592f2e16feaca90e1e83ab302296f847adbd08",
+    "image_sha256": "fabbca77b126d189fc7eeba6dbf1f634b1714c942982413f370ca76a2f36f71f"
+  },
+  {
+    "document": "docs/Project-Management/sprint-workflow.md",
+    "source": "docs/Project-Management/diagrams/sprint-workflow.puml",
+    "image": "docs/Project-Management/diagrams/sprint-workflow.svg",
+    "title": "sprint workflow",
+    "original_format": "mermaid",
+    "source_sha256": "277789e94115afdc32160163e802cc2de2e2c80d8126eebb46824d92b8746305",
+    "image_sha256": "babc531f32656c1c2f6bd6a449aa0f25a675742e6b6ba2e10851e92d82efb01f"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/03-actors-and-external-systems.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/03-actors-and-external-systems.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/03-actors-and-external-systems.svg",
+    "title": "GitForge V1.0.0 - System Context",
+    "original_format": "plantuml",
+    "source_sha256": "9437cd8c66d86e6bf085c860c97554248cbe83803308247331707009c183ae6a",
+    "image_sha256": "0212cec69f6c8afc6ea2d6e0fbffc55d4dcc74a1b53785a1df6f6019310a36ef"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/06-data-requirements.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/06-data-requirements.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/06-data-requirements.svg",
+    "title": "GitForge V1.0.0 - Requirements-Level Data Relationships",
+    "original_format": "plantuml",
+    "source_sha256": "bae36041341be3f992a03c6afd68aa1c3c3a7ba40732ae3f0ec68b4d6fdb65b2",
+    "image_sha256": "732b03d6a22f496dd3b6adbd59c79bccc1a0978415b61dc712d53082528ae20e"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/07-interface-requirements.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/07-interface-requirements.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/07-interface-requirements.svg",
+    "title": "GitForge V1.0.0 - Interface Context",
+    "original_format": "plantuml",
+    "source_sha256": "fc9bccec251e6890150dcb2c73aaa1ca09f145b04c1efea762901149de18d4a3",
+    "image_sha256": "bd7256c037ddca836a57de9bea8d1e9619a701553595d588aba29cc2801ae083"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/09-use-case-model.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/09-use-case-model-001.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/09-use-case-model-001.svg",
+    "title": "GitForge V1.0.0 - Primary Use Case Model",
+    "original_format": "plantuml",
+    "source_sha256": "ac5f597cdd9bc87dfac1d25f21b066b4da420cbb5ca0a5ec677f7bf1e2afa94b",
+    "image_sha256": "6ed76e43863b256d261f9d8d38e9ad121cebe7593d15b0fd6239b20f3dfa7d8e"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/09-use-case-model.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/09-use-case-model-002.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/09-use-case-model-002.svg",
+    "title": "GitForge V1.0.0 - Repository Browsing Use Cases",
+    "original_format": "plantuml",
+    "source_sha256": "eaec5bcf87404ec03adf702ae04f9387f2452edd25ceb38df871011aec405c29",
+    "image_sha256": "f5ba672d75db190fd490a3351b2754ef34f0746fa37e12d42b5f989f7ce158c9"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/09-use-case-model.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/09-use-case-model-003.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/09-use-case-model-003.svg",
+    "title": "GitForge V1.0.0 - Git Smart HTTP Use Cases",
+    "original_format": "plantuml",
+    "source_sha256": "5079bc0a2f1770ac4cb21bf583427f173404ac9c3b82a3dabfe86e963e424c29",
+    "image_sha256": "1649112913c88f8c4242611c039d407cbd5c1c15f782e6e33a9bbc21bffc19ef"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/09-use-case-model.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/09-use-case-model-004.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/09-use-case-model-004.svg",
+    "title": "GitForge V1.0.0 - Personal Access Token Use Cases",
+    "original_format": "plantuml",
+    "source_sha256": "1833a05b753b72c0a2d2dd699d567b1b6f8569ae8ec0d01fd3b1791fd313ae92",
+    "image_sha256": "a55a27f171f9ea0bcccc44dd50efb0d99206a86451193909287889054b1b8857"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/main-user-workflow-diagram.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/main-user-workflow.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/main-user-workflow.svg",
+    "title": "main user workflow diagram",
+    "original_format": "mermaid",
+    "source_sha256": "30490c0e0c05daa0e7dc1bc6d7e6f37d46531d7682634ced6dbd902757e5eb97",
+    "image_sha256": "fbb8aeb7b14e4da65e2ce72e2fc183d9255e34f6a4bd5e43677d4e2df666b359"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/requirements-lifecycle-diagram.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/requirements-lifecycle.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/requirements-lifecycle.svg",
+    "title": "requirements lifecycle diagram",
+    "original_format": "mermaid",
+    "source_sha256": "5dc6990ceb3a8cd26a6e86f72ba6783bbd5df4d29b05ed62ca11d0cbe381baa9",
+    "image_sha256": "c619e053622e49a2138db4f59011db322d41e4732c22ba8a08e84e95e312509c"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/system-context-diagram.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/system-context.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/system-context.svg",
+    "title": "system context diagram",
+    "original_format": "mermaid",
+    "source_sha256": "7633f28475f86a1e79c9679e0e84326bed9cc75dd7c85d8a24a5c62dde21d536",
+    "image_sha256": "3c711ae5e183f733e61268c5c7cbba1c23c8144e135425ef4cae636fe63bb6e3"
+  },
+  {
+    "document": "docs/SDLC/02-requirements-engineering/use-case-diagram.md",
+    "source": "docs/SDLC/02-requirements-engineering/diagrams/use-case.puml",
+    "image": "docs/SDLC/02-requirements-engineering/diagrams/use-case.svg",
+    "title": "use case diagram",
+    "original_format": "mermaid",
+    "source_sha256": "c10646e89a88c7f94cf2095d05f4e940ca2aee7d4073ad9b723b709027188726",
+    "image_sha256": "99ae70e9313d3f75990a5e6b920d0f07f17e9d8862827903df27d7d7182fb44f"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/02-system-context-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/02-system-context-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/02-system-context-analysis-001.svg",
+    "title": "GitForge V1.0.0 - System Context",
+    "original_format": "plantuml",
+    "source_sha256": "b9716f376a179693e111d238e72d5209d495709e242d724b56d2ab913761841e",
+    "image_sha256": "aaf67f26002243590a054d6317739f1c3658a1a8c248ef14e1d6532dfd26137d"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/02-system-context-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/02-system-context-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/02-system-context-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Context Trust Boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "3da953f6d2d404269f1b75f2b9bbbe566981ba0428fc7216ae326843a5eeee8b",
+    "image_sha256": "304ec028dbf2f071565d0296cb169ca9afef042f33615494b1d35d3bc1dd3ee3"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/03-domain-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/03-domain-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/03-domain-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Domain Model",
+    "original_format": "plantuml",
+    "source_sha256": "3e49d55366b183b875378c2daa3fe79a9493e44453c079b8070eed03ad23c013",
+    "image_sha256": "e63eedf3af89913e367b7ee63dcf9b2fd9ceb5a1230718325f157fdb29a00ac9"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/03-domain-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/03-domain-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/03-domain-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Ownership and Authorization",
+    "original_format": "plantuml",
+    "source_sha256": "caced9237b0413d2654ae47c31a080270a51e32b6e980f4d51b8fb24ab2f62a2",
+    "image_sha256": "a4ce4f05728ea1ac76e2a99516b5ad0835a63e3c19134ff84ff9fd665beced07"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/03-domain-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/03-domain-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/03-domain-analysis-003.svg",
+    "title": "GitForge V1.0.0 - PAT Conceptual Lifecycle",
+    "original_format": "plantuml",
+    "source_sha256": "e40368296550680b3ad6ed898271dc7cf15b032efd7a63ad1ebc4395bc601540",
+    "image_sha256": "157b4e9c990a136f1f184a7ff5094b6963595cd480d1efb111f7d61d8d36b8b4"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/03-domain-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/03-domain-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/03-domain-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Repository Visibility",
+    "original_format": "plantuml",
+    "source_sha256": "84f0aa921d2c08556cf27b2f5f5c4d2071f8f657621ac955495f41d966eba16f",
+    "image_sha256": "8b1b7d8d26dbfe7faf6c2fa1333d0e0c0fb36f1234d09f79cfba559c2dc56367"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/04-logical-system-decomposition.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/04-logical-system-decomposition-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/04-logical-system-decomposition-001.svg",
+    "title": "GitForge V1.0.0 - Logical System Decomposition",
+    "original_format": "plantuml",
+    "source_sha256": "ee9a3f87f2478922a41b416eab4ea2ee44a0165c48fad092eaa6c6acb77a053b",
+    "image_sha256": "03ba4af7466e42d72ba456d4294e23a3896afb7e78f3c1cadde9258b0d6a51e3"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/04-logical-system-decomposition.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/04-logical-system-decomposition-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/04-logical-system-decomposition-002.svg",
+    "title": "GitForge V1.0.0 - Authorization-Centered Logical Collaboration",
+    "original_format": "plantuml",
+    "source_sha256": "f5ef2c4e93c0956be4377f32a0a57e3cfefbe70599ed41550aba7bac92985565",
+    "image_sha256": "9791ce43927edbebb7c2c79c75097471955199392225d9a8a0a8255754c8004f"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/04-logical-system-decomposition.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/04-logical-system-decomposition-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/04-logical-system-decomposition-003.svg",
+    "title": "GitForge V1.0.0 - Git Logical Collaboration",
+    "original_format": "plantuml",
+    "source_sha256": "ab65adc6f104978537a944008f3678b95f25ed6c0890cc8b3631e148c2a207e7",
+    "image_sha256": "0c9b0f057714d918d05434e27a395c6e30edd57cae6de068e90da331564c35ba"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/05-authentication-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Web Authentication State",
+    "original_format": "plantuml",
+    "source_sha256": "235b3b43d0406e4a4c410cd26f1443a479db4363c80be3d788804707fdd254c5",
+    "image_sha256": "6238b8f442ae706737ee2aca8af019a155700399d46cae7fff19362e1bbe5f3e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/05-authentication-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-002.svg",
+    "title": "GitForge V1.0.0 - PAT Authentication State",
+    "original_format": "plantuml",
+    "source_sha256": "e88505cf2f3120ab51fa9b0080f73b15d1bba41477a625e2d9bf544a871f34ad",
+    "image_sha256": "ccd7c3ac25efd88ddda03c7777d47b7e3fbaa8a0f0cb1b312179575cc488521e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/05-authentication-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Web Login Analysis Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "3f894e4d5fbb0ef5556f6938cbcafbba7d63a17296f4bb347fd7547730a1062d",
+    "image_sha256": "8d68e445d070dc8be4e1fffcc388f44d0aa58264af8afb7424c927b8e6db0fd3"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/05-authentication-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Protected Web Authentication Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "6d93b3d4659119d389a61ab82ee940d2a5fb7d7865bffd55cc40beaad7836e4c",
+    "image_sha256": "b170f6d640decec875d280326a569c332948b2f8a22e359d6c64992662187bae"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/05-authentication-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-005.svg",
+    "title": "GitForge V1.0.0 - PAT Authentication Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "b719b9b8369cdf11bb7d41ff16dc63cbbae8539f49f0c10592db4547a7bc4e0d",
+    "image_sha256": "0c6f89be88d7348929e6316baa149a34eb636b56ea75363d6b09335110b595a4"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/05-authentication-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-006.svg",
+    "title": "GitForge V1.0.0 - Anonymous Public Git Read",
+    "original_format": "plantuml",
+    "source_sha256": "c04d411d9fd86fca42bde9e36837d7de44b6c4cc7d534a0d692ae46151904b31",
+    "image_sha256": "4807563dad2f70738cfa20fa367e861630a79f0212868d80b5050731a2e140b8"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/05-authentication-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-007.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-007.svg",
+    "title": "GitForge V1.0.0 - Web Login Activity",
+    "original_format": "plantuml",
+    "source_sha256": "fa46f154dde5597e31e9650eb48569292707520b753d0685162499d60db27d5c",
+    "image_sha256": "abda2f56729d8d7dcf903297b820e941f80d84ba2feb0b751a22003114fd2492"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/05-authentication-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-008.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/05-authentication-analysis-008.svg",
+    "title": "GitForge V1.0.0 - Git PAT Authentication Activity",
+    "original_format": "plantuml",
+    "source_sha256": "2f220a5d0e079eecb97088ef9a207a39fe7c37b3cde1be80a478fa6def5ef7a2",
+    "image_sha256": "ec61b9945c392a2b0fb82aaf9c6f5c4da189cc4b8ceccdc27a79e3f8dbcc5537"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/06-authorization-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Repository Read Authorization",
+    "original_format": "plantuml",
+    "source_sha256": "9f2e990668984f20783dd5d4726e9ad174af763c3148808150ab1362bf147f14",
+    "image_sha256": "13338c8764d5aaba5425618ea9e09dc55a1f31d835e281cc776ae6b9ae8fc863"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/06-authorization-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Repository Write Authorization",
+    "original_format": "plantuml",
+    "source_sha256": "9e96aecb1004e55f9bf0f0e7d27205ac543409076b52c98c3b274bb27af9213b",
+    "image_sha256": "17958820d59b7e1c2e94e799b228f40dbc0999fe20692f10000ecd17a81d74e6"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/06-authorization-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Visibility Management Authorization",
+    "original_format": "plantuml",
+    "source_sha256": "d9ed518945a17156df17a9435c164308698fdc76b4398791cc65ef6720dc6818",
+    "image_sha256": "694a3010291cd24ba9ce1c55df4640fa28b11300e21be8dbde35323499c85e12"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/06-authorization-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Public Repository Read Authorization Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "cce1a6298a7ad279413d91b4a7e44a593b9cd2882a78e30e74650ea760630f69",
+    "image_sha256": "6f41047257ff17a2a03e74ade76b9a01e684ec4f1d63ae59d116d85d5e166baf"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/06-authorization-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-005.svg",
+    "title": "GitForge V1.0.0 - Private Owner Read Authorization Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "092669341196a1ef7ac5957a66ae7adddbd55b53f7f7172c82cb996e5a503496",
+    "image_sha256": "3507dd6aa5af416774bfb02e79c79aeae01efb601afb7a2d9f6fe7f84abf9c9e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/06-authorization-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-006.svg",
+    "title": "GitForge V1.0.0 - Git Push Authorization Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "d0c1f30c0b50a7f02c842cfa9f53ec6f53a2fb6eaa74431af0a29c41e7e6aca8",
+    "image_sha256": "fea9ea77114ce4382a1c575098034c0ba21576b850311f48ef001d099447cd90"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/06-authorization-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-007.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/06-authorization-analysis-007.svg",
+    "title": "GitForge V1.0.0 - Authorization Model",
+    "original_format": "plantuml",
+    "source_sha256": "1fbeae79d8f83250dfe62bc5f05bf4c3fafad6a9c7c5cd6c70ff7ad0d744c016",
+    "image_sha256": "b9e9596b62bef30ac0b7febb97b39ab5ca98ee7eb13158a0de42031f11897006"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/07-repository-lifecycle-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Repository Lifecycle",
+    "original_format": "plantuml",
+    "source_sha256": "c1ab861bd5c0d928accf2d4342c34487bc48ab95c29bfccddcf98d39f067ca6d",
+    "image_sha256": "962d54dadff9d65a6a37a31ca474c1ad72c14641e65903df4497595965fe677e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/07-repository-lifecycle-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Repository Creation Activity",
+    "original_format": "plantuml",
+    "source_sha256": "c55c9f05bdf3ff25a1fd52040371ebea9b9a9fef4ad912c1cd7c07f3e4cbc0f0",
+    "image_sha256": "f2453eaf77dfb31defc9e5a694e9e941ac531308732392774290841ef72c2071"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/07-repository-lifecycle-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Repository Creation Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "b9a2cdc9ed383bf0635532bfffe845ac9baeae2a50fafbe7d8f7cd6496be715b",
+    "image_sha256": "345cfe871eee44de41838e80d65ed1471709a4e31806d02e0f81adb234016639"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/07-repository-lifecycle-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Repository Visibility Change",
+    "original_format": "plantuml",
+    "source_sha256": "1725153991e8f03d1ba022c85348b1614268f8f6ecb362a4bbc0ddfa8fc7c832",
+    "image_sha256": "0a052c873e23b01bf0b1e3621337a1d322b99751247434bcf00cb1b589abacdd"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/07-repository-lifecycle-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-005.svg",
+    "title": "GitForge V1.0.0 - Repository Lifecycle Model",
+    "original_format": "plantuml",
+    "source_sha256": "db27cb22b3945fc9755bff03f9cb702f12767bd052f6cbe374fc7260999359f6",
+    "image_sha256": "5f5ee0db7160522fdc4c08907c96abd5779f7acdb7ded9540998d2c056daf428"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/07-repository-lifecycle-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/07-repository-lifecycle-analysis-006.svg",
+    "title": "GitForge V1.0.0 - Repository Visibility Lifecycle",
+    "original_format": "plantuml",
+    "source_sha256": "6e171e0ea42137d5b7658eb330ee9b166eb1adaee7b75537ea5b5a343fe8c646",
+    "image_sha256": "71e4441003dbf3346c8bc0d8c934c8dfd7b203feb012ac8488cb7183ddc91885"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/08-repository-browser-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Branch Listing Activity",
+    "original_format": "plantuml",
+    "source_sha256": "e0101fac7f94e78976661745ed8650cff54caa27d0e367787ed4abfab1bfa355",
+    "image_sha256": "7c9587ad213e6e3359160deb3320fb35b8fb937a8a010923c4b1a515b5db9e06"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/08-repository-browser-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Commit History Activity",
+    "original_format": "plantuml",
+    "source_sha256": "a7704bd56e879995c5f8c2a3694e44e6bdf544744244a0bf5cce42056f9c26c8",
+    "image_sha256": "f0931ee72d8503236985c4db5276b66a4c3f9ac91a6ac1f4e9107907be73a467"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/08-repository-browser-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Tree Browsing Activity",
+    "original_format": "plantuml",
+    "source_sha256": "ede579e47a29dded22a21b559144e4bb1b1a369e5357c153e6bd8008c7e727d3",
+    "image_sha256": "e5257e7b1a355c7dccdaa56262bff38c790099d52a24f1e4e1967a02d4e3cb30"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/08-repository-browser-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-004.svg",
+    "title": "GitForge V1.0.0 - File Viewing Activity",
+    "original_format": "plantuml",
+    "source_sha256": "9df38b01412fc3de644a25dcd54649d6acb258f00374b9a7fd58eb82a3eed334",
+    "image_sha256": "491cf3b09b90bb456516c7849a9b81c4fcd6aff488178c034da2d2cf7a42a88d"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/08-repository-browser-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-005.svg",
+    "title": "GitForge V1.0.0 - Repository Browser Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "b683d68790eac3db5feab8348a0373d1eadf166fc67adcb4bf451c9db2187405",
+    "image_sha256": "bc1e66c15728d68bc6f580a6c2b0abfdd24de7338336a3da034010c1285f3ee2"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/08-repository-browser-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/08-repository-browser-analysis-006.svg",
+    "title": "GitForge V1.0.0 - Repository Browser Logical Model",
+    "original_format": "plantuml",
+    "source_sha256": "73ffefbf6c5d20427ba6fd40356dc61ae3289e305a7982b076b2b90544b47430",
+    "image_sha256": "bdfdb73c24824413a4aa489204ce2ab5fb67e56b492d9906058804c1c43db058"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/09-git-smart-http-read-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Git Read-Service Discovery",
+    "original_format": "plantuml",
+    "source_sha256": "24a8aebe50562a311fc59bdf0641ce772ec60d82a0befbd10884d6aba2a274a7",
+    "image_sha256": "0a66e6f59f155f5cd8a679764aed9efd7827f1a53965e7d3fe2c65bea014dbf1"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/09-git-smart-http-read-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Clone and Fetch Read Activity",
+    "original_format": "plantuml",
+    "source_sha256": "a678e7820bc57236a1cdfaa80f19be7a1b998438748b8657f3b72ce98053b0ef",
+    "image_sha256": "be9cdf138011b2b6dc1f5366ba39f6658d8e8fe790ea16f826964c1cd728ef23"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/09-git-smart-http-read-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Public Clone Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "ccd3488774da8468b57a5c8aa1c245dbe182a61e18873bf0ef7d6ebac133ebad",
+    "image_sha256": "59952e2666631ba96a34e4528217a3fdda6bd8449c9f49f699e4816b58c526ec"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/09-git-smart-http-read-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Private Clone Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "2bff18a2712901c00706800226a6eab624f962a3173cdc53e3646888cf46e6d8",
+    "image_sha256": "8ddd630f6797e8d2db44a57b4ec0d75612e9272c31dc07e0e2f2a012a9bf6dde"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/09-git-smart-http-read-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/09-git-smart-http-read-analysis-005.svg",
+    "title": "GitForge V1.0.0 - Git Read Logical Collaboration",
+    "original_format": "plantuml",
+    "source_sha256": "5a5723a54a0f622dde995a711a04957d6d160b02281232cc7de57cca2d338aae",
+    "image_sha256": "4801079a36c18d4b43d0e3bdeca21def9c5ccbf51585eca7c895236dac33769a"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/11-personal-access-token-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-001.svg",
+    "title": "GitForge V1.0.0 - PAT State Model",
+    "original_format": "plantuml",
+    "source_sha256": "2d39659c75cc124ba31962092f6062823399d025e173fc7f4b4980b246ad6bbc",
+    "image_sha256": "183c1ca575daae0fc6d2e125b18b0fabd2cc406e0d1c04ab26157f45a508f141"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/11-personal-access-token-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-002.svg",
+    "title": "GitForge V1.0.0 - PAT Creation Activity",
+    "original_format": "plantuml",
+    "source_sha256": "fddb68dc493126313e9f8f03e749f2af52de44477432fc55b09b126d83f76806",
+    "image_sha256": "d4eb59895b59b9aac02dcfd17375ab2a0bfe81e21d8dd9349c57cddce05ebf33"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/11-personal-access-token-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-003.svg",
+    "title": "GitForge V1.0.0 - PAT Authentication Activity",
+    "original_format": "plantuml",
+    "source_sha256": "c16d807412c4ff9a1e58c399a8acc17ecd35e06da251ae6c9ce96e875364d0e8",
+    "image_sha256": "65e537062fd2c3ef9bdcf59d19abbf03f92bf697a80b8fb14f728cf3373e58e3"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/11-personal-access-token-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-004.svg",
+    "title": "GitForge V1.0.0 - PAT Revocation Activity",
+    "original_format": "plantuml",
+    "source_sha256": "799cf503459bb3a1924bf73d21d2c6deb1f73f6c1c251ae340ee59662e21979b",
+    "image_sha256": "8f557cd3e6d1408e39d48ea5a70552f48b77a988785d627c45d837e09cd3a17f"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/11-personal-access-token-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-005.svg",
+    "title": "GitForge V1.0.0 - PAT Creation Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "afce9e80d3e628521bfaa69511d5b2e129c5a70c941309a25fa82464774872e1",
+    "image_sha256": "018b46c6ee32807573ffe0dd15869c19d7f21062d8a4354691851bf6f67a6e16"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/11-personal-access-token-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-006.svg",
+    "title": "GitForge V1.0.0 - PAT Authentication Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "f36dcdfced386cbc6d8771fbfc07cfc6557ea459c77cee1c9ac537fb5b1110a1",
+    "image_sha256": "2b1d624d73a7b68ab3e5e6578ddc88954ce3a3a6f920f077f72d165b14b26c94"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/11-personal-access-token-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-007.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-007.svg",
+    "title": "GitForge V1.0.0 - PAT Revocation Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "8c116d27c8d4dc0e408227a0311f57616cce568893957617333347200b4c95fc",
+    "image_sha256": "cbfd54d8f364169dbdfca410e8ac5decab5fdf897fc2183cff82eec9925ba0e5"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/11-personal-access-token-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-008.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/11-personal-access-token-analysis-008.svg",
+    "title": "GitForge V1.0.0 - PAT Logical Collaboration",
+    "original_format": "plantuml",
+    "source_sha256": "b91a532c3c71e602ceb36d768a50588f5281519b72f3da66af0bb305c8af2010",
+    "image_sha256": "a1b5587a66bfa38eae4b5151d153e2a58ae767399dd176fd1feb8039e276a287"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/12-repository-storage-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Repository Storage Creation Activity",
+    "original_format": "plantuml",
+    "source_sha256": "53c31404e81c028b21940210f2bc84f8539decf29cade76deffe3c2d6d90c153",
+    "image_sha256": "08909213d9d3eb243196a09b0e2e855149d0c75023053ac7552f122bd5ec8837"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/12-repository-storage-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Repository Read Storage Activity",
+    "original_format": "plantuml",
+    "source_sha256": "37ad0b0b376d5ece0045c79b2e25c5379dfeb10019eeab9e8633ec07423f38c3",
+    "image_sha256": "d09ed7769a97ba35c8c0e02f4a736a3d6995232a60c8d034a70a44375ec6417b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/12-repository-storage-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Repository Write Storage Activity",
+    "original_format": "plantuml",
+    "source_sha256": "a5aecfcc9577435e9001e37c0816202c4287c7f6ab1a9162711bc12a742ce73b",
+    "image_sha256": "d43f34fc1eec5c025f5e9dac75e1f76457887cddde89124fe627905938c106dc"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/12-repository-storage-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Repository Storage Logical Collaboration",
+    "original_format": "plantuml",
+    "source_sha256": "e911be63e840ffcc9d37ec9ac3bed726f5aeb36b718ac0bdeb1c1d869fd029dd",
+    "image_sha256": "b5912ec865d5d9d2c1a36244fc751e8811258f692449a7b9deb8739dbec47a8d"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/12-repository-storage-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-005.svg",
+    "title": "GitForge V1.0.0 - Repository Creation Storage Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "86b7d27a104d3ffe4cfbdd675d8e601eb8a716d16b6f4c8fd3805e58bbf865ef",
+    "image_sha256": "f8ec47738b913fed324cd412b156204731d0489ee2992989768ee26a960a2e46"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/12-repository-storage-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-006.svg",
+    "title": "GitForge V1.0.0 - Repository Storage Read Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "ed346a26f22b564935033dbf48d60ae45f96ef5a9690824d206fc8fdcdf5e8d1",
+    "image_sha256": "98b86ce2f8a39d2cd4c400c24882256b1820949e9fe050ef39e3f13bc459c908"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/12-repository-storage-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-007.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/12-repository-storage-analysis-007.svg",
+    "title": "GitForge V1.0.0 - Repository Storage Write Sequence",
+    "original_format": "plantuml",
+    "source_sha256": "f762fdbd0b8a93f8c0dad5cbe06bc3cd8fb4fc8a6027fedb52140807d61768ce",
+    "image_sha256": "264c6f41381e2136e8e2eabc4c2ca323b8a31857b1da2993c9ed111648502934"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-001.svg",
+    "title": "GitForge V1.0.0 - High-Level Data Flow",
+    "original_format": "plantuml",
+    "source_sha256": "89d9a413de0bd88ee25d58eefec43aeaf5dc620c2771821264c151b5589fcabc",
+    "image_sha256": "abfc5120fafb528e3ec590dd627b19c3476800234272aed9577341a4f6ba7c95"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Registration Data Flow",
+    "original_format": "plantuml",
+    "source_sha256": "c93e17e2a8cccdf66ce37a4478515d26a320f39940dc0d0ae9d6ac524623e064",
+    "image_sha256": "302568f5ca17bc5f62356d2c3dcd1bc98affba470e7a3c7f51af0ff6fad56e56"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Repository Creation Data Flow",
+    "original_format": "plantuml",
+    "source_sha256": "be020b38958a1cf28f70c5301da7d38a9e4b7886f68800a2963b89319f252a81",
+    "image_sha256": "ac9093992f98b1c858593776f101aa99a25009dcae267c92c5d913504729123f"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Registration DFD",
+    "original_format": "plantuml",
+    "source_sha256": "d8fac786bbbcf952deb1eaf9e80dcaa90dc8a5cbf908bca1c381f0af7cec9e1f",
+    "image_sha256": "159c6e969176651007c8f3cc4ddd2bb37d1817ccb5788f2e3cc5dea5de9085d0"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-005.svg",
+    "title": "GitForge V1.0.0 - Repository Management DFD",
+    "original_format": "plantuml",
+    "source_sha256": "4224426e0eedcb1ca096068ea631c9ad9e5bc7f3cb7fbbb7f8e42352538687ca",
+    "image_sha256": "e5e4043c41fb3a4c6d00fb06b801ef9852cb9b4a0d3c9c1401cbb81894d0ceaf"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-006.svg",
+    "title": "GitForge V1.0.0 - Repository Browser DFD",
+    "original_format": "plantuml",
+    "source_sha256": "9fbe807e85c0e60fe8108b4af2843039fadf85aa9fb75144d4425545b8c4cd1d",
+    "image_sha256": "dc4fe9221c84a4d5e0265e65d840f8c8c17e4bf24841585a031f44daf29a3bfe"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-007.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-007.svg",
+    "title": "GitForge V1.0.0 - PAT DFD",
+    "original_format": "plantuml",
+    "source_sha256": "ebe42edd52bdf91f72343d58bbd470a83cf007880ffb0653ad1bc71d6f254b7d",
+    "image_sha256": "17827757df5fd3f0cb5944095072ffd84668951411dfe0d4ea02ff9cf51080c3"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-008.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-008.svg",
+    "title": "GitForge V1.0.0 - Git Read DFD",
+    "original_format": "plantuml",
+    "source_sha256": "17901706d8e58f9b8f4c39c269e2f83d5f40e3918eb4ae98dfc3c4a32f1a2802",
+    "image_sha256": "cfa54f4310843b789050a59c34193c5211c36304f003bc88914c9d7036d5ea20"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/13-data-flow-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-009.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/13-data-flow-analysis-009.svg",
+    "title": "GitForge V1.0.0 - Git Write DFD",
+    "original_format": "plantuml",
+    "source_sha256": "29cf2d44f7815310531de0cea5996ddce432da9b36fa796cc8da56a9c7959f37",
+    "image_sha256": "242c3e798d09d2766609beaca345f2c1f89cfb9e68be4a0c4116782630b256f9"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Interactive Authentication State",
+    "original_format": "plantuml",
+    "source_sha256": "103defc888bc8c93efc3ed130d5175c9e7de9c32f5516aa231385f5f26db8d4e",
+    "image_sha256": "e773786d4f4befdecb1120b6c96aad517ace5ebddf8461c5128d1941369d451d"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Repository Lifecycle State",
+    "original_format": "plantuml",
+    "source_sha256": "e4698489b86cd9865e194fb32903b83430faa774c81f08bf73f827d6912eff3e",
+    "image_sha256": "d440a771c9b332b0504bc254b1df82df2e1f3498d2a44dab15b9c5313b5e919e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Repository Git History State",
+    "original_format": "plantuml",
+    "source_sha256": "7ca02bce24376a7993db7d001731287a0f248a8bf7f37a7c6f549777f9814f45",
+    "image_sha256": "54aaae06bc6e5cb261b3fa321038bdc1f83fd2899b0eb6f4d8703a11b9ff6ac8"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Repository Visibility State",
+    "original_format": "plantuml",
+    "source_sha256": "07c412308566539b9f59f792c43b4dd533da30d44eedc5285e91b3a67b4acfc0",
+    "image_sha256": "25a5e99398b231b8805efdb618d407b9d7833049304d87040178da022c13f554"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-005.svg",
+    "title": "GitForge V1.0.0 - Read Authorization Decision",
+    "original_format": "plantuml",
+    "source_sha256": "c432d1087a2d70f92635e51687d7fce0f3207b3eeb876d3db83f6e40203c4b4c",
+    "image_sha256": "af99b659c577c5de9b84e5e24f35cd7f299e032034c3953072586d94d0237dec"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-006.svg",
+    "title": "GitForge V1.0.0 - Write Authorization Decision",
+    "original_format": "plantuml",
+    "source_sha256": "c9588bb507f4287c7e9acfa59edf850eb97b32005295091b6c98e620040d4799",
+    "image_sha256": "1a191ca394cc6766680164b4b760067c85f89fe67104144b94eab24ab57b9419"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-007.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-007.svg",
+    "title": "GitForge V1.0.0 - PAT Lifecycle State",
+    "original_format": "plantuml",
+    "source_sha256": "c9305adb60cd85121b4288e1f8feb215da8dcf7369a4f2c4dce915baba7ec5a9",
+    "image_sha256": "884a5b78ac10678a413f45747b6967b35281f3537e4da7e57b952b82eb6a4bc1"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-008.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-008.svg",
+    "title": "GitForge V1.0.0 - Git Read Interaction State",
+    "original_format": "plantuml",
+    "source_sha256": "95177a2881bb261de969cdc55e018774dce13be74931baf34ae7e96e7142c555",
+    "image_sha256": "0ee16d4374fb1d255d3b9ad0b9064323642780d0caba06ee994246d2989e94b5"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-009.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-009.svg",
+    "title": "GitForge V1.0.0 - Git Write Interaction State",
+    "original_format": "plantuml",
+    "source_sha256": "e90de3c8bf74848af8d88f3d6fdf245b8ceabe2c76ee89a154a0f367a4d13570",
+    "image_sha256": "8d529095ebfe6a6cfcd5b6587417bf1138a4323a930b0d74ec722fd35b6db4e2"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-010.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-010.svg",
+    "title": "GitForge V1.0.0 - Repository Storage State Analysis",
+    "original_format": "plantuml",
+    "source_sha256": "f223a92bb169eba7769aac3e117a7f004a3d7473e5261adfef0f3e80cc1fd1fc",
+    "image_sha256": "83a0d42d5855b42ac3970e2d0336e7ae416b3d99484a144a65740fd150cae995"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/14-state-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-011.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/14-state-analysis-011.svg",
+    "title": "GitForge V1.0.0 - PAT Authentication State",
+    "original_format": "plantuml",
+    "source_sha256": "1ad8697a42a1e0f65f5c95e36190a04a72d2902760c6b32c818c8e1859884087",
+    "image_sha256": "c498bafcddae521f09a9b21d24847de0e8db6ff6c8028e319e0fd02e83a73041"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/15-trust-boundary-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-001.svg",
+    "title": "GitForge V1.0.0 - High-Level Trust Boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "b9bdc8b1189df9465eea4779bacf66af83abd6b0e7423b252659a61d4a3235de",
+    "image_sha256": "ea7e4f76fae88bbd6257532b31d9edefd6d48b0c360a7424e13676c9b81c5b13"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/15-trust-boundary-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Authentication Trust Boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "8beb623030691f97ca2331646a8e4602e2cec234bdcba40ce15d3d1e87dba3fc",
+    "image_sha256": "15d315a75a71930fa705dbb1f5bf50653227e60d0ec717976e26bfc7e573f208"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/15-trust-boundary-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Repository Access Trust Boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "e61b71a957bd08263ebc0fc617e34f7e2fb17ce66e17ee27a2aa0e29941e4da5",
+    "image_sha256": "e30a4473cc14aa54bd8dfeab72e2b46e0daeef393dac61cd4cef56cedc681236"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/15-trust-boundary-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Git Execution Trust Boundary",
+    "original_format": "plantuml",
+    "source_sha256": "934adf0c79cf070b43e0acc52f56af274c3321cbad6b317895fc5410c25df209",
+    "image_sha256": "b8845d061248de677c6eeb1d5dc8e0cd0ffebe1f3dff33d0e54ac472999e8fb2"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/15-trust-boundary-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-005.svg",
+    "title": "GitForge V1.0.0 - PAT Trust Boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "38ee03b7b7460eac6bce011fd9e0e916feede6d72f6b0860c89161aefaca45fd",
+    "image_sha256": "9085b0f737914167357a7d1cb2fa11270e4869c3085e128abcc132c51b7dd3ca"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/15-trust-boundary-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/15-trust-boundary-analysis-006.svg",
+    "title": "GitForge V1.0.0 - Repository Content Trust Boundary",
+    "original_format": "plantuml",
+    "source_sha256": "4ccecc7c0ce161333eeb3b75d6c55660375b6a9c6f4cb484a6e873a98a523671",
+    "image_sha256": "d8405f83219bbbee8a0e6eb7a2c4612b642569d2ad8bc0a45299f1e61cb7af43"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/16-failure-and-exception-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-001.svg",
+    "title": "GitForge V1.0.0 - Repository Creation Failure Flow",
+    "original_format": "plantuml",
+    "source_sha256": "931a864046f1571c401786c9634cdaaf70b69149135777526846261ba809d0b0",
+    "image_sha256": "8aade3a300bac1f9547e50b834b72405677a4b5c604ec6d1e09de78195f5a831"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/16-failure-and-exception-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-002.svg",
+    "title": "GitForge V1.0.0 - Repository Storage Failure Flow",
+    "original_format": "plantuml",
+    "source_sha256": "98d95e3bf87c1b3eb80ce21727e8accf8e88e0539a9cb7dcc836c7b6a3912827",
+    "image_sha256": "e8e6570dd9f65e7a3d4b2030c0e3d5f6c76ffc4709bc8d1a845215deb5cb56a8"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/16-failure-and-exception-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-003.svg",
+    "title": "GitForge V1.0.0 - Git Read Failure Flow",
+    "original_format": "plantuml",
+    "source_sha256": "ce4833ca8f0ada5db5ae6d2b5d125da2625a27f823504899a760b98220f266bb",
+    "image_sha256": "6f0fbc0af3158d87bcd3bb6ba3cf10d5b257c2938e7fb7656660419c872d4254"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/16-failure-and-exception-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-004.svg",
+    "title": "GitForge V1.0.0 - Git Write Failure Flow",
+    "original_format": "plantuml",
+    "source_sha256": "3b351724aeaeb3fafedaa833e9ab2342f205ec9c8fa041fcc6cb33bc0ed686c6",
+    "image_sha256": "f25adef45e3178696b91e5d03bb73a28870f02a1fa7fceca6e64b57cbd219ae3"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/16-failure-and-exception-analysis.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/16-failure-and-exception-analysis-005.svg",
+    "title": "GitForge V1.0.0 - Failure Containment Boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "ab45aa01d7473b64ba5533f11b4622a3fb3c142c3de4e88c2b70cf6a07150aaf",
+    "image_sha256": "042c47d3bfe90e893b592bf59287afd0e36e2112ecfd6d46596984e2982e711b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-001.svg",
+    "title": "GitForge V1.0.0 - SM-001 User Registration",
+    "original_format": "plantuml",
+    "source_sha256": "edf38a77bc513311994be177da4ebba3a60b377d9ecd87d713962e16b05c1aaf",
+    "image_sha256": "4a52fdeab2d5ac07a720c3ff35a0705957bc5752ed15da64923fd85c881f0ea4"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-002.svg",
+    "title": "GitForge V1.0.0 - SM-002 Interactive Login",
+    "original_format": "plantuml",
+    "source_sha256": "0b6ee7210ab5d4be0cd7fae3a956e0e7277dbd898e7110002ae0540bbd2c4116",
+    "image_sha256": "d60f5d55a9ddfc81da75f8deb1e88e320f70f72ec2886d447dcc5ca34be54de9"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-003.svg",
+    "title": "GitForge V1.0.0 - SM-003 Logout",
+    "original_format": "plantuml",
+    "source_sha256": "dc53bd2b32d52394b7d51221f58ab599604f63ad30f1776cccad5f2ee6c12248",
+    "image_sha256": "ba2ac5faaf555075346f8f11e6ae3cc8f6c241cf2c9b96001aba689266e54c86"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-004.svg",
+    "title": "GitForge V1.0.0 - SM-004 Repository Creation",
+    "original_format": "plantuml",
+    "source_sha256": "b2a963c007bc467426f2d1fead0608d25f3c130857dba71ced6a6b986bd81a77",
+    "image_sha256": "be633e8e3373c2a52ef395572272bec1bb5883f85a953cf98cdb622dd68f077f"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-005.svg",
+    "title": "GitForge V1.0.0 - SM-005 List Owned Repositories",
+    "original_format": "plantuml",
+    "source_sha256": "b42e8a45e4db91706ed65dec1ef6ed495b97c3821c7bf1fb0b920a7a81f2b6e0",
+    "image_sha256": "455c9363c6bf0539df735730d1e350371589f62640c1fa96700c1657371eef6b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-006.svg",
+    "title": "GitForge V1.0.0 - SM-006 View Public Repository",
+    "original_format": "plantuml",
+    "source_sha256": "9c285aefb1f3c8917b53917eb3d2fa84b6d0e655041b14a85fc61f751aecaea6",
+    "image_sha256": "0f1092da02b9936fbf594dc5af7194e128d7c766ada5cd2909c18821206db505"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-007.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-007.svg",
+    "title": "GitForge V1.0.0 - SM-007 View Private Repository as Owner",
+    "original_format": "plantuml",
+    "source_sha256": "ee8674edfeccb023e18152ec4ad99c4bc1487649eb7bdd46a5225b0121d46eee",
+    "image_sha256": "aa112395d4b2d822c5c5c2630232808bfe5d7d5d51b50bc9d8a212ee305e20aa"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-008.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-008.svg",
+    "title": "GitForge V1.0.0 - SM-008 Change Repository Visibility",
+    "original_format": "plantuml",
+    "source_sha256": "2532760b509dba0405ba7be3f043f45ddd7a885695bb462435cd4a60235a82db",
+    "image_sha256": "6cf2abbceaed3dfa6a02bc24acdc44ace5eced7f32f14f79f3280df4366a1ad2"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-009.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-009.svg",
+    "title": "GitForge V1.0.0 - SM-009 List Branches",
+    "original_format": "plantuml",
+    "source_sha256": "834af840bc60e1c4eb7258ca39313b5c58039eab304e7309d62bd7434dcf7051",
+    "image_sha256": "7867c68b9acee7a5e499e24f4f79fc38f252befc26e01cac1c803a34ad9154f9"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-010.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-010.svg",
+    "title": "GitForge V1.0.0 - SM-010 Commit History",
+    "original_format": "plantuml",
+    "source_sha256": "9b410999e909aa6024c1ea7a4881bb325eb7d0c7028284c8f7b94c373cfb1d3b",
+    "image_sha256": "3c21caebd1ac9f13d85b8c7eaa341466b01b5b36e0770839f195567dfa14d5a4"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-011.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-011.svg",
+    "title": "GitForge V1.0.0 - SM-011 Commit Details",
+    "original_format": "plantuml",
+    "source_sha256": "75729c5322cfdb16292c8ce777bbd3d768762ae3569d0d38ef67c3c2bd322f0b",
+    "image_sha256": "49906e0f749b3f9dce624e542366a5f3095f25313f3c182f10736a0dd6424cb2"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-012.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-012.svg",
+    "title": "GitForge V1.0.0 - SM-012 Tree Browsing",
+    "original_format": "plantuml",
+    "source_sha256": "1bfb020ff17095934cff825d27a8361fd9402e913de4be982551eadd8a85e5a8",
+    "image_sha256": "cffe5b98ae329d89ec65240bf006dbf86304073827c95e516b5987cae262de72"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-013.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-013.svg",
+    "title": "GitForge V1.0.0 - SM-013 File Viewing",
+    "original_format": "plantuml",
+    "source_sha256": "6eff428ca68d7bd3a82d0a237db07cf3afe132ef3412f365b09904d8383fdfb6",
+    "image_sha256": "a67badf837775c4b2e78dc7b7d3c90c1ad4d57ee9820069577e31dc07433cf37"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-014.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-014.svg",
+    "title": "GitForge V1.0.0 - SM-014 PAT Creation",
+    "original_format": "plantuml",
+    "source_sha256": "d78be036722b119b8c49830b39a24b018f0b0da03a4e4ed1843e526a4ab1047b",
+    "image_sha256": "ead9f1309caef872cd9b590230cfe07e068a936d3e060a0d0b301c70043949ea"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-015.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-015.svg",
+    "title": "GitForge V1.0.0 - SM-015 PAT Authentication Success",
+    "original_format": "plantuml",
+    "source_sha256": "0327be04f33375ed29a36cf4360c09fa10de798e7bbadf11b2ea2f5610fa34c0",
+    "image_sha256": "32db23b42e14f89a60c9b8ae75dc870acb3efed8f7afe19b909b3dacc77225ec"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-016.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-016.svg",
+    "title": "GitForge V1.0.0 - SM-016 PAT Authentication Failure",
+    "original_format": "plantuml",
+    "source_sha256": "7a6e31a50ecfa5bd1d8344d85d8204e1ceb9e7f2c79f43418bfab02515178923",
+    "image_sha256": "f1e7f19fb4af04328f81154b9d1a2197c8553b9b9df9159300532219c546ea8f"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-017.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-017.svg",
+    "title": "GitForge V1.0.0 - SM-017 PAT Revocation",
+    "original_format": "plantuml",
+    "source_sha256": "3b3fc623fb208b8f84a109117bca2022ba648f17110f5c6e983f5718b9df6b53",
+    "image_sha256": "2d8c0dcc6784bd00b953c7af62203eb114c793737c7cc8f9930453c66fa93cd2"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-018.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-018.svg",
+    "title": "GitForge V1.0.0 - SM-018 Public Git Read-Service Discovery",
+    "original_format": "plantuml",
+    "source_sha256": "7cafe9fc970249022fb242f1231bac704d8710281bd0263cea090ce0e98a4f8f",
+    "image_sha256": "a474246224e9e27547f803ad174463c9916c5de95ed42f312d7e346167ca6e98"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-019.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-019.svg",
+    "title": "GitForge V1.0.0 - SM-019 Private Git Read-Service Discovery",
+    "original_format": "plantuml",
+    "source_sha256": "6e6569710cfb3ce6294657608806ee0f6c3e277dc37cadfc85cee966f447f779",
+    "image_sha256": "ea2f0aba6568c26ef17310a65dd064b09e904ac7161aff29b40f55b3a4e3bd71"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-020.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-020.svg",
+    "title": "GitForge V1.0.0 - SM-020 Public Clone / Fetch",
+    "original_format": "plantuml",
+    "source_sha256": "232d142119efdc6562f9aab7a9b439972686dd0fb450f209ab5756214e722a60",
+    "image_sha256": "4117ef1c7a87b0795dddc3184ebeefc6b748aca77b2daeaa99f6e65bf99a36db"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-021.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-021.svg",
+    "title": "GitForge V1.0.0 - SM-021 Private Clone / Fetch",
+    "original_format": "plantuml",
+    "source_sha256": "640134e8801c01b613a0f7c2d6eceab1ea190b2f04ee6d5f6788a4037d4eee8d",
+    "image_sha256": "a6152f8b5e41fd9ce2acc65d491c52017ae11413230f2aa524d67b9f1f0e97a0"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-022.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-022.svg",
+    "title": "GitForge V1.0.0 - SM-022 Git Read Missing Storage Failure",
+    "original_format": "plantuml",
+    "source_sha256": "023dd7e9c38aedd598f65f3d9cee46ae8614eb715f380ce41b41b45d47a4a2f8",
+    "image_sha256": "0c0ec147970a0c7887546e28db86a7b20c5a514aec85e3d719d997b21aa8b688"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-023.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-023.svg",
+    "title": "GitForge V1.0.0 - SM-023 Git Write-Service Discovery",
+    "original_format": "plantuml",
+    "source_sha256": "1407e8f0ac11ee3c907b95832f5a9ef2441d62df76209efdc6e1275559c5e980",
+    "image_sha256": "b689a837521b3f281ae2dbc650766a4445c55605ef3a4a8c1d2656f859ff9847"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-024.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-024.svg",
+    "title": "GitForge V1.0.0 - SM-024 Successful Push",
+    "original_format": "plantuml",
+    "source_sha256": "2a0429e2563701ca42dcb6753840735a88147f4477fc0ec30c58bc42ba1df456",
+    "image_sha256": "8452ad8bb5c2d3bb4700d6c8917036472429fd0df13f62a6dc864b7de0c6a22b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-025.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-025.svg",
+    "title": "GitForge V1.0.0 - SM-025 Push Authentication Failure",
+    "original_format": "plantuml",
+    "source_sha256": "32e69da6c72c17ae58def46dea9f33ef6ff78c29b5da8e88fbe2844720f26e11",
+    "image_sha256": "595bba5557fa848e005b659cffa714a946be94a79f3c65f443bf74011c004bd4"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-026.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-026.svg",
+    "title": "GitForge V1.0.0 - SM-026 Push Authorization Failure",
+    "original_format": "plantuml",
+    "source_sha256": "00afc33deeb59d3a1ae893648bf9884b8d417257d62006bc2ca80527b2f5305a",
+    "image_sha256": "6e0c1a59ae0474080e89b4cb29dbef4cfdf3bb31b7fb64bce9e9e11f45133514"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-027.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-027.svg",
+    "title": "GitForge V1.0.0 - SM-027 Push Storage Failure",
+    "original_format": "plantuml",
+    "source_sha256": "8169229df37858863c201b997900b46cd7609fd0f697b5044e5b0d5b4b193925",
+    "image_sha256": "bc5026defe3e23931b06c98812d2162f26d7a8cc043618dd42def505871fac7b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-028.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-028.svg",
+    "title": "GitForge V1.0.0 - SM-028 Push Ref Rejection",
+    "original_format": "plantuml",
+    "source_sha256": "1d907d0c463c2c9773b6bccb769a7ecdea6e873dfe2048b5ddef021cec905b52",
+    "image_sha256": "7fb28dba43a42e3f6c3a325d8e6a8f0bd9cad3fdb38f06f8e317e4d903657230"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-029.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-029.svg",
+    "title": "GitForge V1.0.0 - SM-029 Browser Missing Commit",
+    "original_format": "plantuml",
+    "source_sha256": "0e9b2cdb1fa2d5163ef9223c3445ada60bc23a67a073d4fa56877bd5f5c90835",
+    "image_sha256": "a3ca56dd1b687b0f9d0107f2bca8b15714cf3b85ec98b933dabe8ffa0fdbd8b1"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-030.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-030.svg",
+    "title": "GitForge V1.0.0 - SM-030 Empty Repository Browser",
+    "original_format": "plantuml",
+    "source_sha256": "bc0cd87ce8cb38c44e13b6886e918b820a61c07faebef4dd8cc848e6ebd7b5a6",
+    "image_sha256": "658039933b35ef226dc5815419955002d8100df9f3e25c85edbf72ceb0447397"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-031.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-031.svg",
+    "title": "GitForge V1.0.0 - SM-031 Repository Authorization",
+    "original_format": "plantuml",
+    "source_sha256": "d78c8e826c3c8c84e4fefdd3ce85634cf8f39b5df190be4ccfa6d70b5b3608d8",
+    "image_sha256": "dc6ccc86639a38e3653c47b026cca13475ec815bb5d28b730726a16c7d1c3717"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-032.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-032.svg",
+    "title": "GitForge V1.0.0 - SM-032 Safe Repository Storage Resolution",
+    "original_format": "plantuml",
+    "source_sha256": "d8743b3101c312278008d7c5375c897e2e169754efae1af4fd5ea04c8f2d30e3",
+    "image_sha256": "d7d7e7add47b242a8e0c43feb9208209ba6d2b082b99a8f00d8de9db9105a807"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-033.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-033.svg",
+    "title": "GitForge V1.0.0 - SM-033 Controlled Git Process Execution",
+    "original_format": "plantuml",
+    "source_sha256": "7f32c2cd61ea93e83de6cdb241acba547cbf4dd90308065ed1bb7a0b78fd3ddd",
+    "image_sha256": "ba4fb735ce55abe39e0afacbbf9a9caefb5197167a62e611021e28bfd93f73fc"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-034.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-034.svg",
+    "title": "GitForge V1.0.0 - SM-034 Failure Propagation and Diagnostics",
+    "original_format": "plantuml",
+    "source_sha256": "a70e1f20ba8f749003925c28393123ce5c2353c0494b9b5d060221b2ff43a20e",
+    "image_sha256": "b522299724fd9d6dc05fcc22fc2583ed2287a10f98323b8a54f08461910d2336"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-035.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-035.svg",
+    "title": "GitForge V1.0.0 - SM-035 Visibility Change Effect",
+    "original_format": "plantuml",
+    "source_sha256": "05d40658fb47b1fe7d7ae4cfed347ad0e85f01f71fb390751d3d6a9abc9ddd4b",
+    "image_sha256": "9daa5cd55c375750930d4b4898db1f73951810ef7000e8c5b2c9671656e4dd97"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-036.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-036.svg",
+    "title": "GitForge V1.0.0 - SM-036 Private to Public Visibility Effect",
+    "original_format": "plantuml",
+    "source_sha256": "3f8a25fbef6bcb0951eaacfa9fe22f57cb36620a52cd64772ff322cf24189fc1",
+    "image_sha256": "72e8adef95eb4e5037c8571b897875dada942cedb17a32471cc3afe2f3cb983f"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-037.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-037.svg",
+    "title": "GitForge V1.0.0 - SM-037 PAT Revocation Effect",
+    "original_format": "plantuml",
+    "source_sha256": "449d309d049567f90aa3b5aec9190e3de006d4e7f1800c58e0409152d094baee",
+    "image_sha256": "eb4551161cb012ed2c2493846dbcf350914ab236ac4f0460d4eef7a88272d788"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-038.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-038.svg",
+    "title": "GitForge V1.0.0 - SM-038 First Push to Empty Repository",
+    "original_format": "plantuml",
+    "source_sha256": "295305a778b47acb581c33f9b241c2154f8b0d20571ba79a81fe10dc9dd89f48",
+    "image_sha256": "5e0dbdf0d98d1a4a9a275cf63ec4606724aa409621c6041d1cf84662259778d5"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-039.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-039.svg",
+    "title": "GitForge V1.0.0 - SM-039 Concurrent Push Ref Conflict",
+    "original_format": "plantuml",
+    "source_sha256": "c0b6128ebe94df460d42ecd638604dea6e38f93fd3ed942f1d33f534238a6fd8",
+    "image_sha256": "8e35e8ebb4f6f441abea952c682b542c298fd8a4e7b06a749103705b8f90f34b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-040.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-040.svg",
+    "title": "GitForge V1.0.0 - SM-040 Private Read by Non-Owner",
+    "original_format": "plantuml",
+    "source_sha256": "2eb61c93ef207b2f4f98f061a384817b774ebbef52a447314b0ca7f649c132df",
+    "image_sha256": "574731169170d4ff0a3a5cb29fa5069019ff76ecc90a7dda5ebf6601fe5ca1f6"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-041.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-041.svg",
+    "title": "GitForge V1.0.0 - SM-041 Anonymous Public Read",
+    "original_format": "plantuml",
+    "source_sha256": "412eb5e3dd51b464b01fb2f15740196e40e458eb53b255037b7ff53df69f95ca",
+    "image_sha256": "8a913e100b77af398b40d5acb7f1d763b76424c1d9863765ee56624299d2034e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-042.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-042.svg",
+    "title": "GitForge V1.0.0 - SM-042 Non-Owner Write Denial",
+    "original_format": "plantuml",
+    "source_sha256": "9c0724a0eb1ffd2aca02af59deb681fdf08d517751320d930dbbaf854fc3fc2e",
+    "image_sha256": "7b031db513bb871627cfc2cc966a9aa6bee9144af9118482273bea4fef9f99fe"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-043.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-043.svg",
+    "title": "GitForge V1.0.0 - SM-043 Invalid Repository Identifier",
+    "original_format": "plantuml",
+    "source_sha256": "1e790623ac81babdab54061f6ecdffca37a69a44153f3f7dd8b3db001e9e573a",
+    "image_sha256": "36c930d21b3e2e2b1a7f8c4446d383330e9e9c6892108bebd2e623282752f982"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-044.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-044.svg",
+    "title": "GitForge V1.0.0 - SM-044 Storage Root Escape Prevention",
+    "original_format": "plantuml",
+    "source_sha256": "7b6334b80cb82d61fe7977145938e13f0dccd9a8dcffd159836029518cc436bf",
+    "image_sha256": "70c399a7e611c251bc6d02e983923e58979fdc9aaabaca6c78d0ab1e407bba42"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-045.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-045.svg",
+    "title": "GitForge V1.0.0 - SM-045 Plaintext PAT Restricted Flow",
+    "original_format": "plantuml",
+    "source_sha256": "05072d79784edcb310ddc945793acf5a237c63ebedd91ff363c1c0b2e20c700c",
+    "image_sha256": "e477577f6ee2878a2d2015e7cc9e4148a02d63da5660cc4a8c779a1d21ce00ad"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-046.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-046.svg",
+    "title": "GitForge V1.0.0 - SM-046 Missing PAT on Write",
+    "original_format": "plantuml",
+    "source_sha256": "61ebe0386b45b683fe2e5f3e4af2b1b268724cb4bd00154ae4f94aaa661948d6",
+    "image_sha256": "6fa5228724309ae5859843cd9120463ea609440b89aa36b8335afcf158f37a5b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-047.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-047.svg",
+    "title": "GitForge V1.0.0 - SM-047 Metadata Present, Storage Missing",
+    "original_format": "plantuml",
+    "source_sha256": "db849708e75186baaace8ebed7ae7ea965a6101cd964dbc7eb50226835328c96",
+    "image_sha256": "4bbcc436c91f1d7d8a10a277fe2742c165544f1dcb35001b5eea645b0a2dde7b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-048.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-048.svg",
+    "title": "GitForge V1.0.0 - SM-048 Orphaned Physical Repository",
+    "original_format": "plantuml",
+    "source_sha256": "e46a7be0658238bb75e08acb79669d1112afc916329f0cdaa02cb6b6c6ec66d9",
+    "image_sha256": "72d3083c3fd3bf5a3b553bdae9baca88c5922f66178b997cbb47926832441335"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-049.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-049.svg",
+    "title": "GitForge V1.0.0 - SM-049 Unexpected Git Process Failure",
+    "original_format": "plantuml",
+    "source_sha256": "d30be2bd3de50f47661eeebf93385501dc03ad057eb970a8bf53173c2c654765",
+    "image_sha256": "ee6bf8d8ac403e0f0e105249d59b51754d1dcb79438b6015abda98e2bf3f07a5"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/17-analysis-sequence-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-050.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/17-analysis-sequence-models-050.svg",
+    "title": "GitForge V1.0.0 - SM-050 Persistence Failure",
+    "original_format": "plantuml",
+    "source_sha256": "e163f495255d7c85c6003ff6d428c7ab5bb163d5bc5517d402d3cb1107b05478",
+    "image_sha256": "18c43ccec16896b225b916d72fd43761371b93ff509dade9aa1c8648b0612371"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-001.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-001.svg",
+    "title": "GitForge V1.0.0 - AM-001 User Registration",
+    "original_format": "plantuml",
+    "source_sha256": "0749cc54f0d8acb8534f48489e98d66be5c5ac777f4c7a2fd11b86377adce9f7",
+    "image_sha256": "4542d0837d8db4a1df4f5cba29e9f1ee268be642a1ec98a86e0d83c6b05f39d7"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-002.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-002.svg",
+    "title": "GitForge V1.0.0 - AM-002 Interactive Login",
+    "original_format": "plantuml",
+    "source_sha256": "40f7d825076e9c50aaec7923879e3d5ab0430cea032add4d1336a67726d2d146",
+    "image_sha256": "989913a7f63961659421f6bc168a013f0cc3cd303115cdc0655efdf1ee3d318b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-003.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-003.svg",
+    "title": "GitForge V1.0.0 - AM-003 Logout",
+    "original_format": "plantuml",
+    "source_sha256": "4618bf0b8b8c6f6a0f0d3fcba146c23be7c6d54bbcda66d8122ffdf4d8db3a0a",
+    "image_sha256": "91f2ea0e312afa9715d23cffff10678b68e6e76e98d17083d677f65e2d8ad8cf"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-004.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-004.svg",
+    "title": "GitForge V1.0.0 - AM-004 Repository Creation",
+    "original_format": "plantuml",
+    "source_sha256": "20f4c8b944b4d14d70455fa750f1f1be6b966c23a1ff2e405532d4e866d6df99",
+    "image_sha256": "05acb715c599f1368602c01deaea05402983c9aa05b68e707f63d03cbb399755"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-005.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-005.svg",
+    "title": "GitForge V1.0.0 - AM-005 List Owned Repositories",
+    "original_format": "plantuml",
+    "source_sha256": "7046830986e5b251ccb248c008bd7d670cbdc4e517cbef3ddcfcc24579ea8713",
+    "image_sha256": "5da0c3e5bce3185596f644c2676b2b2ba67a33aeb3cd2bba9df28204bedd829b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-006.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-006.svg",
+    "title": "GitForge V1.0.0 - AM-006 Repository Read Authorization",
+    "original_format": "plantuml",
+    "source_sha256": "b0a45d4cada87205f138262664400bd65fc95f11af53b7a14dc6adc4b48ecb7d",
+    "image_sha256": "9a50128966913f09a1fb035a321719bcb442e5087829e7d2f06d317c3880828a"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-007.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-007.svg",
+    "title": "GitForge V1.0.0 - AM-007 Repository Write Authorization",
+    "original_format": "plantuml",
+    "source_sha256": "6800f2f21d3813ee3ca964d8833528db4f3222a9a502e48adb6dfc17c905a2e7",
+    "image_sha256": "3b2979f430b25a57a8d4303b2c26770be40eabc25bfb8650c11b2f15163ea7b0"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-008.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-008.svg",
+    "title": "GitForge V1.0.0 - AM-008 View Repository",
+    "original_format": "plantuml",
+    "source_sha256": "32d99a9a606a16a30d104da0ebe71e5a17e46e6402a32c608f0757ade7092af7",
+    "image_sha256": "b5106d241b97990c6ed34b18af884b6904b408e28a210019b9b945abfc1c3332"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-009.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-009.svg",
+    "title": "GitForge V1.0.0 - AM-009 Change Repository Visibility",
+    "original_format": "plantuml",
+    "source_sha256": "ea7accc2cf4c027e19e7a96f62b588f51f35ab83635ed18bbcc544d7a030334b",
+    "image_sha256": "aa2313fd3f7f6083adc8aea0a3c01550bee4012cf57ee6ac34634b6b3176f2da"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-010.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-010.svg",
+    "title": "GitForge V1.0.0 - AM-010 Branch Listing",
+    "original_format": "plantuml",
+    "source_sha256": "ada433ce8e021315ae509957e96f8c3119a2d23bdc97446de57ebde7778d1038",
+    "image_sha256": "301767ec04a513bd09eff64e5311fe605a30ba2d9ab72e918e481322d9a0b7df"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-011.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-011.svg",
+    "title": "GitForge V1.0.0 - AM-011 Commit History",
+    "original_format": "plantuml",
+    "source_sha256": "2f5d805cc7e62c4cd95f40106ff62260b6dd41d8335ccc90d0f5fd9d3f08e5c4",
+    "image_sha256": "7183eab00795c14d7cb114d012d8b2d0a109f3dc6f147092c27cc4ee766c5014"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-012.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-012.svg",
+    "title": "GitForge V1.0.0 - AM-012 Commit Details",
+    "original_format": "plantuml",
+    "source_sha256": "4c9ba3efd2c2bc8de257f1e17a344b12d9f1e59f400ed60d7ac091e9fe6ac861",
+    "image_sha256": "62abf746165c01c26ea7bf6c490b91b651face8f8deedf8b5e7f329c3af5c334"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-013.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-013.svg",
+    "title": "GitForge V1.0.0 - AM-013 Tree Browsing",
+    "original_format": "plantuml",
+    "source_sha256": "995b9b312f7c3433c6b81676c0756e98f0eb55407746fb79965201976c9603e4",
+    "image_sha256": "89ab5b3a97dde3a57c37a73f5dee0517d12af0518bc36c952406ea6c6a1e568e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-014.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-014.svg",
+    "title": "GitForge V1.0.0 - AM-014 File Viewing",
+    "original_format": "plantuml",
+    "source_sha256": "9e3172697ff93d8b03a9d5cd58913de8fa4d13b330899a376d677e0b79b6b3cf",
+    "image_sha256": "765501e438098a042f6b83d29fa386d33c79a2aab11f8df9418c8ebf4b07068e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-015.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-015.svg",
+    "title": "GitForge V1.0.0 - AM-015 PAT Creation",
+    "original_format": "plantuml",
+    "source_sha256": "a29ccbeadc8f08aa6d9be4d319ab8f9478c1904ee2b2beae59cbc70601694546",
+    "image_sha256": "3dfbc5ee55ebb48992b184727091603716d04b0d41d5438c72d68013dd10f13f"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-016.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-016.svg",
+    "title": "GitForge V1.0.0 - AM-016 PAT Authentication",
+    "original_format": "plantuml",
+    "source_sha256": "80db17ab903b893f2f2217eb569a0a8fe6534d30784e9fb5e3f14db7a4d50b81",
+    "image_sha256": "ec6653faf8b34a6e9d8a25c5c60a5395ec4bb4b8c755aeeb5ff45cbb7890f7bf"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-017.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-017.svg",
+    "title": "GitForge V1.0.0 - AM-017 PAT Revocation",
+    "original_format": "plantuml",
+    "source_sha256": "79a8789b99b63487ff96a3b1d8ab361b7978439c4ae099a320f012024fedb387",
+    "image_sha256": "4575fc5dbef8f2423b4a44b670082f16bc66bb19d8180bb8593237049e1f3664"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-018.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-018.svg",
+    "title": "GitForge V1.0.0 - AM-018 Public Git Smart HTTP Read",
+    "original_format": "plantuml",
+    "source_sha256": "08fd93eb8d35edb784a2f275a9b6fe9d355c238dfc3318014484a478383bcae8",
+    "image_sha256": "4a7079a0dc599c3a130d0046ef3d9be7a8f04b2ac5c95992ebc04ef65777b94e"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-019.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-019.svg",
+    "title": "GitForge V1.0.0 - AM-019 Private Git Smart HTTP Read",
+    "original_format": "plantuml",
+    "source_sha256": "ebc1876c4cfb373b6c4227967774fe03ea02b1789fa624a9706076d7157ef527",
+    "image_sha256": "911b8fc06048c1b1312e8d39411ab5df7c2dc74ff36a559c89a79d29f463a758"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-020.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-020.svg",
+    "title": "GitForge V1.0.0 - AM-020 Clone / Fetch",
+    "original_format": "plantuml",
+    "source_sha256": "0b003933fb21e7745e354939bb1ed461f5a14cf24683c16366427824de7db451",
+    "image_sha256": "bfd1e7bef57c514026a445c26807d7fea2cc23d1f9dc9eac423c52e95f246d5c"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-021.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-021.svg",
+    "title": "GitForge V1.0.0 - AM-021 Git Write-Service Discovery",
+    "original_format": "plantuml",
+    "source_sha256": "8db745fdff40dd3149e51f658d5524dfabfd9d326f9e43b4797eb139c0a2cf9b",
+    "image_sha256": "a9f3ccf9515fea75665b38305dfe8859ae95c513f8448e8e49a7771781e80716"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-022.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-022.svg",
+    "title": "GitForge V1.0.0 - AM-022 Git Push",
+    "original_format": "plantuml",
+    "source_sha256": "9c281ac46d5def11ff9176e844a8988b668936b01ae31953d27fe6cf74697372",
+    "image_sha256": "bc536239233d20c129bcd343f4440600aab630aa9e977077016e9a141f74f165"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-023.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-023.svg",
+    "title": "GitForge V1.0.0 - AM-023 First Push to Empty Repository",
+    "original_format": "plantuml",
+    "source_sha256": "fa09b411c7755aed27b1e918b25f8b6567e8409a1b313655ee29e3b9dee84ae2",
+    "image_sha256": "76d9568e27dbfbedd57c45cb7c9f6ff1b68febe9bd4df8e7732fd838c99108e3"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-024.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-024.svg",
+    "title": "GitForge V1.0.0 - AM-024 Git Push Ref Rejection",
+    "original_format": "plantuml",
+    "source_sha256": "5b1b9d75914186ba0c16236f9481233cbdd8c6d04e42463051be2332e1300629",
+    "image_sha256": "5aaeba1d9c929eefa1729e0b32fc841fc0ab482ee178c21ec6ce55f314f5d775"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-025.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-025.svg",
+    "title": "GitForge V1.0.0 - AM-025 Safe Repository Storage Resolution",
+    "original_format": "plantuml",
+    "source_sha256": "f25774544042b92920a6732ea61d6e6a6b37ec3a18750d2f2e80bb8dca2c5537",
+    "image_sha256": "71005958006a2b38132b75805c607c043fd4e682d8af93800d8f9bfe230c48ed"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-026.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-026.svg",
+    "title": "GitForge V1.0.0 - AM-026 Repository Storage State Evaluation",
+    "original_format": "plantuml",
+    "source_sha256": "ef82ebcd4071c810b807b83a03c532a6db70eaa122e324a45213c204f97661b6",
+    "image_sha256": "f1cc9bc35c7c3cfc40e09de66df351b14593e7efa7b3a948ef9360aba7237fd0"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-027.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-027.svg",
+    "title": "GitForge V1.0.0 - AM-027 Metadata Storage Consistency",
+    "original_format": "plantuml",
+    "source_sha256": "c6bee81bf36d0bb1c453f839237d4e6f3c7e1394f1e5c1337402957cbd4417d4",
+    "image_sha256": "3a6a1ea69236507f2271030f6c69f2499e76efa39e00dab7922c9e6b173b2c44"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-028.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-028.svg",
+    "title": "GitForge V1.0.0 - AM-028 Controlled Git Process Execution",
+    "original_format": "plantuml",
+    "source_sha256": "2640d493b480f465cf7fa25899c7766b54cae3ec982ceb508faea985c3390e51",
+    "image_sha256": "cc158d7e8083880b41637cabc8fb632b8a426db137780264a65ce26b07830a45"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-029.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-029.svg",
+    "title": "GitForge V1.0.0 - AM-029 Generic Failure Handling",
+    "original_format": "plantuml",
+    "source_sha256": "f5348f3f98ca32da6059ce26fc019e6b08f34ede0bc647a3dbc65a1f4253535c",
+    "image_sha256": "3d6535e8a1666e3e412e5ffbcee795b36e588100ffbae8181a4a9eed8d47844b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-030.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-030.svg",
+    "title": "GitForge V1.0.0 - AM-030 Authentication Failure",
+    "original_format": "plantuml",
+    "source_sha256": "9207130b75fdbbd3c9c1c7e620bf1ae1991c15045bc5a310317529bd28b6c1dc",
+    "image_sha256": "d5df4e4894f48b24e926339a5ad1662a652202d3218a86e99d4ad34ce2a20213"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-031.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-031.svg",
+    "title": "GitForge V1.0.0 - AM-031 Authorization Failure",
+    "original_format": "plantuml",
+    "source_sha256": "7b0429e579973e6c5c98f4dbb6c58498d2e188e3e0d931134d98194ea452d52a",
+    "image_sha256": "bc23d24399935ed902d303ddb96405e5a7627d30acccbbdb26f566cb33adfb78"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-032.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-032.svg",
+    "title": "GitForge V1.0.0 - AM-032 Private Read by Non-Owner",
+    "original_format": "plantuml",
+    "source_sha256": "7b84ed5efd90ba110de0043a63392030b66394057d844b00cab406ec703529cc",
+    "image_sha256": "ba9ce34995e4ca2a0c8888193c0cdd398ae2314fd5ed5bb31530dc529b1ca424"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-033.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-033.svg",
+    "title": "GitForge V1.0.0 - AM-033 Anonymous Public Read",
+    "original_format": "plantuml",
+    "source_sha256": "d99d7994817ecfeaf606e3e224ab860ca4b70fb312d050a3dbd3b7b9d303db0b",
+    "image_sha256": "7fc169a2690a8e7fa8b051311732824dd4e6311c542e7beb6dba6b2db244cf42"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-034.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-034.svg",
+    "title": "GitForge V1.0.0 - AM-034 Non-Owner Write",
+    "original_format": "plantuml",
+    "source_sha256": "957c1611fead1ed53c20783a832e52317237de338dddaaab876ac7570caecbcc",
+    "image_sha256": "282cad88d2a9c48f466d230e7e5cfd014dc1bb71b263a6ac8ff566354e35d53d"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-035.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-035.svg",
+    "title": "GitForge V1.0.0 - AM-035 Invalid Repository Identifier",
+    "original_format": "plantuml",
+    "source_sha256": "213593e190e97ee2dd12ab6b67a5aefb60f8002a713f5ad264b0d4a407987aff",
+    "image_sha256": "ac34810fb648a0c219dbdc0f30dac8639b0b5ca4cd47bb395b47f63515e3c0db"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-036.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-036.svg",
+    "title": "GitForge V1.0.0 - AM-036 Storage Root Escape Prevention",
+    "original_format": "plantuml",
+    "source_sha256": "1e0ceef7fd5228cae59e9245e1cc3b79257e6c5f84bb56ce79330118d3438e2d",
+    "image_sha256": "c0a79685415c2fad6ec25b5da27f59df0c72bd7494b507b978be86ea53197982"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-037.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-037.svg",
+    "title": "GitForge V1.0.0 - AM-037 Revoked PAT Use",
+    "original_format": "plantuml",
+    "source_sha256": "9c3698acb4567459423b61ed694bc3af454dd9f8b1c2e917723215b18871cc49",
+    "image_sha256": "0ba4a4bfb71f246e8082331a7ffbae8ebd5cbc4b14a567589a77a633a6e7e690"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-038.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-038.svg",
+    "title": "GitForge V1.0.0 - AM-038 Empty Repository Evaluation",
+    "original_format": "plantuml",
+    "source_sha256": "7390cc51b454fe5ed8a7d8065f85750642371ff9b0634eabe4852f8f1e856070",
+    "image_sha256": "374d79df7527629dad756fa98fd027dd6a331a20df28030c53f367b3a215cfd6"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-039.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-039.svg",
+    "title": "GitForge V1.0.0 - AM-039 Repository Object Resolution",
+    "original_format": "plantuml",
+    "source_sha256": "92bed9962fed919003141457a2a81c70d102d02485e50adb4359bf1572c4dc9d",
+    "image_sha256": "d6c528988b40a488cab60f4d29c4dbd86fabca56fcc9a4e5fa32b5929b11787b"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-040.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-040.svg",
+    "title": "GitForge V1.0.0 - AM-040 Diagnostic Sanitization",
+    "original_format": "plantuml",
+    "source_sha256": "7909cae517a4d7960f5dedf9e3430789413e603b30e679623794701766fb5bf9",
+    "image_sha256": "1db1acc5a57c6d852a329a609faea47326ec06a514c2bb5b2d8ce8a5d844aaf6"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-041.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-041.svg",
+    "title": "GitForge V1.0.0 - AM-041 Fail-Closed Decision",
+    "original_format": "plantuml",
+    "source_sha256": "c14a3f73a4c6ee752935f8ce637128229849967b90042f618186777e90b61329",
+    "image_sha256": "9fa4bb24434cc8c809c5d2fdb8d30fed46c461daf0cb2cb43d7519491d46131c"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-042.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-042.svg",
+    "title": "GitForge V1.0.0 - AM-042 No False Success",
+    "original_format": "plantuml",
+    "source_sha256": "cbfb4751e81b95cc07002d0d72182eb99218a7ef3fda83d643cec52c516d7001",
+    "image_sha256": "541ca942d6f3914cf18114641de35d95e4e22625d35ccfdc3edce7d16f207dbb"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-043.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-043.svg",
+    "title": "GitForge V1.0.0 - AM-043 Public to Private Transition",
+    "original_format": "plantuml",
+    "source_sha256": "bb7a86ec1636208b14edc871174fccaddab176b8274d49c04fb8bff7f18ae551",
+    "image_sha256": "fe0171b474e6da8527b43f3e3f7793393456679cbf4214d08ec116fb6b214ba1"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-044.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-044.svg",
+    "title": "GitForge V1.0.0 - AM-044 Private to Public Transition",
+    "original_format": "plantuml",
+    "source_sha256": "f684e0085010576714bac70ff00723758f486246d7a652e5ef1df57993ff4aba",
+    "image_sha256": "a3a5cdd716af53866a8d078fc58e2499a922e66e5e02b19c7d49ee30fc3a19fe"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-045.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-045.svg",
+    "title": "GitForge V1.0.0 - AM-045 Concurrent Repository Creation",
+    "original_format": "plantuml",
+    "source_sha256": "cbf027a4e2a8b1f8534649e2e672f96840ec008f87b2a302f21c4020ef47b135",
+    "image_sha256": "a4721f17c4ec3e2d31b7d15c3d76487c36b9c80e63e78882f66c2afe11fc0778"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-046.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-046.svg",
+    "title": "GitForge V1.0.0 - AM-046 Concurrent Push",
+    "original_format": "plantuml",
+    "source_sha256": "457484424031f9d51970ccf7589895c14cd800472e6464357d3358bcb37a60e7",
+    "image_sha256": "e1cbe5d3360f6d2a1fb9d2c68e9ecc71b04016b54f99c422b606da4bd46ff960"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-047.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-047.svg",
+    "title": "GitForge V1.0.0 - AM-047 Database Failure",
+    "original_format": "plantuml",
+    "source_sha256": "58323a737b49188fdf226a0d9b827e8afee7850cc72ec8ffc7b1e0aeec109329",
+    "image_sha256": "9c816e33172540db451e6651903eb1c31bf0c8a86d349a5078534a94641f87db"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-048.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-048.svg",
+    "title": "GitForge V1.0.0 - AM-048 Git Process Failure",
+    "original_format": "plantuml",
+    "source_sha256": "5b3f868ec65e99d301600c08e054466628b32befff84578159d5474ead0c515c",
+    "image_sha256": "b290ea87fb6be23d75a59a28db6954909c7e78d4e3f7a98c4a23ccc78d4d60ff"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-049.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-049.svg",
+    "title": "GitForge V1.0.0 - AM-049 Unexpected Internal Failure",
+    "original_format": "plantuml",
+    "source_sha256": "7e540abab4ace8dc387e773572f047d43e94c07c7aebf57b730e6740838536ab",
+    "image_sha256": "3216374a2d8da08d77f9ff5922671547a7ebc400151eb2b118fc0f40270487e3"
+  },
+  {
+    "document": "docs/SDLC/03-system-analysis/18-analysis-activity-models.md",
+    "source": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-050.puml",
+    "image": "docs/SDLC/03-system-analysis/diagrams/18-analysis-activity-models-050.svg",
+    "title": "GitForge V1.0.0 - AM-050 End-to-End Protected Git Write",
+    "original_format": "plantuml",
+    "source_sha256": "0c9558de2c1e63fcbfde207655cf92b16ace7ecf5415a4ffa7f7b09c89bd0e77",
+    "image_sha256": "854568d8578e591ee208fb8d823b5a7a550fe1d29e75851fc52eb8a4254e75cc"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/03-container-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/03-container-architecture-001.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/03-container-architecture-001.svg",
+    "title": "GitForge V1.0.0 - Container Architecture",
+    "original_format": "plantuml",
+    "source_sha256": "eba54e6eabf1780fcdd231775479ed9790079c2ec68bfadf2f16007d6750363e",
+    "image_sha256": "3e72a8b85c979ec27574ec79c94e1efa0421c89e819009607f5417549612aa33"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/03-container-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/03-container-architecture-002.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/03-container-architecture-002.svg",
+    "title": "GitForge - Web Application Request Flow",
+    "original_format": "plantuml",
+    "source_sha256": "db9fd798b137891998ad233e8039e602461f440e56d8955ef5d204e19bc35014",
+    "image_sha256": "5f2339898869e365b71bc21f7abae28dd904ea88c06883149963e3753a6761ea"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/03-container-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/03-container-architecture-003.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/03-container-architecture-003.svg",
+    "title": "GitForge - Git Smart HTTP Read Container Flow",
+    "original_format": "plantuml",
+    "source_sha256": "89505e354bb77600d125f482d14d75f87b6b5e6389b8951a4f2a921ae0d72b76",
+    "image_sha256": "58e28723204f9e6eda2b999e1db2e751c214e404585b751a604ff0a691fbd159"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/03-container-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/03-container-architecture-004.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/03-container-architecture-004.svg",
+    "title": "GitForge - Git Smart HTTP Write Container Flow",
+    "original_format": "plantuml",
+    "source_sha256": "bbb4bb3953538c8c2e7894c837b8abe2852637e5124a62f512eecb07d674fe04",
+    "image_sha256": "9be643e574cca51f20cc923eb04aef8b51228ec7d38c0fac178e3e89d5710457"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/03-container-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/03-container-architecture-005.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/03-container-architecture-005.svg",
+    "title": "GitForge - Repository Creation Container Flow",
+    "original_format": "plantuml",
+    "source_sha256": "98ebed0f18992006fc71ed3bc929626c28890a11b87b8e3eff3878c8ec52ce9c",
+    "image_sha256": "a394a9b4379ccdd89e28e1911f0ab02a0aaf07cda2c55a98068957eedef2ff91"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/03-container-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/03-container-architecture-006.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/03-container-architecture-006.svg",
+    "title": "GitForge - Container Trust Zones",
+    "original_format": "plantuml",
+    "source_sha256": "135c1942a1adf508c5b81ae97b332a9a8531aa228e446d2f803b7272b649a47c",
+    "image_sha256": "a3ed8c1ccecbb4d498566d8bb3ff0eca8bdca4c595785b9d364f7a2b34354cb8"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/03-container-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/03-container-architecture-007.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/03-container-architecture-007.svg",
+    "title": "GitForge - Simple Production-Like Deployment",
+    "original_format": "plantuml",
+    "source_sha256": "e1c928bcc8dd9f2e4bfaac44ca6d7409bcb49cc9ffdb7bac0a25097efc123833",
+    "image_sha256": "fdb81377edac3b19e297b4ca4f69372da5c3717d817e41b06a001bcb32db7636"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/04-component-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/04-component-design-001.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/04-component-design-001.svg",
+    "title": "GitForge V1.0.0 - Component Architecture",
+    "original_format": "plantuml",
+    "source_sha256": "3f5651685587d9370c4c42c4bd94ef3883f4f91024524f040ca361e039165b78",
+    "image_sha256": "11da17a3ff1b2d2adfdc6d827217f098d4b6ac485e33da1b5ccbdbb7e21a257a"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/04-component-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/04-component-design-002.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/04-component-design-002.svg",
+    "title": "GitForge - Repository Creation Component Flow",
+    "original_format": "plantuml",
+    "source_sha256": "5ae341bdba088b6fe72dbc0e2fa3c1691083425d11f48162b5656a8e28c217b1",
+    "image_sha256": "57dec2aef3fb81c1b35623b9b0965a4ba5b8e7b79b8f105d46cf3d66b3915013"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/04-component-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/04-component-design-003.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/04-component-design-003.svg",
+    "title": "GitForge - Login Component Interaction",
+    "original_format": "plantuml",
+    "source_sha256": "259f87e8f5d6138449a1147dca6f7052ef3905ba4fc8ae4703a342f70b30284b",
+    "image_sha256": "21fa9014c9f68416d2efd7e4e8ba3c38095cf5eab631785d6260f4e5bcccdd77"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/04-component-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/04-component-design-004.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/04-component-design-004.svg",
+    "title": "GitForge - Private Repository Browser Interaction",
+    "original_format": "plantuml",
+    "source_sha256": "f880b8a217a55d1f8199d10d82c7c0a47d24d8bf344214c9914fc25b590fcd95",
+    "image_sha256": "9544377f9cac394398d1620fc1c0b6268c89681a5fc3ec4fc76212ca4424e441"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/04-component-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/04-component-design-005.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/04-component-design-005.svg",
+    "title": "GitForge - Public Anonymous Clone Interaction",
+    "original_format": "plantuml",
+    "source_sha256": "f96514a1a72770480c659a9b53d5b57b55b6d21912a7b648ff4158a79262845a",
+    "image_sha256": "796c69aabdcf05412314fd4bfa440495b6221f8dfccc00762fc238299075a2a6"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/04-component-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/04-component-design-006.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/04-component-design-006.svg",
+    "title": "GitForge - Private Clone with PAT",
+    "original_format": "plantuml",
+    "source_sha256": "7782a95572ba6e9ee8f5c4b00a2c642270aa3c516657bd01c60d927379553f1c",
+    "image_sha256": "f140085b47a08cff3dd5c51d3309d4ca1dcbc519ff9a5f76c5851a53a88949b5"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/04-component-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/04-component-design-007.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/04-component-design-007.svg",
+    "title": "GitForge - Push Component Interaction",
+    "original_format": "plantuml",
+    "source_sha256": "e1cac1c576b7ca9a6f721de03fbb5c674de3f200a60a29ca9cab95088fb90c4f",
+    "image_sha256": "ec102f3b6229b03020dac38595e2e06293a88c5f0bb586b7aaa615d1690484b2"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/04-component-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/04-component-design-008.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/04-component-design-008.svg",
+    "title": "GitForge - PAT Creation Component Interaction",
+    "original_format": "plantuml",
+    "source_sha256": "513f249dbd1bdd42bc38db53698d5e2be407c26586ee5d1a7f0cff9de48e5063",
+    "image_sha256": "b0896730b967a1a9796ea4d17d114a9d9b0fbac12289e2683890a8e0929d00ec"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/05-database-schema-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/05-database-schema-design.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/05-database-schema-design.svg",
+    "title": "GitForge V1.0.0 - Database Entity Relationship Model",
+    "original_format": "plantuml",
+    "source_sha256": "6c30d2f073993c0e93cf3127a86d7677c351ed9e2834fbf9f1e093c54248b101",
+    "image_sha256": "51d9d6011515455288103e4abd250b7843ac631d838f2b4b6958dc985aab2be2"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/06-api-specification.md",
+    "source": "docs/SDLC/04-system-design/diagrams/06-api-specification-001.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/06-api-specification-001.svg",
+    "title": "GitForge - Public Repository HTTP Flow",
+    "original_format": "plantuml",
+    "source_sha256": "c97a7205b5b0e782395f919061632c5fc414457c79c7ee341b9393e910f2aec6",
+    "image_sha256": "b1b96eac62d241e244b9a933812fbe8eb5eb3b5154e2f9369258a226d411ddfd"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/06-api-specification.md",
+    "source": "docs/SDLC/04-system-design/diagrams/06-api-specification-002.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/06-api-specification-002.svg",
+    "title": "GitForge - Private Repository Denial",
+    "original_format": "plantuml",
+    "source_sha256": "29a0fbcebdcbd92d6cbcf4e5fca31a46e52d701f07663bba32b995665493750d",
+    "image_sha256": "e28b8055c309231d4dff0d450aa2eaaf80856373ef7f8669cfddeae6f093465c"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/06-api-specification.md",
+    "source": "docs/SDLC/04-system-design/diagrams/06-api-specification-003.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/06-api-specification-003.svg",
+    "title": "GitForge - Visibility Update API Flow",
+    "original_format": "plantuml",
+    "source_sha256": "6f5419f7994a5b8099c6def84bfce5d0a6ec00113d58e7146122db446ed9d5de",
+    "image_sha256": "76818ccd9a6c78250f49a664f16815afb31997d0a2c5dfbc48b21ab28fe6fe86"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/08-repository-storage-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/08-repository-storage-design.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/08-repository-storage-design.svg",
+    "title": "GitForge - Repository Storage Creation Flow",
+    "original_format": "plantuml",
+    "source_sha256": "d0d19b079cb3b12eae9c1f7d42246f5d1cd8f15429c007b7325f94da4e75e383",
+    "image_sha256": "6c2e632699e9a9490544636daf54671de6e72cf52d58932f5b16cbd0120824bd"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/09-git-process-execution-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/09-git-process-execution-design-001.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/09-git-process-execution-design-001.svg",
+    "title": "GitForge - Upload-Pack Advertisement Execution",
+    "original_format": "plantuml",
+    "source_sha256": "385b797e075633e70741f3b1c735e6bb69a59b480380c83a4c36efd18348477c",
+    "image_sha256": "29b388ea2a7072d875066f9329f0ecdf8444b5f895e580876a8324453f1a928f"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/09-git-process-execution-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/09-git-process-execution-design-002.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/09-git-process-execution-design-002.svg",
+    "title": "GitForge - Clone/Fetch Process Execution",
+    "original_format": "plantuml",
+    "source_sha256": "b3a9272896511f43bf9c468ebd97be3ebb500adb8eef6195771fdbff8b4d7c52",
+    "image_sha256": "c7048f795f2e1d176440b152032b39368b5e05508eba27cacae39b3fe1b4ba31"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/09-git-process-execution-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/09-git-process-execution-design-003.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/09-git-process-execution-design-003.svg",
+    "title": "GitForge - Push Process Execution",
+    "original_format": "plantuml",
+    "source_sha256": "4233dfa33c810ab91db0f856264049d2759312b2cd1c2d671ec87ed1aae4b0c8",
+    "image_sha256": "94e9ba00f63ea0056e7253c383b5c21446c60e81d615c01d8709a74eed6718a5"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/09-git-process-execution-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/09-git-process-execution-design-004.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/09-git-process-execution-design-004.svg",
+    "title": "GitForge - Bare Repository Initialization",
+    "original_format": "plantuml",
+    "source_sha256": "77b2129c85f42860766b4a7227a4f1a485434be8f6ec37d75d2c46215e959ba7",
+    "image_sha256": "86f6a24b120718391e9d16896edc9911d42f71aa89ba7b987db2d622cc39c2ca"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/10-ui-information-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-001.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-001.svg",
+    "title": "GitForge - UI Information Architecture",
+    "original_format": "plantuml",
+    "source_sha256": "d6d662da8660c2b7c6ad7fa6f870267d4d5f97e964684d3cfadead9ac0bf4bad",
+    "image_sha256": "8295aae0cbfd1b85c3daa02b7f40a2ae2ae9ebc564a4a3719a8674c35cb613c4"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/10-ui-information-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-002.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-002.svg",
+    "title": "GitForge - Registration UI Flow",
+    "original_format": "plantuml",
+    "source_sha256": "b5e400d259bd38ab3de4c84905a4a6844fb07f29d58fa5217c48a0848af426c1",
+    "image_sha256": "4a604091b1ad353f61cdac237bcff1ec77e45930aa813f91fae5e5b7e41f7e77"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/10-ui-information-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-003.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-003.svg",
+    "title": "GitForge - Repository Creation UI Flow",
+    "original_format": "plantuml",
+    "source_sha256": "30c1bdbc22366032ae780d85f35d9b23f5a4bbee0ca083aac047c115c3feb038",
+    "image_sha256": "f312c7bac58b007a2e89b1010396ccffea6d5e4876f3bbddcbe3d54c2ff659d3"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/10-ui-information-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-004.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-004.svg",
+    "title": "GitForge - Public Repository Browse UI Flow",
+    "original_format": "plantuml",
+    "source_sha256": "2c069ec013483158f5e51e3ae39fbb467aed71aef4f8a41aa10043912677a1fe",
+    "image_sha256": "1096520cea7c607a60cdfd4efac4fd43debfc9eb838d8a76beaff8f077eadb02"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/10-ui-information-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-005.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-005.svg",
+    "title": "GitForge - Private Repository Owner Flow",
+    "original_format": "plantuml",
+    "source_sha256": "693fdf05c78718ad4b23ccbd6d8d9afa5d5626d146fe42e017e3da495fe475f6",
+    "image_sha256": "a74e972618a46f7d200ffc3f33188e82a28c05547a4ca3596eb80567f3e2562a"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/10-ui-information-architecture.md",
+    "source": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-006.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/10-ui-information-architecture-006.svg",
+    "title": "GitForge - PAT Creation UI Flow",
+    "original_format": "plantuml",
+    "source_sha256": "86caa0d0acc265d5bde660a01eb932ae43e05a7e892f2282263c0c45f1b3849e",
+    "image_sha256": "b154df98110122073afc5e14ac4560e5f0427181c9373a53ad5b86e90a751981"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-001.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-001.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "3060b976d324494f9745bf2285ae32aa023e13033665795fd539bda5ee6436a3",
+    "image_sha256": "5e5874d22eb08ad7f40ae03d734c57005cac060e25a1c1578b66c66e3eb3ae37"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-002.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-002.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "1381371979ca6cb4e25d77eddf800b4ac68e5d5c3a0cbecb7b290466a9b46bd5",
+    "image_sha256": "4a9d1604bbffd91ffd3815042206b7019c40db420c08a0e3b78ced5b42e37b06"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-003.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-003.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "fd5d02345aa2d1aba3af3c9db236a1c0d9ffa27bcb648b7ca60ff49a3dd5b53d",
+    "image_sha256": "0b69d17c36380aafa785883e469417be1b90aef171ad5396ce5dda21e16bfe92"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-004.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-004.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "4def28160212fcef5a556be1d299ced819cc33dac496fe580fd4bfbafa94ec55",
+    "image_sha256": "b66eaf14ee6ba81ab76c43bb2b9c5dc35a9f7b46f0992899ffc1108fd1c38ee9"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-005.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-005.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "7b0cd5d6eba633347e2577d91210e03abedec5ae1d03917763a49aae1fdfc0e0",
+    "image_sha256": "fb0fa535ef8a66bf93012b6cc2568dca363d33a36469bacf1814bd81c90a5b9a"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-006.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-006.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "319d4ad92047add4b28fd35c53d3bd6ded0569d861c1cec61a1f1d28f4318fe0",
+    "image_sha256": "daa2c067bb7856d61f7e83aa2d36b851b35ec84ab2556ae50c6d26132f5230a7"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-007.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-007.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "a4787f045e63d7a68bb107fce14acdd5809e00ed76dba00095afb48ef637863b",
+    "image_sha256": "89b146ac217239e9cc5f4b66f9da3aca4e9af7dc639f5c1d33be6d6f91ae2067"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-008.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-008.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "2685c1658f09e0817e36d8f33239ff8ad2810ae32350a91c148ca4e4a8de8e07",
+    "image_sha256": "5ff512f12f30dbd765d131d33fbe6f318f5ccbe32cdf94fe565e08adf7526c43"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-009.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-009.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "7f572cd2792ffa4fd6cae0343bc50e19112f4749c281a7f4c83eeb7e197349b1",
+    "image_sha256": "e917f4db115b92f8b40380f3f86ece566b5ffe019db8ecd9d36805753fc8b865"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-010.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-010.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "1f0a46e2a16cec21bfcd8f078a510218db48912892503cd6236d8ce293f9d3cf",
+    "image_sha256": "a24e24765dc5720df2d0d4958900a3ca820ac3465f08e5b0d6584844e2a3cd4d"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-011.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-011.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "abd30cda8117027dd02521fbf072850db29824a741d34746bf79fb7174d70bdf",
+    "image_sha256": "4eb587bd329999bfd5da8360be8d2bbb1a4c68832725769b3d8c00f477d5d686"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-012.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-012.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "02aeb667d75335562d2b1715641638726302ec2501420e0d88c7615aa4287e84",
+    "image_sha256": "614d63ea8e71dcbbf7b8677fbf8607774b1eaff3b5cf0c8ec5d4503e8174ed70"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-013.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-013.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "b9d1714b18f65817548cc6bbd23e713679a89958123a6593a953c73dd58da6fe",
+    "image_sha256": "47214b1a340d78482acbc601fdadc0861b847312abcd60b7fe923679137ef997"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-014.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-014.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "80dc1766eac12440cc6a4e65b86e6259405ea79fce52951d755ee8d0eefdffd1",
+    "image_sha256": "c56f850eb335949a6b0c3f2af5fbed8c30f1fd15759823ffb03bf40bf6eae4fa"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-015.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-015.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "737c4d660f1f3a212280cb1435139a8f40ef3702d2925a3d3d72031f07122a93",
+    "image_sha256": "91122fb8cac7314e9a8a8235b6188b3f40a6270033c4e09539136df834b71797"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-016.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-016.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "4b6a1fc3a12066e5804ac3184b97399f097f037543e51d679a670c4d0edfeb65",
+    "image_sha256": "a6da6033a7f2f4cc7cdfdeb72bf5d5775273bdfa278b354a8ed35631fe6ad4a8"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-017.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-017.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "51c99065f00dca2b0b972b138376aff6bb648b7afa8ab772e1f90f4dfc748625",
+    "image_sha256": "d67ce9f9b8b0f345ac8838e03557a8057cd59cd9d392785ea7b96d3eea7b1be3"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-018.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-018.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "b49718311b2008a5cad57f127626c6a435c96670849d4dde05c965782dfbfba5",
+    "image_sha256": "bd9da06c5381dc6842f43eb09f1d948d94fb712023b7c363a16cd1716f004ab9"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-019.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-019.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "72f2d35cc26996a5ece58606a1819f7f49ea8e1ecc999aad0b4a4cdf3e5d7c1b",
+    "image_sha256": "9d67d5d778066ca022a19a29355315e050854f7132882e36a72c76166ee8a61d"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-020.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-020.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "f3a7e5c8617a3a03259291858d13d84a3424bdec3fc3c203548743e907b3354a",
+    "image_sha256": "0c3f5aaacd376a49b85045426e1bc43860e7ea5087025cdaf455c2a84f9e4686"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-021.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-021.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "aaa4a5317fdc77397411dda11848a0fc257c6ef493836f8074ea927c07515149",
+    "image_sha256": "8b3c5bfc42feef9e79b9325391a58ab0fc892aa81198a1fe77842fd331a72f1a"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-022.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-022.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "4b8f27c636d8f89f6d7b01313813a5063ad1631fae70a24648c321f3c698aabf",
+    "image_sha256": "29152f4725cc3cf80eb9938df0695281898b49d70498ba4f601cf08478312c59"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-023.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-023.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "451441dba54260918e559fe2a4cff3736dccceebe9030fcd2992b9720cca2499",
+    "image_sha256": "80b1198abd69069e0f9c50ef95fd180ac8e08ec75a47ff8e9cffce2e5ed5e930"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-024.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-024.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "e2f8460495137b7cba5add9685a433a952706cc69a8bbcf904f2f9e4217254bf",
+    "image_sha256": "d8a7f3e499e9eafc2a67f15a76f9f45da4e422eeeeff6899febb4d8db57badaf"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-025.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-025.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "d400898491d40e8075e5441d5e7d724de7e8b86169476ad034e47485466312f5",
+    "image_sha256": "7977fe2cec4052b6df568bf4e3719589c69a02636ae56f741bf4b433513b9b66"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-026.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-026.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "142967e3e9652084be7062ea72a445bed2b4ee19e738967f1cb7630cfae32882",
+    "image_sha256": "3663d7b6108d39159de86a357e3b7e0556a1c00bde75f15cb3b5602ed404eb2e"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-027.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-027.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "af3de0d4f49e2f74454d184fdfbf6f9b8f19ff367909f62264adf8142079d008",
+    "image_sha256": "f091c54a645e43e269f95ed53c06f96d02dd6c11f58b66a144bf4acaf669adaa"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-028.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-028.svg",
+    "title": "11 wireframes",
+    "original_format": "plantuml",
+    "source_sha256": "2b54c95213569c85b37c7eef9dce594c902614682a5ea9df001c5f0604a1512b",
+    "image_sha256": "4f650694affb4cc0091e2078b707870a16930e8d28a19d527e11624d25b23a99"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-029.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-029.svg",
+    "title": "GitForge - Repository UI Lifecycle",
+    "original_format": "plantuml",
+    "source_sha256": "32ff0ab94b3cb189a1b25fdb2705110b1f3928e3c6035ec6622c5b53f9bd7682",
+    "image_sha256": "efa89b70897e3109103399824409e1a0ecc7c644a91b7021f5b45b39dc3a93c2"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-030.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-030.svg",
+    "title": "GitForge - PAT UI Lifecycle",
+    "original_format": "plantuml",
+    "source_sha256": "9de0c703eaffa94f2f432b20316aa590456f060a762942d6a6de8b9fbfc826af",
+    "image_sha256": "fabb0ec268aba43adffc4480e499544a0d316ec3ebe90f7b32ca752817662030"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/11-wireframes.md",
+    "source": "docs/SDLC/04-system-design/diagrams/11-wireframes-031.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/11-wireframes-031.svg",
+    "title": "GitForge - Public Repository Visitor Flow",
+    "original_format": "plantuml",
+    "source_sha256": "6263293d04b1376202edc138442d51d310b5e9df3c1d5540f33fdfdce505b51b",
+    "image_sha256": "e023712d2290117e06611d075fb8968198a101ccc3b57f50e188fb9cbb78cb3b"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/12-deployment-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/12-deployment-design-001.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/12-deployment-design-001.svg",
+    "title": "GitForge V1.0.0 Production-Like Deployment",
+    "original_format": "plantuml",
+    "source_sha256": "ff27fff263ecbb78862546b99dff19aaff1bfb0b5a63bed96e20f2b4dcc9b075",
+    "image_sha256": "fd1f7580d7e756114d0b61b6397d8c4df8cb3ab336121a158621ca012a494a1d"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/12-deployment-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/12-deployment-design-002.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/12-deployment-design-002.svg",
+    "title": "GitForge - Deployment Trust Zones",
+    "original_format": "plantuml",
+    "source_sha256": "acc30d3a404746f9381aa0800ef2657d8940af95f0c054db2cbe805dd464b77b",
+    "image_sha256": "35a743b8b4b30c592271179a0dda9f1ef8cfbd556dbf0d4e02bd0187903a4983"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/13-observability-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/13-observability-design.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/13-observability-design.svg",
+    "title": "GitForge - Observability Logging Flow",
+    "original_format": "plantuml",
+    "source_sha256": "cc70399f7183f72fba6772c485785aec8f7813d4f71e89db52b7d77eea03c961",
+    "image_sha256": "e2f075e8018e4b583d339b19ce4e2e511fd064d4f446325ca0df7fd6b7e1aa69"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/14-security-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/14-security-design-001.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/14-security-design-001.svg",
+    "title": "GitForge V1.0.0 Security Trust Boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "12f66bedd0f4b4939b8f01d95247631e71335f8b56e9496ad654855e0fd81a21",
+    "image_sha256": "a935218fa37032b55c72a2d3b15781c44b99aa0b8ea61c633e4602366eb4f3f6"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/14-security-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/14-security-design-002.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/14-security-design-002.svg",
+    "title": "GitForge - Secure Private Repository Read",
+    "original_format": "plantuml",
+    "source_sha256": "c2ab7827a994918ce7cb4797464f588c8934535c247d8182beed20fab3ce5e75",
+    "image_sha256": "05975b68014852925317cf3743e5a8e1de1ea2bdeee1869f5bef045286fb1c81"
+  },
+  {
+    "document": "docs/SDLC/04-system-design/14-security-design.md",
+    "source": "docs/SDLC/04-system-design/diagrams/14-security-design-003.puml",
+    "image": "docs/SDLC/04-system-design/diagrams/14-security-design-003.svg",
+    "title": "GitForge - Secure Push Flow",
+    "original_format": "plantuml",
+    "source_sha256": "204aa62ba1f3f16300fb986100cc6ba6e00b42737dbaa90d8e4f2f4f41a02052",
+    "image_sha256": "0f47e5d78436ee3cb5d4a2f638e57657e872a4b0e1ace722d8e2c806586b7c81"
+  }
+]

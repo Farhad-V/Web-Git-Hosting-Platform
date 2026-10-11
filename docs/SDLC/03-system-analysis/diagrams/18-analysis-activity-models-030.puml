@@ -1,0 +1,14 @@
+@startuml
+title GitForge V1.0.0 - AM-030 Authentication Failure
+start
+:Receive authentication failure;
+if (Credential invalid/missing/revoked?) then (yes)
+    :Establish no User identity;
+    :Deny protected authentication flow;
+else (no)
+    :Classify consistency/dependency failure;
+    :Fail closed;
+endif
+:Return safe authentication outcome;
+stop
+@enduml

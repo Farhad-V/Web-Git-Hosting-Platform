@@ -288,23 +288,9 @@ Unauthenticated
 
 ## 10. Authentication State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Interactive Authentication State](diagrams/14-state-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Interactive Authentication State
-
-\[*] --> Unauthenticated
-
-Unauthenticated --> Authenticated : successful login
-
-Authenticated --> Unauthenticated : logout
-
-Authenticated --> Unauthenticated : authentication invalidated
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-001.puml)
 
 ---
 
@@ -356,25 +342,9 @@ Repository deletion and rename are deferred.
 
 ## 13. Repository Lifecycle State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Lifecycle State](diagrams/14-state-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Lifecycle State
-
-\[*] --> NotExisting
-
-NotExisting --> Creating : valid creation request
-
-Creating --> Available : metadata + physical repository established
-
-Creating --> CreationFailed : creation cannot complete consistently
-
-CreationFailed --> \[*]
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-002.puml)
 
 ---
 
@@ -502,21 +472,9 @@ Has History
 
 ## 19. Git-History State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Git History State](diagrams/14-state-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Git History State
-
-\[*] --> Empty
-
-Empty --> HasHistory : first successful push
-
-HasHistory --> HasHistory : later successful pushes
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-003.puml)
 
 ---
 
@@ -624,23 +582,9 @@ The owner may change visibility according to authorization requirements.
 
 ## 25. Repository Visibility State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Visibility State](diagrams/14-state-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Visibility State
-
-\[*] --> Public
-
-\[*] --> Private
-
-Public --> Private : owner changes visibility
-
-Private --> Public : owner changes visibility
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-004.puml)
 
 The initial visibility depends on repository creation input.
 
@@ -768,29 +712,9 @@ Requested read operation
 
 ## 31. Read Authorization Decision State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Read Authorization Decision](diagrams/14-state-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Read Authorization Decision
-
-\[*] --> EvaluateRead
-
-EvaluateRead --> Allow : public repository
-
-EvaluateRead --> Allow : private + owner
-
-EvaluateRead --> Deny : private + anonymous
-
-EvaluateRead --> Deny : private + non-owner
-
-Allow --> \[*]
-
-Deny --> \[*]
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-005.puml)
 
 ---
 
@@ -812,27 +736,9 @@ Requested write operation
 
 ## 33. Write Authorization Decision State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Write Authorization Decision](diagrams/14-state-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Write Authorization Decision
-
-\[*] --> EvaluateWrite
-
-EvaluateWrite --> Allow : authenticated owner
-
-EvaluateWrite --> Deny : anonymous
-
-EvaluateWrite --> Deny : authenticated non-owner
-
-Allow --> \[*]
-
-Deny --> \[*]
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-006.puml)
 
 ---
 
@@ -854,23 +760,9 @@ Revoked
 
 ## 35. PAT State Diagram
 
-```plantuml
+![GitForge V1.0.0 - PAT Lifecycle State](diagrams/14-state-analysis-007.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Lifecycle State
-
-\[*] --> Created
-
-Created --> Active : creation completes
-
-Active --> Revoked : owner revokes PAT
-
-Revoked --> \[*]
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-007.puml)
 
 ---
 
@@ -1072,45 +964,9 @@ Succeeded / Failed
 
 ## 44. Git Read State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Git Read Interaction State](diagrams/14-state-analysis-008.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Read Interaction State
-
-\[*] --> Received
-
-Received --> Authenticating : authentication required
-
-Received --> ResolvingRepository : public anonymous read
-
-Authenticating --> ResolvingRepository : authentication succeeds
-
-Authenticating --> Failed : authentication fails
-
-ResolvingRepository --> Authorizing : repository resolved
-
-ResolvingRepository --> Failed : repository unresolved
-
-Authorizing --> ResolvingStorage : allow
-
-Authorizing --> Failed : deny
-
-ResolvingStorage --> ExecutingRead : storage available
-
-ResolvingStorage --> Failed : storage failure
-
-ExecutingRead --> Succeeded : git-upload-pack succeeds
-
-ExecutingRead --> Failed : Git/process failure
-
-Succeeded --> \[*]
-
-Failed --> \[*]
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-008.puml)
 
 ---
 
@@ -1144,43 +1000,9 @@ Failed
 
 ## 46. Git Write State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Git Write Interaction State](diagrams/14-state-analysis-009.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Write Interaction State
-
-\[*] --> Received
-
-Received --> Authenticating
-
-Authenticating --> ResolvingRepository : PAT valid
-
-Authenticating --> Failed : PAT invalid / revoked
-
-ResolvingRepository --> Authorizing : repository resolved
-
-ResolvingRepository --> Failed : repository unresolved
-
-Authorizing --> ResolvingStorage : authenticated owner
-
-Authorizing --> Failed : anonymous/non-owner denial
-
-ResolvingStorage --> ExecutingWrite : storage available
-
-ResolvingStorage --> Failed : storage failure
-
-ExecutingWrite --> Succeeded : git-receive-pack succeeds
-
-ExecutingWrite --> Failed : Git/process/ref-update failure
-
-Succeeded --> \[*]
-
-Failed --> \[*]
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-009.puml)
 
 ---
 
@@ -1678,31 +1500,9 @@ Inconsistent
 
 ## 68. Storage State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Storage State Analysis](diagrams/14-state-analysis-010.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Storage State Analysis
-
-\[*] --> Available
-
-Available --> Missing : expected repository absent
-
-Available --> Unavailable : storage inaccessible
-
-Available --> Corrupt : Git repository unusable
-
-Missing --> Inconsistent : metadata still exists
-
-Unavailable --> Inconsistent : repository cannot be reliably accessed
-
-Corrupt --> Inconsistent : repository cannot be reliably processed
-
-Orphaned --> Inconsistent : physical storage exists without metadata
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-010.puml)
 
 This diagram describes analysis conditions, not necessarily persistent database states.
 
@@ -1792,39 +1592,9 @@ Authenticated
 
 ## 73. PAT Authentication State Diagram
 
-```plantuml
+![GitForge V1.0.0 - PAT Authentication State](diagrams/14-state-analysis-011.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Authentication State
-
-\[*] --> Received
-
-Received --> CandidateLookup
-
-CandidateLookup --> Verifying : candidate found
-
-CandidateLookup --> Rejected : candidate absent
-
-Verifying --> RevocationCheck : credential verifies
-
-Verifying --> Rejected : verification fails
-
-RevocationCheck --> OwnerResolution : active
-
-RevocationCheck --> Rejected : revoked
-
-OwnerResolution --> Authenticated : owner resolved
-
-OwnerResolution --> Rejected : inconsistent owner state
-
-Authenticated --> \[*]
-
-Rejected --> \[*]
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-state-analysis-011.puml)
 
 ---
 

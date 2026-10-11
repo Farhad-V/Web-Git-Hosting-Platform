@@ -1,0 +1,5 @@
+
+# Keep diagram catalog hashes consistent across platforms.
+*.puml text eol=lf
+*.svg text eol=lf
+docs/diagrams/manifest.json text eol=lf

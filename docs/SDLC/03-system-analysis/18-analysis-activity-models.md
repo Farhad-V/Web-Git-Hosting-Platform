@@ -180,55 +180,9 @@ These outcomes have distinct meanings.
 
 ## 7. Activity Model AM-001 — User Registration
 
-```plantuml
+![GitForge V1.0.0 - AM-001 User Registration](diagrams/18-analysis-activity-models-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-001 User Registration
-
-start
-
-:Receive registration request;
-
-:Validate registration input;
-
-if (Input valid?) then (yes)
-
-&#x20;   :Check required registration conditions;
-
-&#x20;   if (Conditions satisfied?) then (yes)
-
-&#x20;       :Persist User metadata;
-
-&#x20;       if (Persistence succeeds?) then (yes)
-
-&#x20;           :Return registration success;
-
-&#x20;       else (no)
-
-&#x20;           :Classify persistence failure;
-
-&#x20;           :Return safe failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Reject registration request;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Reject invalid input;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-001.puml)
 
 ---
 
@@ -248,161 +202,25 @@ No User identity is fabricated after failure
 
 ## 9. Activity Model AM-002 — Interactive Login
 
-```plantuml
+![GitForge V1.0.0 - AM-002 Interactive Login](diagrams/18-analysis-activity-models-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-002 Interactive Login
-
-start
-
-:Receive login request;
-
-:Validate credential input;
-
-if (Credential input valid?) then (yes)
-
-&#x20;   :Resolve User;
-
-&#x20;   :Verify credential;
-
-&#x20;   if (Credential valid?) then (yes)
-
-&#x20;       :Establish authenticated User identity;
-
-&#x20;       :Return authenticated context;
-
-&#x20;   else (no)
-
-&#x20;       :Remain unauthenticated;
-
-&#x20;       :Return safe authentication denial;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Remain unauthenticated;
-
-&#x20;   :Reject invalid authentication request;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-002.puml)
 
 ---
 
 ## 10. Activity Model AM-003 — Logout
 
-```plantuml
+![GitForge V1.0.0 - AM-003 Logout](diagrams/18-analysis-activity-models-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-003 Logout
-
-start
-
-:Receive logout request;
-
-:Invalidate interactive authentication state;
-
-:Return logged-out state;
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-003.puml)
 
 ---
 
 ## 11. Activity Model AM-004 — Repository Creation
 
-```plantuml
+![GitForge V1.0.0 - AM-004 Repository Creation](diagrams/18-analysis-activity-models-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-004 Repository Creation
-
-start
-
-:Receive repository creation request;
-
-if (User authenticated?) then (yes)
-
-&#x20;   :Validate repository name;
-
-&#x20;   :Validate visibility;
-
-&#x20;   if (Input valid?) then (yes)
-
-&#x20;       :Check owner namespace uniqueness;
-
-&#x20;       if (Namespace available?) then (yes)
-
-&#x20;           :Derive safe physical repository target;
-
-&#x20;           if (Target safely contained?) then (yes)
-
-&#x20;               :Initialize physical Git repository;
-
-&#x20;               if (Initialization succeeds?) then (yes)
-
-&#x20;                   :Persist repository metadata;
-
-&#x20;                   if (Persistence succeeds?) then (yes)
-
-&#x20;                       :Repository becomes Available;
-
-&#x20;                       :Return success;
-
-&#x20;                   else (no)
-
-&#x20;                       :Detect partial creation / consistency failure;
-
-&#x20;                       :Return failure;
-
-&#x20;                   endif
-
-&#x20;               else (no)
-
-&#x20;                   :Return storage/Git initialization failure;
-
-&#x20;               endif
-
-&#x20;           else (no)
-
-&#x20;               :Reject unsafe physical target;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Reject duplicate repository namespace;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Reject invalid creation input;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny repository creation;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-004.puml)
 
 ---
 
@@ -432,99 +250,17 @@ No downstream activity may skip these decisions.
 
 ## 13. Activity Model AM-005 — List Owned Repositories
 
-```plantuml
+![GitForge V1.0.0 - AM-005 List Owned Repositories](diagrams/18-analysis-activity-models-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-005 List Owned Repositories
-
-start
-
-:Receive list-owned-repositories request;
-
-if (User authenticated?) then (yes)
-
-&#x20;   :Resolve authenticated User identity;
-
-&#x20;   :Query repositories owned by User;
-
-&#x20;   if (Persistence operation succeeds?) then (yes)
-
-&#x20;       :Return repository metadata list;
-
-&#x20;   else (no)
-
-&#x20;       :Return safe persistence failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny request;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-005.puml)
 
 ---
 
 ## 14. Activity Model AM-006 — Repository Read Authorization
 
-```plantuml
+![GitForge V1.0.0 - AM-006 Repository Read Authorization](diagrams/18-analysis-activity-models-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-006 Repository Read Authorization
-
-start
-
-:Receive repository read context;
-
-:Resolve repository metadata;
-
-if (Repository exists?) then (yes)
-
-&#x20;   if (Visibility is Public?) then (yes)
-
-&#x20;       :Allow read;
-
-&#x20;   else (no)
-
-&#x20;       if (Caller authenticated?) then (yes)
-
-&#x20;           if (Caller is repository owner?) then (yes)
-
-&#x20;               :Allow read;
-
-&#x20;           else (no)
-
-&#x20;               :Deny read;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Deny read;
-
-&#x20;       endif
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return repository-resolution failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-006.puml)
 
 ---
 
@@ -550,49 +286,9 @@ stop
 
 ## 16. Activity Model AM-007 — Repository Write Authorization
 
-```plantuml
+![GitForge V1.0.0 - AM-007 Repository Write Authorization](diagrams/18-analysis-activity-models-007.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-007 Repository Write Authorization
-
-start
-
-:Receive repository write context;
-
-if (Caller authenticated?) then (yes)
-
-&#x20;   :Resolve repository metadata;
-
-&#x20;   if (Repository exists?) then (yes)
-
-&#x20;       if (Caller is repository owner?) then (yes)
-
-&#x20;           :Allow write;
-
-&#x20;       else (no)
-
-&#x20;           :Deny write;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return repository-resolution failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny write;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-007.puml)
 
 ---
 
@@ -616,503 +312,65 @@ Only repository owner write is allowed.
 
 ## 18. Activity Model AM-008 — View Repository
 
-```plantuml
+![GitForge V1.0.0 - AM-008 View Repository](diagrams/18-analysis-activity-models-008.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-008 View Repository
-
-start
-
-:Receive repository view request;
-
-:Resolve logical repository;
-
-if (Repository resolved?) then (yes)
-
-&#x20;   :Evaluate read authorization;
-
-&#x20;   if (Read allowed?) then (yes)
-
-&#x20;       :Resolve safe physical repository target;
-
-&#x20;       if (Physical repository available?) then (yes)
-
-&#x20;           :Read Git-native repository state;
-
-&#x20;           if (Git read succeeds?) then (yes)
-
-&#x20;               if (Repository has history?) then (yes)
-
-&#x20;                   :Build repository representation;
-
-&#x20;               else (no)
-
-&#x20;                   :Build valid empty-repository representation;
-
-&#x20;               endif
-
-&#x20;               :Return safe repository view;
-
-&#x20;           else (no)
-
-&#x20;               :Return Git-read failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Return storage/consistency failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny repository view;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return safe repository-resolution result;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-008.puml)
 
 ---
 
 ## 19. Activity Model AM-009 — Change Repository Visibility
 
-```plantuml
+![GitForge V1.0.0 - AM-009 Change Repository Visibility](diagrams/18-analysis-activity-models-009.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-009 Change Repository Visibility
-
-start
-
-:Receive visibility-change request;
-
-if (User authenticated?) then (yes)
-
-&#x20;   :Resolve repository;
-
-&#x20;   if (Repository exists?) then (yes)
-
-&#x20;       :Authorize repository metadata change;
-
-&#x20;       if (User is owner?) then (yes)
-
-&#x20;           :Validate requested visibility;
-
-&#x20;           if (Visibility valid?) then (yes)
-
-&#x20;               :Persist new visibility;
-
-&#x20;               if (Persistence succeeds?) then (yes)
-
-&#x20;                   :Return success;
-
-&#x20;               else (no)
-
-&#x20;                   :Return persistence failure;
-
-&#x20;               endif
-
-&#x20;           else (no)
-
-&#x20;               :Reject invalid visibility;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Deny update;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return repository-resolution failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny update;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-009.puml)
 
 ---
 
 ## 20. Activity Model AM-010 — Repository Branch Listing
 
-```plantuml
+![GitForge V1.0.0 - AM-010 Branch Listing](diagrams/18-analysis-activity-models-010.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-010 Branch Listing
-
-start
-
-:Receive branch-list request;
-
-:Resolve repository;
-
-if (Repository resolved?) then (yes)
-
-&#x20;   :Authorize read;
-
-&#x20;   if (Allowed?) then (yes)
-
-&#x20;       :Resolve safe physical repository;
-
-&#x20;       if (Storage available?) then (yes)
-
-&#x20;           :Execute approved Git branch/ref read;
-
-&#x20;           if (Git read succeeds?) then (yes)
-
-&#x20;               :Return safe branch list;
-
-&#x20;           else (no)
-
-&#x20;               :Return Git-read failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Return storage failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny read;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return repository-resolution failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-010.puml)
 
 ---
 
 ## 21. Activity Model AM-011 — Commit History
 
-```plantuml
+![GitForge V1.0.0 - AM-011 Commit History](diagrams/18-analysis-activity-models-011.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-011 Commit History
-
-start
-
-:Receive repository + ref;
-
-:Resolve repository;
-
-:Authorize read;
-
-if (Read allowed?) then (yes)
-
-&#x20;   :Resolve safe physical repository;
-
-&#x20;   if (Storage available?) then (yes)
-
-&#x20;       :Validate/resolve ref;
-
-&#x20;       if (Ref resolves?) then (yes)
-
-&#x20;           :Read commit history;
-
-&#x20;           if (Git operation succeeds?) then (yes)
-
-&#x20;               :Return safe history representation;
-
-&#x20;           else (no)
-
-&#x20;               :Return Git-read failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Return ref-resolution failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return storage failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny read;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-011.puml)
 
 ---
 
 ## 22. Activity Model AM-012 — Commit Details
 
-```plantuml
+![GitForge V1.0.0 - AM-012 Commit Details](diagrams/18-analysis-activity-models-012.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-012 Commit Details
-
-start
-
-:Receive repository + commit identifier;
-
-:Resolve repository;
-
-:Authorize read;
-
-if (Allowed?) then (yes)
-
-&#x20;   :Resolve safe physical repository;
-
-&#x20;   :Resolve commit identifier;
-
-&#x20;   if (Commit exists?) then (yes)
-
-&#x20;       :Read commit data;
-
-&#x20;       if (Git read succeeds?) then (yes)
-
-&#x20;           :Return safe commit representation;
-
-&#x20;       else (no)
-
-&#x20;           :Return Git-read failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return commit-not-found result;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny read;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-012.puml)
 
 ---
 
 ## 23. Activity Model AM-013 — Tree Browsing
 
-```plantuml
+![GitForge V1.0.0 - AM-013 Tree Browsing](diagrams/18-analysis-activity-models-013.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-013 Tree Browsing
-
-start
-
-:Receive repository + revision + path;
-
-:Resolve repository;
-
-:Authorize read;
-
-if (Allowed?) then (yes)
-
-&#x20;   :Resolve safe physical repository;
-
-&#x20;   :Validate revision/path;
-
-&#x20;   if (Input valid?) then (yes)
-
-&#x20;       :Resolve Git tree;
-
-&#x20;       if (Tree exists?) then (yes)
-
-&#x20;           :Read tree entries;
-
-&#x20;           :Return safe tree representation;
-
-&#x20;       else (no)
-
-&#x20;           :Return tree/path-not-found result;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Reject invalid revision/path;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny read;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-013.puml)
 
 ---
 
 ## 24. Activity Model AM-014 — File Viewing
 
-```plantuml
+![GitForge V1.0.0 - AM-014 File Viewing](diagrams/18-analysis-activity-models-014.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-014 File Viewing
-
-start
-
-:Receive repository + revision + file path;
-
-:Resolve repository;
-
-:Authorize read;
-
-if (Allowed?) then (yes)
-
-&#x20;   :Resolve safe physical repository;
-
-&#x20;   :Validate revision/path;
-
-&#x20;   if (Input valid?) then (yes)
-
-&#x20;       :Resolve Git blob;
-
-&#x20;       if (Blob exists?) then (yes)
-
-&#x20;           :Read blob content;
-
-&#x20;           :Treat repository content as untrusted;
-
-&#x20;           :Prepare safe representation;
-
-&#x20;           :Return file view;
-
-&#x20;       else (no)
-
-&#x20;           :Return file-not-found result;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Reject invalid revision/path;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny read;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-014.puml)
 
 ---
 
 ## 25. Activity Model AM-015 — PAT Creation
 
-```plantuml
+![GitForge V1.0.0 - AM-015 PAT Creation](diagrams/18-analysis-activity-models-015.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-015 PAT Creation
-
-start
-
-:Receive PAT creation request;
-
-if (User authenticated?) then (yes)
-
-&#x20;   :Generate plaintext PAT;
-
-&#x20;   if (Generation succeeds?) then (yes)
-
-&#x20;       :Derive verification representation;
-
-&#x20;       :Associate PAT with authenticated User;
-
-&#x20;       :Persist PAT metadata/verifier;
-
-&#x20;       if (Persistence succeeds?) then (yes)
-
-&#x20;           :Present plaintext PAT once;
-
-&#x20;           :Return creation success;
-
-&#x20;       else (no)
-
-&#x20;           :Do not report PAT success;
-
-&#x20;           :Return persistence failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return PAT-generation failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny PAT creation;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-015.puml)
 
 ---
 
@@ -1138,597 +396,73 @@ Plaintext PAT is not recoverably persisted.
 
 ## 27. Activity Model AM-016 — PAT Authentication
 
-```plantuml
+![GitForge V1.0.0 - AM-016 PAT Authentication](diagrams/18-analysis-activity-models-016.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-016 PAT Authentication
-
-start
-
-:Receive presented PAT;
-
-:Validate credential shape;
-
-if (Credential usable?) then (yes)
-
-&#x20;   :Resolve PAT candidate;
-
-&#x20;   if (Candidate exists?) then (yes)
-
-&#x20;       :Verify credential;
-
-&#x20;       if (Verification succeeds?) then (yes)
-
-&#x20;           :Check revocation state;
-
-&#x20;           if (PAT active?) then (yes)
-
-&#x20;               :Resolve PAT owner;
-
-&#x20;               if (Owner resolves?) then (yes)
-
-&#x20;                   :Establish authenticated User identity;
-
-&#x20;                   :Return authentication success;
-
-&#x20;               else (no)
-
-&#x20;                   :Classify PAT consistency failure;
-
-&#x20;                   :Deny authentication;
-
-&#x20;               endif
-
-&#x20;           else (no)
-
-&#x20;               :Deny revoked PAT;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Deny invalid PAT;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny unknown PAT;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny malformed/missing PAT;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-016.puml)
 
 ---
 
 ## 28. Activity Model AM-017 — PAT Revocation
 
-```plantuml
+![GitForge V1.0.0 - AM-017 PAT Revocation](diagrams/18-analysis-activity-models-017.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-017 PAT Revocation
-
-start
-
-:Receive PAT revocation request;
-
-if (User authenticated?) then (yes)
-
-&#x20;   :Resolve PAT metadata;
-
-&#x20;   if (PAT exists?) then (yes)
-
-&#x20;       if (User owns PAT?) then (yes)
-
-&#x20;           :Persist revoked state;
-
-&#x20;           if (Persistence succeeds?) then (yes)
-
-&#x20;               :PAT becomes Revoked;
-
-&#x20;               :Return success;
-
-&#x20;           else (no)
-
-&#x20;               :Do not report revocation success;
-
-&#x20;               :Return persistence failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Deny revocation;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return safe PAT-not-found result;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny revocation;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-017.puml)
 
 ---
 
 ## 29. Activity Model AM-018 — Public Git Smart HTTP Read
 
-```plantuml
+![GitForge V1.0.0 - AM-018 Public Git Smart HTTP Read](diagrams/18-analysis-activity-models-018.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-018 Public Git Smart HTTP Read
-
-start
-
-:Receive Git read request;
-
-:Resolve logical repository;
-
-if (Repository exists?) then (yes)
-
-&#x20;   if (Repository Public?) then (yes)
-
-&#x20;       :Authorize anonymous read;
-
-&#x20;       :Resolve safe physical repository target;
-
-&#x20;       if (Storage available?) then (yes)
-
-&#x20;           :Select approved git-upload-pack operation;
-
-&#x20;           :Execute Git read service;
-
-&#x20;           if (Git operation succeeds?) then (yes)
-
-&#x20;               :Stream Git Smart HTTP response;
-
-&#x20;           else (no)
-
-&#x20;               :Return safe Git-read failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Return storage failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Require authentication path;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return safe repository-resolution result;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-018.puml)
 
 ---
 
 ## 30. Activity Model AM-019 — Private Git Smart HTTP Read
 
-```plantuml
+![GitForge V1.0.0 - AM-019 Private Git Smart HTTP Read](diagrams/18-analysis-activity-models-019.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-019 Private Git Smart HTTP Read
-
-start
-
-:Receive Git read request + PAT;
-
-:Authenticate PAT;
-
-if (Authentication succeeds?) then (yes)
-
-&#x20;   :Resolve repository;
-
-&#x20;   if (Repository exists?) then (yes)
-
-&#x20;       :Authorize read;
-
-&#x20;       if (Authenticated User is owner?) then (yes)
-
-&#x20;           :Resolve safe physical repository;
-
-&#x20;           if (Storage available?) then (yes)
-
-&#x20;               :Execute approved git-upload-pack operation;
-
-&#x20;               if (Git read succeeds?) then (yes)
-
-&#x20;                   :Stream Git response;
-
-&#x20;               else (no)
-
-&#x20;                   :Return Git-read failure;
-
-&#x20;               endif
-
-&#x20;           else (no)
-
-&#x20;               :Return storage failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Deny read;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return repository-resolution failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny authentication;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-019.puml)
 
 ---
 
 ## 31. Activity Model AM-020 — Git Clone / Fetch
 
-```plantuml
+![GitForge V1.0.0 - AM-020 Clone / Fetch](diagrams/18-analysis-activity-models-020.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-020 Clone / Fetch
-
-start
-
-:Receive clone/fetch interaction;
-
-:Resolve repository;
-
-if (Repository Public?) then (yes)
-
-&#x20;   :Allow read;
-
-else (no)
-
-&#x20;   :Authenticate PAT;
-
-&#x20;   if (Authentication succeeds?) then (yes)
-
-&#x20;       :Authorize private owner read;
-
-&#x20;       if (Authorized?) then (yes)
-
-&#x20;       else (no)
-
-&#x20;           :Deny;
-
-&#x20;           stop
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny;
-
-&#x20;       stop
-
-&#x20;   endif
-
-endif
-
-:Resolve safe physical repository;
-
-if (Storage available?) then (yes)
-
-&#x20;   :Execute approved git-upload-pack;
-
-&#x20;   if (Git operation succeeds?) then (yes)
-
-&#x20;       :Return/stream Git read data;
-
-&#x20;   else (no)
-
-&#x20;       :Return Git read failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return storage failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-020.puml)
 
 ---
 
 ## 32. Activity Model AM-021 — Git Write-Service Discovery
 
-```plantuml
+![GitForge V1.0.0 - AM-021 Git Write-Service Discovery](diagrams/18-analysis-activity-models-021.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-021 Git Write-Service Discovery
-
-start
-
-:Receive git-receive-pack discovery request;
-
-:Authenticate PAT;
-
-if (Authentication succeeds?) then (yes)
-
-&#x20;   :Resolve repository;
-
-&#x20;   if (Repository exists?) then (yes)
-
-&#x20;       :Authorize owner write;
-
-&#x20;       if (Authorized?) then (yes)
-
-&#x20;           :Resolve safe physical repository;
-
-&#x20;           if (Storage available?) then (yes)
-
-&#x20;               :Execute approved write-service discovery;
-
-&#x20;               if (Discovery succeeds?) then (yes)
-
-&#x20;                   :Return Git service advertisement;
-
-&#x20;               else (no)
-
-&#x20;                   :Return Git discovery failure;
-
-&#x20;               endif
-
-&#x20;           else (no)
-
-&#x20;               :Return storage failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Deny write service;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return repository-resolution failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny authentication;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-021.puml)
 
 ---
 
 ## 33. Activity Model AM-022 — Git Push
 
-```plantuml
+![GitForge V1.0.0 - AM-022 Git Push](diagrams/18-analysis-activity-models-022.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-022 Git Push
-
-start
-
-:Receive push request + PAT;
-
-:Authenticate PAT;
-
-if (Authentication succeeds?) then (yes)
-
-&#x20;   :Resolve repository;
-
-&#x20;   if (Repository exists?) then (yes)
-
-&#x20;       :Authorize owner write;
-
-&#x20;       if (Authorized?) then (yes)
-
-&#x20;           :Resolve safe physical repository;
-
-&#x20;           if (Storage available and writable?) then (yes)
-
-&#x20;               :Select approved git-receive-pack operation;
-
-&#x20;               :Execute Git write;
-
-&#x20;               if (Git write succeeds?) then (yes)
-
-&#x20;                   :Return push success;
-
-&#x20;               else (no)
-
-&#x20;                   :Classify Git/ref/protocol failure;
-
-&#x20;                   :Return push failure;
-
-&#x20;               endif
-
-&#x20;           else (no)
-
-&#x20;               :Return storage failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Deny push;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return repository-resolution failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny push authentication;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-022.puml)
 
 ---
 
 ## 34. Activity Model AM-023 — First Push to Empty Repository
 
-```plantuml
+![GitForge V1.0.0 - AM-023 First Push to Empty Repository](diagrams/18-analysis-activity-models-023.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-023 First Push to Empty Repository
-
-start
-
-:Receive authorized owner push;
-
-:Confirm physical repository exists;
-
-if (Repository exists?) then (yes)
-
-&#x20;   :Determine Git history state;
-
-&#x20;   if (Repository Empty?) then (yes)
-
-&#x20;       :Execute git-receive-pack;
-
-&#x20;       :Receive objects and initial refs;
-
-&#x20;       if (Git write succeeds?) then (yes)
-
-&#x20;           :Transition Empty -> Has History;
-
-&#x20;           :Return success;
-
-&#x20;       else (no)
-
-&#x20;           :Remain valid repository state;
-
-&#x20;           :Return Git write failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Process as normal subsequent push;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return storage consistency failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-023.puml)
 
 ---
 
 ## 35. Activity Model AM-024 — Git Push Ref Rejection
 
-```plantuml
+![GitForge V1.0.0 - AM-024 Git Push Ref Rejection](diagrams/18-analysis-activity-models-024.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-024 Git Push Ref Rejection
-
-start
-
-:Authenticate PAT;
-
-:Authorize owner write;
-
-:Resolve safe repository;
-
-:Execute git-receive-pack;
-
-:Attempt Git ref update;
-
-if (Git accepts ref update?) then (yes)
-
-&#x20;   :Return push success;
-
-else (no)
-
-&#x20;   :Classify Git-native ref rejection;
-
-&#x20;   :Return Git write failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-024.puml)
 
 ---
 
@@ -1762,197 +496,33 @@ It is a Git-native write failure.
 
 ## 37. Activity Model AM-025 — Safe Repository Storage Resolution
 
-```plantuml
+![GitForge V1.0.0 - AM-025 Safe Repository Storage Resolution](diagrams/18-analysis-activity-models-025.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-025 Safe Repository Storage Resolution
-
-start
-
-:Receive validated logical repository context;
-
-:Derive internal physical target;
-
-:Normalize/resolve target under configured repository root;
-
-if (Target contained within root?) then (yes)
-
-&#x20;   :Check expected repository location;
-
-&#x20;   if (Repository exists?) then (yes)
-
-&#x20;       :Return safe physical repository target;
-
-&#x20;   else (no)
-
-&#x20;       :Return storage/consistency failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Classify security-critical path failure;
-
-&#x20;   :Reject physical access;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-025.puml)
 
 ---
 
 ## 38. Activity Model AM-026 — Repository Storage State
 
-```plantuml
+![GitForge V1.0.0 - AM-026 Repository Storage State Evaluation](diagrams/18-analysis-activity-models-026.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-026 Repository Storage State Evaluation
-
-start
-
-:Resolve expected physical repository;
-
-if (Repository exists?) then (yes)
-
-&#x20;   if (Repository usable?) then (yes)
-
-&#x20;       :State = Available;
-
-&#x20;   else (no)
-
-&#x20;       if (Repository corrupt?) then (yes)
-
-&#x20;           :State = Corrupt;
-
-&#x20;       else (no)
-
-&#x20;           :State = Unavailable;
-
-&#x20;       endif
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :State = Missing;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-026.puml)
 
 ---
 
 ## 39. Activity Model AM-027 — Metadata/Storage Consistency Evaluation
 
-```plantuml
+![GitForge V1.0.0 - AM-027 Metadata Storage Consistency](diagrams/18-analysis-activity-models-027.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-027 Metadata Storage Consistency
-
-start
-
-:Check application repository metadata;
-
-:Check expected physical repository;
-
-if (Metadata exists?) then (yes)
-
-&#x20;   if (Physical repository exists?) then (yes)
-
-&#x20;       :Repository relationship consistent;
-
-&#x20;   else (no)
-
-&#x20;       :Classify metadata-present/storage-missing inconsistency;
-
-&#x20;       :Stop protected operation;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   if (Physical repository exists?) then (yes)
-
-&#x20;       :Classify orphaned physical repository;
-
-&#x20;       :Do not expose repository automatically;
-
-&#x20;   else (no)
-
-&#x20;       :Repository does not exist;
-
-&#x20;   endif
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-027.puml)
 
 ---
 
 ## 40. Activity Model AM-028 — Controlled Git Process Execution
 
-```plantuml
+![GitForge V1.0.0 - AM-028 Controlled Git Process Execution](diagrams/18-analysis-activity-models-028.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-028 Controlled Git Process Execution
-
-start
-
-:Receive approved Git operation + safe target;
-
-if (Operation approved?) then (yes)
-
-&#x20;   if (Target safe?) then (yes)
-
-&#x20;       :Prepare controlled execution context;
-
-&#x20;       :Execute approved Git executable/subcommand;
-
-&#x20;       if (Process succeeds?) then (yes)
-
-&#x20;           :Return Git operation result;
-
-&#x20;       else (no)
-
-&#x20;           :Classify process/Git failure;
-
-&#x20;           :Return safe failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Reject execution;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Reject unapproved operation;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-028.puml)
 
 ---
 
@@ -1990,399 +560,81 @@ Approved Git Execution
 
 ## 42. Activity Model AM-029 — Generic Failure Handling
 
-```plantuml
+![GitForge V1.0.0 - AM-029 Generic Failure Handling](diagrams/18-analysis-activity-models-029.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-029 Generic Failure Handling
-
-start
-
-:Receive failure context;
-
-:Classify failure;
-
-if (Security-sensitive?) then (yes)
-
-&#x20;   :Stop protected operation;
-
-&#x20;   :Apply fail-closed outcome;
-
-endif
-
-:Sanitize diagnostic data;
-
-:Record internal diagnostic where possible;
-
-:Prepare safe external response;
-
-if (Operation completed authoritatively?) then (yes)
-
-&#x20;   :Return appropriate completed outcome;
-
-else (no)
-
-&#x20;   :Do not report success;
-
-&#x20;   :Return rejection/denial/failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-029.puml)
 
 ---
 
 ## 43. Activity Model AM-030 — Authentication Failure Handling
 
-```plantuml
+![GitForge V1.0.0 - AM-030 Authentication Failure](diagrams/18-analysis-activity-models-030.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-030 Authentication Failure
-
-start
-
-:Receive authentication failure;
-
-if (Credential invalid/missing/revoked?) then (yes)
-
-&#x20;   :Establish no User identity;
-
-&#x20;   :Deny protected authentication flow;
-
-else (no)
-
-&#x20;   :Classify consistency/dependency failure;
-
-&#x20;   :Fail closed;
-
-endif
-
-:Return safe authentication outcome;
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-030.puml)
 
 ---
 
 ## 44. Activity Model AM-031 — Authorization Failure Handling
 
-```plantuml
+![GitForge V1.0.0 - AM-031 Authorization Failure](diagrams/18-analysis-activity-models-031.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-031 Authorization Failure
-
-start
-
-:Receive identity + repository + operation;
-
-:Evaluate authorization;
-
-if (Authorization Allow?) then (yes)
-
-&#x20;   :Continue protected operation;
-
-else (no)
-
-&#x20;   :Stop protected operation;
-
-&#x20;   :Do not resolve protected mutation path;
-
-&#x20;   :Return safe denial;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-031.puml)
 
 ---
 
 ## 45. Activity Model AM-032 — Private Repository Read by Non-Owner
 
-```plantuml
+![GitForge V1.0.0 - AM-032 Private Read by Non-Owner](diagrams/18-analysis-activity-models-032.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-032 Private Read by Non-Owner
-
-start
-
-:Resolve private repository;
-
-:Resolve authenticated User identity;
-
-if (User is owner?) then (yes)
-
-&#x20;   :Allow read;
-
-&#x20;   :Continue to storage resolution;
-
-else (no)
-
-&#x20;   :Deny read;
-
-&#x20;   :Stop before protected Git content access;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-032.puml)
 
 ---
 
 ## 46. Activity Model AM-033 — Anonymous Public Repository Read
 
-```plantuml
+![GitForge V1.0.0 - AM-033 Anonymous Public Read](diagrams/18-analysis-activity-models-033.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-033 Anonymous Public Read
-
-start
-
-:Receive anonymous repository read;
-
-:Resolve repository metadata;
-
-if (Repository Public?) then (yes)
-
-&#x20;   :Allow read without identity authentication;
-
-&#x20;   :Resolve safe physical repository;
-
-&#x20;   :Execute approved read;
-
-else (no)
-
-&#x20;   :Deny anonymous read;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-033.puml)
 
 ---
 
 ## 47. Activity Model AM-034 — Non-Owner Write
 
-```plantuml
+![GitForge V1.0.0 - AM-034 Non-Owner Write](diagrams/18-analysis-activity-models-034.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-034 Non-Owner Write
-
-start
-
-:Authenticate PAT;
-
-if (Authentication succeeds?) then (yes)
-
-&#x20;   :Resolve repository;
-
-&#x20;   :Compare authenticated User with repository owner;
-
-&#x20;   if (User is owner?) then (yes)
-
-&#x20;       :Allow write path;
-
-&#x20;   else (no)
-
-&#x20;       :Deny write;
-
-&#x20;       :Stop before git-receive-pack;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-034.puml)
 
 ---
 
 ## 48. Activity Model AM-035 — Invalid Repository Identifier
 
-```plantuml
+![GitForge V1.0.0 - AM-035 Invalid Repository Identifier](diagrams/18-analysis-activity-models-035.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-035 Invalid Repository Identifier
-
-start
-
-:Receive logical repository identifier;
-
-:Validate namespace/name;
-
-if (Identifier valid?) then (yes)
-
-&#x20;   :Resolve authoritative metadata;
-
-else (no)
-
-&#x20;   :Reject identifier;
-
-&#x20;   :Do not derive physical filesystem path;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-035.puml)
 
 ---
 
 ## 49. Activity Model AM-036 — Storage-Root Escape Prevention
 
-```plantuml
+![GitForge V1.0.0 - AM-036 Storage Root Escape Prevention](diagrams/18-analysis-activity-models-036.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-036 Storage Root Escape Prevention
-
-start
-
-:Derive physical repository target;
-
-:Verify target containment;
-
-if (Contained inside configured repository root?) then (yes)
-
-&#x20;   :Permit storage-resolution continuation;
-
-else (no)
-
-&#x20;   :Reject target;
-
-&#x20;   :Classify security-critical failure;
-
-&#x20;   :Record sanitized diagnostic;
-
-&#x20;   :Stop physical access;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-036.puml)
 
 ---
 
 ## 50. Activity Model AM-037 — Revoked PAT Use
 
-```plantuml
+![GitForge V1.0.0 - AM-037 Revoked PAT Use](diagrams/18-analysis-activity-models-037.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-037 Revoked PAT Use
-
-start
-
-:Receive PAT;
-
-:Resolve PAT record;
-
-:Verify credential;
-
-if (Verification valid?) then (yes)
-
-&#x20;   :Check revocation;
-
-&#x20;   if (PAT revoked?) then (yes)
-
-&#x20;       :Deny authentication;
-
-&#x20;   else (no)
-
-&#x20;       :Resolve owner;
-
-&#x20;       :Establish authenticated User identity;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny authentication;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-037.puml)
 
 ---
 
 ## 51. Activity Model AM-038 — Empty Repository
 
-```plantuml
+![GitForge V1.0.0 - AM-038 Empty Repository Evaluation](diagrams/18-analysis-activity-models-038.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-038 Empty Repository Evaluation
-
-start
-
-:Resolve physical repository;
-
-if (Physical repository exists?) then (yes)
-
-&#x20;   :Inspect refs/history;
-
-&#x20;   if (Any repository history?) then (yes)
-
-&#x20;       :State = Has History;
-
-&#x20;   else (no)
-
-&#x20;       :State = Empty;
-
-&#x20;       :Return valid empty representation;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :State = Missing;
-
-&#x20;   :Return storage/consistency failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-038.puml)
 
 ---
 
@@ -2420,91 +672,17 @@ Missing is failure.
 
 ## 53. Activity Model AM-039 — Repository Browser Object Resolution
 
-```plantuml
+![GitForge V1.0.0 - AM-039 Repository Object Resolution](diagrams/18-analysis-activity-models-039.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-039 Repository Object Resolution
-
-start
-
-:Receive authorized repository read;
-
-:Validate revision and path;
-
-if (Input valid?) then (yes)
-
-&#x20;   :Resolve requested Git object;
-
-&#x20;   if (Object resolves?) then (yes)
-
-&#x20;       :Read Git-native data;
-
-&#x20;       :Prepare safe representation;
-
-&#x20;       :Return result;
-
-&#x20;   else (no)
-
-&#x20;       :Return object-not-found result;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Reject invalid revision/path;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-039.puml)
 
 ---
 
 ## 54. Activity Model AM-040 — Diagnostic Sanitization
 
-```plantuml
+![GitForge V1.0.0 - AM-040 Diagnostic Sanitization](diagrams/18-analysis-activity-models-040.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-040 Diagnostic Sanitization
-
-start
-
-:Receive internal failure context;
-
-:Identify sensitive fields;
-
-if (Contains plaintext credential?) then (yes)
-
-&#x20;   :Remove/suppress credential;
-
-endif
-
-if (Contains unnecessary internal path?) then (yes)
-
-&#x20;   :Minimize path detail;
-
-endif
-
-if (Contains raw external authentication data?) then (yes)
-
-&#x20;   :Suppress sensitive authentication data;
-
-endif
-
-:Record safe diagnostic;
-
-:Return sanitized failure response;
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-040.puml)
 
 ---
 
@@ -2534,99 +712,17 @@ Unnecessary absolute filesystem path
 
 ## 56. Activity Model AM-041 — Fail-Closed Decision
 
-```plantuml
+![GitForge V1.0.0 - AM-041 Fail-Closed Decision](diagrams/18-analysis-activity-models-041.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-041 Fail-Closed Decision
-
-start
-
-:Evaluate protected-operation prerequisite;
-
-if (Identity certain?) then (yes)
-
-else (no)
-
-&#x20;   :Deny/fail;
-
-&#x20;   stop
-
-endif
-
-if (Authorization certain?) then (yes)
-
-else (no)
-
-&#x20;   :Deny;
-
-&#x20;   stop
-
-endif
-
-if (Repository mapping certain?) then (yes)
-
-else (no)
-
-&#x20;   :Fail;
-
-&#x20;   stop
-
-endif
-
-if (Physical target safe?) then (yes)
-
-&#x20;   :Continue protected operation;
-
-else (no)
-
-&#x20;   :Reject/fail;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-041.puml)
 
 ---
 
 ## 57. Activity Model AM-042 — No False Success
 
-```plantuml
+![GitForge V1.0.0 - AM-042 No False Success](diagrams/18-analysis-activity-models-042.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-042 No False Success
-
-start
-
-:Execute requested state-changing operation;
-
-if (Required authoritative change completed?) then (yes)
-
-&#x20;   if (Required dependent execution completed?) then (yes)
-
-&#x20;       :Return success;
-
-&#x20;   else (no)
-
-&#x20;       :Return failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-042.puml)
 
 ---
 
@@ -2652,351 +748,65 @@ Git push
 
 ## 59. Activity Model AM-043 — Public to Private Transition
 
-```plantuml
+![GitForge V1.0.0 - AM-043 Public to Private Transition](diagrams/18-analysis-activity-models-043.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-043 Public to Private Transition
-
-start
-
-:Owner requests Public -> Private;
-
-:Authorize owner metadata change;
-
-:Persist Private visibility;
-
-if (Persistence succeeds?) then (yes)
-
-&#x20;   :Future anonymous reads evaluate Private;
-
-&#x20;   :Anonymous read result = Deny;
-
-else (no)
-
-&#x20;   :Visibility remains authoritative previous state;
-
-&#x20;   :Return update failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-043.puml)
 
 ---
 
 ## 60. Activity Model AM-044 — Private to Public Transition
 
-```plantuml
+![GitForge V1.0.0 - AM-044 Private to Public Transition](diagrams/18-analysis-activity-models-044.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-044 Private to Public Transition
-
-start
-
-:Owner requests Private -> Public;
-
-:Authorize owner metadata change;
-
-:Persist Public visibility;
-
-if (Persistence succeeds?) then (yes)
-
-&#x20;   :Future anonymous reads evaluate Public;
-
-&#x20;   :Anonymous read result = Allow;
-
-else (no)
-
-&#x20;   :Return update failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-044.puml)
 
 ---
 
 ## 61. Activity Model AM-045 — Concurrent Repository Creation
 
-```plantuml
+![GitForge V1.0.0 - AM-045 Concurrent Repository Creation](diagrams/18-analysis-activity-models-045.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-045 Concurrent Repository Creation
-
-start
-
-:Request creation of <owner>/<repository>;
-
-:Check namespace availability;
-
-if (Namespace available?) then (yes)
-
-&#x20;   :Attempt authoritative repository creation;
-
-&#x20;   if (Uniqueness still holds at persistence?) then (yes)
-
-&#x20;       :Complete valid creation;
-
-&#x20;   else (no)
-
-&#x20;       :Reject concurrent namespace conflict;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Reject duplicate namespace;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-045.puml)
 
 ---
 
 ## 62. Activity Model AM-046 — Concurrent Push
 
-```plantuml
+![GitForge V1.0.0 - AM-046 Concurrent Push](diagrams/18-analysis-activity-models-046.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-046 Concurrent Push
-
-start
-
-:Two authorized pushes target same repository;
-
-:Git processes ref updates according to Git-native rules;
-
-if (First update succeeds?) then (yes)
-
-&#x20;   :Repository refs change;
-
-endif
-
-:Second push evaluates current Git refs;
-
-if (Second update accepted?) then (yes)
-
-&#x20;   :Apply second update;
-
-&#x20;   :Return success;
-
-else (no)
-
-&#x20;   :Return Git-native ref rejection;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-046.puml)
 
 ---
 
 ## 63. Activity Model AM-047 — Database Failure
 
-```plantuml
+![GitForge V1.0.0 - AM-047 Database Failure](diagrams/18-analysis-activity-models-047.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-047 Database Failure
-
-start
-
-:Attempt authoritative metadata operation;
-
-if (Database operation succeeds?) then (yes)
-
-&#x20;   :Continue normal flow;
-
-else (no)
-
-&#x20;   :Classify persistence/dependency failure;
-
-&#x20;   :Prevent false success;
-
-&#x20;   :Return safe failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-047.puml)
 
 ---
 
 ## 64. Activity Model AM-048 — Git Process Failure
 
-```plantuml
+![GitForge V1.0.0 - AM-048 Git Process Failure](diagrams/18-analysis-activity-models-048.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-048 Git Process Failure
-
-start
-
-:Execute approved Git operation;
-
-if (Process starts?) then (yes)
-
-&#x20;   if (Operation completes successfully?) then (yes)
-
-&#x20;       :Return Git result;
-
-&#x20;   else (no)
-
-&#x20;       :Classify Git/process failure;
-
-&#x20;       :Return safe failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Classify process-launch/dependency failure;
-
-&#x20;   :Return safe failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-048.puml)
 
 ---
 
 ## 65. Activity Model AM-049 — Unexpected Internal Failure
 
-```plantuml
+![GitForge V1.0.0 - AM-049 Unexpected Internal Failure](diagrams/18-analysis-activity-models-049.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-049 Unexpected Internal Failure
-
-start
-
-:Unexpected internal exception occurs;
-
-:Stop unsafe continuation;
-
-:Classify internal failure;
-
-:Sanitize diagnostic data;
-
-:Record diagnostic where possible;
-
-:Return safe external failure;
-
-:Do not expose raw internal detail;
-
-:Do not report success;
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-049.puml)
 
 ---
 
 ## 66. Activity Model AM-050 — End-to-End Protected Git Write
 
-```plantuml
+![GitForge V1.0.0 - AM-050 End-to-End Protected Git Write](diagrams/18-analysis-activity-models-050.svg)
 
-@startuml
-
-title GitForge V1.0.0 - AM-050 End-to-End Protected Git Write
-
-start
-
-:Receive Git write request + PAT;
-
-:Validate request;
-
-if (Request valid?) then (yes)
-
-&#x20;   :Authenticate PAT;
-
-&#x20;   if (Authentication succeeds?) then (yes)
-
-&#x20;       :Resolve repository;
-
-&#x20;       if (Repository exists?) then (yes)
-
-&#x20;           :Authorize owner write;
-
-&#x20;           if (Authorization allows?) then (yes)
-
-&#x20;               :Resolve safe physical target;
-
-&#x20;               if (Target safe and available?) then (yes)
-
-&#x20;                   :Execute approved git-receive-pack;
-
-&#x20;                   if (Git operation succeeds?) then (yes)
-
-&#x20;                       :Return success;
-
-&#x20;                   else (no)
-
-&#x20;                       :Return Git write failure;
-
-&#x20;                   endif
-
-&#x20;               else (no)
-
-&#x20;                   :Return storage/security failure;
-
-&#x20;               endif
-
-&#x20;           else (no)
-
-&#x20;               :Deny;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Return repository-resolution failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny authentication;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Reject request;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/18-analysis-activity-models-050.puml)
 
 ---
 

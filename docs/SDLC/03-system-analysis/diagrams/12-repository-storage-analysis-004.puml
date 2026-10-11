@@ -1,0 +1,25 @@
+@startuml
+title GitForge V1.0.0 - Repository Storage Logical Collaboration
+left to right direction
+actor "Web User / Git Client" as Client
+rectangle "Repository Resolution" as Resolution
+rectangle "Repository Authorization" as Authz
+rectangle "Repository Storage Coordination" as Storage
+rectangle "Git Read Coordination" as Read
+rectangle "Git Write Coordination" as Write
+rectangle "Git Process Coordination" as Process
+database "PostgreSQL" as DB
+folder "Physical Git Repository" as Repo
+rectangle "Git Executable" as Git
+Client --> Resolution
+Resolution --> DB : repository metadata
+Resolution --> Authz
+Authz --> Storage : approved repository context
+Storage --> Repo : resolve target
+Storage --> Read
+Storage --> Write
+Read --> Process
+Write --> Process
+Process --> Git
+Git --> Repo
+@enduml

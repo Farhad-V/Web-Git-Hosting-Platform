@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - AM-045 Concurrent Repository Creation
+start
+:Request creation of <owner>/<repository>;
+:Check namespace availability;
+if (Namespace available?) then (yes)
+    :Attempt authoritative repository creation;
+    if (Uniqueness still holds at persistence?) then (yes)
+        :Complete valid creation;
+    else (no)
+        :Reject concurrent namespace conflict;
+    endif
+else (no)
+    :Reject duplicate namespace;
+endif
+stop
+@enduml

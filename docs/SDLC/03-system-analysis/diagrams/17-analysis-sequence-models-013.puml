@@ -1,0 +1,30 @@
+@startuml
+title GitForge V1.0.0 - SM-013 File Viewing
+actor Caller
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Repository Browser Coordination" as Browser
+participant "Physical Git Repository" as Repo
+Caller -> Resolution : Repository + revision + file path
+Resolution -> Authz : Authorize read
+alt Allowed
+    Authz --> Resolution : Allow
+    Resolution -> Storage : Resolve safe target
+    Storage --> Resolution : Target
+    Resolution -> Read : Resolve file/blob
+    Read -> Repo : Read blob
+    alt Blob exists
+        Repo --> Read : Blob content
+        Read -> Browser : Untrusted repository content
+        Browser --> Caller : Safe representation
+    else Blob/path missing
+        Repo --> Read : Resolution failure
+        Read --> Caller : Safe failure
+    end
+else Denied
+    Authz --> Resolution : Deny
+    Resolution --> Caller : Safe denial
+end
+@enduml

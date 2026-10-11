@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - Repository Lifecycle
+[*] --> Requested : Create repository request
+Requested --> Validating
+Validating --> [*] : Validation rejected
+Validating --> Establishing : Preconditions valid
+Establishing --> Available : Metadata + Git repository established
+Establishing --> Inconsistent : Partial establishment
+Establishing --> [*] : Failure safely compensated
+Available --> Available : Valid repository operations
+Available --> Unavailable : Operational dependency failure
+Unavailable --> Available : Operational condition restored
+Available --> Inconsistent : Consistency defect detected
+Unavailable --> Inconsistent : Consistency defect detected
+Inconsistent --> Available : Recovered to consistent state
+Inconsistent --> [*] : Failed creation fully compensated
+@enduml

@@ -1,0 +1,28 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^Create Repository^
+     .
+     Repository name
+     "____________________________"
+     .
+     Visibility
+     () Private
+     () Public
+     .
+     Repository names may contain lowercase letters,
+     digits, hyphens, underscores, and safe periods.
+     .
+     [ Create Repository ]
+     [ Cancel ]
+   }
+}
+@endsalt

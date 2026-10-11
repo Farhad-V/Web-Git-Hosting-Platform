@@ -1,0 +1,15 @@
+@startuml
+title GitForge V1.0.0 - AM-042 No False Success
+start
+:Execute requested state-changing operation;
+if (Required authoritative change completed?) then (yes)
+    if (Required dependent execution completed?) then (yes)
+        :Return success;
+    else (no)
+        :Return failure;
+    endif
+else (no)
+    :Return failure;
+endif
+stop
+@enduml

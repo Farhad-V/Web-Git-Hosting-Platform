@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - Git Write Interaction State
+[*] --> Received
+Received --> Authenticating
+Authenticating --> ResolvingRepository : PAT valid
+Authenticating --> Failed : PAT invalid / revoked
+ResolvingRepository --> Authorizing : repository resolved
+ResolvingRepository --> Failed : repository unresolved
+Authorizing --> ResolvingStorage : authenticated owner
+Authorizing --> Failed : anonymous/non-owner denial
+ResolvingStorage --> ExecutingWrite : storage available
+ResolvingStorage --> Failed : storage failure
+ExecutingWrite --> Succeeded : git-receive-pack succeeds
+ExecutingWrite --> Failed : Git/process/ref-update failure
+Succeeded --> [*]
+Failed --> [*]
+@enduml

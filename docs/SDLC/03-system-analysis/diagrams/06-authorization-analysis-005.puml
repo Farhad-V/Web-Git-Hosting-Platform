@@ -1,0 +1,24 @@
+@startuml
+title GitForge V1.0.0 - Private Owner Read Authorization Sequence
+actor "Authenticated User" as User
+participant "Client Interface" as Interface
+participant "Authentication" as Auth
+participant "Repository Resolution" as Repo
+participant "Repository Authorization" as Authz
+participant "Protected Read Responsibility" as Read
+User -> Interface : Request private repository
+Interface -> Auth : Resolve identity
+Auth --> Interface : User identity
+Interface -> Repo : Resolve repository
+Repo --> Interface : Repository(private, owner)
+Interface -> Authz : Authorize(User, repository, read)
+alt User is owner
+    Authz --> Interface : Allow
+    Interface -> Read : Perform read
+    Read --> Interface : Result
+    Interface --> User : Repository response
+else User is not owner
+    Authz --> Interface : Deny
+    Interface --> User : Safe denial response
+end
+@enduml

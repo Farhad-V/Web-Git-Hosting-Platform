@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - Git Execution Trust Boundary
+left to right direction
+actor "Git Client" as Client
+rectangle "GitForge Controlled Zone" {
+    rectangle "Git Smart HTTP Interface" as HTTP
+    rectangle "Git Authentication" as Auth
+    rectangle "Repository Authorization" as Authz
+    rectangle "Repository Storage Coordination" as Storage
+    rectangle "Git Process Coordination" as Process
+}
+rectangle "Git Executable" as Git
+folder "Physical Git Repository" as Repo
+Client --> HTTP : untrusted protocol input
+HTTP --> Auth : PAT
+Auth --> Authz : identity
+Authz --> Storage : authorized repository context
+Storage --> Process : safe physical target
+HTTP --> Process : approved protocol stream
+Process --> Git : controlled operation
+Git --> Repo : read/write Git state
+@enduml

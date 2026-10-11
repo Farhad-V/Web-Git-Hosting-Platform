@@ -1,0 +1,27 @@
+@startuml
+title GitForge V1.0.0 - Git Write DFD
+left to right direction
+actor "Git Client" as Client
+rectangle "P1\nGit Authentication" as Auth
+rectangle "P2\nRepository Resolution" as Resolution
+rectangle "P3\nWrite Authorization" as Authz
+rectangle "P4\nStorage Resolution" as Storage
+rectangle "P5\ngit-receive-pack Coordination" as Write
+database "D1\nPostgreSQL" as DB
+folder "D2\nPhysical Git Repository" as Repo
+Client --> Auth : PAT
+Auth --> DB : verify PAT
+DB --> Auth : authenticated User
+Client --> Resolution : logical repository
+Resolution --> DB : repository metadata
+DB --> Resolution : owner + visibility
+Auth --> Authz : User identity
+Resolution --> Authz : repository + write operation
+Authz --> Storage : allow owner write
+Storage --> Repo : safe repository target
+Storage --> Write : target
+Client --> Write : Git protocol input
+Write --> Repo : refs/objects mutation
+Repo --> Write : Git result
+Write --> Client : Smart HTTP result
+@enduml

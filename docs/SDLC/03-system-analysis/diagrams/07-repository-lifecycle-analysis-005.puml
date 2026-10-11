@@ -1,0 +1,29 @@
+@startuml
+title GitForge V1.0.0 - Repository Lifecycle Model
+class User
+class Repository {
+    name
+    visibility
+}
+class "Physical Git Repository" as GitRepo
+enum Visibility {
+    Public
+    Private
+}
+User "1" -- "0..*" Repository : owns >
+Repository "1" --> "1" Visibility
+Repository "1" -- "1" GitRepo : corresponds to >
+note right of Repository
+Stable in V1.0.0:
+- owner
+- namespace
+Mutable:
+- visibility
+end note
+note right of GitRepo
+May initially contain:
+- no commits
+- no branches
+Still valid if initialized
+end note
+@enduml

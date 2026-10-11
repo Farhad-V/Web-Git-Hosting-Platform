@@ -1,0 +1,15 @@
+@startuml
+title GitForge V1.0.0 - SM-048 Orphaned Physical Repository
+actor Caller
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Physical Git Repository" as Repo
+Caller -> Resolution : Request logical repository
+Resolution -> DB : Resolve application metadata
+DB --> Resolution : Not found
+Resolution --> Caller : Safe not-found result
+note right of Repo
+Any orphaned physical repository
+is not automatically exposed.
+end note
+@enduml

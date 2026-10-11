@@ -1,0 +1,10 @@
+@startuml
+title GitForge - PAT Creation UI Flow
+actor User
+User -> "Personal Access Tokens" : Open
+User -> "Create Token" : Select Create
+"Create Token" -> User : Token name form
+User -> "Create Token" : Submit
+"Create Token" -> "One-Time Token Screen" : Success
+"One-Time Token Screen" -> User : Plaintext PAT once
+@enduml

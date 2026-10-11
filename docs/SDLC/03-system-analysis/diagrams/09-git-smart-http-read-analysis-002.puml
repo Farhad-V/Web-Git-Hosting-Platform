@@ -1,0 +1,27 @@
+@startuml
+title GitForge V1.0.0 - Clone and Fetch Read Activity
+start
+:Receive Git read request;
+:Resolve target repository;
+if (Repository public?) then (yes)
+    :Use anonymous or authenticated caller context;
+else (no)
+    :Require PAT authentication;
+    if (PAT valid?) then (yes)
+        :Resolve User identity;
+    else (no)
+        :Deny;
+        stop
+    endif
+endif
+:Evaluate repository read authorization;
+if (Authorized?) then (yes)
+    :Resolve safe physical repository;
+    :Invoke controlled git-upload-pack;
+    :Process Git protocol input/output;
+    :Return Git response;
+else (no)
+    :Deny;
+endif
+stop
+@enduml

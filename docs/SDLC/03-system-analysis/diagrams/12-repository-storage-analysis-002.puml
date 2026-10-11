@@ -1,0 +1,23 @@
+@startuml
+title GitForge V1.0.0 - Repository Read Storage Activity
+start
+:Receive repository read request;
+:Resolve logical repository metadata;
+if (Repository exists?) then (yes)
+    :Evaluate read authorization;
+    if (Authorized?) then (yes)
+        :Resolve safe physical repository;
+        if (Physical repository available?) then (yes)
+            :Perform approved Git read;
+            :Return result;
+        else (no)
+            :Return safe storage failure;
+        endif
+    else (no)
+        :Deny read;
+    endif
+else (no)
+    :Return safe not-found result;
+endif
+stop
+@enduml

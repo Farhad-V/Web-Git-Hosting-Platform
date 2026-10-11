@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - File Viewing Activity
+start
+:Receive file-view request;
+:Resolve repository;
+:Authorize read;
+if (Authorized?) then (yes)
+    :Resolve reference;
+    :Validate logical file path;
+    if (Path resolves to blob?) then (yes)
+        :Read blob content;
+        :Classify presentation type;
+        :Return safe representation;
+    else (no)
+        :Return safe not-found result;
+    endif
+else (no)
+    :Deny;
+endif
+stop
+@enduml

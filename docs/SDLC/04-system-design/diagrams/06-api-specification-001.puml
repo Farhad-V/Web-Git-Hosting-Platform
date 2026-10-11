@@ -1,0 +1,16 @@
+@startuml
+title GitForge - Public Repository HTTP Flow
+actor Visitor
+participant "Repository Controller" as Controller
+participant "Repository Service" as Service
+participant "Repository Persistence" as Persistence
+participant "Authorization Policy" as Policy
+Visitor -> Controller : GET /owner/repository
+Controller -> Service : getRepository(visitor, namespace)
+Service -> Persistence : resolve repository
+Persistence --> Service : public repository
+Service -> Policy : canRead(visitor, repository)
+Policy --> Service : allow
+Service --> Controller : repository representation
+Controller --> Visitor : 200 OK
+@enduml

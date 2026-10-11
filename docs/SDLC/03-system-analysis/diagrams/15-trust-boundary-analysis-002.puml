@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - Authentication Trust Boundaries
+left to right direction
+rectangle "Untrusted External Zone" {
+  actor "Web User" as WebUser
+  actor "Git Client" as GitClient
+}
+rectangle "Authentication Zone" {
+    rectangle "Application Authentication" as AppAuth
+    rectangle "Git Authentication" as GitAuth
+}
+database "PostgreSQL" as DB
+WebUser --> AppAuth : login credential
+GitClient --> GitAuth : PAT
+AppAuth --> DB : credential/User verification
+GitAuth --> DB : PAT/User verification
+AppAuth --> WebUser : authenticated context / failure
+GitAuth --> GitClient : identity context / failure
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+title GitForge V1.0.0 - AM-009 Change Repository Visibility
+start
+:Receive visibility-change request;
+if (User authenticated?) then (yes)
+    :Resolve repository;
+    if (Repository exists?) then (yes)
+        :Authorize repository metadata change;
+        if (User is owner?) then (yes)
+            :Validate requested visibility;
+            if (Visibility valid?) then (yes)
+                :Persist new visibility;
+                if (Persistence succeeds?) then (yes)
+                    :Return success;
+                else (no)
+                    :Return persistence failure;
+                endif
+            else (no)
+                :Reject invalid visibility;
+            endif
+        else (no)
+            :Deny update;
+        endif
+    else (no)
+        :Return repository-resolution failure;
+    endif
+else (no)
+    :Deny update;
+endif
+stop
+@enduml

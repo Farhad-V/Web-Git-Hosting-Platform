@@ -1,0 +1,11 @@
+@startuml
+title GitForge V1.0.0 - Repository Content Trust Boundary
+left to right direction
+folder "Physical Git Repository" as Repo
+rectangle "Git Read Coordination" as Read
+rectangle "Repository Browser" as Browser
+actor "Web Caller" as Caller
+Repo --> Read : untrusted Git-native content
+Read --> Browser : parsed Git data
+Browser --> Caller : safe representation
+@enduml

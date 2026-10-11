@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - Repository Read Authorization
+start
+:Receive repository read request;
+:Resolve repository;
+if (Repository public?) then (yes)
+    :Authorize read;
+    :Allow;
+else (no)
+    if (Caller authenticated?) then (yes)
+        if (Caller owns repository?) then (yes)
+            :Authorize owner read;
+            :Allow;
+        else (no)
+            :Deny;
+        endif
+    else (no)
+        :Deny;
+    endif
+endif
+stop
+@enduml

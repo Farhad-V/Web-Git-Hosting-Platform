@@ -1,0 +1,19 @@
+@startuml
+title GitForge - Upload-Pack Advertisement Execution
+actor "Git Client" as Client
+participant "Git Read Service" as Service
+participant "Repository Authorization" as Authz
+participant "Repository Storage" as Storage
+participant "Git Process Executor" as Executor
+participant "git upload-pack" as Git
+Client -> Service : GET info/refs?service=git-upload-pack
+Service -> Authz : canRead(actor, repository)
+Authz --> Service : Allow
+Service -> Storage : resolveExisting(repository)
+Storage --> Service : Safe repository path
+Service -> Executor : advertiseUploadPack(path)
+Executor -> Git : upload-pack --stateless-rpc --advertise-refs
+Git --> Executor : advertisement bytes
+Executor --> Service : protocol result
+Service --> Client : Git Smart HTTP response
+@enduml

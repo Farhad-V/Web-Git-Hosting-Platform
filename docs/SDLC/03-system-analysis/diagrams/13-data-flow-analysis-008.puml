@@ -1,0 +1,26 @@
+@startuml
+title GitForge V1.0.0 - Git Read DFD
+left to right direction
+actor "Git Client" as Client
+rectangle "P1\nGit Authentication" as Auth
+rectangle "P2\nRepository Resolution" as Resolution
+rectangle "P3\nRead Authorization" as Authz
+rectangle "P4\nStorage Resolution" as Storage
+rectangle "P5\ngit-upload-pack Coordination" as Read
+database "D1\nPostgreSQL" as DB
+folder "D2\nPhysical Git Repository" as Repo
+Client --> Auth : PAT when required
+Auth --> DB : verify PAT
+DB --> Auth : User identity metadata
+Client --> Resolution : logical repository
+Resolution --> DB : repository metadata
+DB --> Resolution : owner + visibility
+Auth --> Authz : identity
+Resolution --> Authz : repository + read operation
+Authz --> Storage : allow
+Storage --> Repo : safe repository target
+Storage --> Read : target
+Read --> Repo : Git read
+Repo --> Read : Git data
+Read --> Client : Smart HTTP response
+@enduml

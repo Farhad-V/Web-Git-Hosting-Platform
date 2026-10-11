@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - PAT Revocation Sequence
+actor "Authenticated User" as User
+participant "Web/API Interface" as Interface
+participant "PAT Coordination" as PAT
+database "PostgreSQL" as DB
+User -> Interface : Revoke PAT
+Interface -> PAT : Revocation request
+PAT -> DB : Resolve PAT + owner
+DB --> PAT : PAT metadata
+alt User owns PAT
+    PAT -> DB : Persist revoked state
+    DB --> PAT : Revocation confirmed
+    PAT --> Interface : Success
+    Interface --> User : PAT revoked
+else User does not own PAT
+    PAT --> Interface : Deny
+    Interface --> User : Safe denial response
+end
+@enduml

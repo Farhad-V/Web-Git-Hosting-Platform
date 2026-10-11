@@ -1,0 +1,25 @@
+@startuml
+title GitForge V1.0.0 Production-Like Deployment
+node "Client Device" as Client {
+   artifact "Web Browser" as Browser
+   artifact "Git Client" as GitClient
+}
+node "Application Host" as AppHost {
+   node "Reverse Proxy / Web Server" as Proxy
+   node "PHP Runtime" as PHP {
+     component "Laravel 12 Application" as Laravel
+   }
+   artifact "Git Executable" as Git
+   folder "Persistent Repository Storage" as RepoStorage {
+     artifact "Bare Git Repositories" as BareRepos
+   }
+}
+database "PostgreSQL 18" as DB
+Browser --> Proxy : HTTPS
+GitClient --> Proxy : Git Smart HTTP / HTTPS
+Proxy --> Laravel : HTTP/FastCGI
+Laravel --> DB : PostgreSQL protocol
+Laravel --> Git : Controlled subprocess
+Git --> BareRepos : Git-native read/write
+Laravel --> BareRepos : Safe filesystem state checks
+@enduml

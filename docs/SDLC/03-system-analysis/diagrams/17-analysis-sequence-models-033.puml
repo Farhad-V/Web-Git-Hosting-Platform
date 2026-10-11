@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - SM-033 Controlled Git Process Execution
+participant "Git Read/Write Coordination" as Coord
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Physical Git Repository" as Repo
+participant "Failure Handling" as Failure
+Coord -> Process : Approved operation + safe repository target
+Process -> Process : Validate internal execution context
+Process -> Git : Execute approved Git operation
+Git -> Repo : Read/write Git-native state
+alt Git succeeds
+    Repo --> Git : Result
+    Git --> Process : Success
+    Process --> Coord : Operation result
+else Git fails
+    Git --> Process : Failure
+    Process -> Failure : Git/process failure
+    Failure --> Coord : Safe failure
+end
+@enduml

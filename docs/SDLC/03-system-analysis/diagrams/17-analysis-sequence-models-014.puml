@@ -1,0 +1,32 @@
+@startuml
+title GitForge V1.0.0 - SM-014 PAT Creation
+actor "Authenticated User" as User
+participant "Web/API Interface" as Web
+participant "PAT Coordination" as PAT
+participant "Credential Generation" as Generator
+database PostgreSQL as DB
+participant "Failure Handling" as Failure
+User -> Web : Create PAT
+Web -> PAT : Authenticated PAT creation request
+PAT -> Generator : Generate strong plaintext PAT
+alt Generation succeeds
+    Generator --> PAT : Plaintext PAT
+    PAT -> PAT : Derive verification representation
+    PAT -> DB : Persist PAT metadata + owner + verifier
+    alt Persistence succeeds
+        DB --> PAT : Stored
+        PAT --> Web : Plaintext PAT once
+        Web --> User : Display plaintext PAT
+    else Persistence fails
+        DB --> PAT : Failure
+        PAT -> Failure : PAT persistence failure
+        Failure --> Web : Safe creation failure
+        Web --> User : PAT creation failed
+    end
+else Generation fails
+    Generator --> PAT : Failure
+    PAT -> Failure : Token generation failure
+    Failure --> Web : Safe failure
+    Web --> User : PAT creation failed
+end
+@enduml

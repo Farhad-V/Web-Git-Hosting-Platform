@@ -1,0 +1,30 @@
+@startuml
+title GitForge V1.0.0 - Repository Creation Sequence
+actor "Authenticated User" as User
+participant "Web Interaction" as Web
+participant "Validation" as Validation
+participant "Repository Management" as Repo
+participant "Application Data Persistence" as Data
+participant "Repository Storage Coordination" as Storage
+participant "Git Process Coordination" as Git
+User -> Web : Create repository request
+Web -> Validation : Validate name + visibility
+Validation --> Web : Valid
+Web -> Repo : Create repository(User, request)
+Repo -> Data : Check namespace uniqueness
+Data --> Repo : Namespace available
+Repo -> Data : Establish repository metadata
+Data --> Repo : Metadata result
+Repo -> Storage : Establish physical repository
+Storage -> Git : Initialize approved Git repository
+Git --> Storage : Initialization result
+Storage --> Repo : Physical repository result
+alt Metadata and physical repository consistent
+    Repo --> Web : Repository available
+    Web --> User : Creation success
+else Partial or operational failure
+    Repo -> Repo : Consistency handling
+    Repo --> Web : Creation failure
+    Web --> User : Safe failure response
+end
+@enduml

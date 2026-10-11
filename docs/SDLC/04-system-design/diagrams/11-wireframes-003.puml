@@ -1,0 +1,24 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Register ]
+   }
+   ==
+   {
+     ^Login^
+     .
+     Email
+     "____________________________"
+     .
+     Password
+     "____________________________"
+     .
+     [ Login ]
+     .
+     Need an account?
+     [ Register ]
+   }
+}
+@endsalt

@@ -1,0 +1,24 @@
+@startuml
+title GitForge V1.0.0 - Repository Write Storage Activity
+start
+:Receive repository write request;
+:Authenticate User;
+:Resolve repository metadata;
+if (Repository exists?) then (yes)
+    :Evaluate owner write authorization;
+    if (Authorized?) then (yes)
+        :Resolve safe physical repository;
+        if (Physical repository available?) then (yes)
+            :Perform approved Git mutation;
+            :Return write result;
+        else (no)
+            :Return safe storage failure;
+        endif
+    else (no)
+        :Deny write;
+    endif
+else (no)
+    :Return safe not-found result;
+endif
+stop
+@enduml

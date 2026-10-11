@@ -1,0 +1,29 @@
+@startuml
+title GitForge V1.0.0 - Repository Creation Failure Flow
+start
+:Receive creation request;
+:Validate request;
+if (Valid?) then (yes)
+    :Check namespace uniqueness;
+    if (Unique?) then (yes)
+        :Prepare repository metadata;
+        :Initialize physical repository;
+        if (Initialization succeeds?) then (yes)
+            :Persist/confirm authoritative metadata;
+            if (Persistence succeeds?) then (yes)
+                :Report success;
+            else (no)
+                :Handle consistency failure;
+                :Report failure;
+            endif
+        else (no)
+            :Report creation failure;
+        endif
+    else (no)
+        :Reject namespace conflict;
+    endif
+else (no)
+    :Reject invalid request;
+endif
+stop
+@enduml

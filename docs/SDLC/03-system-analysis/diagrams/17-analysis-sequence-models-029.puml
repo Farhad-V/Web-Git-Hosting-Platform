@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - SM-029 Browser Missing Commit
+actor Caller
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Physical Git Repository" as Repo
+Caller -> Resolution : Repository + commit ID
+Resolution -> Authz : Authorize read
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve safe target
+Storage --> Resolution : Target
+Resolution -> Read : Resolve commit
+Read -> Repo : Lookup commit
+Repo --> Read : Commit not found
+Read --> Caller : Safe object-not-found result
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+title GitForge - Public Anonymous Clone Interaction
+actor "Git Client" as Client
+participant "Git Read Handler" as Handler
+participant "Git Read Service" as Service
+participant "Repository Persistence" as Persistence
+participant "Authorization Policy" as Policy
+participant "Repository Storage" as Storage
+participant "Git Executor" as Git
+Client -> Handler : upload-pack request
+Handler -> Service : executeUploadPack(anonymous, namespace)
+Service -> Persistence : resolve repository
+Persistence --> Service : public repository
+Service -> Policy : canRead(anonymous, repository)
+Policy --> Service : allow
+Service -> Storage : resolve safe target
+Storage --> Service : target
+Service -> Git : uploadPack(target, stream)
+Git --> Service : protocol stream
+Service --> Handler : protocol stream
+Handler --> Client : Git response
+@enduml

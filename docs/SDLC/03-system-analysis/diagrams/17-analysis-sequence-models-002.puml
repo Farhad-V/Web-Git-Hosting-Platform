@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - SM-002 Interactive Login
+actor User
+participant "Web/API Interface" as Web
+participant "Application Authentication" as Auth
+database PostgreSQL as DB
+participant "Failure Handling" as Failure
+User -> Web : Submit login credential
+Web -> Auth : Authenticate
+Auth -> DB : Resolve User / verify credential
+DB --> Auth : Verification data
+alt Credential valid
+    Auth --> Web : Authenticated User identity
+    Web --> User : Authenticated application context
+else Credential invalid
+    Auth -> Failure : Authentication failure
+    Failure --> Web : Safe denial
+    Web --> User : Authentication denied
+end
+@enduml

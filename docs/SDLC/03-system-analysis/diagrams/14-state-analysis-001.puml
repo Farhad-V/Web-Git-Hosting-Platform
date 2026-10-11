@@ -1,0 +1,7 @@
+@startuml
+title GitForge V1.0.0 - Interactive Authentication State
+[*] --> Unauthenticated
+Unauthenticated --> Authenticated : successful login
+Authenticated --> Unauthenticated : logout
+Authenticated --> Unauthenticated : authentication invalidated
+@enduml

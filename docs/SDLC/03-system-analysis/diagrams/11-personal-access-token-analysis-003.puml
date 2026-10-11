@@ -1,0 +1,23 @@
+@startuml
+title GitForge V1.0.0 - PAT Authentication Activity
+start
+:Receive presented PAT;
+:Locate candidate PAT record;
+if (Candidate exists?) then (yes)
+    :Verify presented PAT;
+    if (Verification succeeds?) then (yes)
+        :Check revocation state;
+        if (Revoked?) then (yes)
+            :Authentication denied;
+        else (no)
+            :Resolve owning User;
+            :Establish authenticated identity;
+        endif
+    else (no)
+        :Authentication denied;
+    endif
+else (no)
+    :Authentication denied;
+endif
+stop
+@enduml

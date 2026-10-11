@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - AM-037 Revoked PAT Use
+start
+:Receive PAT;
+:Resolve PAT record;
+:Verify credential;
+if (Verification valid?) then (yes)
+    :Check revocation;
+    if (PAT revoked?) then (yes)
+        :Deny authentication;
+    else (no)
+        :Resolve owner;
+        :Establish authenticated User identity;
+    endif
+else (no)
+    :Deny authentication;
+endif
+stop
+@enduml

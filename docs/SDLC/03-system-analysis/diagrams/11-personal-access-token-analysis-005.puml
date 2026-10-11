@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - PAT Creation Sequence
+actor "Authenticated User" as User
+participant "Web/API Interface" as Interface
+participant "PAT Coordination" as PAT
+participant "Credential Generation" as Generator
+database "PostgreSQL" as DB
+User -> Interface : Create PAT
+Interface -> PAT : Request PAT creation
+PAT -> Generator : Generate plaintext token
+Generator --> PAT : Plaintext token
+PAT -> PAT : Derive verification representation
+PAT -> DB : Persist PAT record + owner + verifier
+DB --> PAT : Stored
+PAT --> Interface : Plaintext token once
+Interface --> User : Display plaintext PAT
+@enduml

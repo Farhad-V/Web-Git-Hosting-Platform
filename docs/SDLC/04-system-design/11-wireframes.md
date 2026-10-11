@@ -228,53 +228,9 @@ The Home page introduces GitForge and provides authentication entry points.
 
 ## 9. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-001.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Login ]
-
-     \[ Register ]
-
-   }
-
-   ==
-
-
-
-   {
-
-     ^GitForge Web Git Hosting Platform^
-
-     .
-
-     Host and browse Git repositories.
-
-     Clone and fetch public repositories.
-
-     Manage your own repositories securely.
-
-     .
-
-     \[ Create Account ]
-
-     \[ Login ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-001.puml)
 
 ---
 
@@ -318,71 +274,9 @@ Allows a Visitor to create a GitForge account.
 
 ## 13. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-002.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Login ]
-
-   }
-
-   ==
-
-
-
-   {
-
-     ^Create Account^
-
-     .
-
-     Name
-
-     "____________________________"
-
-     .
-
-     Email
-
-     "____________________________"
-
-     .
-
-     Password
-
-     "____________________________"
-
-     .
-
-     Confirm Password
-
-     "____________________________"
-
-     .
-
-     \[ Create Account ]
-
-     .
-
-     Already have an account?
-
-     \[ Login ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-002.puml)
 
 ---
 
@@ -414,59 +308,9 @@ Authenticates a user through the web session.
 
 ## 16. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-003.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Register ]
-
-   }
-
-   ==
-
-
-
-   {
-
-     ^Login^
-
-     .
-
-     Email
-
-     "____________________________"
-
-     .
-
-     Password
-
-     "____________________________"
-
-     .
-
-     \[ Login ]
-
-     .
-
-     Need an account?
-
-     \[ Register ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-003.puml)
 
 ---
 
@@ -494,57 +338,9 @@ Provides the authenticated user's main repository dashboard.
 
 ## 19. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-004.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^My Repositories^
-
-     .
-
-     \[ + New Repository ]
-
-     .
-
-     {#
-
-       Repository | Visibility | Updated
-
-       gitforge | Public | 2026-08-18
-
-       private-demo | Private | 2026-08-17
-
-       api-project | Private | 2026-08-15
-
-     }
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-004.puml)
 
 ---
 
@@ -580,47 +376,9 @@ Represents an authenticated user who owns no repositories.
 
 ## 23. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-005.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^My Repositories^
-
-     .
-
-     You do not have any repositories yet.
-
-     .
-
-     \[ Create Repository ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-005.puml)
 
 ---
 
@@ -634,65 +392,9 @@ Creates a repository in the authenticated user's own namespace.
 
 ## 25. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-006.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^Create Repository^
-
-     .
-
-     Repository name
-
-     "____________________________"
-
-     .
-
-     Visibility
-
-     () Private
-
-     () Public
-
-     .
-
-     Repository names may contain lowercase letters,
-
-     digits, hyphens, underscores, and safe periods.
-
-     .
-
-     \[ Create Repository ]
-
-     \[ Cancel ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-006.puml)
 
 ---
 
@@ -730,69 +432,9 @@ Provides the central landing page for one repository.
 
 ## 29. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-007.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^farhad / gitforge^
-
-     Public
-
-     .
-
-     \[ Files ]
-
-     \[ Commits ]
-
-     \[ Branches ]
-
-     \[ Settings ]
-
-     .
-
-     Clone URL
-
-     "https://gitforge.example/farhad/gitforge.git"
-
-     \[ Copy ]
-
-     .
-
-     Repository Summary
-
-     .
-
-     Default branch: main
-
-     Latest commit: 8f3a22d
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-007.puml)
 
 ---
 
@@ -832,73 +474,9 @@ Represents a valid repository with no Git history.
 
 ## 33. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-008.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^farhad / new-project^
-
-     Private
-
-     .
-
-     \[ Files ]
-
-     \[ Commits ]
-
-     \[ Branches ]
-
-     \[ Settings ]
-
-     .
-
-     This repository is empty.
-
-     .
-
-     Clone URL
-
-     "https://gitforge.example/farhad/new-project.git"
-
-     \[ Copy ]
-
-     .
-
-     Initial Push
-
-     .
-
-     git remote add origin <repository-url>
-
-     git push -u origin main
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-008.puml)
 
 ---
 
@@ -926,79 +504,9 @@ Allows read-only browsing of repository tree content.
 
 ## 36. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-009.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^farhad / gitforge^
-
-     Public
-
-     .
-
-     \[ Files ]
-
-     \[ Commits ]
-
-     \[ Branches ]
-
-     \[ Settings ]
-
-     .
-
-     Branch:
-
-     \[ main V ]
-
-     .
-
-     Path:
-
-     gitforge / src / Services
-
-     .
-
-     {#
-
-       Name | Type
-
-       .. | Parent
-
-       GitProcessExecutor.php | File
-
-       RepositoryStorage.php | File
-
-       Auth | Directory
-
-     }
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-009.puml)
 
 ---
 
@@ -1050,79 +558,9 @@ Displays one repository file.
 
 ## 40. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-010.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^farhad / gitforge^
-
-     Public
-
-     .
-
-     \[ Files ]
-
-     \[ Commits ]
-
-     \[ Branches ]
-
-     \[ Settings ]
-
-     .
-
-     Branch: main
-
-     .
-
-     gitforge / src / Services / RepositoryStorage.php
-
-     .
-
-     RepositoryStorage.php
-
-     4.2 KB
-
-     .
-
-     {
-
-       "class RepositoryStorage"
-
-       "{"
-
-       "    ..."
-
-       "}"
-
-     }
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-010.puml)
 
 ---
 
@@ -1150,55 +588,9 @@ Represents a Git blob unsuitable for text rendering.
 
 ## 43. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-011.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^image.png^
-
-     .
-
-     Binary file
-
-     .
-
-     Size: 148 KB
-
-     .
-
-     This file cannot be displayed as text.
-
-     .
-
-     \[ Download ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-011.puml)
 
 ---
 
@@ -1228,35 +620,9 @@ Represents content exceeding configured browser display limits.
 
 ## 46. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-012.svg)
 
-@startsalt
-
-{
-
-   {
-
-     ^large-file.dat^
-
-     .
-
-     File size: 25 MB
-
-     .
-
-     This file is too large to display.
-
-     .
-
-     \[ Back to Files ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-012.puml)
 
 ---
 
@@ -1270,67 +636,9 @@ Lists repository branches.
 
 ## 48. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-013.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^farhad / gitforge^
-
-     .
-
-     \[ Files ]
-
-     \[ Commits ]
-
-     \[ Branches ]
-
-     \[ Settings ]
-
-     .
-
-     ^Branches^
-
-     .
-
-     {#
-
-       Branch | Commit
-
-       main | 8f3a22d
-
-       develop | 97ca91a
-
-       feature/auth | 42aa731
-
-     }
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-013.puml)
 
 ---
 
@@ -1344,31 +652,9 @@ Selecting a branch routes to repository browsing with that branch as the current
 
 ## 50. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-014.svg)
 
-@startsalt
-
-{
-
-   {
-
-     ^Branches^
-
-     .
-
-     No branches yet.
-
-     .
-
-     This repository is empty.
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-014.puml)
 
 ---
 
@@ -1382,79 +668,9 @@ Provides bounded commit-history navigation.
 
 ## 52. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-015.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^farhad / gitforge^
-
-     .
-
-     \[ Files ]
-
-     \[ Commits ]
-
-     \[ Branches ]
-
-     \[ Settings ]
-
-     .
-
-     Branch:
-
-     \[ main V ]
-
-     .
-
-     ^Commit History^
-
-     .
-
-     {#
-
-       Message | Author | Date | Commit
-
-       Add repository storage | Farhad | 2026-08-18 | 8f3a22d
-
-       Add authorization policy | Farhad | 2026-08-17 | 97ca91a
-
-       Initial commit | Farhad | 2026-08-16 | 42aa731
-
-     }
-
-     .
-
-     \[ Previous ]
-
-     \[ Next ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-015.puml)
 
 ---
 
@@ -1468,73 +684,9 @@ Displays one commit's metadata.
 
 ## 54. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-016.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^Commit 8f3a22d^
-
-     .
-
-     Add repository storage
-
-     .
-
-     Author:
-
-     Farhad <user@example.com>
-
-     .
-
-     Authored:
-
-     2026-08-18 10:30
-
-     .
-
-     Committer:
-
-     Farhad <user@example.com>
-
-     .
-
-     Parent:
-
-     97ca91a
-
-     .
-
-     Tree:
-
-     \[ View Tree ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-016.puml)
 
 ---
 
@@ -1548,31 +700,9 @@ All commit metadata remains untrusted and safely encoded.
 
 ## 56. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-017.svg)
 
-@startsalt
-
-{
-
-   {
-
-     ^Commit History^
-
-     .
-
-     No commits yet.
-
-     .
-
-     This repository is empty.
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-017.puml)
 
 ---
 
@@ -1586,71 +716,9 @@ Allows the owner to manage V1.0.0 repository metadata.
 
 ## 58. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-018.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^farhad / gitforge^
-
-     .
-
-     \[ Files ]
-
-     \[ Commits ]
-
-     \[ Branches ]
-
-     \[ Settings ]
-
-     .
-
-     ^Repository Settings^
-
-     .
-
-     Repository
-
-     farhad / gitforge
-
-     .
-
-     Visibility
-
-     () Public
-
-     () Private
-
-     .
-
-     \[ Save Changes ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-018.puml)
 
 ---
 
@@ -1686,55 +754,9 @@ Lists the authenticated user's PATs.
 
 ## 61. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-019.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^Personal Access Tokens^
-
-     .
-
-     \[ + Create Token ]
-
-     .
-
-     {#
-
-       Name | Identifier | Created | Status | Action
-
-       Laptop | abc123 | 2026-08-18 | Active | Revoke
-
-       Desktop | def456 | 2026-08-10 | Revoked | -
-
-     }
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-019.puml)
 
 ---
 
@@ -1756,31 +778,9 @@ token_hash
 
 ## 63. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-020.svg)
 
-@startsalt
-
-{
-
-   {
-
-     ^Personal Access Tokens^
-
-     .
-
-     You do not have any personal access tokens.
-
-     .
-
-     \[ Create Token ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-020.puml)
 
 ---
 
@@ -1794,55 +794,9 @@ Creates a new Personal Access Token.
 
 ## 65. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-021.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^Create Personal Access Token^
-
-     .
-
-     Token name
-
-     "____________________________"
-
-     .
-
-     Example: Laptop
-
-     .
-
-     \[ Create Token ]
-
-     \[ Cancel ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-021.puml)
 
 ---
 
@@ -1872,55 +826,9 @@ Displays a newly generated plaintext token exactly once.
 
 ## 68. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-022.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Repositories ]
-
-     \[ Tokens ]
-
-     \[ Logout ]
-
-   }
-
-   ==
-
-   {
-
-     ^Token Created^
-
-     .
-
-     Copy this token now.
-
-     You will not be able to view it again.
-
-     .
-
-     "gitforge_abc123_super-secret-value"
-
-     \[ Copy Token ]
-
-     .
-
-     \[ Done ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-022.puml)
 
 ---
 
@@ -1948,41 +856,9 @@ Reduces accidental token revocation.
 
 ## 71. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-023.svg)
 
-@startsalt
-
-{
-
-   {
-
-     ^Revoke Token?^
-
-     .
-
-     Token:
-
-     Laptop
-
-     .
-
-     Applications using this token
-
-     will no longer authenticate.
-
-     .
-
-     \[ Revoke Token ]
-
-     \[ Cancel ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-023.puml)
 
 ---
 
@@ -2010,55 +886,9 @@ Shows authorization-aware repository navigation.
 
 ## 74. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-024.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Login ]
-
-     \[ Register ]
-
-   }
-
-   ==
-
-   {
-
-     ^farhad / public-project^
-
-     Public
-
-     .
-
-     \[ Files ]
-
-     \[ Commits ]
-
-     \[ Branches ]
-
-     .
-
-     Clone URL
-
-     "https://gitforge.example/farhad/public-project.git"
-
-     \[ Copy ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-024.puml)
 
 ---
 
@@ -2088,45 +918,9 @@ Represents unauthorized access to a private repository.
 
 ## 77. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-025.svg)
 
-@startsalt
-
-{
-
-   {+
-
-     GitForge
-
-     .
-
-     \[ Login ]
-
-     \[ Register ]
-
-   }
-
-   ==
-
-   {
-
-     ^Repository Not Found^
-
-     .
-
-     The requested repository could not be found.
-
-     .
-
-     \[ Home ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-025.puml)
 
 ---
 
@@ -2162,33 +956,9 @@ Handles missing logical resources.
 
 ## 80. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-026.svg)
 
-@startsalt
-
-{
-
-   {
-
-     ^Not Found^
-
-     .
-
-     The requested resource could not be found.
-
-     .
-
-     \[ Back ]
-
-     \[ Home ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-026.puml)
 
 ---
 
@@ -2226,35 +996,9 @@ Represents safe application/storage/Git failures.
 
 ## 83. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-027.svg)
 
-@startsalt
-
-{
-
-   {
-
-     ^Something Went Wrong^
-
-     .
-
-     The repository could not be accessed.
-
-     Please try again later.
-
-     .
-
-     \[ Retry ]
-
-     \[ Back ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-027.puml)
 
 ---
 
@@ -2292,43 +1036,9 @@ Shows form-local validation failure.
 
 ## 86. Wireframe
 
-```plantuml
+![11 wireframes](diagrams/11-wireframes-028.svg)
 
-@startsalt
-
-{
-
-   {
-
-     ^Create Repository^
-
-     .
-
-     Repository name
-
-     "../project"
-
-     Repository name is invalid.
-
-     .
-
-     Visibility
-
-     (X) Private
-
-     () Public
-
-     .
-
-     \[ Create Repository ]
-
-   }
-
-}
-
-@endsalt
-
-```
+[PlantUML source](diagrams/11-wireframes-028.puml)
 
 ---
 
@@ -2890,35 +1600,9 @@ Filesystem diagnostics
 
 ## 118. Flow
 
-```plantuml
+![GitForge - Repository UI Lifecycle](diagrams/11-wireframes-029.svg)
 
-@startuml
-
-title GitForge - Repository UI Lifecycle
-
-actor User
-
-User -> "Login" : Authenticate
-
-"Login" -> "My Repositories" : Success
-
-User -> "Create Repository" : New Repository
-
-"Create Repository" -> "Repository Overview" : Successful creation
-
-User -> "Files" : Browse files
-
-User -> "Commits" : View history
-
-User -> "Branches" : View branches
-
-User -> "Repository Settings" : Owner settings
-
-"Repository Settings" -> "Repository Overview" : Visibility updated
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-wireframes-029.puml)
 
 ---
 
@@ -2926,31 +1610,9 @@ User -> "Repository Settings" : Owner settings
 
 ## 119. Flow
 
-```plantuml
+![GitForge - PAT UI Lifecycle](diagrams/11-wireframes-030.svg)
 
-@startuml
-
-title GitForge - PAT UI Lifecycle
-
-actor User
-
-User -> "PAT List" : Open
-
-User -> "Create PAT" : Create
-
-"Create PAT" -> "One-Time Secret" : Success
-
-"One-Time Secret" -> "PAT List" : Done
-
-User -> "PAT List" : Select Revoke
-
-"PAT List" -> "Revoke Confirmation" : Confirm
-
-"Revoke Confirmation" -> "PAT List" : Revoked
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-wireframes-030.puml)
 
 ---
 
@@ -2958,29 +1620,9 @@ User -> "PAT List" : Select Revoke
 
 ## 120. Flow
 
-```plantuml
+![GitForge - Public Repository Visitor Flow](diagrams/11-wireframes-031.svg)
 
-@startuml
-
-title GitForge - Public Repository Visitor Flow
-
-actor Visitor
-
-Visitor -> "Repository Overview" : Open public repository
-
-Visitor -> "Files" : Browse
-
-Visitor -> "File View" : Open file
-
-Visitor -> "Commits" : View commits
-
-Visitor -> "Commit Details" : Open commit
-
-Visitor -> "Branches" : View branches
-
-@enduml
-
-```
+[PlantUML source](diagrams/11-wireframes-031.puml)
 
 ---
 

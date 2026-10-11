@@ -1,0 +1,26 @@
+@startuml
+title GitForge V1.0.0 - AM-041 Fail-Closed Decision
+start
+:Evaluate protected-operation prerequisite;
+if (Identity certain?) then (yes)
+else (no)
+    :Deny/fail;
+    stop
+endif
+if (Authorization certain?) then (yes)
+else (no)
+    :Deny;
+    stop
+endif
+if (Repository mapping certain?) then (yes)
+else (no)
+    :Fail;
+    stop
+endif
+if (Physical target safe?) then (yes)
+    :Continue protected operation;
+else (no)
+    :Reject/fail;
+endif
+stop
+@enduml

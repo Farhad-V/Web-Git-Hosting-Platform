@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - AM-027 Metadata Storage Consistency
+start
+:Check application repository metadata;
+:Check expected physical repository;
+if (Metadata exists?) then (yes)
+    if (Physical repository exists?) then (yes)
+        :Repository relationship consistent;
+    else (no)
+        :Classify metadata-present/storage-missing inconsistency;
+        :Stop protected operation;
+    endif
+else (no)
+    if (Physical repository exists?) then (yes)
+        :Classify orphaned physical repository;
+        :Do not expose repository automatically;
+    else (no)
+        :Repository does not exist;
+    endif
+endif
+stop
+@enduml

@@ -1,0 +1,23 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^Create Personal Access Token^
+     .
+     Token name
+     "____________________________"
+     .
+     Example: Laptop
+     .
+     [ Create Token ]
+     [ Cancel ]
+   }
+}
+@endsalt

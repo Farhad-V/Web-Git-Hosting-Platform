@@ -336,53 +336,9 @@ unless the complete operation actually succeeded.
 
 ## 11. Logging Flow
 
-```plantuml
+![GitForge - Observability Logging Flow](diagrams/13-observability-design.svg)
 
-@startuml
-
-title GitForge - Observability Logging Flow
-
-actor Client
-
-participant "HTTP / Git Adapter" as Adapter
-
-participant "Application Service" as Service
-
-participant "Authorization" as Authz
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Git
-
-participant "Logger" as Logger
-
-Client -> Adapter : Request
-
-Adapter -> Logger : request_started(request_id)
-
-Adapter -> Service : request
-
-Service -> Authz : authorize
-
-Authz -> Logger : authorization_result
-
-Service -> Storage : resolve repository
-
-Storage -> Logger : storage event if needed
-
-Service -> Git : execute approved operation
-
-Git -> Logger : process result
-
-Service --> Adapter : result
-
-Adapter -> Logger : request_completed
-
-Adapter --> Client : response
-
-@enduml
-
-```
+[PlantUML source](diagrams/13-observability-design.puml)
 
 ---
 

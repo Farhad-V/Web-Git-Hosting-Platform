@@ -1144,387 +1144,57 @@ Repository access must remain confined to the intended repository target.
 
 ## 47. Repository Creation Activity
 
-```plantuml
+![GitForge V1.0.0 - Repository Storage Creation Activity](diagrams/12-repository-storage-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Storage Creation Activity
-
-start
-
-:Receive authorized repository creation request;
-
-:Validate repository name;
-
-:Check namespace uniqueness;
-
-if (Valid and unique?) then (yes)
-
-&#x20;   :Establish repository metadata;
-
-&#x20;   :Determine safe physical repository target;
-
-&#x20;   :Initialize physical Git repository;
-
-&#x20;   if (Physical initialization succeeds?) then (yes)
-
-&#x20;       :Persist/confirm consistent repository state;
-
-&#x20;       :Repository becomes available;
-
-&#x20;   else (no)
-
-&#x20;       :Handle storage creation failure;
-
-&#x20;       :Do not report repository as successfully available;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Reject creation request;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-repository-storage-analysis-001.puml)
 
 ---
 
 ## 48. Repository Read Storage Activity
 
-```plantuml
+![GitForge V1.0.0 - Repository Read Storage Activity](diagrams/12-repository-storage-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Read Storage Activity
-
-start
-
-:Receive repository read request;
-
-:Resolve logical repository metadata;
-
-if (Repository exists?) then (yes)
-
-&#x20;   :Evaluate read authorization;
-
-&#x20;   if (Authorized?) then (yes)
-
-&#x20;       :Resolve safe physical repository;
-
-&#x20;       if (Physical repository available?) then (yes)
-
-&#x20;           :Perform approved Git read;
-
-&#x20;           :Return result;
-
-&#x20;       else (no)
-
-&#x20;           :Return safe storage failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny read;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return safe not-found result;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-repository-storage-analysis-002.puml)
 
 ---
 
 ## 49. Repository Write Storage Activity
 
-```plantuml
+![GitForge V1.0.0 - Repository Write Storage Activity](diagrams/12-repository-storage-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Write Storage Activity
-
-start
-
-:Receive repository write request;
-
-:Authenticate User;
-
-:Resolve repository metadata;
-
-if (Repository exists?) then (yes)
-
-&#x20;   :Evaluate owner write authorization;
-
-&#x20;   if (Authorized?) then (yes)
-
-&#x20;       :Resolve safe physical repository;
-
-&#x20;       if (Physical repository available?) then (yes)
-
-&#x20;           :Perform approved Git mutation;
-
-&#x20;           :Return write result;
-
-&#x20;       else (no)
-
-&#x20;           :Return safe storage failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny write;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return safe not-found result;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-repository-storage-analysis-003.puml)
 
 ---
 
 ## 50. Repository Storage Collaboration Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Storage Logical Collaboration](diagrams/12-repository-storage-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Storage Logical Collaboration
-
-left to right direction
-
-actor "Web User / Git Client" as Client
-
-rectangle "Repository Resolution" as Resolution
-
-rectangle "Repository Authorization" as Authz
-
-rectangle "Repository Storage Coordination" as Storage
-
-rectangle "Git Read Coordination" as Read
-
-rectangle "Git Write Coordination" as Write
-
-rectangle "Git Process Coordination" as Process
-
-database "PostgreSQL" as DB
-
-folder "Physical Git Repository" as Repo
-
-rectangle "Git Executable" as Git
-
-Client --> Resolution
-
-Resolution --> DB : repository metadata
-
-Resolution --> Authz
-
-Authz --> Storage : approved repository context
-
-Storage --> Repo : resolve target
-
-Storage --> Read
-
-Storage --> Write
-
-Read --> Process
-
-Write --> Process
-
-Process --> Git
-
-Git --> Repo
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-repository-storage-analysis-004.puml)
 
 ---
 
 ## 51. Repository Creation Sequence
 
-```plantuml
+![GitForge V1.0.0 - Repository Creation Storage Sequence](diagrams/12-repository-storage-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Creation Storage Sequence
-
-actor "Authenticated User" as User
-
-participant "Repository Coordination" as RepoCoord
-
-database "PostgreSQL" as DB
-
-participant "Repository Storage Coordination" as Storage
-
-participant "Git Process Coordination" as Process
-
-rectangle "Git Executable" as Git
-
-folder "Repository Storage Root" as Root
-
-User -> RepoCoord : Create repository
-
-RepoCoord -> DB : Check namespace uniqueness
-
-DB --> RepoCoord : Available
-
-RepoCoord -> Storage : Determine safe repository target
-
-Storage --> RepoCoord : Physical target
-
-RepoCoord -> Process : Initialize repository
-
-Process -> Git : Approved repository initialization
-
-Git -> Root : Create physical Git repository
-
-Git --> Process : Initialization result
-
-Process --> RepoCoord : Result
-
-alt Initialization succeeds
-
-&#x20;   RepoCoord -> DB : Persist/confirm repository metadata
-
-&#x20;   DB --> RepoCoord : Stored
-
-&#x20;   RepoCoord --> User : Repository available
-
-else Initialization fails
-
-&#x20;   RepoCoord --> User : Safe creation failure
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-repository-storage-analysis-005.puml)
 
 ---
 
 ## 52. Repository Read Sequence
 
-```plantuml
+![GitForge V1.0.0 - Repository Storage Read Sequence](diagrams/12-repository-storage-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Storage Read Sequence
-
-actor "Caller" as Caller
-
-participant "Repository Resolution" as Resolution
-
-database "PostgreSQL" as DB
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage Coordination" as Storage
-
-participant "Git Read Coordination" as Read
-
-folder "Physical Git Repository" as Repo
-
-Caller -> Resolution : <owner>/<repository>
-
-Resolution -> DB : Resolve metadata
-
-DB --> Resolution : Repository metadata
-
-Resolution -> Authz : Evaluate read access
-
-Authz --> Resolution : Allow
-
-Resolution -> Storage : Resolve physical repository
-
-Storage --> Resolution : Safe physical target
-
-Resolution -> Read : Read repository content
-
-Read -> Repo : Approved Git-native read
-
-Repo --> Read : Git data
-
-Read --> Caller : Read result
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-repository-storage-analysis-006.puml)
 
 ---
 
 ## 53. Repository Write Sequence
 
-```plantuml
+![GitForge V1.0.0 - Repository Storage Write Sequence](diagrams/12-repository-storage-analysis-007.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Storage Write Sequence
-
-actor "Git Client" as Client
-
-participant "Git Authentication" as Auth
-
-participant "Repository Resolution" as Resolution
-
-database "PostgreSQL" as DB
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage Coordination" as Storage
-
-participant "Git Write Coordination" as Write
-
-folder "Physical Git Repository" as Repo
-
-Client -> Auth : PAT
-
-Auth --> Resolution : Authenticated User
-
-Resolution -> DB : Resolve repository
-
-DB --> Resolution : Repository metadata
-
-Resolution -> Authz : Authorize owner write
-
-Authz --> Resolution : Allow
-
-Resolution -> Storage : Resolve physical target
-
-Storage --> Resolution : Safe repository target
-
-Resolution -> Write : Execute authorized write
-
-Write -> Repo : Git-native mutation
-
-Repo --> Write : Result
-
-Write --> Client : Push result
-
-@enduml
-
-```
+[PlantUML source](diagrams/12-repository-storage-analysis-007.puml)
 
 ---
 

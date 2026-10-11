@@ -1,0 +1,39 @@
+@startuml
+title GitForge V1.0.0 - SM-016 PAT Authentication Failure
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+database PostgreSQL as DB
+participant "Failure Handling" as Failure
+Client -> HTTP : Git request + PAT
+HTTP -> Auth : Authenticate PAT
+Auth -> DB : Resolve PAT candidate
+DB --> Auth : Candidate / none
+alt Candidate absent
+    Auth -> Failure : Unknown PAT
+    Failure --> HTTP : Authentication denied
+else Candidate exists
+    Auth -> Auth : Verify credential
+    alt Verification fails
+        Auth -> Failure : Invalid PAT
+        Failure --> HTTP : Authentication denied
+    else Verification succeeds
+        Auth -> Auth : Check revocation
+        alt PAT revoked
+            Auth -> Failure : Revoked PAT
+            Failure --> HTTP : Authentication denied
+        else PAT active
+            Auth -> DB : Resolve owner
+            alt Owner resolves
+                DB --> Auth : User identity
+                Auth --> HTTP : Authenticated User
+            else Owner inconsistent
+                DB --> Auth : Failure
+                Auth -> Failure : PAT consistency failure
+                Failure --> HTTP : Authentication denied
+            end
+        end
+    end
+end
+HTTP --> Client : Safe authentication outcome
+@enduml

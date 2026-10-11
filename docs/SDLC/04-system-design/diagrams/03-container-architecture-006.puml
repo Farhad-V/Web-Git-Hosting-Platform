@@ -1,0 +1,23 @@
+@startuml
+title GitForge - Container Trust Zones
+package "Zone A - External / Untrusted" {
+     rectangle "Web Client" as Browser
+     rectangle "Git Client" as GitClient
+}
+package "Zone B - Application Controlled" {
+     rectangle "Web Server" as Web
+     rectangle "Laravel Application" as App
+     rectangle "Git Processes" as Git
+}
+package "Zone C - Persistent Internal Data" {
+     database PostgreSQL as DB
+     folder "Repository Storage" as Storage
+}
+Browser --> Web
+GitClient --> Web
+Web --> App
+App --> DB
+App --> Git
+App --> Storage
+Git --> Storage
+@enduml

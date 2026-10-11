@@ -1,0 +1,32 @@
+@startuml
+title GitForge V1.0.0 - Private Clone Sequence
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+participant "Repository Resolution" as Repo
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Process Coordination" as Process
+Client -> HTTP : Private read request + PAT
+HTTP -> Auth : Authenticate PAT
+alt Authentication succeeds
+    Auth --> HTTP : User identity
+    HTTP -> Repo : Resolve repository
+    Repo --> HTTP : Private repository + owner
+    HTTP -> Authz : Authorize(User, repository, read)
+    alt User is owner
+        Authz --> HTTP : Allow
+        HTTP -> Storage : Resolve physical repository
+        Storage --> HTTP : Safe target
+        HTTP -> Process : Execute git-upload-pack
+        Process --> HTTP : Git response
+        HTTP --> Client : Authorized read response
+    else User is non-owner
+        Authz --> HTTP : Deny
+        HTTP --> Client : Safe denial
+    end
+else Authentication fails
+    Auth --> HTTP : Authentication failure
+    HTTP --> Client : Authentication denied
+end
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+title GitForge V1.0.0 - SM-012 Tree Browsing
+actor Caller
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Physical Git Repository" as Repo
+Caller -> Resolution : Repository + revision + path
+Resolution -> Authz : Authorize read
+alt Allowed
+    Authz --> Resolution : Allow
+    Resolution -> Storage : Resolve safe target
+    Storage --> Resolution : Target
+    Resolution -> Read : Resolve revision/path
+    Read -> Repo : Read Git tree
+    alt Tree exists
+        Repo --> Read : Tree entries
+        Read --> Caller : Safe tree representation
+    else Tree/path invalid or missing
+        Repo --> Read : Resolution failure
+        Read --> Caller : Safe failure
+    end
+else Denied
+    Authz --> Resolution : Deny
+    Resolution --> Caller : Safe denial
+end
+@enduml

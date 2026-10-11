@@ -1,0 +1,23 @@
+@startuml
+title GitForge V1.0.0 - Branch Listing Activity
+start
+:Receive branch-list request;
+:Resolve repository;
+if (Repository resolved?) then (yes)
+    :Evaluate read authorization;
+    if (Authorized?) then (yes)
+        :Resolve physical Git repository;
+        if (Physical repository usable?) then (yes)
+            :Inspect branch references;
+            :Return branch list;
+        else (no)
+            :Return safe operational failure;
+        endif
+    else (no)
+        :Deny;
+    endif
+else (no)
+    :Return safe not-found result;
+endif
+stop
+@enduml

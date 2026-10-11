@@ -1,0 +1,29 @@
+@startuml
+title GitForge V1.0.0 - Git Push Authorization Sequence
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+participant "Repository Resolution" as Repo
+participant "Repository Authorization" as Authz
+participant "Git Write Coordination" as Write
+Client -> HTTP : Push request + PAT
+HTTP -> Auth : Authenticate PAT
+alt Authentication succeeds
+    Auth --> HTTP : User identity
+    HTTP -> Repo : Resolve repository
+    Repo --> HTTP : Repository(owner, visibility)
+    HTTP -> Authz : Authorize(User, repository, write)
+    alt User is owner
+        Authz --> HTTP : Allow
+        HTTP -> Write : Execute authorized push
+        Write --> HTTP : Result
+        HTTP --> Client : Git response
+    else User is non-owner
+        Authz --> HTTP : Deny
+        HTTP --> Client : Safe denial
+    end
+else Authentication fails
+    Auth --> HTTP : Authentication failure
+    HTTP --> Client : Authentication denied
+end
+@enduml

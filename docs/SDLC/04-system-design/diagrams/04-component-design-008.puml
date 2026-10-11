@@ -1,0 +1,15 @@
+@startuml
+title GitForge - PAT Creation Component Interaction
+actor User
+participant "PAT Controller" as Controller
+participant "PAT Service" as Service
+participant "PAT Persistence" as Persistence
+User -> Controller : Create PAT
+Controller -> Service : createPat(user)
+Service -> Service : generate secure plaintext token
+Service -> Service : derive verification representation
+Service -> Persistence : persist metadata + verifier
+Persistence --> Service : PAT record
+Service --> Controller : PAT metadata + plaintext once
+Controller --> User : display plaintext once
+@enduml

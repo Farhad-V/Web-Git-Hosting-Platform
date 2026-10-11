@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - Commit History Activity
+start
+:Receive commit-history request;
+:Resolve repository;
+:Authorize read;
+if (Authorized?) then (yes)
+    :Resolve requested reference;
+    if (Reference exists?) then (yes)
+        :Read reachable commit history;
+        :Return commit summaries;
+    else (no)
+        :Return safe reference-not-found result;
+    endif
+else (no)
+    :Deny;
+endif
+stop
+@enduml

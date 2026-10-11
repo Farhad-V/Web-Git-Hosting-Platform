@@ -1,0 +1,33 @@
+@startuml
+title GitForge V1.0.0 - SM-010 Commit History
+actor Caller
+participant "Web/API Interface" as Web
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Physical Git Repository" as Repo
+Caller -> Web : Request commit history(ref)
+Web -> Resolution : Resolve repository
+Resolution -> Authz : Authorize read
+alt Allowed
+    Authz --> Resolution : Allow
+    Resolution -> Storage : Resolve safe repository
+    Storage --> Resolution : Safe target
+    Resolution -> Read : Read commit history(ref)
+    Read -> Repo : Git-native history lookup
+    alt Ref resolves
+        Repo --> Read : Commit history
+        Read --> Web : History data
+        Web --> Caller : Safe commit history
+    else Ref invalid/missing
+        Repo --> Read : Resolution failure
+        Read --> Web : Safe object-resolution failure
+        Web --> Caller : Requested history unavailable
+    end
+else Denied
+    Authz --> Resolution : Deny
+    Resolution --> Web : Deny
+    Web --> Caller : Access denied
+end
+@enduml

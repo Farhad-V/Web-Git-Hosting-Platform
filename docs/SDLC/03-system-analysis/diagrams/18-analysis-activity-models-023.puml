@@ -1,0 +1,25 @@
+@startuml
+title GitForge V1.0.0 - AM-023 First Push to Empty Repository
+start
+:Receive authorized owner push;
+:Confirm physical repository exists;
+if (Repository exists?) then (yes)
+    :Determine Git history state;
+    if (Repository Empty?) then (yes)
+        :Execute git-receive-pack;
+        :Receive objects and initial refs;
+        if (Git write succeeds?) then (yes)
+            :Transition Empty -> Has History;
+            :Return success;
+        else (no)
+            :Remain valid repository state;
+            :Return Git write failure;
+        endif
+    else (no)
+        :Process as normal subsequent push;
+    endif
+else (no)
+    :Return storage consistency failure;
+endif
+stop
+@enduml

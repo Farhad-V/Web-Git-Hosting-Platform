@@ -1,0 +1,14 @@
+@startuml
+title GitForge V1.0.0 - AM-033 Anonymous Public Read
+start
+:Receive anonymous repository read;
+:Resolve repository metadata;
+if (Repository Public?) then (yes)
+    :Allow read without identity authentication;
+    :Resolve safe physical repository;
+    :Execute approved read;
+else (no)
+    :Deny anonymous read;
+endif
+stop
+@enduml

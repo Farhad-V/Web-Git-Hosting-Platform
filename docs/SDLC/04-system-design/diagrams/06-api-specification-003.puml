@@ -1,0 +1,16 @@
+@startuml
+title GitForge - Visibility Update API Flow
+actor Owner
+participant "Repository Controller" as Controller
+participant "Repository Service" as Service
+participant "Authorization Policy" as Policy
+participant "Repository Persistence" as Persistence
+Owner -> Controller : PATCH visibility
+Controller -> Service : changeVisibility(owner, repository, private)
+Service -> Policy : canManage(owner, repository)
+Policy --> Service : allow
+Service -> Persistence : update visibility
+Persistence --> Service : updated repository
+Service --> Controller : result
+Controller --> Owner : 200 OK
+@enduml

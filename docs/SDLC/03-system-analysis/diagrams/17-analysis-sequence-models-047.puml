@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - SM-047 Metadata Present, Storage Missing
+actor Caller
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Failure Handling" as Failure
+Caller -> Resolution : Repository request
+Resolution -> DB : Resolve metadata
+DB --> Resolution : Repository exists
+Resolution -> Authz : Authorize operation
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve physical repository
+Storage --> Resolution : Missing
+Resolution -> Failure : Metadata/storage inconsistency
+Failure --> Caller : Safe operational failure
+@enduml

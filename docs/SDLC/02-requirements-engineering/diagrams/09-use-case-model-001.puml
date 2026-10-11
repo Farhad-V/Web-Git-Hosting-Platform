@@ -1,0 +1,72 @@
+@startuml
+title GitForge V1.0.0 - Primary Use Case Model
+left to right direction
+actor Visitor
+actor "Authenticated User" as User
+actor "Repository Owner" as Owner
+actor "Git Client" as GitClient
+actor "System Operator" as Operator
+User <|-- Owner
+rectangle "GitForge V1.0.0" {
+    usecase "UC-001\nRegister User Account" as UC001
+    usecase "UC-002\nAuthenticate User" as UC002
+    usecase "UC-003\nLogout" as UC003
+    usecase "UC-004\nCreate Repository" as UC004
+    usecase "UC-005\nList Owned Repositories" as UC005
+    usecase "UC-006\nView Repository" as UC006
+    usecase "UC-007\nChange Repository Visibility" as UC007
+    usecase "UC-008\nDelete Repository" as UC008
+    usecase "UC-009\nBrowse Repository" as UC009
+    usecase "UC-010\nList Branches" as UC010
+    usecase "UC-011\nView Commit History" as UC011
+    usecase "UC-012\nView Commit Details" as UC012
+    usecase "UC-013\nBrowse Repository Tree" as UC013
+    usecase "UC-014\nView File Content" as UC014
+    usecase "UC-015\nDiscover Git Read Service" as UC015
+    usecase "UC-016\nClone Repository" as UC016
+    usecase "UC-017\nFetch Repository" as UC017
+    usecase "UC-018\nDiscover Git Write Service" as UC018
+    usecase "UC-019\nPush Repository Changes" as UC019
+    usecase "UC-020\nCreate Personal Access Token" as UC020
+    usecase "UC-021\nAuthenticate Git Request\nwith Personal Access Token" as UC021
+    usecase "UC-022\nRevoke Personal Access Token" as UC022
+    usecase "UC-023\nAuthorize Repository Read" as UC023
+    usecase "UC-024\nAuthorize Repository Write" as UC024
+    usecase "UC-025\nDiagnose Repository\nOperation Failure" as UC025
+}
+Visitor --> UC001
+Visitor --> UC002
+Visitor --> UC006
+User --> UC003
+User --> UC004
+User --> UC005
+User --> UC006
+User --> UC009
+User --> UC020
+User --> UC022
+Owner --> UC007
+Owner --> UC008
+Owner --> UC019
+UC009 .> UC010 : <<include>>
+UC009 .> UC011 : <<include>>
+UC009 .> UC013 : <<include>>
+UC011 .> UC012 : <<extend>>
+UC013 .> UC014 : <<extend>>
+GitClient --> UC015
+GitClient --> UC016
+GitClient --> UC017
+GitClient --> UC018
+GitClient --> UC019
+GitClient --> UC021
+UC006 .> UC023 : <<include>>
+UC009 .> UC023 : <<include>>
+UC015 .> UC023 : <<include>>
+UC016 .> UC023 : <<include>>
+UC017 .> UC023 : <<include>>
+UC018 .> UC024 : <<include>>
+UC019 .> UC024 : <<include>>
+UC016 .> UC021 : <<extend>>
+UC017 .> UC021 : <<extend>>
+UC019 .> UC021 : <<include>>
+Operator --> UC025
+@enduml

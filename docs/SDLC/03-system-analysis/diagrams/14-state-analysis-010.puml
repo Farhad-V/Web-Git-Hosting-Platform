@@ -1,0 +1,11 @@
+@startuml
+title GitForge V1.0.0 - Repository Storage State Analysis
+[*] --> Available
+Available --> Missing : expected repository absent
+Available --> Unavailable : storage inaccessible
+Available --> Corrupt : Git repository unusable
+Missing --> Inconsistent : metadata still exists
+Unavailable --> Inconsistent : repository cannot be reliably accessed
+Corrupt --> Inconsistent : repository cannot be reliably processed
+Orphaned --> Inconsistent : physical storage exists without metadata
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - SM-026 Push Authorization Failure
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Failure Handling" as Failure
+Client -> HTTP : Push request + valid PAT
+HTTP -> Auth : Authenticate
+Auth --> HTTP : User identity
+HTTP -> Resolution : Resolve repository
+Resolution -> Authz : Authorize write
+Authz --> Resolution : Deny (non-owner)
+Resolution -> Failure : Authorization denial
+Failure --> HTTP : Safe denial
+HTTP --> Client : Push denied
+note right of Authz
+Git execution does not begin.
+Physical mutation does not occur.
+end note
+@enduml

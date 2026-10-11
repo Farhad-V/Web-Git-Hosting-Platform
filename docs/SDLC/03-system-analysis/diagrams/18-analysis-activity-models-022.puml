@@ -1,0 +1,34 @@
+@startuml
+title GitForge V1.0.0 - AM-022 Git Push
+start
+:Receive push request + PAT;
+:Authenticate PAT;
+if (Authentication succeeds?) then (yes)
+    :Resolve repository;
+    if (Repository exists?) then (yes)
+        :Authorize owner write;
+        if (Authorized?) then (yes)
+            :Resolve safe physical repository;
+            if (Storage available and writable?) then (yes)
+                :Select approved git-receive-pack operation;
+                :Execute Git write;
+                if (Git write succeeds?) then (yes)
+                    :Return push success;
+                else (no)
+                    :Classify Git/ref/protocol failure;
+                    :Return push failure;
+                endif
+            else (no)
+                :Return storage failure;
+            endif
+        else (no)
+            :Deny push;
+        endif
+    else (no)
+        :Return repository-resolution failure;
+    endif
+else (no)
+    :Deny push authentication;
+endif
+stop
+@enduml

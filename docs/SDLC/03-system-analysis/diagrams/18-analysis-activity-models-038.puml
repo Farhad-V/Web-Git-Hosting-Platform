@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - AM-038 Empty Repository Evaluation
+start
+:Resolve physical repository;
+if (Physical repository exists?) then (yes)
+    :Inspect refs/history;
+    if (Any repository history?) then (yes)
+        :State = Has History;
+    else (no)
+        :State = Empty;
+        :Return valid empty representation;
+    endif
+else (no)
+    :State = Missing;
+    :Return storage/consistency failure;
+endif
+stop
+@enduml

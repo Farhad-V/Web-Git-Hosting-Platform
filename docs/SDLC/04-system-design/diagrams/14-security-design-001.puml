@@ -1,0 +1,35 @@
+@startuml
+title GitForge V1.0.0 Security Trust Boundaries
+rectangle "External / Untrusted" {
+     actor "Web Browser" as Browser
+     actor "Git Client" as GitClient
+}
+rectangle "Ingress Boundary" {
+     node "Reverse Proxy / TLS" as Proxy
+}
+rectangle "Application-Controlled" {
+     component "Laravel Application" as App
+     component "Authentication" as Authn
+     component "Authorization Policy" as Authz
+     component "Repository Storage" as Storage
+     component "Git Process Executor" as Executor
+}
+rectangle "Persistent Internal Data" {
+     database "PostgreSQL" as DB
+     folder "Bare Git Repository Storage" as Repo
+}
+rectangle "Controlled OS Process Boundary" {
+     artifact "Configured Git Executable" as Git
+}
+Browser --> Proxy : HTTPS
+GitClient --> Proxy : Git Smart HTTP / HTTPS
+Proxy --> App
+App --> Authn
+App --> Authz
+App --> DB
+App --> Storage
+Storage --> Repo
+App --> Executor
+Executor --> Git
+Git --> Repo
+@enduml

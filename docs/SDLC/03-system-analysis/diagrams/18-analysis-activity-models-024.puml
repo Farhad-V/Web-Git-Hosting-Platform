@@ -1,0 +1,16 @@
+@startuml
+title GitForge V1.0.0 - AM-024 Git Push Ref Rejection
+start
+:Authenticate PAT;
+:Authorize owner write;
+:Resolve safe repository;
+:Execute git-receive-pack;
+:Attempt Git ref update;
+if (Git accepts ref update?) then (yes)
+    :Return push success;
+else (no)
+    :Classify Git-native ref rejection;
+    :Return Git write failure;
+endif
+stop
+@enduml

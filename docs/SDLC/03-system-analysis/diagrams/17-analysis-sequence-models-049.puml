@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - SM-049 Unexpected Git Process Failure
+participant "Git Read/Write Coordination" as Coord
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Failure Handling" as Failure
+participant "Diagnostics" as Diag
+Coord -> Process : Approved operation
+Process -> Git : Execute
+Git --> Process : Unexpected process failure
+Process -> Failure : Process failure context
+Failure -> Diag : Sanitized diagnostic
+Failure --> Coord : Safe failure
+note right of Failure
+No uncontrolled fallback execution.
+No false success.
+end note
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+title GitForge - Private Repository Browser Interaction
+actor User
+participant "Browser Controller" as Controller
+participant "Repository Browser Service" as Browser
+participant "Repository Persistence" as Persistence
+participant "Authorization Policy" as Policy
+participant "Repository Storage" as Storage
+participant "Git Executor" as Git
+User -> Controller : View repository tree
+Controller -> Browser : listTree(user, namespace, ref, path)
+Browser -> Persistence : resolve repository
+Persistence --> Browser : private repository
+Browser -> Policy : canRead(user, repository)
+Policy --> Browser : allow
+Browser -> Storage : resolve safe target
+Storage --> Browser : target
+Browser -> Git : listTree(target, ref, path)
+Git --> Browser : tree result
+Browser --> Controller : normalized result
+Controller --> User : safe rendered view
+@enduml

@@ -1250,325 +1250,41 @@ Controlled process environment
 
 ## 46. Read-Service Discovery Activity
 
-```plantuml
+![GitForge V1.0.0 - Git Read-Service Discovery](diagrams/09-git-smart-http-read-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Read-Service Discovery
-
-start
-
-:Receive git-upload-pack discovery request;
-
-:Resolve repository metadata;
-
-if (Repository resolved?) then (yes)
-
-&#x20;   if (Repository public?) then (yes)
-
-&#x20;       :Authorize anonymous read;
-
-&#x20;   else (no)
-
-&#x20;       :Authenticate PAT;
-
-&#x20;       if (Authentication succeeds?) then (yes)
-
-&#x20;           :Authorize repository read;
-
-&#x20;       else (no)
-
-&#x20;           :Deny;
-
-&#x20;           stop
-
-&#x20;       endif
-
-&#x20;   endif
-
-&#x20;   if (Read authorized?) then (yes)
-
-&#x20;       :Resolve physical repository;
-
-&#x20;       :Execute approved discovery behavior;
-
-&#x20;       :Return Git discovery response;
-
-&#x20;   else (no)
-
-&#x20;       :Deny;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return safe repository failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-smart-http-read-analysis-001.puml)
 
 ---
 
 ## 47. Clone/Fetch Read Activity
 
-```plantuml
+![GitForge V1.0.0 - Clone and Fetch Read Activity](diagrams/09-git-smart-http-read-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Clone and Fetch Read Activity
-
-start
-
-:Receive Git read request;
-
-:Resolve target repository;
-
-if (Repository public?) then (yes)
-
-&#x20;   :Use anonymous or authenticated caller context;
-
-else (no)
-
-&#x20;   :Require PAT authentication;
-
-&#x20;   if (PAT valid?) then (yes)
-
-&#x20;       :Resolve User identity;
-
-&#x20;   else (no)
-
-&#x20;       :Deny;
-
-&#x20;       stop
-
-&#x20;   endif
-
-endif
-
-:Evaluate repository read authorization;
-
-if (Authorized?) then (yes)
-
-&#x20;   :Resolve safe physical repository;
-
-&#x20;   :Invoke controlled git-upload-pack;
-
-&#x20;   :Process Git protocol input/output;
-
-&#x20;   :Return Git response;
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-smart-http-read-analysis-002.puml)
 
 ---
 
 ## 48. Public Clone Sequence
 
-```plantuml
+![GitForge V1.0.0 - Public Clone Sequence](diagrams/09-git-smart-http-read-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Public Clone Sequence
-
-actor "Git Client" as Client
-
-participant "Git Smart HTTP Interface" as HTTP
-
-participant "Repository Resolution" as Repo
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage Coordination" as Storage
-
-participant "Git Process Coordination" as Process
-
-participant "Git Executable" as Git
-
-Client -> HTTP : Read-service discovery
-
-HTTP -> Repo : Resolve namespace
-
-Repo --> HTTP : Public repository
-
-HTTP -> Authz : Authorize anonymous read
-
-Authz --> HTTP : Allow
-
-HTTP -> Storage : Resolve physical repository
-
-Storage --> HTTP : Safe repository target
-
-HTTP -> Process : Execute git-upload-pack discovery
-
-Process -> Git : Approved read operation
-
-Git --> Process : Discovery data
-
-Process --> HTTP : Discovery result
-
-HTTP --> Client : Discovery response
-
-Client -> HTTP : git-upload-pack request
-
-HTTP -> Process : Execute authorized read
-
-Process -> Git : git-upload-pack
-
-Git --> Process : Git protocol output
-
-Process --> HTTP : Read result
-
-HTTP --> Client : Git response
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-smart-http-read-analysis-003.puml)
 
 ---
 
 ## 49. Private Clone Sequence
 
-```plantuml
+![GitForge V1.0.0 - Private Clone Sequence](diagrams/09-git-smart-http-read-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Private Clone Sequence
-
-actor "Git Client" as Client
-
-participant "Git Smart HTTP Interface" as HTTP
-
-participant "Git Authentication" as Auth
-
-participant "Repository Resolution" as Repo
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage Coordination" as Storage
-
-participant "Git Process Coordination" as Process
-
-Client -> HTTP : Private read request + PAT
-
-HTTP -> Auth : Authenticate PAT
-
-alt Authentication succeeds
-
-&#x20;   Auth --> HTTP : User identity
-
-&#x20;   HTTP -> Repo : Resolve repository
-
-&#x20;   Repo --> HTTP : Private repository + owner
-
-&#x20;   HTTP -> Authz : Authorize(User, repository, read)
-
-&#x20;   alt User is owner
-
-&#x20;       Authz --> HTTP : Allow
-
-&#x20;       HTTP -> Storage : Resolve physical repository
-
-&#x20;       Storage --> HTTP : Safe target
-
-&#x20;       HTTP -> Process : Execute git-upload-pack
-
-&#x20;       Process --> HTTP : Git response
-
-&#x20;       HTTP --> Client : Authorized read response
-
-&#x20;   else User is non-owner
-
-&#x20;       Authz --> HTTP : Deny
-
-&#x20;       HTTP --> Client : Safe denial
-
-&#x20;   end
-
-else Authentication fails
-
-&#x20;   Auth --> HTTP : Authentication failure
-
-&#x20;   HTTP --> Client : Authentication denied
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-smart-http-read-analysis-004.puml)
 
 ---
 
 ## 50. Read Logical Collaboration Diagram
 
-```plantuml
+![GitForge V1.0.0 - Git Read Logical Collaboration](diagrams/09-git-smart-http-read-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Read Logical Collaboration
-
-left to right direction
-
-actor "Git Client" as Client
-
-rectangle "Git Smart HTTP Interface" as HTTP
-
-rectangle "Git Authentication" as Auth
-
-rectangle "Repository Resolution" as Repo
-
-rectangle "Repository Authorization" as Authz
-
-rectangle "Git Read Coordination" as Read
-
-rectangle "Repository Storage Coordination" as Storage
-
-rectangle "Git Process Coordination" as Process
-
-rectangle "Git Executable" as Git
-
-folder "Physical Git Repository" as RepoFS
-
-Client --> HTTP
-
-HTTP --> Auth : when required
-
-HTTP --> Repo
-
-Repo --> Authz : repository context
-
-Auth --> Authz : identity context
-
-HTTP --> Authz : anonymous context when allowed
-
-Authz --> Read : allow
-
-Read --> Storage
-
-Read --> Process
-
-Storage --> Process : safe repository target
-
-Process --> Git
-
-Git --> RepoFS
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-smart-http-read-analysis-005.puml)
 
 ---
 

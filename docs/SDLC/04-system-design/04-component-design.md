@@ -166,137 +166,9 @@ CG-14 Configuration
 
 ## 6. High-Level Component Diagram
 
-```plantuml
+![GitForge V1.0.0 - Component Architecture](diagrams/04-component-design-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Component Architecture
-
-package "Presentation / Protocol" {
-
-     component "Web Controllers" as WebControllers
-
-     component "Git Smart HTTP Handlers" as GitHandlers
-
-}
-
-package "Application Services" {
-
-     component "Authentication Service" as AuthService
-
-     component "PAT Service" as PatService
-
-     component "Repository Service" as RepoService
-
-     component "Repository Browser Service" as BrowserService
-
-     component "Git Read Service" as GitReadService
-
-     component "Git Write Service" as GitWriteService
-
-}
-
-package "Domain / Policy" {
-
-     component "Repository Authorization Policy" as RepoPolicy
-
-     component "Repository Naming Policy" as NamePolicy
-
-     component "Visibility Policy" as VisibilityPolicy
-
-}
-
-package "Infrastructure" {
-
-     component "User Persistence" as UserPersistence
-
-     component "Repository Persistence" as RepoPersistence
-
-     component "PAT Persistence" as PatPersistence
-
-     component "Repository Storage" as RepoStorage
-
-     component "Git Process Executor" as GitExecutor
-
-     component "Application Logger" as Logger
-
-     component "Configuration Provider" as Config
-
-}
-
-WebControllers --> AuthService
-
-WebControllers --> PatService
-
-WebControllers --> RepoService
-
-WebControllers --> BrowserService
-
-GitHandlers --> GitReadService
-
-GitHandlers --> GitWriteService
-
-AuthService --> UserPersistence
-
-PatService --> PatPersistence
-
-PatService --> UserPersistence
-
-RepoService --> RepoPolicy
-
-RepoService --> NamePolicy
-
-RepoService --> VisibilityPolicy
-
-RepoService --> RepoPersistence
-
-RepoService --> RepoStorage
-
-RepoService --> GitExecutor
-
-BrowserService --> RepoPolicy
-
-BrowserService --> RepoPersistence
-
-BrowserService --> RepoStorage
-
-BrowserService --> GitExecutor
-
-GitReadService --> RepoPolicy
-
-GitReadService --> RepoPersistence
-
-GitReadService --> PatPersistence
-
-GitReadService --> RepoStorage
-
-GitReadService --> GitExecutor
-
-GitWriteService --> RepoPolicy
-
-GitWriteService --> RepoPersistence
-
-GitWriteService --> PatPersistence
-
-GitWriteService --> RepoStorage
-
-GitWriteService --> GitExecutor
-
-RepoService --> Logger
-
-BrowserService --> Logger
-
-GitReadService --> Logger
-
-GitWriteService --> Logger
-
-RepoStorage --> Config
-
-GitExecutor --> Config
-
-@enduml
-
-```
+[PlantUML source](diagrams/04-component-design-001.puml)
 
 ---
 
@@ -946,57 +818,9 @@ Result generation
 
 ## 36. Repository Creation Flow
 
-```plantuml
+![GitForge - Repository Creation Component Flow](diagrams/04-component-design-002.svg)
 
-@startuml
-
-title GitForge - Repository Creation Component Flow
-
-actor User
-
-participant "Repository Controller" as Controller
-
-participant "Repository Service" as Service
-
-participant "Repository Naming Policy" as Naming
-
-participant "Repository Persistence" as Persistence
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Git
-
-User -> Controller : Create repository
-
-Controller -> Service : createRepository(command)
-
-Service -> Naming : validate(name)
-
-Naming --> Service : valid
-
-Service -> Persistence : ensure namespace available
-
-Persistence --> Service : available
-
-Service -> Persistence : create metadata
-
-Persistence --> Service : repository
-
-Service -> Storage : resolve new safe target
-
-Storage --> Service : safe target
-
-Service -> Git : initializeBareRepository(target)
-
-Git --> Service : success
-
-Service --> Controller : repository created
-
-Controller --> User : success
-
-@enduml
-
-```
+[PlantUML source](diagrams/04-component-design-002.puml)
 
 ---
 
@@ -2400,305 +2224,49 @@ No ambiguous null state should represent visibility.
 
 ## 115. Login Scenario
 
-```plantuml
+![GitForge - Login Component Interaction](diagrams/04-component-design-003.svg)
 
-@startuml
-
-title GitForge - Login Component Interaction
-
-actor User
-
-participant "Auth Controller" as Controller
-
-participant "Authentication Service" as Auth
-
-participant "User Persistence" as Users
-
-User -> Controller : Login request
-
-Controller -> Auth : login(credentials)
-
-Auth -> Users : resolve user
-
-Users --> Auth : user
-
-Auth -> Auth : verify password
-
-alt valid
-
-     Auth --> Controller : authenticated identity/session
-
-     Controller --> User : success
-
-else invalid
-
-     Auth --> Controller : authentication failure
-
-     Controller --> User : safe failure
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/04-component-design-003.puml)
 
 ---
 
 ## 116. Private Repository Browser Scenario
 
-```plantuml
+![GitForge - Private Repository Browser Interaction](diagrams/04-component-design-004.svg)
 
-@startuml
-
-title GitForge - Private Repository Browser Interaction
-
-actor User
-
-participant "Browser Controller" as Controller
-
-participant "Repository Browser Service" as Browser
-
-participant "Repository Persistence" as Persistence
-
-participant "Authorization Policy" as Policy
-
-participant "Repository Storage" as Storage
-
-participant "Git Executor" as Git
-
-User -> Controller : View repository tree
-
-Controller -> Browser : listTree(user, namespace, ref, path)
-
-Browser -> Persistence : resolve repository
-
-Persistence --> Browser : private repository
-
-Browser -> Policy : canRead(user, repository)
-
-Policy --> Browser : allow
-
-Browser -> Storage : resolve safe target
-
-Storage --> Browser : target
-
-Browser -> Git : listTree(target, ref, path)
-
-Git --> Browser : tree result
-
-Browser --> Controller : normalized result
-
-Controller --> User : safe rendered view
-
-@enduml
-
-```
+[PlantUML source](diagrams/04-component-design-004.puml)
 
 ---
 
 ## 117. Public Anonymous Clone Scenario
 
-```plantuml
+![GitForge - Public Anonymous Clone Interaction](diagrams/04-component-design-005.svg)
 
-@startuml
-
-title GitForge - Public Anonymous Clone Interaction
-
-actor "Git Client" as Client
-
-participant "Git Read Handler" as Handler
-
-participant "Git Read Service" as Service
-
-participant "Repository Persistence" as Persistence
-
-participant "Authorization Policy" as Policy
-
-participant "Repository Storage" as Storage
-
-participant "Git Executor" as Git
-
-Client -> Handler : upload-pack request
-
-Handler -> Service : executeUploadPack(anonymous, namespace)
-
-Service -> Persistence : resolve repository
-
-Persistence --> Service : public repository
-
-Service -> Policy : canRead(anonymous, repository)
-
-Policy --> Service : allow
-
-Service -> Storage : resolve safe target
-
-Storage --> Service : target
-
-Service -> Git : uploadPack(target, stream)
-
-Git --> Service : protocol stream
-
-Service --> Handler : protocol stream
-
-Handler --> Client : Git response
-
-@enduml
-
-```
+[PlantUML source](diagrams/04-component-design-005.puml)
 
 ---
 
 ## 118. Private Clone with PAT Scenario
 
-```plantuml
+![GitForge - Private Clone with PAT](diagrams/04-component-design-006.svg)
 
-@startuml
-
-title GitForge - Private Clone with PAT
-
-actor "Git Client" as Client
-
-participant "Git Read Handler" as Handler
-
-participant "Git Read Service" as Service
-
-participant "PAT Service" as PAT
-
-participant "Repository Persistence" as Persistence
-
-participant "Authorization Policy" as Policy
-
-participant "Repository Storage" as Storage
-
-participant "Git Executor" as Git
-
-Client -> Handler : private clone request + PAT
-
-Handler -> Service : executeUploadPack(credentials, namespace)
-
-Service -> PAT : authenticate(credentials)
-
-PAT --> Service : user identity
-
-Service -> Persistence : resolve repository
-
-Persistence --> Service : private repository
-
-Service -> Policy : canRead(user, repository)
-
-Policy --> Service : allow
-
-Service -> Storage : resolve safe target
-
-Storage --> Service : target
-
-Service -> Git : uploadPack(target)
-
-Git --> Service : protocol stream
-
-Service --> Handler : protocol stream
-
-Handler --> Client : response
-
-@enduml
-
-```
+[PlantUML source](diagrams/04-component-design-006.puml)
 
 ---
 
 ## 119. Push Scenario
 
-```plantuml
+![GitForge - Push Component Interaction](diagrams/04-component-design-007.svg)
 
-@startuml
-
-title GitForge - Push Component Interaction
-
-actor "Git Client" as Client
-
-participant "Git Write Handler" as Handler
-
-participant "Git Write Service" as Service
-
-participant "PAT Service" as PAT
-
-participant "Repository Persistence" as Persistence
-
-participant "Authorization Policy" as Policy
-
-participant "Repository Storage" as Storage
-
-participant "Git Executor" as Git
-
-Client -> Handler : receive-pack request + PAT
-
-Handler -> Service : executeReceivePack(credentials, namespace)
-
-Service -> PAT : authenticate(credentials)
-
-PAT --> Service : user
-
-Service -> Persistence : resolve repository
-
-Persistence --> Service : repository + owner
-
-Service -> Policy : canWrite(user, repository)
-
-Policy --> Service : allow
-
-Service -> Storage : resolve safe target
-
-Storage --> Service : target
-
-Service -> Git : receivePack(target, input stream)
-
-Git --> Service : protocol result
-
-Service --> Handler : result
-
-Handler --> Client : Git protocol response
-
-@enduml
-
-```
+[PlantUML source](diagrams/04-component-design-007.puml)
 
 ---
 
 ## 120. PAT Creation Scenario
 
-```plantuml
+![GitForge - PAT Creation Component Interaction](diagrams/04-component-design-008.svg)
 
-@startuml
-
-title GitForge - PAT Creation Component Interaction
-
-actor User
-
-participant "PAT Controller" as Controller
-
-participant "PAT Service" as Service
-
-participant "PAT Persistence" as Persistence
-
-User -> Controller : Create PAT
-
-Controller -> Service : createPat(user)
-
-Service -> Service : generate secure plaintext token
-
-Service -> Service : derive verification representation
-
-Service -> Persistence : persist metadata + verifier
-
-Persistence --> Service : PAT record
-
-Service --> Controller : PAT metadata + plaintext once
-
-Controller --> User : display plaintext once
-
-@enduml
-
-```
+[PlantUML source](diagrams/04-component-design-008.puml)
 
 ---
 

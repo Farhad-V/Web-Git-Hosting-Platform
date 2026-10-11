@@ -1,0 +1,19 @@
+@startuml
+title sprint workflow
+skinparam shadowing false
+left to right direction
+rectangle "Refine backlog" as Refine
+rectangle "Agree goal and scope" as Plan
+rectangle "Implement slices" as Work
+rectangle "Verify integrated behavior" as Check
+rectangle "Review and record outcomes" as Review
+rectangle "Handoff completed work" as Done
+rectangle "Return unfinished items" as Backlog
+Refine --> Plan
+Plan --> Work
+Work --> Check
+Check --> Review
+Review --> Done
+Review --> Backlog
+Backlog --> Refine
+@enduml

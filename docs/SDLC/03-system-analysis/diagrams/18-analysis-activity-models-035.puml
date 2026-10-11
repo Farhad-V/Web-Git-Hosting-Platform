@@ -1,0 +1,13 @@
+@startuml
+title GitForge V1.0.0 - AM-035 Invalid Repository Identifier
+start
+:Receive logical repository identifier;
+:Validate namespace/name;
+if (Identifier valid?) then (yes)
+    :Resolve authoritative metadata;
+else (no)
+    :Reject identifier;
+    :Do not derive physical filesystem path;
+endif
+stop
+@enduml

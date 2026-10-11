@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - SM-031 Repository Authorization
+actor Caller
+participant "Repository Authorization" as Authz
+database "Repository Metadata" as Metadata
+Caller -> Authz : identity/context + operation
+Authz -> Metadata : owner + visibility
+Metadata --> Authz : authoritative repository context
+alt Public read
+    Authz --> Caller : Allow
+else Private + owner read
+    Authz --> Caller : Allow
+else Owner write
+    Authz --> Caller : Allow
+else Any unauthorized protected operation
+    Authz --> Caller : Deny
+end
+@enduml

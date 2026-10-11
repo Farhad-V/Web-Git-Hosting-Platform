@@ -870,48 +870,9 @@ Personal Access Token
 
 The following PlantUML diagram represents the requirements-level relationships.
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Requirements-Level Data Relationships
+![GitForge V1.0.0 - Requirements-Level Data Relationships](diagrams/06-data-requirements.svg)
 
-entity User {
-&#x20;   * user_id
-&#x20;   --
-&#x20;   name
-&#x20;   email
-&#x20;   password_hash
-}
-
-entity Repository {
-&#x20;   * repository_id
-&#x20;   --
-&#x20;   owner_id
-&#x20;   name
-&#x20;   visibility
-}
-
-entity PersonalAccessToken {
-&#x20;   * token_id
-&#x20;   --
-&#x20;   owner_id
-&#x20;   name
-&#x20;   token_hash
-&#x20;   revocation_state
-}
-
-entity "Physical Git Repository" as GitRepository {
-&#x20;   repository path
-&#x20;   Git objects
-&#x20;   references
-&#x20;   commit history
-}
-
-User ||--o{ Repository : owns
-User ||--o{ PersonalAccessToken : owns
-Repository ||--|| GitRepository : corresponds to
-
-@enduml
-```
+[PlantUML source](diagrams/06-data-requirements.puml)
 
 This is a logical requirements model, not the final database schema.
 

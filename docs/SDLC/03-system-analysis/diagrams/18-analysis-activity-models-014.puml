@@ -1,0 +1,27 @@
+@startuml
+title GitForge V1.0.0 - AM-014 File Viewing
+start
+:Receive repository + revision + file path;
+:Resolve repository;
+:Authorize read;
+if (Allowed?) then (yes)
+    :Resolve safe physical repository;
+    :Validate revision/path;
+    if (Input valid?) then (yes)
+        :Resolve Git blob;
+        if (Blob exists?) then (yes)
+            :Read blob content;
+            :Treat repository content as untrusted;
+            :Prepare safe representation;
+            :Return file view;
+        else (no)
+            :Return file-not-found result;
+        endif
+    else (no)
+        :Reject invalid revision/path;
+    endif
+else (no)
+    :Deny read;
+endif
+stop
+@enduml

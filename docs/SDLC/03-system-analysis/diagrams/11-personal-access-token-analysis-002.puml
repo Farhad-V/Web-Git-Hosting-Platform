@@ -1,0 +1,16 @@
+@startuml
+title GitForge V1.0.0 - PAT Creation Activity
+start
+:Receive PAT creation request;
+if (User authenticated?) then (yes)
+    :Generate strong plaintext PAT;
+    :Derive verification representation;
+    :Persist PAT record;
+    :Associate PAT with User;
+    :Present plaintext PAT once;
+    :PAT becomes active;
+else (no)
+    :Deny creation;
+endif
+stop
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+title GitForge - Registration UI Flow
+actor Visitor
+Visitor -> "Register Page" : Open
+"Register Page" -> Visitor : Registration form
+Visitor -> "Register Page" : Submit valid data
+"Register Page" -> "Authenticated Dashboard" : Registration succeeds
+"Authenticated Dashboard" -> Visitor : My Repositories
+@enduml

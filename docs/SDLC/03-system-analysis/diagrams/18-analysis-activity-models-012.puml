@@ -1,0 +1,24 @@
+@startuml
+title GitForge V1.0.0 - AM-012 Commit Details
+start
+:Receive repository + commit identifier;
+:Resolve repository;
+:Authorize read;
+if (Allowed?) then (yes)
+    :Resolve safe physical repository;
+    :Resolve commit identifier;
+    if (Commit exists?) then (yes)
+        :Read commit data;
+        if (Git read succeeds?) then (yes)
+            :Return safe commit representation;
+        else (no)
+            :Return Git-read failure;
+        endif
+    else (no)
+        :Return commit-not-found result;
+    endif
+else (no)
+    :Deny read;
+endif
+stop
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+title GitForge - Push Component Interaction
+actor "Git Client" as Client
+participant "Git Write Handler" as Handler
+participant "Git Write Service" as Service
+participant "PAT Service" as PAT
+participant "Repository Persistence" as Persistence
+participant "Authorization Policy" as Policy
+participant "Repository Storage" as Storage
+participant "Git Executor" as Git
+Client -> Handler : receive-pack request + PAT
+Handler -> Service : executeReceivePack(credentials, namespace)
+Service -> PAT : authenticate(credentials)
+PAT --> Service : user
+Service -> Persistence : resolve repository
+Persistence --> Service : repository + owner
+Service -> Policy : canWrite(user, repository)
+Policy --> Service : allow
+Service -> Storage : resolve safe target
+Storage --> Service : target
+Service -> Git : receivePack(target, input stream)
+Git --> Service : protocol result
+Service --> Handler : result
+Handler --> Client : Git protocol response
+@enduml

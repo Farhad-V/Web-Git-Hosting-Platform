@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - Repository Management DFD
+left to right direction
+actor "Authenticated User" as User
+rectangle "P1\nRepository Coordination" as P1
+rectangle "P2\nRepository Authorization" as P2
+rectangle "P3\nStorage Coordination" as P3
+database "D1\nPostgreSQL" as DB
+folder "D2\nPhysical Git Repository" as GitRepo
+User --> P1 : create/list/view/update request
+P1 --> DB : repository metadata query/update
+DB --> P1 : metadata
+P1 --> P2 : identity + repository + operation
+P2 --> P1 : allow/deny
+P1 --> P3 : approved repository context
+P3 --> GitRepo : initialize/read target
+GitRepo --> P3 : storage result
+P3 --> P1 : result
+P1 --> User : safe response
+@enduml

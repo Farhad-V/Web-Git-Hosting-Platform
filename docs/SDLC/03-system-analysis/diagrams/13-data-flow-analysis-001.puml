@@ -1,0 +1,36 @@
+@startuml
+title GitForge V1.0.0 - High-Level Data Flow
+left to right direction
+actor Visitor
+actor "Authenticated User" as User
+actor "Git Client" as GitClient
+actor "System Operator" as Operator
+rectangle "GitForge" {
+    rectangle "Web/API Processing" as Web
+    rectangle "Authentication" as Auth
+    rectangle "Authorization" as Authz
+    rectangle "Repository Coordination" as Repo
+    rectangle "Git Coordination" as GitCoord
+    rectangle "Diagnostics" as Diag
+}
+database PostgreSQL as DB
+folder "Physical Git Repositories" as GitRepos
+rectangle "Git Executable" as GitExe
+Visitor --> Web
+User --> Web
+GitClient --> GitCoord
+Web --> Auth
+Web --> Repo
+GitCoord --> Auth
+Repo --> Authz
+GitCoord --> Authz
+Repo --> DB
+Auth --> DB
+Repo --> GitRepos
+GitCoord --> GitExe
+GitExe --> GitRepos
+Web --> Diag
+Repo --> Diag
+GitCoord --> Diag
+Diag --> Operator
+@enduml

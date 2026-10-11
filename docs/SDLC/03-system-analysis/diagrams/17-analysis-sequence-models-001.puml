@@ -1,0 +1,26 @@
+@startuml
+title GitForge V1.0.0 - SM-001 User Registration
+actor Visitor
+participant "Web/API Interface" as Web
+participant "User Registration Coordination" as Registration
+database PostgreSQL as DB
+participant "Failure Handling" as Failure
+Visitor -> Web : Submit registration data
+Web -> Registration : Validate and register
+alt Input valid
+    Registration -> DB : Persist User metadata
+    alt Persistence succeeds
+        DB --> Registration : User stored
+        Registration --> Web : Registration success
+        Web --> Visitor : Safe success response
+    else Persistence fails
+        DB --> Registration : Failure
+        Registration -> Failure : Classify persistence failure
+        Failure --> Web : Safe failure
+        Web --> Visitor : Registration failed
+    end
+else Input invalid
+    Registration --> Web : Validation rejection
+    Web --> Visitor : Safe rejection response
+end
+@enduml

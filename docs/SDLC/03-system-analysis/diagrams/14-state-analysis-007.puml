@@ -1,0 +1,7 @@
+@startuml
+title GitForge V1.0.0 - PAT Lifecycle State
+[*] --> Created
+Created --> Active : creation completes
+Active --> Revoked : owner revokes PAT
+Revoked --> [*]
+@enduml

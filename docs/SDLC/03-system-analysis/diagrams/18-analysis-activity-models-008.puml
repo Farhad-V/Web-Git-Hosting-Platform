@@ -1,0 +1,32 @@
+@startuml
+title GitForge V1.0.0 - AM-008 View Repository
+start
+:Receive repository view request;
+:Resolve logical repository;
+if (Repository resolved?) then (yes)
+    :Evaluate read authorization;
+    if (Read allowed?) then (yes)
+        :Resolve safe physical repository target;
+        if (Physical repository available?) then (yes)
+            :Read Git-native repository state;
+            if (Git read succeeds?) then (yes)
+                if (Repository has history?) then (yes)
+                    :Build repository representation;
+                else (no)
+                    :Build valid empty-repository representation;
+                endif
+                :Return safe repository view;
+            else (no)
+                :Return Git-read failure;
+            endif
+        else (no)
+            :Return storage/consistency failure;
+        endif
+    else (no)
+        :Deny repository view;
+    endif
+else (no)
+    :Return safe repository-resolution result;
+endif
+stop
+@enduml

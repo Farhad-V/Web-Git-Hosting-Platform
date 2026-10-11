@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - AM-028 Controlled Git Process Execution
+start
+:Receive approved Git operation + safe target;
+if (Operation approved?) then (yes)
+    if (Target safe?) then (yes)
+        :Prepare controlled execution context;
+        :Execute approved Git executable/subcommand;
+        if (Process succeeds?) then (yes)
+            :Return Git operation result;
+        else (no)
+            :Classify process/Git failure;
+            :Return safe failure;
+        endif
+    else (no)
+        :Reject execution;
+    endif
+else (no)
+    :Reject unapproved operation;
+endif
+stop
+@enduml

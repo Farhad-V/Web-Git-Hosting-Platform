@@ -1,0 +1,21 @@
+@startuml
+title requirements lifecycle diagram
+skinparam shadowing false
+left to right direction
+rectangle "Stakeholder need or defect" as Need
+rectangle "Scope and acceptance criteria" as Refine
+rectangle "Analysis and design" as Analyze
+rectangle "Focused implementation" as Implement
+rectangle "Candidate-specific verification" as Verify
+rectangle "Review evidence and limitations" as Review
+rectangle "Merge approved work" as Merge
+rectangle "Separate authorized release gate" as Release
+Need --> Refine
+Refine --> Analyze
+Analyze --> Implement
+Implement --> Verify
+Verify --> Review
+Review --> Merge
+Merge --> Release
+Review --> Refine : Unmet criteria
+@enduml

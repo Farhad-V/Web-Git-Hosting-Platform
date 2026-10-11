@@ -1,0 +1,23 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^Personal Access Tokens^
+     .
+     [ + Create Token ]
+     .
+     {#
+       Name | Identifier | Created | Status | Action
+       Laptop | abc123 | 2026-08-18 | Active | Revoke
+       Desktop | def456 | 2026-08-10 | Revoked | -
+     }
+   }
+}
+@endsalt

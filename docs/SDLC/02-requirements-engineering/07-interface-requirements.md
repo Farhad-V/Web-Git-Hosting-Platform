@@ -816,46 +816,9 @@ Each boundary requires controlled validation, authentication, authorization, con
 
 # 20. Interface Context Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Interface Context
+![GitForge V1.0.0 - Interface Context](diagrams/07-interface-requirements.svg)
 
-left to right direction
-
-actor Visitor
-actor "Authenticated User" as User
-actor "Repository Owner" as Owner
-actor "System Operator" as Operator
-
-rectangle "Web Browser" as Browser
-rectangle "Git Client" as GitClient
-
-rectangle "GitForge V1.0.0" as GitForge
-
-database "PostgreSQL" as DB
-rectangle "Repository Filesystem" as FS
-rectangle "Git Executable" as Git
-rectangle "Runtime Configuration" as Config
-rectangle "Application Logs" as Logs
-
-Visitor --> Browser
-User --> Browser
-Owner --> Browser
-
-Browser --> GitForge : Web HTTP
-GitClient --> GitForge : Git Smart HTTP
-
-GitForge --> DB : Relational persistence
-GitForge --> FS : Repository storage
-GitForge --> Git : Controlled process execution
-Config --> GitForge : Environment configuration
-GitForge --> Logs : Diagnostics
-
-Operator --> Config
-Operator --> Logs
-
-@enduml
-```
+[PlantUML source](diagrams/07-interface-requirements.puml)
 
 ---
 

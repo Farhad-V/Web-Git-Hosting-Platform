@@ -1,0 +1,18 @@
+@startuml
+title GitForge - Clone/Fetch Process Execution
+actor "Git Client" as Client
+participant "Git Read Service" as Service
+participant "Repository Authorization" as Authz
+participant "Repository Storage" as Storage
+participant "Git Process Executor" as Executor
+participant "git upload-pack" as Git
+Client -> Service : POST git-upload-pack
+Service -> Authz : canRead(actor, repository)
+Authz --> Service : Allow
+Service -> Storage : resolveExisting(repository)
+Storage --> Service : Safe repository path
+Service -> Executor : uploadPack(path, requestStream)
+Executor -> Git : start upload-pack
+Client -> Git : request bytes via stdin
+Git --> Client : result bytes via stdout
+@enduml

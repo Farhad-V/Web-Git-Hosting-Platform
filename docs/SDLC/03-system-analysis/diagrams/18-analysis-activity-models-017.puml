@@ -1,0 +1,27 @@
+@startuml
+title GitForge V1.0.0 - AM-017 PAT Revocation
+start
+:Receive PAT revocation request;
+if (User authenticated?) then (yes)
+    :Resolve PAT metadata;
+    if (PAT exists?) then (yes)
+        if (User owns PAT?) then (yes)
+            :Persist revoked state;
+            if (Persistence succeeds?) then (yes)
+                :PAT becomes Revoked;
+                :Return success;
+            else (no)
+                :Do not report revocation success;
+                :Return persistence failure;
+            endif
+        else (no)
+            :Deny revocation;
+        endif
+    else (no)
+        :Return safe PAT-not-found result;
+    endif
+else (no)
+    :Deny revocation;
+endif
+stop
+@enduml

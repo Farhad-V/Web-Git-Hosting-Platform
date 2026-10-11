@@ -1,0 +1,31 @@
+@startuml
+title GitForge - Git Smart HTTP Read Container Flow
+actor "Git Client" as Client
+participant "Web Server" as Web
+participant "Laravel Application" as App
+database PostgreSQL as DB
+participant "Repository Storage" as Storage
+participant "Git upload-pack" as Git
+Client -> Web : Smart HTTP read request
+Web -> App : Forward request
+App -> DB : Resolve repository metadata
+DB --> App : Repository + visibility
+alt Private repository
+     App -> DB : Resolve PAT identity
+     DB --> App : Authenticated user
+end
+App -> App : Authorize read
+alt Allowed
+     App -> Storage : Resolve safe physical target
+     Storage --> App : Safe target
+     App -> Git : Execute git-upload-pack
+     Git -> Storage : Read repository
+     Storage --> Git
+     Git --> App : Protocol stream
+     App --> Web : Git protocol response
+     Web --> Client : Git protocol response
+else Denied
+     App --> Web : Denial
+     Web --> Client : Failure
+end
+@enduml

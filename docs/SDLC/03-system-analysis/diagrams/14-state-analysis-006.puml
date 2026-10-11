@@ -1,0 +1,9 @@
+@startuml
+title GitForge V1.0.0 - Write Authorization Decision
+[*] --> EvaluateWrite
+EvaluateWrite --> Allow : authenticated owner
+EvaluateWrite --> Deny : anonymous
+EvaluateWrite --> Deny : authenticated non-owner
+Allow --> [*]
+Deny --> [*]
+@enduml

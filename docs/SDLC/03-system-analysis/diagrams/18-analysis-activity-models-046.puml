@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - AM-046 Concurrent Push
+start
+:Two authorized pushes target same repository;
+:Git processes ref updates according to Git-native rules;
+if (First update succeeds?) then (yes)
+    :Repository refs change;
+endif
+:Second push evaluates current Git refs;
+if (Second update accepted?) then (yes)
+    :Apply second update;
+    :Return success;
+else (no)
+    :Return Git-native ref rejection;
+endif
+stop
+@enduml

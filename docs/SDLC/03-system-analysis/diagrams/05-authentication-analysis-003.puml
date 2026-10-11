@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - Web Login Analysis Sequence
+actor Visitor
+participant "Web Interaction" as Web
+participant "Web Authentication" as Auth
+participant "Application Data Persistence" as Data
+Visitor -> Web : Submit login credentials
+Web -> Auth : Authenticate(credentials)
+Auth -> Data : Resolve candidate user
+Data --> Auth : User authentication data
+Auth -> Auth : Verify credential
+alt Authentication succeeds
+    Auth --> Web : Authenticated(User)
+    Web -> Auth : Establish session
+    Auth --> Web : Session established
+    Web --> Visitor : Login success
+else Authentication fails
+    Auth --> Web : Authentication failure
+    Web --> Visitor : Safe failure response
+end
+@enduml

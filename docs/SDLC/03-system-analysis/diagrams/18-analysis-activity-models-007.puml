@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - AM-007 Repository Write Authorization
+start
+:Receive repository write context;
+if (Caller authenticated?) then (yes)
+    :Resolve repository metadata;
+    if (Repository exists?) then (yes)
+        if (Caller is repository owner?) then (yes)
+            :Allow write;
+        else (no)
+            :Deny write;
+        endif
+    else (no)
+        :Return repository-resolution failure;
+    endif
+else (no)
+    :Deny write;
+endif
+stop
+@enduml

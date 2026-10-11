@@ -308,107 +308,9 @@ Error / System State
 
 ## 12. Site Map
 
-```plantuml
+![GitForge - UI Information Architecture](diagrams/10-ui-information-architecture-001.svg)
 
-@startuml
-
-title GitForge - UI Information Architecture
-
-rectangle "GitForge" {
-
-   rectangle "Home" as Home
-
-   rectangle "Authentication" {
-
-     rectangle "Register" as Register
-
-     rectangle "Login" as Login
-
-   }
-
-   rectangle "Dashboard" {
-
-     rectangle "My Repositories" as MyRepos
-
-     rectangle "Create Repository" as CreateRepo
-
-   }
-
-   rectangle "Repository" {
-
-     rectangle "Repository Overview" as RepoOverview
-
-     rectangle "Branches" as Branches
-
-     rectangle "Commits" as Commits
-
-     rectangle "Commit Details" as CommitDetails
-
-     rectangle "Tree Browser" as Tree
-
-     rectangle "File / Blob View" as Blob
-
-     rectangle "Repository Settings" as RepoSettings
-
-   }
-
-   rectangle "User Settings" {
-
-     rectangle "Personal Access Tokens" as Tokens
-
-     rectangle "Create Token" as CreateToken
-
-   }
-
-   rectangle "System States" {
-
-     rectangle "Not Found" as NotFound
-
-     rectangle "Access Denied / Concealed" as Denied
-
-     rectangle "Operational Error" as Error
-
-   }
-
-}
-
-Home --> Login
-
-Home --> Register
-
-Home --> RepoOverview : public repository URL
-
-Login --> MyRepos
-
-Register --> MyRepos
-
-MyRepos --> CreateRepo
-
-MyRepos --> RepoOverview
-
-RepoOverview --> Branches
-
-RepoOverview --> Commits
-
-RepoOverview --> Tree
-
-RepoOverview --> RepoSettings
-
-Branches --> Tree
-
-Commits --> CommitDetails
-
-CommitDetails --> Tree
-
-Tree --> Blob
-
-MyRepos --> Tokens
-
-Tokens --> CreateToken
-
-@enduml
-
-```
+[PlantUML source](diagrams/10-ui-information-architecture-001.puml)
 
 ---
 
@@ -1586,139 +1488,41 @@ Revoked
 
 ## 81. Registration Flow
 
-```plantuml
+![GitForge - Registration UI Flow](diagrams/10-ui-information-architecture-002.svg)
 
-@startuml
-
-title GitForge - Registration UI Flow
-
-actor Visitor
-
-Visitor -> "Register Page" : Open
-
-"Register Page" -> Visitor : Registration form
-
-Visitor -> "Register Page" : Submit valid data
-
-"Register Page" -> "Authenticated Dashboard" : Registration succeeds
-
-"Authenticated Dashboard" -> Visitor : My Repositories
-
-@enduml
-
-```
+[PlantUML source](diagrams/10-ui-information-architecture-002.puml)
 
 ---
 
 ## 82. Repository Creation Flow
 
-```plantuml
+![GitForge - Repository Creation UI Flow](diagrams/10-ui-information-architecture-003.svg)
 
-@startuml
-
-title GitForge - Repository Creation UI Flow
-
-actor User
-
-User -> "My Repositories" : Open dashboard
-
-User -> "Create Repository" : New Repository
-
-"Create Repository" -> User : Name + Visibility form
-
-User -> "Create Repository" : Submit
-
-"Create Repository" -> "Repository Overview" : Creation succeeds
-
-"Repository Overview" -> User : Empty repository + Git URL
-
-@enduml
-
-```
+[PlantUML source](diagrams/10-ui-information-architecture-003.puml)
 
 ---
 
 ## 83. Public Repository Browse Flow
 
-```plantuml
+![GitForge - Public Repository Browse UI Flow](diagrams/10-ui-information-architecture-004.svg)
 
-@startuml
-
-title GitForge - Public Repository Browse UI Flow
-
-actor Visitor
-
-Visitor -> "Repository Overview" : Open public URL
-
-"Repository Overview" -> Visitor : Repository summary
-
-Visitor -> "Files" : Browse repository
-
-"Files" -> Visitor : Tree entries
-
-Visitor -> "File View" : Select file
-
-"File View" -> Visitor : Safe file content
-
-@enduml
-
-```
+[PlantUML source](diagrams/10-ui-information-architecture-004.puml)
 
 ---
 
 ## 84. Private Owner Browse Flow
 
-```plantuml
+![GitForge - Private Repository Owner Flow](diagrams/10-ui-information-architecture-005.svg)
 
-@startuml
-
-title GitForge - Private Repository Owner Flow
-
-actor Owner
-
-Owner -> "Login" : Authenticate
-
-"Login" -> "My Repositories" : Success
-
-Owner -> "Repository Overview" : Select private repository
-
-"Repository Overview" -> Owner : Repository content/navigation
-
-Owner -> "Files" : Browse
-
-"Files" -> Owner : Authorized content
-
-@enduml
-
-```
+[PlantUML source](diagrams/10-ui-information-architecture-005.puml)
 
 ---
 
 ## 85. PAT Creation Flow
 
-```plantuml
+![GitForge - PAT Creation UI Flow](diagrams/10-ui-information-architecture-006.svg)
 
-@startuml
-
-title GitForge - PAT Creation UI Flow
-
-actor User
-
-User -> "Personal Access Tokens" : Open
-
-User -> "Create Token" : Select Create
-
-"Create Token" -> User : Token name form
-
-User -> "Create Token" : Submit
-
-"Create Token" -> "One-Time Token Screen" : Success
-
-"One-Time Token Screen" -> User : Plaintext PAT once
-
-@enduml
-
-```
+[PlantUML source](diagrams/10-ui-information-architecture-006.puml)
 
 ---
 

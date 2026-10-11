@@ -1,0 +1,49 @@
+@startuml
+title GitForge V1.0.0 - System Context
+left to right direction
+actor Visitor
+actor "Authenticated User" as User
+actor "Repository Owner" as Owner
+actor "System Operator" as Operator
+rectangle "Web Browser" as Browser
+rectangle "Git Client" as GitClient
+rectangle "GitForge" as GitForge
+database "PostgreSQL" as PostgreSQL
+folder "Repository Filesystem" as RepoFS
+rectangle "Git Executable" as Git
+rectangle "Runtime Configuration" as Config
+rectangle "Logging Destination" as Logs
+rectangle "Operating System" as OS
+Visitor --> Browser
+User --> Browser
+Owner --> Browser
+User --> GitClient
+Owner --> GitClient
+Browser --> GitForge : Web HTTP
+GitClient --> GitForge : Git Smart HTTP
+GitForge --> PostgreSQL : Application data
+GitForge --> RepoFS : Controlled repository access
+GitForge --> Git : Approved Git operations
+GitForge --> Config : Read configuration
+GitForge --> Logs : Diagnostic events
+GitForge --> OS : Runtime / filesystem / process APIs
+Git --> RepoFS : Git repository access
+Git --> OS : Process execution
+Operator --> Config
+Operator --> PostgreSQL
+Operator --> RepoFS
+Operator --> Logs
+Operator --> OS
+note right of GitForge
+Application responsibilities:
+- identity
+- authentication
+- repository management
+- repository browser
+- PAT management
+- authorization
+- Git HTTP coordination
+- validation
+- diagnostics
+end note
+@enduml

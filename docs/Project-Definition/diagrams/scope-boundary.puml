@@ -1,0 +1,23 @@
+@startuml
+title scope boundary diagram
+skinparam shadowing false
+rectangle "Project definition" as Definition
+package "Implemented scope" as Included {
+  rectangle "Sessions and personal access tokens" as Identity
+  rectangle "Owner-centric repositories and visibility" as Repos
+  rectangle "Git Smart HTTP and managed storage" as Git
+  rectangle "Branches commits tags files and supported PDFs" as Browse
+  rectangle "Same-repository pull requests and owner merges" as Pulls
+  rectangle "Built-in repository checks" as Actions
+  rectangle "Light and dark responsive interface" as UI
+}
+package "Outside current scope" as Excluded {
+  rectangle "Organizations and team permissions" as Teams
+  rectangle "Fork and cross-repository requests" as Forks
+  rectangle "Protected branches and approval reviews" as Rules
+  rectangle "Arbitrary workflow scripts and YAML" as Scripts
+  rectangle "SSH transport and distributed storage" as SSH
+}
+Definition --> Included
+Definition ..> Excluded : records exclusions
+@enduml

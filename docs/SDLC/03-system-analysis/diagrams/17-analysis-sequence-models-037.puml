@@ -1,0 +1,15 @@
+@startuml
+title GitForge V1.0.0 - SM-037 PAT Revocation Effect
+actor User
+participant "PAT Coordination" as PAT
+database PostgreSQL as DB
+actor "Git Client" as Client
+participant "Git Authentication" as Auth
+User -> PAT : Revoke PAT
+PAT -> DB : Persist revoked state
+DB --> PAT : Revoked
+Client -> Auth : Present same PAT
+Auth -> DB : Resolve PAT state
+DB --> Auth : Revoked
+Auth --> Client : Authentication denied
+@enduml

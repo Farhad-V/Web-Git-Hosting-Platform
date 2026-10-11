@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - Git Read Interaction State
+[*] --> Received
+Received --> Authenticating : authentication required
+Received --> ResolvingRepository : public anonymous read
+Authenticating --> ResolvingRepository : authentication succeeds
+Authenticating --> Failed : authentication fails
+ResolvingRepository --> Authorizing : repository resolved
+ResolvingRepository --> Failed : repository unresolved
+Authorizing --> ResolvingStorage : allow
+Authorizing --> Failed : deny
+ResolvingStorage --> ExecutingRead : storage available
+ResolvingStorage --> Failed : storage failure
+ExecutingRead --> Succeeded : git-upload-pack succeeds
+ExecutingRead --> Failed : Git/process failure
+Succeeded --> [*]
+Failed --> [*]
+@enduml

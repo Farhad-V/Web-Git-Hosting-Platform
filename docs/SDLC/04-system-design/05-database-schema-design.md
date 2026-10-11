@@ -200,81 +200,9 @@ User
 
 ## 7. Entity Relationship Diagram
 
-```plantuml
+![GitForge V1.0.0 - Database Entity Relationship Model](diagrams/05-database-schema-design.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Database Entity Relationship Model
-
-entity "users" as users {
-
-     * id : bigint <<PK>>
-
-     --
-
-     name : varchar(255)
-
-     email : varchar(255)
-
-     email_verified_at : timestamp nullable
-
-     password : varchar(255)
-
-     remember_token : varchar(100) nullable
-
-     created_at : timestamp
-
-     updated_at : timestamp
-
-}
-
-entity "repositories" as repositories {
-
-     * id : bigint <<PK>>
-
-     --
-
-     owner_id : bigint <<FK>>
-
-     name : varchar(100)
-
-     visibility : varchar(16)
-
-     created_at : timestamp
-
-     updated_at : timestamp
-
-}
-
-entity "personal_access_tokens" as pats {
-
-     * id : bigint <<PK>>
-
-     --
-
-     user_id : bigint <<FK>>
-
-     name : varchar(255)
-
-     token_identifier : varchar(64)
-
-     token_hash : varchar(255)
-
-     revoked_at : timestamp nullable
-
-     created_at : timestamp
-
-     updated_at : timestamp
-
-}
-
-users ||--o{ repositories : owns
-
-users ||--o{ pats : owns
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-database-schema-design.puml)
 
 ---
 

@@ -1,0 +1,6 @@
+@startuml
+title GitForge V1.0.0 - Repository Git History State
+[*] --> Empty
+Empty --> HasHistory : first successful push
+HasHistory --> HasHistory : later successful pushes
+@enduml

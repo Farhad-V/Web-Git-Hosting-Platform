@@ -1,0 +1,24 @@
+@startuml
+title GitForge - Repository Creation Component Flow
+actor User
+participant "Repository Controller" as Controller
+participant "Repository Service" as Service
+participant "Repository Naming Policy" as Naming
+participant "Repository Persistence" as Persistence
+participant "Repository Storage" as Storage
+participant "Git Process Executor" as Git
+User -> Controller : Create repository
+Controller -> Service : createRepository(command)
+Service -> Naming : validate(name)
+Naming --> Service : valid
+Service -> Persistence : ensure namespace available
+Persistence --> Service : available
+Service -> Persistence : create metadata
+Persistence --> Service : repository
+Service -> Storage : resolve new safe target
+Storage --> Service : safe target
+Service -> Git : initializeBareRepository(target)
+Git --> Service : success
+Service --> Controller : repository created
+Controller --> User : success
+@enduml

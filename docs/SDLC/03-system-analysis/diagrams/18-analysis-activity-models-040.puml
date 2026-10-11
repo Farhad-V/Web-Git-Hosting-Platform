@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - AM-040 Diagnostic Sanitization
+start
+:Receive internal failure context;
+:Identify sensitive fields;
+if (Contains plaintext credential?) then (yes)
+    :Remove/suppress credential;
+endif
+if (Contains unnecessary internal path?) then (yes)
+    :Minimize path detail;
+endif
+if (Contains raw external authentication data?) then (yes)
+    :Suppress sensitive authentication data;
+endif
+:Record safe diagnostic;
+:Return sanitized failure response;
+stop
+@enduml

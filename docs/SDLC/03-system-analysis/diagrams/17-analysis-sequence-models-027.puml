@@ -1,0 +1,26 @@
+@startuml
+title GitForge V1.0.0 - SM-027 Push Storage Failure
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Failure Handling" as Failure
+participant "Diagnostics" as Diag
+Client -> HTTP : Push request + valid PAT
+HTTP -> Auth : Authenticate
+Auth --> HTTP : Owner identity
+HTTP -> Resolution : Resolve repository
+Resolution -> Authz : Authorize write
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve physical repository
+Storage --> Resolution : Missing/unavailable/unwritable
+Resolution -> Failure : Storage failure
+Failure -> Diag : Sanitized diagnostic
+Failure --> HTTP : Safe failure
+HTTP --> Client : Push failed
+note right of Storage
+git-receive-pack is not executed.
+end note
+@enduml

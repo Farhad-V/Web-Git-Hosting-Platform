@@ -1,0 +1,23 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^image.png^
+     .
+     Binary file
+     .
+     Size: 148 KB
+     .
+     This file cannot be displayed as text.
+     .
+     [ Download ]
+   }
+}
+@endsalt

@@ -1,0 +1,28 @@
+@startuml
+title GitForge V1.0.0 - Public Clone Sequence
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Repository Resolution" as Repo
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+Client -> HTTP : Read-service discovery
+HTTP -> Repo : Resolve namespace
+Repo --> HTTP : Public repository
+HTTP -> Authz : Authorize anonymous read
+Authz --> HTTP : Allow
+HTTP -> Storage : Resolve physical repository
+Storage --> HTTP : Safe repository target
+HTTP -> Process : Execute git-upload-pack discovery
+Process -> Git : Approved read operation
+Git --> Process : Discovery data
+Process --> HTTP : Discovery result
+HTTP --> Client : Discovery response
+Client -> HTTP : git-upload-pack request
+HTTP -> Process : Execute authorized read
+Process -> Git : git-upload-pack
+Git --> Process : Git protocol output
+Process --> HTTP : Read result
+HTTP --> Client : Git response
+@enduml

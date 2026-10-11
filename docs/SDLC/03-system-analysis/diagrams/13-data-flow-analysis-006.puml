@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - Repository Browser DFD
+left to right direction
+actor Caller
+rectangle "P1\nRepository Resolution" as Resolution
+rectangle "P2\nAuthorization" as Authz
+rectangle "P3\nGit Read Coordination" as Read
+database "D1\nPostgreSQL" as DB
+folder "D2\nPhysical Git Repository" as Repo
+Caller --> Resolution : repository + revision/path request
+Resolution --> DB : repository metadata
+DB --> Resolution : repository context
+Resolution --> Authz : caller + repository + read
+Authz --> Resolution : allow/deny
+Resolution --> Read : approved read request
+Read --> Repo : Git-native read
+Repo --> Read : branches/commits/tree/blob
+Read --> Caller : safe browser response
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+title GitForge V1.0.0 - Git Smart HTTP Use Cases
+left to right direction
+actor "Git Client" as Client
+actor "Repository Owner" as Owner
+rectangle "GitForge Git Smart HTTP" {
+    usecase "UC-015\nDiscover Git Read Service" as DiscoverRead
+    usecase "UC-016\nClone Repository" as Clone
+    usecase "UC-017\nFetch Repository" as Fetch
+    usecase "UC-018\nDiscover Git Write Service" as DiscoverWrite
+    usecase "UC-019\nPush Repository Changes" as Push
+    usecase "UC-021\nAuthenticate Git Request\nwith PAT" as AuthPAT
+    usecase "UC-023\nAuthorize Repository Read" as AuthRead
+    usecase "UC-024\nAuthorize Repository Write" as AuthWrite
+}
+Client --> DiscoverRead
+Client --> Clone
+Client --> Fetch
+Client --> DiscoverWrite
+Client --> Push
+Owner --> Push
+DiscoverRead .> AuthRead : <<include>>
+Clone .> AuthRead : <<include>>
+Fetch .> AuthRead : <<include>>
+DiscoverWrite .> AuthPAT : <<include>>
+DiscoverWrite .> AuthWrite : <<include>>
+Push .> AuthPAT : <<include>>
+Push .> AuthWrite : <<include>>
+Clone .> AuthPAT : <<extend>>
+Fetch .> AuthPAT : <<extend>>
+@enduml

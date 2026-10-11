@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - Protected Web Authentication Sequence
+actor "Authenticated User" as User
+participant "Web Interaction" as Web
+participant "Web Authentication" as Auth
+participant "Repository Authorization" as Authz
+participant "Protected Responsibility" as Operation
+User -> Web : Protected request
+Web -> Auth : Resolve session identity
+Auth --> Web : User identity
+Web -> Authz : Authorize(User, resource, operation)
+alt Allowed
+    Authz --> Web : Allow
+    Web -> Operation : Perform operation
+    Operation --> Web : Result
+    Web --> User : Success response
+else Denied
+    Authz --> Web : Deny
+    Web --> User : Safe denial response
+end
+@enduml

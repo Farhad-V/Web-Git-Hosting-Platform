@@ -286,79 +286,9 @@ Operational Domain
 
 ## 7. Trust Boundary Model
 
-```plantuml
+![GitForge V1.0.0 Security Trust Boundaries](diagrams/14-security-design-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 Security Trust Boundaries
-
-rectangle "External / Untrusted" {
-
-     actor "Web Browser" as Browser
-
-     actor "Git Client" as GitClient
-
-}
-
-rectangle "Ingress Boundary" {
-
-     node "Reverse Proxy / TLS" as Proxy
-
-}
-
-rectangle "Application-Controlled" {
-
-     component "Laravel Application" as App
-
-     component "Authentication" as Authn
-
-     component "Authorization Policy" as Authz
-
-     component "Repository Storage" as Storage
-
-     component "Git Process Executor" as Executor
-
-}
-
-rectangle "Persistent Internal Data" {
-
-     database "PostgreSQL" as DB
-
-     folder "Bare Git Repository Storage" as Repo
-
-}
-
-rectangle "Controlled OS Process Boundary" {
-
-     artifact "Configured Git Executable" as Git
-
-}
-
-Browser --> Proxy : HTTPS
-
-GitClient --> Proxy : Git Smart HTTP / HTTPS
-
-Proxy --> App
-
-App --> Authn
-
-App --> Authz
-
-App --> DB
-
-App --> Storage
-
-Storage --> Repo
-
-App --> Executor
-
-Executor --> Git
-
-Git --> Repo
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-security-design-001.puml)
 
 ---
 
@@ -2370,137 +2300,17 @@ Invalid database secret configuration
 
 ## 136. Private Repository Read
 
-```plantuml
+![GitForge - Secure Private Repository Read](diagrams/14-security-design-002.svg)
 
-@startuml
-
-title GitForge - Secure Private Repository Read
-
-actor User
-
-participant "HTTP Adapter" as HTTP
-
-participant "Session Authentication" as Authn
-
-participant "Repository Service" as Service
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Git
-
-User -> HTTP : Request private repository
-
-HTTP -> Authn : Resolve session
-
-alt invalid session
-
-     Authn --> HTTP : Authentication failure
-
-     HTTP --> User : Safe failure
-
-else authenticated
-
-     Authn --> Service : User identity
-
-     Service -> Authz : canRead(user, repository)
-
-     alt denied
-
-         Authz --> Service : Deny
-
-         Service --> HTTP : Concealed denial
-
-         HTTP --> User : 404
-
-     else allowed
-
-         Authz --> Service : Allow
-
-         Service -> Storage : resolveExisting(repository)
-
-         Storage --> Service : Safe target
-
-         Service -> Git : Controlled read operation
-
-         Git --> Service : Result
-
-         Service --> HTTP : Safe representation
-
-         HTTP --> User : 200
-
-     end
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-security-design-002.puml)
 
 ---
 
 ## 137. Secure Push
 
-```plantuml
+![GitForge - Secure Push Flow](diagrams/14-security-design-003.svg)
 
-@startuml
-
-title GitForge - Secure Push Flow
-
-actor "Git Client" as Client
-
-participant "PAT Authentication" as Authn
-
-participant "Git Write Service" as Service
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Executor
-
-participant "git receive-pack" as Git
-
-Client -> Authn : PAT credential
-
-alt invalid/revoked
-
-     Authn --> Client : Authentication failure
-
-else authenticated
-
-     Authn --> Service : User identity
-
-     Service -> Authz : canWrite(user, repository)
-
-     alt denied
-
-         Authz --> Client : Deny
-
-     else allowed
-
-         Authz --> Service : Allow
-
-         Service -> Storage : resolveExisting(repository)
-
-         Storage --> Service : Safe path
-
-         Service -> Executor : RECEIVE_PACK_RPC
-
-         Executor -> Git : Structured process invocation
-
-         Client -> Git : Git protocol data via stdin
-
-         Git --> Client : Git protocol result via stdout
-
-     end
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/14-security-design-003.puml)
 
 ---
 

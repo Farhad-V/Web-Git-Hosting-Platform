@@ -1,0 +1,27 @@
+@startuml
+title GitForge V1.0.0 - SM-028 Push Ref Rejection
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+participant "Repository Authorization" as Authz
+participant "Git Write Coordination" as Write
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Physical Git Repository" as Repo
+participant "Failure Handling" as Failure
+Client -> HTTP : Push + valid PAT
+HTTP -> Auth : Authenticate
+Auth --> HTTP : Owner identity
+HTTP -> Authz : Authorize owner write
+Authz --> HTTP : Allow
+HTTP -> Write : Execute authorized push
+Write -> Process : Invoke git-receive-pack
+Process -> Git : Approved write
+Git -> Repo : Attempt ref/object update
+Repo --> Git : Ref update rejected
+Git --> Process : Git-native failure
+Process --> Write : Ref rejection
+Write -> Failure : Git write failure
+Failure --> HTTP : Safe Git failure
+HTTP --> Client : Push rejected
+@enduml

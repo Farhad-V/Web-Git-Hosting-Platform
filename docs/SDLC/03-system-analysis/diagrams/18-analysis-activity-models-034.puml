@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - AM-034 Non-Owner Write
+start
+:Authenticate PAT;
+if (Authentication succeeds?) then (yes)
+    :Resolve repository;
+    :Compare authenticated User with repository owner;
+    if (User is owner?) then (yes)
+        :Allow write path;
+    else (no)
+        :Deny write;
+        :Stop before git-receive-pack;
+    endif
+else (no)
+    :Deny;
+endif
+stop
+@enduml

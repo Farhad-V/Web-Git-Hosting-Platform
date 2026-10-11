@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - SM-032 Safe Repository Storage Resolution
+participant "Repository Coordination" as Repo
+participant "Repository Storage Coordination" as Storage
+participant "Repository Storage Root" as Root
+participant "Failure Handling" as Failure
+Repo -> Storage : Validated repository identity + approved context
+Storage -> Storage : Derive internal physical target
+Storage -> Storage : Verify root containment
+alt Target safely contained
+    Storage -> Root : Resolve repository location
+    Root --> Storage : Repository availability
+    Storage --> Repo : Safe physical target
+else Target unsafe / ambiguous
+    Storage -> Failure : Storage security failure
+    Failure --> Repo : Reject physical access
+end
+@enduml

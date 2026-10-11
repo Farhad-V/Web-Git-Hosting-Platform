@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - Repository Storage Read Sequence
+actor "Caller" as Caller
+participant "Repository Resolution" as Resolution
+database "PostgreSQL" as DB
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Physical Git Repository" as Repo
+Caller -> Resolution : <owner>/<repository>
+Resolution -> DB : Resolve metadata
+DB --> Resolution : Repository metadata
+Resolution -> Authz : Evaluate read access
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve physical repository
+Storage --> Resolution : Safe physical target
+Resolution -> Read : Read repository content
+Read -> Repo : Approved Git-native read
+Repo --> Read : Git data
+Read --> Caller : Read result
+@enduml

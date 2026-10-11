@@ -1,0 +1,32 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^farhad / new-project^
+     Private
+     .
+     [ Files ]
+     [ Commits ]
+     [ Branches ]
+     [ Settings ]
+     .
+     This repository is empty.
+     .
+     Clone URL
+     "https://gitforge.example/farhad/new-project.git"
+     [ Copy ]
+     .
+     Initial Push
+     .
+     git remote add origin <repository-url>
+     git push -u origin main
+   }
+}
+@endsalt

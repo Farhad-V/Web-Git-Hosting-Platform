@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - Authorization-Centered Logical Collaboration
+rectangle "Caller Identity" as Identity
+rectangle "Repository Resolution" as Resolution
+rectangle "Repository Metadata" as Metadata
+rectangle "Requested Operation" as Operation
+rectangle "Repository Authorization" as Authz
+rectangle "Protected Operation" as Protected
+Identity --> Authz
+Resolution --> Metadata
+Metadata --> Authz
+Operation --> Authz
+Authz --> Protected : Allow
+Authz --> Authz : Deny -> Stop
+note right of Authz
+Inputs:
+- identity
+- owner
+- visibility
+- operation
+end note
+@enduml

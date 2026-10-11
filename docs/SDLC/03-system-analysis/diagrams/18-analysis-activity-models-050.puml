@@ -1,0 +1,37 @@
+@startuml
+title GitForge V1.0.0 - AM-050 End-to-End Protected Git Write
+start
+:Receive Git write request + PAT;
+:Validate request;
+if (Request valid?) then (yes)
+    :Authenticate PAT;
+    if (Authentication succeeds?) then (yes)
+        :Resolve repository;
+        if (Repository exists?) then (yes)
+            :Authorize owner write;
+            if (Authorization allows?) then (yes)
+                :Resolve safe physical target;
+                if (Target safe and available?) then (yes)
+                    :Execute approved git-receive-pack;
+                    if (Git operation succeeds?) then (yes)
+                        :Return success;
+                    else (no)
+                        :Return Git write failure;
+                    endif
+                else (no)
+                    :Return storage/security failure;
+                endif
+            else (no)
+                :Deny;
+            endif
+        else (no)
+            :Return repository-resolution failure;
+        endif
+    else (no)
+        :Deny authentication;
+    endif
+else (no)
+    :Reject request;
+endif
+stop
+@enduml

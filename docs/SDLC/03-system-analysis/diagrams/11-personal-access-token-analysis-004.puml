@@ -1,0 +1,23 @@
+@startuml
+title GitForge V1.0.0 - PAT Revocation Activity
+start
+:Receive PAT revocation request;
+if (User authenticated?) then (yes)
+    :Resolve target PAT;
+    if (PAT exists?) then (yes)
+        :Check PAT ownership;
+        if (User owns PAT?) then (yes)
+            :Mark PAT revoked;
+            :Persist revocation state;
+            :Future PAT authentication denied;
+        else (no)
+            :Deny revocation;
+        endif
+    else (no)
+        :Return safe not-found result;
+    endif
+else (no)
+    :Deny request;
+endif
+stop
+@enduml

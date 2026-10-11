@@ -1458,313 +1458,49 @@ Browser Client
 
 ## 56. Branch Listing Activity
 
-```plantuml
+![GitForge V1.0.0 - Branch Listing Activity](diagrams/08-repository-browser-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Branch Listing Activity
-
-start
-
-:Receive branch-list request;
-
-:Resolve repository;
-
-if (Repository resolved?) then (yes)
-
-&#x20;   :Evaluate read authorization;
-
-&#x20;   if (Authorized?) then (yes)
-
-&#x20;       :Resolve physical Git repository;
-
-&#x20;       if (Physical repository usable?) then (yes)
-
-&#x20;           :Inspect branch references;
-
-&#x20;           :Return branch list;
-
-&#x20;       else (no)
-
-&#x20;           :Return safe operational failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return safe not-found result;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/08-repository-browser-analysis-001.puml)
 
 ---
 
 ## 57. Commit History Activity
 
-```plantuml
+![GitForge V1.0.0 - Commit History Activity](diagrams/08-repository-browser-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Commit History Activity
-
-start
-
-:Receive commit-history request;
-
-:Resolve repository;
-
-:Authorize read;
-
-if (Authorized?) then (yes)
-
-&#x20;   :Resolve requested reference;
-
-&#x20;   if (Reference exists?) then (yes)
-
-&#x20;       :Read reachable commit history;
-
-&#x20;       :Return commit summaries;
-
-&#x20;   else (no)
-
-&#x20;       :Return safe reference-not-found result;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/08-repository-browser-analysis-002.puml)
 
 ---
 
 ## 58. Tree Browsing Activity
 
-```plantuml
+![GitForge V1.0.0 - Tree Browsing Activity](diagrams/08-repository-browser-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Tree Browsing Activity
-
-start
-
-:Receive tree request;
-
-:Resolve repository;
-
-:Authorize read;
-
-if (Authorized?) then (yes)
-
-&#x20;   :Resolve reference or commit;
-
-&#x20;   :Validate logical tree path;
-
-&#x20;   if (Reference/path valid?) then (yes)
-
-&#x20;       :Resolve Git tree;
-
-&#x20;       :Return tree entries;
-
-&#x20;   else (no)
-
-&#x20;       :Return safe not-found/validation result;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/08-repository-browser-analysis-003.puml)
 
 ---
 
 ## 59. File Viewing Activity
 
-```plantuml
+![GitForge V1.0.0 - File Viewing Activity](diagrams/08-repository-browser-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - File Viewing Activity
-
-start
-
-:Receive file-view request;
-
-:Resolve repository;
-
-:Authorize read;
-
-if (Authorized?) then (yes)
-
-&#x20;   :Resolve reference;
-
-&#x20;   :Validate logical file path;
-
-&#x20;   if (Path resolves to blob?) then (yes)
-
-&#x20;       :Read blob content;
-
-&#x20;       :Classify presentation type;
-
-&#x20;       :Return safe representation;
-
-&#x20;   else (no)
-
-&#x20;       :Return safe not-found result;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/08-repository-browser-analysis-004.puml)
 
 ---
 
 ## 60. Repository Browser Sequence
 
-```plantuml
+![GitForge V1.0.0 - Repository Browser Sequence](diagrams/08-repository-browser-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Browser Sequence
-
-actor "Web User" as User
-
-participant "Web Interaction" as Web
-
-participant "Repository Resolution" as Repo
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Browser" as Browser
-
-participant "Repository Storage Coordination" as Storage
-
-participant "Git Process Coordination" as Git
-
-User -> Web : Browse repository request
-
-Web -> Repo : Resolve namespace
-
-Repo --> Web : Repository metadata
-
-Web -> Authz : Authorize read
-
-alt Authorized
-
-&#x20;   Authz --> Web : Allow
-
-&#x20;   Web -> Browser : Browse(repository, reference, path)
-
-&#x20;   Browser -> Storage : Resolve physical repository
-
-&#x20;   Storage --> Browser : Safe repository target
-
-&#x20;   Browser -> Git : Inspect Git state
-
-&#x20;   Git --> Browser : Git-native result
-
-&#x20;   Browser --> Web : Safe browser representation
-
-&#x20;   Web --> User : Repository content
-
-else Denied
-
-&#x20;   Authz --> Web : Deny
-
-&#x20;   Web --> User : Safe denial response
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/08-repository-browser-analysis-005.puml)
 
 ---
 
 ## 61. Repository Browser Logical Model
 
-```plantuml
+![GitForge V1.0.0 - Repository Browser Logical Model](diagrams/08-repository-browser-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Browser Logical Model
-
-class Repository
-
-class PhysicalGitRepository
-
-class GitReference
-
-class Branch
-
-class Commit
-
-class Tree
-
-class Blob
-
-Repository "1" -- "1" PhysicalGitRepository : corresponds to >
-
-PhysicalGitRepository "1" -- "0..*" GitReference
-
-PhysicalGitRepository "1" -- "0..*" Commit
-
-PhysicalGitRepository "1" -- "0..*" Tree
-
-PhysicalGitRepository "1" -- "0..*" Blob
-
-Branch --|> GitReference
-
-Commit --> Tree : snapshot >
-
-Tree --> Tree : contains >
-
-Tree --> Blob : contains >
-
-note right of PhysicalGitRepository
-
-Authoritative Git-native state
-
-end note
-
-@enduml
-
-```
+[PlantUML source](diagrams/08-repository-browser-analysis-006.puml)
 
 ---
 

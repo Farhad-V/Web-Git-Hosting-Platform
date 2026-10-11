@@ -1,0 +1,29 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^farhad / gitforge^
+     .
+     [ Files ]
+     [ Commits ]
+     [ Branches ]
+     [ Settings ]
+     .
+     ^Branches^
+     .
+     {#
+       Branch | Commit
+       main | 8f3a22d
+       develop | 97ca91a
+       feature/auth | 42aa731
+     }
+   }
+}
+@endsalt

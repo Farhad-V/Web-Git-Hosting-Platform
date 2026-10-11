@@ -1,0 +1,17 @@
+@startuml
+title product roadmap
+skinparam shadowing false
+left to right direction
+rectangle "Released baseline and merged main" as Baseline
+rectangle "Reviewed next candidate" as Candidate
+rectangle "CI and operational verification" as Validate
+rectangle "Authorized version publication" as Publish
+rectangle "Scoped reliability improvements" as Reliability
+rectangle "Future options" as Future
+Baseline --> Candidate
+Candidate --> Validate
+Validate --> Publish
+Baseline --> Reliability
+Reliability --> Candidate
+Future ..> Candidate : requirements and approval
+@enduml

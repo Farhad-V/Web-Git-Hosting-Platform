@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - SM-025 Push Authentication Failure
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+participant "Failure Handling" as Failure
+Client -> HTTP : Push request + invalid/revoked PAT
+HTTP -> Auth : Authenticate PAT
+Auth --> Failure : Authentication failure
+Failure --> HTTP : Deny
+HTTP --> Client : Authentication denied
+note right of HTTP
+No repository mutation
+No write authorization
+No physical repository access
+end note
+@enduml

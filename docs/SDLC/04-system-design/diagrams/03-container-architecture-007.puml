@@ -1,0 +1,15 @@
+@startuml
+title GitForge - Simple Production-Like Deployment
+node "GitForge Host" {
+     rectangle "Web Server" as Web
+     rectangle "Laravel / PHP Runtime" as App
+     rectangle "Git Executable" as Git
+     folder "Persistent Repository Storage" as Repos
+     Web --> App
+     App --> Git
+     App --> Repos
+     Git --> Repos
+}
+database "PostgreSQL" as DB
+App --> DB
+@enduml

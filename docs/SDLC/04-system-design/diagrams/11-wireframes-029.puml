@@ -1,0 +1,13 @@
+@startuml
+title GitForge - Repository UI Lifecycle
+actor User
+User -> "Login" : Authenticate
+"Login" -> "My Repositories" : Success
+User -> "Create Repository" : New Repository
+"Create Repository" -> "Repository Overview" : Successful creation
+User -> "Files" : Browse files
+User -> "Commits" : View history
+User -> "Branches" : View branches
+User -> "Repository Settings" : Owner settings
+"Repository Settings" -> "Repository Overview" : Visibility updated
+@enduml

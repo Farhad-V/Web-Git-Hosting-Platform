@@ -1,0 +1,49 @@
+@startuml
+title GitForge - UI Information Architecture
+rectangle "GitForge" {
+   rectangle "Home" as Home
+   rectangle "Authentication" {
+     rectangle "Register" as Register
+     rectangle "Login" as Login
+   }
+   rectangle "Dashboard" {
+     rectangle "My Repositories" as MyRepos
+     rectangle "Create Repository" as CreateRepo
+   }
+   rectangle "Repository" {
+     rectangle "Repository Overview" as RepoOverview
+     rectangle "Branches" as Branches
+     rectangle "Commits" as Commits
+     rectangle "Commit Details" as CommitDetails
+     rectangle "Tree Browser" as Tree
+     rectangle "File / Blob View" as Blob
+     rectangle "Repository Settings" as RepoSettings
+   }
+   rectangle "User Settings" {
+     rectangle "Personal Access Tokens" as Tokens
+     rectangle "Create Token" as CreateToken
+   }
+   rectangle "System States" {
+     rectangle "Not Found" as NotFound
+     rectangle "Access Denied / Concealed" as Denied
+     rectangle "Operational Error" as Error
+   }
+}
+Home --> Login
+Home --> Register
+Home --> RepoOverview : public repository URL
+Login --> MyRepos
+Register --> MyRepos
+MyRepos --> CreateRepo
+MyRepos --> RepoOverview
+RepoOverview --> Branches
+RepoOverview --> Commits
+RepoOverview --> Tree
+RepoOverview --> RepoSettings
+Branches --> Tree
+Commits --> CommitDetails
+CommitDetails --> Tree
+Tree --> Blob
+MyRepos --> Tokens
+Tokens --> CreateToken
+@enduml

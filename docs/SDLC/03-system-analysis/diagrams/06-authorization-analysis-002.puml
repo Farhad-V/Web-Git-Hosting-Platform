@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - Repository Write Authorization
+start
+:Receive repository write request;
+if (Caller authenticated?) then (yes)
+    :Resolve repository;
+    if (Caller owns repository?) then (yes)
+        :Authorize write;
+        :Allow;
+    else (no)
+        :Deny;
+    endif
+else (no)
+    :Deny;
+endif
+stop
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title GitForge V1.0.0 - SM-024 Successful Push
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+database PostgreSQL as DB
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Write Coordination" as Write
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Physical Git Repository" as Repo
+Client -> HTTP : Push request + PAT
+HTTP -> Auth : Authenticate PAT
+Auth -> DB : Verify PAT + resolve User
+DB --> Auth : Authenticated User
+Auth --> HTTP : User identity
+HTTP -> Resolution : Resolve repository
+Resolution -> DB : Load metadata
+DB --> Resolution : Repository + owner
+Resolution -> Authz : Authorize write(User, repository)
+alt User is owner
+    Authz --> Resolution : Allow
+    Resolution -> Storage : Resolve safe physical repository
+    Storage --> Resolution : Target
+    Resolution -> Write : Execute authorized push
+    Client -> Write : Git protocol input
+    Write -> Process : Invoke git-receive-pack
+    Process -> Git : Approved write operation
+    Git -> Repo : Receive objects / update refs
+    Repo --> Git : Git-native result
+    Git --> Process : Success
+    Process --> Write : Write result
+    Write --> HTTP : Smart HTTP success
+    HTTP --> Client : Push succeeded
+else User is non-owner
+    Authz --> Resolution : Deny
+    Resolution --> HTTP : Safe denial
+    HTTP --> Client : Push denied
+end
+@enduml

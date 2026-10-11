@@ -1,0 +1,26 @@
+@startuml
+title GitForge V1.0.0 - Git Read Logical Collaboration
+left to right direction
+actor "Git Client" as Client
+rectangle "Git Smart HTTP Interface" as HTTP
+rectangle "Git Authentication" as Auth
+rectangle "Repository Resolution" as Repo
+rectangle "Repository Authorization" as Authz
+rectangle "Git Read Coordination" as Read
+rectangle "Repository Storage Coordination" as Storage
+rectangle "Git Process Coordination" as Process
+rectangle "Git Executable" as Git
+folder "Physical Git Repository" as RepoFS
+Client --> HTTP
+HTTP --> Auth : when required
+HTTP --> Repo
+Repo --> Authz : repository context
+Auth --> Authz : identity context
+HTTP --> Authz : anonymous context when allowed
+Authz --> Read : allow
+Read --> Storage
+Read --> Process
+Storage --> Process : safe repository target
+Process --> Git
+Git --> RepoFS
+@enduml

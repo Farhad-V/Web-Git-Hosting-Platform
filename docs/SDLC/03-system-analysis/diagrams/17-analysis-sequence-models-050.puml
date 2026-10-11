@@ -1,0 +1,16 @@
+@startuml
+title GitForge V1.0.0 - SM-050 Persistence Failure
+actor User
+participant "Domain Coordination" as Domain
+database PostgreSQL as DB
+participant "Failure Handling" as Failure
+User -> Domain : Request state change
+Domain -> DB : Persist authoritative application state
+DB --> Domain : Persistence failure
+Domain -> Failure : Persistence failure
+Failure --> Domain : Safe failure outcome
+Domain --> User : State change failed
+note right of Domain
+Do not report successful state change.
+end note
+@enduml

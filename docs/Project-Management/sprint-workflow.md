@@ -10,15 +10,8 @@ Use this process for future planned sprints or bounded delivery increments. Hist
 6. Record completion, incomplete work, operational handoff, and exact verification commits.
 7. Carry unfinished items back to the backlog with their actual state.
 
-```mermaid
-flowchart LR
-  Refine[Refine backlog] --> Plan[Agree goal and scope]
-  Plan --> Work[Implement slices]
-  Work --> Check[Verify integrated behavior]
-  Check --> Review[Review and record outcomes]
-  Review --> Done[Handoff completed work]
-  Review --> Backlog[Return unfinished items]
-  Backlog --> Refine
-```
+![sprint workflow](diagrams/sprint-workflow.svg)
 
-[Editable source](diagrams/sprint-workflow.mmd), [record template](../Sprints/TEMPLATE.md), [definition of done](DELIVERY.md), and [product backlog](product-backlog.md).
+[PlantUML source](diagrams/sprint-workflow.puml)
+
+[Editable source](diagrams/sprint-workflow.puml), [record template](../Sprints/TEMPLATE.md), [definition of done](DELIVERY.md), and [product backlog](product-backlog.md).

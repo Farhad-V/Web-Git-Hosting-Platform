@@ -1,0 +1,22 @@
+@startuml
+title stakeholder ecosystem diagram
+skinparam shadowing false
+left to right direction
+rectangle "Project owner" as Owner
+rectangle "GitForge project" as Project
+rectangle "Repository owner" as RepoOwner
+rectangle "Permitted participant or public visitor" as Participant
+rectangle "Operator" as Operator
+rectangle "Maintainer" as Maintainer
+rectangle "Reviewer or evaluator" as Reviewer
+rectangle "Dependency maintainers" as Upstream
+rectangle "GitHub engineering repository" as GitHub
+Owner --> Project : scope and release decisions
+RepoOwner --> Project : repository and Git workflows
+Participant --> Project : read and permitted discussion
+Operator --> Project : runtime and recovery
+Maintainer --> Project : implementation and documentation
+Reviewer --> Project : verification and feedback
+Upstream --> Project : tool and library updates
+Project --> GitHub : source and CI evidence
+@enduml

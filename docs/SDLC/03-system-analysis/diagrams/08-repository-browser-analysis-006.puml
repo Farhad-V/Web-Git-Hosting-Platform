@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - Repository Browser Logical Model
+class Repository
+class PhysicalGitRepository
+class GitReference
+class Branch
+class Commit
+class Tree
+class Blob
+Repository "1" -- "1" PhysicalGitRepository : corresponds to >
+PhysicalGitRepository "1" -- "0..*" GitReference
+PhysicalGitRepository "1" -- "0..*" Commit
+PhysicalGitRepository "1" -- "0..*" Tree
+PhysicalGitRepository "1" -- "0..*" Blob
+Branch --|> GitReference
+Commit --> Tree : snapshot >
+Tree --> Tree : contains >
+Tree --> Blob : contains >
+note right of PhysicalGitRepository
+Authoritative Git-native state
+end note
+@enduml

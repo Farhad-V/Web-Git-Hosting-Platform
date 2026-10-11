@@ -1,0 +1,16 @@
+@startuml
+title GitForge - Private Repository Denial
+actor User
+participant "Repository Controller" as Controller
+participant "Repository Service" as Service
+participant "Repository Persistence" as Persistence
+participant "Authorization Policy" as Policy
+User -> Controller : GET /owner/private-repo
+Controller -> Service : getRepository(user, namespace)
+Service -> Persistence : resolve repository
+Persistence --> Service : private repository
+Service -> Policy : canRead(user, repository)
+Policy --> Service : deny
+Service --> Controller : authorization denial
+Controller --> User : 404/403 safe response
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+title GitForge - Private Clone with PAT
+actor "Git Client" as Client
+participant "Git Read Handler" as Handler
+participant "Git Read Service" as Service
+participant "PAT Service" as PAT
+participant "Repository Persistence" as Persistence
+participant "Authorization Policy" as Policy
+participant "Repository Storage" as Storage
+participant "Git Executor" as Git
+Client -> Handler : private clone request + PAT
+Handler -> Service : executeUploadPack(credentials, namespace)
+Service -> PAT : authenticate(credentials)
+PAT --> Service : user identity
+Service -> Persistence : resolve repository
+Persistence --> Service : private repository
+Service -> Policy : canRead(user, repository)
+Policy --> Service : allow
+Service -> Storage : resolve safe target
+Storage --> Service : target
+Service -> Git : uploadPack(target)
+Git --> Service : protocol stream
+Service --> Handler : protocol stream
+Handler --> Client : response
+@enduml

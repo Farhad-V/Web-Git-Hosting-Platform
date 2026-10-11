@@ -1,0 +1,34 @@
+@startuml
+title GitForge V1.0.0 - AM-016 PAT Authentication
+start
+:Receive presented PAT;
+:Validate credential shape;
+if (Credential usable?) then (yes)
+    :Resolve PAT candidate;
+    if (Candidate exists?) then (yes)
+        :Verify credential;
+        if (Verification succeeds?) then (yes)
+            :Check revocation state;
+            if (PAT active?) then (yes)
+                :Resolve PAT owner;
+                if (Owner resolves?) then (yes)
+                    :Establish authenticated User identity;
+                    :Return authentication success;
+                else (no)
+                    :Classify PAT consistency failure;
+                    :Deny authentication;
+                endif
+            else (no)
+                :Deny revoked PAT;
+            endif
+        else (no)
+            :Deny invalid PAT;
+        endif
+    else (no)
+        :Deny unknown PAT;
+    endif
+else (no)
+    :Deny malformed/missing PAT;
+endif
+stop
+@enduml

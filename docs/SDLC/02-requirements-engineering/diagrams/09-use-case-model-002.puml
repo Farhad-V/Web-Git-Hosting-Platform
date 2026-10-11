@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - Repository Browsing Use Cases
+left to right direction
+actor "Authorized Repository Reader" as Reader
+rectangle "Repository Browser" {
+    usecase "UC-009\nBrowse Repository" as Browse
+    usecase "UC-010\nList Branches" as Branches
+    usecase "UC-011\nView Commit History" as Commits
+    usecase "UC-012\nView Commit Details" as CommitDetail
+    usecase "UC-013\nBrowse Repository Tree" as Tree
+    usecase "UC-014\nView File Content" as File
+    usecase "UC-023\nAuthorize Repository Read" as AuthRead
+}
+Reader --> Browse
+Browse .> AuthRead : <<include>>
+Browse .> Branches : <<include>>
+Browse .> Commits : <<include>>
+Browse .> Tree : <<include>>
+Commits .> CommitDetail : <<extend>>
+Tree .> File : <<extend>>
+@enduml

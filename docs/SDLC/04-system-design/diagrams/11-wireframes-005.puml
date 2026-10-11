@@ -1,0 +1,19 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^My Repositories^
+     .
+     You do not have any repositories yet.
+     .
+     [ Create Repository ]
+   }
+}
+@endsalt

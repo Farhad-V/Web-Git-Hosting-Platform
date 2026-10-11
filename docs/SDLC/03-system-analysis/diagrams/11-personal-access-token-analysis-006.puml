@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - PAT Authentication Sequence
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+database "PostgreSQL" as DB
+Client -> HTTP : Git request + PAT
+HTTP -> Auth : Authenticate PAT
+Auth -> DB : Locate candidate PAT record
+DB --> Auth : PAT metadata
+Auth -> Auth : Verify credential
+Auth -> Auth : Check revocation
+alt PAT valid and active
+    Auth -> DB : Resolve owner User
+    DB --> Auth : User identity
+    Auth --> HTTP : Authenticated User
+else Invalid / revoked PAT
+    Auth --> HTTP : Authentication failure
+end
+@enduml

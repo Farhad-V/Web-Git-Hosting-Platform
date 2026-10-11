@@ -1,0 +1,10 @@
+@startuml
+title GitForge - Public Repository Visitor Flow
+actor Visitor
+Visitor -> "Repository Overview" : Open public repository
+Visitor -> "Files" : Browse
+Visitor -> "File View" : Open file
+Visitor -> "Commits" : View commits
+Visitor -> "Commit Details" : Open commit
+Visitor -> "Branches" : View branches
+@enduml

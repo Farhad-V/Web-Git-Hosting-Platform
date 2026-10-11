@@ -1,0 +1,10 @@
+@startuml
+title GitForge - Public Repository Browse UI Flow
+actor Visitor
+Visitor -> "Repository Overview" : Open public URL
+"Repository Overview" -> Visitor : Repository summary
+Visitor -> "Files" : Browse repository
+"Files" -> Visitor : Tree entries
+Visitor -> "File View" : Select file
+"File View" -> Visitor : Safe file content
+@enduml

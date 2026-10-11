@@ -1,0 +1,18 @@
+@startuml
+title GitForge - Bare Repository Initialization
+participant "Repository Service" as Service
+participant "Repository Storage" as Storage
+participant "Git Process Executor" as Executor
+participant "git init" as Git
+Service -> Storage : resolveNewRepositoryTarget(repository)
+Storage --> Service : Safe unused target
+Service -> Executor : initializeBare(target)
+Executor -> Git : git init --bare target
+Git --> Executor : exit result
+alt success
+     Executor --> Service : initialized
+else failure
+     Executor --> Service : Git Process Failure
+     Service -> Storage : cleanup partial target
+end
+@enduml

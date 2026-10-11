@@ -1,0 +1,30 @@
+@startuml
+title GitForge V1.0.0 - Authorization Model
+left to right direction
+rectangle "Caller Context" {
+    rectangle "Anonymous" as Anonymous
+    rectangle "Authenticated User" as User
+}
+rectangle "Repository Context" {
+    rectangle "Repository Owner" as Owner
+    rectangle "Repository Visibility" as Visibility
+}
+rectangle "Requested Operation" as Operation
+rectangle "Repository Authorization" as Authz
+rectangle "Allow / Deny" as Decision
+Anonymous --> Authz
+User --> Authz
+Owner --> Authz
+Visibility --> Authz
+Operation --> Authz
+Authz --> Decision
+note right of Authz
+Read:
+Public -> Allow all supported callers
+Private -> Owner only
+Write:
+Owner only
+Manage:
+Owner only
+end note
+@enduml

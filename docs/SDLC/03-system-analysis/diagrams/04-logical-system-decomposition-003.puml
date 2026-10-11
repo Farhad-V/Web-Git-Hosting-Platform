@@ -1,0 +1,24 @@
+@startuml
+title GitForge V1.0.0 - Git Logical Collaboration
+actor "Git Client" as Client
+rectangle "Git Smart HTTP Interface" as HTTP
+rectangle "Git Authentication" as Auth
+rectangle "Repository Resolution" as Resolve
+rectangle "Repository Authorization" as Authz
+rectangle "Git Read / Write Coordination" as Operation
+rectangle "Repository Storage Coordination" as Storage
+rectangle "Git Process Coordination" as Process
+rectangle "Git Executable" as Git
+folder "Physical Git Repository" as Repo
+Client --> HTTP
+HTTP --> Auth : when authentication required
+HTTP --> Resolve
+Auth --> Authz : identity
+Resolve --> Authz : repository
+Authz --> Operation : allow
+Operation --> Storage
+Operation --> Process
+Storage --> Process : safe repository target
+Process --> Git
+Git --> Repo
+@enduml

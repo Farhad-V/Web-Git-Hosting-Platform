@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - AM-026 Repository Storage State Evaluation
+start
+:Resolve expected physical repository;
+if (Repository exists?) then (yes)
+    if (Repository usable?) then (yes)
+        :State = Available;
+    else (no)
+        if (Repository corrupt?) then (yes)
+            :State = Corrupt;
+        else (no)
+            :State = Unavailable;
+        endif
+    endif
+else (no)
+    :State = Missing;
+endif
+stop
+@enduml

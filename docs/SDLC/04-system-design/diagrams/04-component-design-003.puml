@@ -1,0 +1,19 @@
+@startuml
+title GitForge - Login Component Interaction
+actor User
+participant "Auth Controller" as Controller
+participant "Authentication Service" as Auth
+participant "User Persistence" as Users
+User -> Controller : Login request
+Controller -> Auth : login(credentials)
+Auth -> Users : resolve user
+Users --> Auth : user
+Auth -> Auth : verify password
+alt valid
+     Auth --> Controller : authenticated identity/session
+     Controller --> User : success
+else invalid
+     Auth --> Controller : authentication failure
+     Controller --> User : safe failure
+end
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+title GitForge V1.0.0 - AM-001 User Registration
+start
+:Receive registration request;
+:Validate registration input;
+if (Input valid?) then (yes)
+    :Check required registration conditions;
+    if (Conditions satisfied?) then (yes)
+        :Persist User metadata;
+        if (Persistence succeeds?) then (yes)
+            :Return registration success;
+        else (no)
+            :Classify persistence failure;
+            :Return safe failure;
+        endif
+    else (no)
+        :Reject registration request;
+    endif
+else (no)
+    :Reject invalid input;
+endif
+stop
+@enduml

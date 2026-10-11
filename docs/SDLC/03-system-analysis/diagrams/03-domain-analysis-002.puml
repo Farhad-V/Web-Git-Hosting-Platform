@@ -1,0 +1,23 @@
+@startuml
+title GitForge V1.0.0 - Ownership and Authorization
+actor Visitor
+actor "Authenticated User" as User
+rectangle Repository {
+    rectangle "Owner Identity" as Owner
+    rectangle "Visibility" as Visibility
+}
+rectangle "Authorization Evaluation" as Authz
+rectangle "Allow / Deny" as Decision
+Visitor --> Authz : anonymous identity
+User --> Authz : authenticated identity
+Owner --> Authz
+Visibility --> Authz
+Authz --> Decision
+note right of Authz
+Read:
+Public -> Allow
+Private -> Owner only
+Write:
+Owner only
+end note
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+title GitForge V1.0.0 - AM-031 Authorization Failure
+start
+:Receive identity + repository + operation;
+:Evaluate authorization;
+if (Authorization Allow?) then (yes)
+    :Continue protected operation;
+else (no)
+    :Stop protected operation;
+    :Do not resolve protected mutation path;
+    :Return safe denial;
+endif
+stop
+@enduml

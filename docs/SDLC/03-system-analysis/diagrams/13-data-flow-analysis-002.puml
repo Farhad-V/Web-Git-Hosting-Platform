@@ -1,0 +1,13 @@
+@startuml
+title GitForge V1.0.0 - Registration Data Flow
+actor Visitor
+rectangle "Web/API Interface" as Web
+rectangle "User Registration Coordination" as Reg
+database PostgreSQL as DB
+Visitor --> Web : registration data
+Web --> Reg : validated request
+Reg --> DB : create User metadata
+DB --> Reg : persistence result
+Reg --> Web : registration result
+Web --> Visitor : safe response
+@enduml

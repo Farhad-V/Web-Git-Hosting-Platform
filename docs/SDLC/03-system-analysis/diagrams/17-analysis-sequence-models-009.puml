@@ -1,0 +1,36 @@
+@startuml
+title GitForge V1.0.0 - SM-009 List Branches
+actor Caller
+participant "Web/API Interface" as Web
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Physical Git Repository" as Repo
+Caller -> Web : List branches
+Web -> Resolution : Resolve repository
+Resolution -> DB : Load metadata
+DB --> Resolution : Owner + visibility
+Resolution -> Authz : Authorize read
+alt Allowed
+    Authz --> Resolution : Allow
+    Resolution -> Storage : Resolve safe physical repository
+    Storage --> Resolution : Safe target
+    Resolution -> Read : List branches
+    Read -> Process : Approved Git read operation
+    Process -> Git : Read refs/branches
+    Git -> Repo : Inspect Git-native state
+    Repo --> Git : Branch/ref data
+    Git --> Process : Result
+    Process --> Read : Branch data
+    Read --> Web : Branch list
+    Web --> Caller : Safe branch representation
+else Denied
+    Authz --> Resolution : Deny
+    Resolution --> Web : Safe denial
+    Web --> Caller : Access denied
+end
+@enduml

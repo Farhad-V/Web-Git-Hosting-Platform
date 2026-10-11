@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - SM-041 Anonymous Public Read
+actor Visitor
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Physical Git Repository" as Repo
+Visitor -> Resolution : Read public repository
+Resolution -> DB : Resolve metadata
+DB --> Resolution : Public repository
+Resolution -> Authz : Authorize anonymous read
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve safe target
+Storage --> Resolution : Target
+Resolution -> Read : Approved repository read
+Read -> Repo : Read Git-native state
+Repo --> Read : Data
+Read --> Visitor : Safe repository representation
+@enduml

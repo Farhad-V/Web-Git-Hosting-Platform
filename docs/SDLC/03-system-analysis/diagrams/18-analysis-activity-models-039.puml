@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - AM-039 Repository Object Resolution
+start
+:Receive authorized repository read;
+:Validate revision and path;
+if (Input valid?) then (yes)
+    :Resolve requested Git object;
+    if (Object resolves?) then (yes)
+        :Read Git-native data;
+        :Prepare safe representation;
+        :Return result;
+    else (no)
+        :Return object-not-found result;
+    endif
+else (no)
+    :Reject invalid revision/path;
+endif
+stop
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+title GitForge V1.0.0 - Registration DFD
+left to right direction
+actor Visitor
+rectangle "P1\nRegistration" as P1
+database "D1\nPostgreSQL" as D1
+Visitor --> P1 : registration data
+P1 --> D1 : User metadata
+D1 --> P1 : persistence result
+P1 --> Visitor : registration result
+@enduml

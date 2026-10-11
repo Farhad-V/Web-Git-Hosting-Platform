@@ -1,0 +1,16 @@
+@startuml
+title GitForge V1.0.0 - SM-015 PAT Authentication Success
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+database PostgreSQL as DB
+Client -> HTTP : Git request + PAT
+HTTP -> Auth : Authenticate PAT
+Auth -> DB : Locate candidate PAT
+DB --> Auth : PAT metadata
+Auth -> Auth : Verify credential
+Auth -> Auth : Check revocation
+Auth -> DB : Resolve PAT owner
+DB --> Auth : User identity
+Auth --> HTTP : Authenticated User identity
+@enduml

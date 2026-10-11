@@ -1,0 +1,15 @@
+@startuml
+title GitForge V1.0.0 - SM-045 Plaintext PAT Restricted Flow
+actor "Authenticated User" as User
+participant "PAT Coordination" as PAT
+database PostgreSQL as DB
+PAT -> PAT : Generate plaintext PAT
+PAT -> PAT : Derive verification representation
+PAT -> DB : Persist non-recoverable representation
+DB --> PAT : Stored
+PAT --> User : Present plaintext PAT once
+note right of DB
+Plaintext PAT is not
+recoverably persisted.
+end note
+@enduml

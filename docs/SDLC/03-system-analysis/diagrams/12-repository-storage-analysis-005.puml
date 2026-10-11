@@ -1,0 +1,27 @@
+@startuml
+title GitForge V1.0.0 - Repository Creation Storage Sequence
+actor "Authenticated User" as User
+participant "Repository Coordination" as RepoCoord
+database "PostgreSQL" as DB
+participant "Repository Storage Coordination" as Storage
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Repository Storage Root" as Root
+User -> RepoCoord : Create repository
+RepoCoord -> DB : Check namespace uniqueness
+DB --> RepoCoord : Available
+RepoCoord -> Storage : Determine safe repository target
+Storage --> RepoCoord : Physical target
+RepoCoord -> Process : Initialize repository
+Process -> Git : Approved repository initialization
+Git -> Root : Create physical Git repository
+Git --> Process : Initialization result
+Process --> RepoCoord : Result
+alt Initialization succeeds
+    RepoCoord -> DB : Persist/confirm repository metadata
+    DB --> RepoCoord : Stored
+    RepoCoord --> User : Repository available
+else Initialization fails
+    RepoCoord --> User : Safe creation failure
+end
+@enduml

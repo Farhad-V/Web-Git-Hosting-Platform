@@ -1,0 +1,35 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^farhad / gitforge^
+     Public
+     .
+     [ Files ]
+     [ Commits ]
+     [ Branches ]
+     [ Settings ]
+     .
+     Branch:
+     [ main V ]
+     .
+     Path:
+     gitforge / src / Services
+     .
+     {#
+       Name | Type
+       .. | Parent
+       GitProcessExecutor.php | File
+       RepositoryStorage.php | File
+       Auth | Directory
+     }
+   }
+}
+@endsalt

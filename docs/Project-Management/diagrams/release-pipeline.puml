@@ -1,0 +1,18 @@
+@startuml
+title release pipeline
+skinparam shadowing false
+left to right direction
+rectangle "Agreed scope" as Scope
+rectangle "Exact candidate commit" as Candidate
+rectangle "CI and relevant manual checks" as Checks
+rectangle "Release checklist and operational review" as Ready
+rectangle "Authorized publication" as Approval
+rectangle "Version tag and notes" as Tag
+rectangle "Verify identities and handoff" as Verify
+Scope --> Candidate
+Candidate --> Checks
+Checks --> Ready
+Ready --> Approval
+Approval --> Tag
+Tag --> Verify
+@enduml

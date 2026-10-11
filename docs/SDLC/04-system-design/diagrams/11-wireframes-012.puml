@@ -1,0 +1,13 @@
+@startsalt
+{
+   {
+     ^large-file.dat^
+     .
+     File size: 25 MB
+     .
+     This file is too large to display.
+     .
+     [ Back to Files ]
+   }
+}
+@endsalt

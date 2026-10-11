@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - PAT Logical Collaboration
+left to right direction
+actor "Authenticated User" as User
+actor "Git Client" as Client
+rectangle "Web/API Interface" as Web
+rectangle "PAT Coordination" as PAT
+rectangle "Git Authentication" as Auth
+rectangle "Repository Authorization" as Authz
+database "PostgreSQL" as DB
+User --> Web : create / revoke PAT
+Web --> PAT
+PAT --> DB
+Client --> Auth : present PAT
+Auth --> DB : verify / resolve owner
+Auth --> Authz : authenticated User identity
+@enduml

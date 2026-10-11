@@ -1,0 +1,14 @@
+@startuml
+title GitForge V1.0.0 - Visibility Management Authorization
+start
+:Receive visibility change request;
+:Resolve authenticated User;
+:Resolve repository;
+if (Caller owns repository?) then (yes)
+    :Authorize management operation;
+    :Apply valid visibility transition;
+else (no)
+    :Deny;
+endif
+stop
+@enduml

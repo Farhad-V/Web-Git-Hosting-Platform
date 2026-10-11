@@ -1,0 +1,16 @@
+@startuml
+title GitForge V1.0.0 - SM-043 Invalid Repository Identifier
+actor Caller
+participant "Web/Git Interface" as Interface
+participant "Repository Resolution" as Resolution
+participant "Failure Handling" as Failure
+Caller -> Interface : Invalid logical repository identifier
+Interface -> Resolution : Resolve
+Resolution -> Resolution : Validate identifier
+Resolution -> Failure : Validation/resolution failure
+Failure --> Interface : Reject
+Interface --> Caller : Safe failure
+note right of Resolution
+No filesystem target is derived.
+end note
+@enduml

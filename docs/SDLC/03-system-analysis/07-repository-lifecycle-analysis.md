@@ -824,43 +824,9 @@ Unavailable is distinct from authorization denial.
 
 ## 31. Repository Lifecycle State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Lifecycle](diagrams/07-repository-lifecycle-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Lifecycle
-
-\[*] --> Requested : Create repository request
-
-Requested --> Validating
-
-Validating --> \[*] : Validation rejected
-
-Validating --> Establishing : Preconditions valid
-
-Establishing --> Available : Metadata + Git repository established
-
-Establishing --> Inconsistent : Partial establishment
-
-Establishing --> \[*] : Failure safely compensated
-
-Available --> Available : Valid repository operations
-
-Available --> Unavailable : Operational dependency failure
-
-Unavailable --> Available : Operational condition restored
-
-Available --> Inconsistent : Consistency defect detected
-
-Unavailable --> Inconsistent : Consistency defect detected
-
-Inconsistent --> Available : Recovered to consistent state
-
-Inconsistent --> \[*] : Failed creation fully compensated
-
-@enduml
-
-```
+[PlantUML source](diagrams/07-repository-lifecycle-analysis-001.puml)
 
 ---
 
@@ -882,141 +848,17 @@ System Design shall decide whether any lifecycle state needs persistence.
 
 ## 33. Repository Creation Activity
 
-```plantuml
+![GitForge V1.0.0 - Repository Creation Activity](diagrams/07-repository-lifecycle-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Creation Activity
-
-start
-
-:Receive creation request;
-
-if (User authenticated?) then (yes)
-
-&#x20;   :Validate repository name;
-
-&#x20;   :Validate visibility;
-
-&#x20;   if (Input valid?) then (yes)
-
-&#x20;       :Build logical namespace;
-
-&#x20;       :Check namespace uniqueness;
-
-&#x20;       if (Namespace available?) then (yes)
-
-&#x20;           :Establish repository metadata;
-
-&#x20;           :Initialize physical Git repository;
-
-&#x20;           if (Both representations valid?) then (yes)
-
-&#x20;               :Repository becomes Available;
-
-&#x20;               :Return success;
-
-&#x20;           else (no)
-
-&#x20;               :Classify partial failure;
-
-&#x20;               :Perform consistency handling;
-
-&#x20;               :Return creation failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Reject duplicate namespace;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return validation failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Authentication required;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/07-repository-lifecycle-analysis-002.puml)
 
 ---
 
 ## 34. Repository Creation Sequence Analysis
 
-```plantuml
+![GitForge V1.0.0 - Repository Creation Sequence](diagrams/07-repository-lifecycle-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Creation Sequence
-
-actor "Authenticated User" as User
-
-participant "Web Interaction" as Web
-
-participant "Validation" as Validation
-
-participant "Repository Management" as Repo
-
-participant "Application Data Persistence" as Data
-
-participant "Repository Storage Coordination" as Storage
-
-participant "Git Process Coordination" as Git
-
-User -> Web : Create repository request
-
-Web -> Validation : Validate name + visibility
-
-Validation --> Web : Valid
-
-Web -> Repo : Create repository(User, request)
-
-Repo -> Data : Check namespace uniqueness
-
-Data --> Repo : Namespace available
-
-Repo -> Data : Establish repository metadata
-
-Data --> Repo : Metadata result
-
-Repo -> Storage : Establish physical repository
-
-Storage -> Git : Initialize approved Git repository
-
-Git --> Storage : Initialization result
-
-Storage --> Repo : Physical repository result
-
-alt Metadata and physical repository consistent
-
-&#x20;   Repo --> Web : Repository available
-
-&#x20;   Web --> User : Creation success
-
-else Partial or operational failure
-
-&#x20;   Repo -> Repo : Consistency handling
-
-&#x20;   Repo --> Web : Creation failure
-
-&#x20;   Web --> User : Safe failure response
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/07-repository-lifecycle-analysis-003.puml)
 
 ---
 
@@ -1108,49 +950,9 @@ A non-owner must not perform the transition.
 
 ## 39. Visibility Change Activity
 
-```plantuml
+![GitForge V1.0.0 - Repository Visibility Change](diagrams/07-repository-lifecycle-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Visibility Change
-
-start
-
-:Receive visibility change request;
-
-:Resolve authenticated User;
-
-:Resolve repository;
-
-if (Caller is owner?) then (yes)
-
-&#x20;   :Validate target visibility;
-
-&#x20;   if (Target visibility valid?) then (yes)
-
-&#x20;       :Persist new visibility;
-
-&#x20;       :Use new authorization semantics;
-
-&#x20;       :Return success;
-
-&#x20;   else (no)
-
-&#x20;       :Return validation failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/07-repository-lifecycle-analysis-004.puml)
 
 ---
 
@@ -2002,89 +1804,17 @@ No repository rename transition exists in V1.0.0.
 
 ## 72. Repository Lifecycle Model Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Lifecycle Model](diagrams/07-repository-lifecycle-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Lifecycle Model
-
-class User
-
-class Repository {
-
-&#x20;   name
-
-&#x20;   visibility
-
-}
-
-class "Physical Git Repository" as GitRepo
-
-enum Visibility {
-
-&#x20;   Public
-
-&#x20;   Private
-
-}
-
-User "1" -- "0..*" Repository : owns >
-
-Repository "1" --> "1" Visibility
-
-Repository "1" -- "1" GitRepo : corresponds to >
-
-note right of Repository
-
-Stable in V1.0.0:
-
-- owner
-
-- namespace
-
-Mutable:
-
-- visibility
-
-end note
-
-note right of GitRepo
-
-May initially contain:
-
-- no commits
-
-- no branches
-
-Still valid if initialized
-
-end note
-
-@enduml
-
-```
+[PlantUML source](diagrams/07-repository-lifecycle-analysis-005.puml)
 
 ---
 
 ## 73. Visibility State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Visibility Lifecycle](diagrams/07-repository-lifecycle-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Visibility Lifecycle
-
-\[*] --> Public : Created public
-
-\[*] --> Private : Created private
-
-Public --> Private : Owner changes visibility
-
-Private --> Public : Owner changes visibility
-
-@enduml
-
-```
+[PlantUML source](diagrams/07-repository-lifecycle-analysis-006.puml)
 
 ---
 

@@ -1,0 +1,16 @@
+@startuml
+title GitForge V1.0.0 - SM-042 Non-Owner Write Denial
+actor "Git Client" as Client
+participant "Git Authentication" as Auth
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+Client -> Auth : Valid PAT
+Auth --> Client : User A identity
+Client -> Resolution : Repository owned by User B
+Resolution -> Authz : Authorize(User A, repository B, write)
+Authz --> Resolution : Deny
+Resolution --> Client : Push denied
+note right of Authz
+Public/private visibility does not change write policy.
+end note
+@enduml

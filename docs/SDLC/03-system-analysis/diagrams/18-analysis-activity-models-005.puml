@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - AM-005 List Owned Repositories
+start
+:Receive list-owned-repositories request;
+if (User authenticated?) then (yes)
+    :Resolve authenticated User identity;
+    :Query repositories owned by User;
+    if (Persistence operation succeeds?) then (yes)
+        :Return repository metadata list;
+    else (no)
+        :Return safe persistence failure;
+    endif
+else (no)
+    :Deny request;
+endif
+stop
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+title GitForge V1.0.0 - Repository Storage Write Sequence
+actor "Git Client" as Client
+participant "Git Authentication" as Auth
+participant "Repository Resolution" as Resolution
+database "PostgreSQL" as DB
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Write Coordination" as Write
+participant "Physical Git Repository" as Repo
+Client -> Auth : PAT
+Auth --> Resolution : Authenticated User
+Resolution -> DB : Resolve repository
+DB --> Resolution : Repository metadata
+Resolution -> Authz : Authorize owner write
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve physical target
+Storage --> Resolution : Safe repository target
+Resolution -> Write : Execute authorized write
+Write -> Repo : Git-native mutation
+Repo --> Write : Result
+Write --> Client : Push result
+@enduml

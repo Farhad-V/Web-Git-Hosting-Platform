@@ -1,0 +1,10 @@
+@startuml
+title GitForge - Repository Creation UI Flow
+actor User
+User -> "My Repositories" : Open dashboard
+User -> "Create Repository" : New Repository
+"Create Repository" -> User : Name + Visibility form
+User -> "Create Repository" : Submit
+"Create Repository" -> "Repository Overview" : Creation succeeds
+"Repository Overview" -> User : Empty repository + Git URL
+@enduml

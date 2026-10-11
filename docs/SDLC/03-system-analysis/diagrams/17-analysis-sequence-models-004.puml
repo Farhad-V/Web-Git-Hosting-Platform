@@ -1,0 +1,47 @@
+@startuml
+title GitForge V1.0.0 - SM-004 Repository Creation
+actor "Authenticated User" as User
+participant "Web/API Interface" as Web
+participant "Repository Coordination" as Repo
+database PostgreSQL as DB
+participant "Repository Storage Coordination" as Storage
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Physical Git Repository" as PhysicalRepo
+participant "Failure Handling" as Failure
+User -> Web : Create repository(name, visibility)
+Web -> Repo : Validated creation request + authenticated User
+Repo -> DB : Check namespace uniqueness
+DB --> Repo : Unique / conflict
+alt Namespace available
+    Repo -> Storage : Derive safe repository target
+    Storage --> Repo : Safe physical target
+    Repo -> Process : Initialize repository(target)
+    Process -> Git : Approved repository initialization
+    Git -> PhysicalRepo : Create Git repository
+    alt Physical initialization succeeds
+        Git --> Process : Success
+        Process --> Repo : Initialization success
+        Repo -> DB : Persist repository metadata + owner + visibility
+        alt Metadata persistence succeeds
+            DB --> Repo : Stored
+            Repo --> Web : Repository available
+            Web --> User : Creation success
+        else Metadata persistence fails
+            DB --> Repo : Failure
+            Repo -> Failure : Metadata/storage consistency failure
+            Failure --> Web : Safe creation failure
+            Web --> User : Creation failed
+        end
+    else Physical initialization fails
+        Git --> Process : Failure
+        Process --> Repo : Initialization failure
+        Repo -> Failure : Storage/Git initialization failure
+        Failure --> Web : Safe failure
+        Web --> User : Creation failed
+    end
+else Namespace conflict
+    Repo --> Web : Reject duplicate namespace
+    Web --> User : Safe rejection
+end
+@enduml

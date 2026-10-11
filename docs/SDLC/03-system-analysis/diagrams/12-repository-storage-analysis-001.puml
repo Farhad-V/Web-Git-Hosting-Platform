@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - Repository Storage Creation Activity
+start
+:Receive authorized repository creation request;
+:Validate repository name;
+:Check namespace uniqueness;
+if (Valid and unique?) then (yes)
+    :Establish repository metadata;
+    :Determine safe physical repository target;
+    :Initialize physical Git repository;
+    if (Physical initialization succeeds?) then (yes)
+        :Persist/confirm consistent repository state;
+        :Repository becomes available;
+    else (no)
+        :Handle storage creation failure;
+        :Do not report repository as successfully available;
+    endif
+else (no)
+    :Reject creation request;
+endif
+stop
+@enduml

@@ -746,51 +746,9 @@ through the Git Process Execution component.
 
 ## 30. Creation Flow
 
-```plantuml
+![GitForge - Repository Storage Creation Flow](diagrams/08-repository-storage-design.svg)
 
-@startuml
-
-title GitForge - Repository Storage Creation Flow
-
-participant "Repository Service" as Service
-
-database PostgreSQL as DB
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Git
-
-folder "Repository Root" as Root
-
-Service -> DB : Create repository metadata
-
-DB --> Service : repository(id)
-
-Service -> Storage : resolveNewRepositoryTarget(repository)
-
-Storage -> Storage : derive ID-based path
-
-Storage -> Storage : normalize
-
-Storage -> Storage : verify containment
-
-Storage -> Root : verify target absent
-
-Root --> Storage : absent
-
-Storage --> Service : safe target
-
-Service -> Git : initializeBareRepository(target)
-
-Git -> Root : git init --bare
-
-Root --> Git : result
-
-Git --> Service : success/failure
-
-@enduml
-
-```
+[PlantUML source](diagrams/08-repository-storage-design.puml)
 
 ---
 

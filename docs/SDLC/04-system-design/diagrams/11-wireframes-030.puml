@@ -1,0 +1,11 @@
+@startuml
+title GitForge - PAT UI Lifecycle
+actor User
+User -> "PAT List" : Open
+User -> "Create PAT" : Create
+"Create PAT" -> "One-Time Secret" : Success
+"One-Time Secret" -> "PAT List" : Done
+User -> "PAT List" : Select Revoke
+"PAT List" -> "Revoke Confirmation" : Confirm
+"Revoke Confirmation" -> "PAT List" : Revoked
+@enduml

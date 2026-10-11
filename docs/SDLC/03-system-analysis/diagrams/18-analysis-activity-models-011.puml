@@ -1,0 +1,28 @@
+@startuml
+title GitForge V1.0.0 - AM-011 Commit History
+start
+:Receive repository + ref;
+:Resolve repository;
+:Authorize read;
+if (Read allowed?) then (yes)
+    :Resolve safe physical repository;
+    if (Storage available?) then (yes)
+        :Validate/resolve ref;
+        if (Ref resolves?) then (yes)
+            :Read commit history;
+            if (Git operation succeeds?) then (yes)
+                :Return safe history representation;
+            else (no)
+                :Return Git-read failure;
+            endif
+        else (no)
+            :Return ref-resolution failure;
+        endif
+    else (no)
+        :Return storage failure;
+    endif
+else (no)
+    :Deny read;
+endif
+stop
+@enduml

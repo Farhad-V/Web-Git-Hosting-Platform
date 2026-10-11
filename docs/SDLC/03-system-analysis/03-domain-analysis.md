@@ -1163,174 +1163,33 @@ Git Operation
 
 ## 55. Domain Model Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Domain Model
+![GitForge V1.0.0 - Domain Model](diagrams/03-domain-analysis-001.svg)
 
-hide methods
-hide stereotypes
-
-class User {
-&#x20;   identity
-}
-
-class AuthenticationSession {
-&#x20;   authenticatedIdentity
-}
-
-class Repository {
-&#x20;   name
-&#x20;   visibility
-}
-
-enum RepositoryVisibility {
-&#x20;   Public
-&#x20;   Private
-}
-
-class RepositoryNamespace {
-&#x20;   ownerName
-&#x20;   repositoryName
-}
-
-class PersonalAccessToken {
-&#x20;   state
-}
-
-enum PATState {
-&#x20;   Active
-&#x20;   Revoked
-}
-
-class PhysicalGitRepository
-
-class GitReference
-class Branch
-class Commit
-class Tree
-class Blob
-
-class AuthorizationDecision {
-&#x20;   result
-}
-
-enum AuthorizationResult {
-&#x20;   Allow
-&#x20;   Deny
-}
-
-class GitOperation
-class GitReadOperation
-class GitWriteOperation
-
-User "1" -- "0..*" AuthenticationSession : establishes >
-User "1" -- "0..*" Repository : owns >
-User "1" -- "0..*" PersonalAccessToken : owns >
-
-Repository "1" --> "1" RepositoryVisibility
-Repository "1" --> "1" RepositoryNamespace
-Repository "1" -- "1" PhysicalGitRepository : corresponds to >
-
-PersonalAccessToken "1" --> "1" PATState
-
-PhysicalGitRepository "1" -- "0..*" GitReference
-PhysicalGitRepository "1" -- "0..*" Commit
-PhysicalGitRepository "1" -- "0..*" Tree
-PhysicalGitRepository "1" -- "0..*" Blob
-
-Branch --|> GitReference
-
-GitReadOperation --|> GitOperation
-GitWriteOperation --|> GitOperation
-
-Repository --> AuthorizationDecision : subject of >
-User --> AuthorizationDecision : identity context >
-GitOperation --> AuthorizationDecision : requested operation >
-
-AuthorizationDecision --> AuthorizationResult
-
-@enduml
-```
+[PlantUML source](diagrams/03-domain-analysis-001.puml)
 
 ---
 
 ## 56. Ownership and Authorization Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Ownership and Authorization
+![GitForge V1.0.0 - Ownership and Authorization](diagrams/03-domain-analysis-002.svg)
 
-actor Visitor
-actor "Authenticated User" as User
-
-rectangle Repository {
-&#x20;   rectangle "Owner Identity" as Owner
-&#x20;   rectangle "Visibility" as Visibility
-}
-
-rectangle "Authorization Evaluation" as Authz
-rectangle "Allow / Deny" as Decision
-
-Visitor --> Authz : anonymous identity
-User --> Authz : authenticated identity
-
-Owner --> Authz
-Visibility --> Authz
-
-Authz --> Decision
-
-note right of Authz
-Read:
-Public -> Allow
-Private -> Owner only
-
-Write:
-Owner only
-end note
-
-@enduml
-```
+[PlantUML source](diagrams/03-domain-analysis-002.puml)
 
 ---
 
 ## 57. PAT Conceptual Lifecycle
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - PAT Conceptual Lifecycle
+![GitForge V1.0.0 - PAT Conceptual Lifecycle](diagrams/03-domain-analysis-003.svg)
 
-[*] --> Active : Create PAT
-Active --> Revoked : Revoke
-Revoked --> [*]
-
-note right of Active
-May authenticate
-if token validation succeeds
-end note
-
-note right of Revoked
-Must not authenticate
-end note
-
-@enduml
-```
+[PlantUML source](diagrams/03-domain-analysis-003.puml)
 
 ---
 
 ## 58. Repository Visibility State Model
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Repository Visibility
+![GitForge V1.0.0 - Repository Visibility](diagrams/03-domain-analysis-004.svg)
 
-[*] --> Public
-[*] --> Private
-
-Public --> Private : Owner changes visibility
-Private --> Public : Owner changes visibility
-
-@enduml
-```
+[PlantUML source](diagrams/03-domain-analysis-004.puml)
 
 The initial visibility is determined during repository creation according to the accepted creation request.
 

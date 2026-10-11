@@ -1,0 +1,64 @@
+@startuml
+title GitForge V1.0.0 - Component Architecture
+package "Presentation / Protocol" {
+     component "Web Controllers" as WebControllers
+     component "Git Smart HTTP Handlers" as GitHandlers
+}
+package "Application Services" {
+     component "Authentication Service" as AuthService
+     component "PAT Service" as PatService
+     component "Repository Service" as RepoService
+     component "Repository Browser Service" as BrowserService
+     component "Git Read Service" as GitReadService
+     component "Git Write Service" as GitWriteService
+}
+package "Domain / Policy" {
+     component "Repository Authorization Policy" as RepoPolicy
+     component "Repository Naming Policy" as NamePolicy
+     component "Visibility Policy" as VisibilityPolicy
+}
+package "Infrastructure" {
+     component "User Persistence" as UserPersistence
+     component "Repository Persistence" as RepoPersistence
+     component "PAT Persistence" as PatPersistence
+     component "Repository Storage" as RepoStorage
+     component "Git Process Executor" as GitExecutor
+     component "Application Logger" as Logger
+     component "Configuration Provider" as Config
+}
+WebControllers --> AuthService
+WebControllers --> PatService
+WebControllers --> RepoService
+WebControllers --> BrowserService
+GitHandlers --> GitReadService
+GitHandlers --> GitWriteService
+AuthService --> UserPersistence
+PatService --> PatPersistence
+PatService --> UserPersistence
+RepoService --> RepoPolicy
+RepoService --> NamePolicy
+RepoService --> VisibilityPolicy
+RepoService --> RepoPersistence
+RepoService --> RepoStorage
+RepoService --> GitExecutor
+BrowserService --> RepoPolicy
+BrowserService --> RepoPersistence
+BrowserService --> RepoStorage
+BrowserService --> GitExecutor
+GitReadService --> RepoPolicy
+GitReadService --> RepoPersistence
+GitReadService --> PatPersistence
+GitReadService --> RepoStorage
+GitReadService --> GitExecutor
+GitWriteService --> RepoPolicy
+GitWriteService --> RepoPersistence
+GitWriteService --> PatPersistence
+GitWriteService --> RepoStorage
+GitWriteService --> GitExecutor
+RepoService --> Logger
+BrowserService --> Logger
+GitReadService --> Logger
+GitWriteService --> Logger
+RepoStorage --> Config
+GitExecutor --> Config
+@enduml

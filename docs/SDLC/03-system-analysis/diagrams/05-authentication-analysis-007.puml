@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - Web Login Activity
+start
+:Receive login request;
+:Validate input;
+if (Input valid?) then (yes)
+    :Resolve user authentication data;
+    if (User/credential verifies?) then (yes)
+        :Establish authenticated session;
+        :Associate session with User identity;
+        :Return login success;
+    else (no)
+        :Classify authentication failure;
+        :Return safe failure response;
+    endif
+else (no)
+    :Return validation failure;
+endif
+stop
+@enduml

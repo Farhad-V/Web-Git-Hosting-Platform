@@ -1,0 +1,27 @@
+@startuml
+title GitForge - Repository Creation Container Flow
+actor User
+participant "Laravel Application" as App
+database PostgreSQL as DB
+participant "Repository Storage" as Storage
+participant Git
+User -> App : Create repository
+App -> App : Validate request
+App -> App : Authenticate user
+App -> App : Authorize operation
+App -> DB : Reserve/persist repository metadata
+DB --> App : Metadata result
+App -> Storage : Resolve safe new repository location
+Storage --> App : Safe target
+App -> Git : git init --bare
+Git -> Storage : Create repository
+Storage --> Git
+Git --> App : Initialization result
+alt Initialization successful
+     App --> User : Repository created
+else Initialization failed
+     App -> DB : Compensate metadata
+     App -> Storage : Cleanup partial storage if safe
+     App --> User : Creation failed
+end
+@enduml

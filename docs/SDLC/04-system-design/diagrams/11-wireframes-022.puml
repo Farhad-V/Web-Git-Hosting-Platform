@@ -1,0 +1,23 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^Token Created^
+     .
+     Copy this token now.
+     You will not be able to view it again.
+     .
+     "gitforge_abc123_super-secret-value"
+     [ Copy Token ]
+     .
+     [ Done ]
+   }
+}
+@endsalt

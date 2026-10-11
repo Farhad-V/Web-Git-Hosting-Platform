@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - Repository Storage Failure Flow
+start
+:Receive authorized repository operation;
+:Resolve physical target;
+if (Target safely resolved?) then (yes)
+    :Check repository availability;
+    if (Repository available?) then (yes)
+        :Continue approved Git operation;
+    else (no)
+        :Classify storage failure;
+        :Return safe operational failure;
+    endif
+else (no)
+    :Reject physical access;
+    :Record security/consistency diagnostic;
+endif
+stop
+@enduml

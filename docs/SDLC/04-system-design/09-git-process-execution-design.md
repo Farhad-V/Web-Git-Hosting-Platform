@@ -1218,91 +1218,17 @@ Very large blobs should not be blindly loaded into memory for HTML rendering.
 
 ## 65. Upload-Pack Discovery Flow
 
-```plantuml
+![GitForge - Upload-Pack Advertisement Execution](diagrams/09-git-process-execution-design-001.svg)
 
-@startuml
-
-title GitForge - Upload-Pack Advertisement Execution
-
-actor "Git Client" as Client
-
-participant "Git Read Service" as Service
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Executor
-
-participant "git upload-pack" as Git
-
-Client -> Service : GET info/refs?service=git-upload-pack
-
-Service -> Authz : canRead(actor, repository)
-
-Authz --> Service : Allow
-
-Service -> Storage : resolveExisting(repository)
-
-Storage --> Service : Safe repository path
-
-Service -> Executor : advertiseUploadPack(path)
-
-Executor -> Git : upload-pack --stateless-rpc --advertise-refs
-
-Git --> Executor : advertisement bytes
-
-Executor --> Service : protocol result
-
-Service --> Client : Git Smart HTTP response
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-process-execution-design-001.puml)
 
 ---
 
 ## 66. Upload-Pack RPC Flow
 
-```plantuml
+![GitForge - Clone/Fetch Process Execution](diagrams/09-git-process-execution-design-002.svg)
 
-@startuml
-
-title GitForge - Clone/Fetch Process Execution
-
-actor "Git Client" as Client
-
-participant "Git Read Service" as Service
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Executor
-
-participant "git upload-pack" as Git
-
-Client -> Service : POST git-upload-pack
-
-Service -> Authz : canRead(actor, repository)
-
-Authz --> Service : Allow
-
-Service -> Storage : resolveExisting(repository)
-
-Storage --> Service : Safe repository path
-
-Service -> Executor : uploadPack(path, requestStream)
-
-Executor -> Git : start upload-pack
-
-Client -> Git : request bytes via stdin
-
-Git --> Client : result bytes via stdout
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-process-execution-design-002.puml)
 
 ---
 
@@ -1310,49 +1236,9 @@ Git --> Client : result bytes via stdout
 
 ## 67. Receive-Pack Flow
 
-```plantuml
+![GitForge - Push Process Execution](diagrams/09-git-process-execution-design-003.svg)
 
-@startuml
-
-title GitForge - Push Process Execution
-
-actor "Git Client" as Client
-
-participant "PAT Authentication" as Authn
-
-participant "Git Write Service" as Service
-
-participant "Repository Authorization" as Authz
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Executor
-
-participant "git receive-pack" as Git
-
-Client -> Authn : PAT credential
-
-Authn --> Service : Authenticated User
-
-Service -> Authz : canWrite(user, repository)
-
-Authz --> Service : Allow
-
-Service -> Storage : resolveExisting(repository)
-
-Storage --> Service : Safe repository path
-
-Service -> Executor : receivePack(path, requestStream)
-
-Executor -> Git : start receive-pack
-
-Client -> Git : push bytes via stdin
-
-Git --> Client : protocol result via stdout
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-process-execution-design-003.puml)
 
 ---
 
@@ -1360,45 +1246,9 @@ Git --> Client : protocol result via stdout
 
 ## 68. Bare Initialization
 
-```plantuml
+![GitForge - Bare Repository Initialization](diagrams/09-git-process-execution-design-004.svg)
 
-@startuml
-
-title GitForge - Bare Repository Initialization
-
-participant "Repository Service" as Service
-
-participant "Repository Storage" as Storage
-
-participant "Git Process Executor" as Executor
-
-participant "git init" as Git
-
-Service -> Storage : resolveNewRepositoryTarget(repository)
-
-Storage --> Service : Safe unused target
-
-Service -> Executor : initializeBare(target)
-
-Executor -> Git : git init --bare target
-
-Git --> Executor : exit result
-
-alt success
-
-     Executor --> Service : initialized
-
-else failure
-
-     Executor --> Service : Git Process Failure
-
-     Service -> Storage : cleanup partial target
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/09-git-process-execution-design-004.puml)
 
 ---
 

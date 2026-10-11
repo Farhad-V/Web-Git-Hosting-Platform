@@ -1,0 +1,30 @@
+name: Documentation Diagrams
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'scripts/docs/**'
+      - '.gitattributes'
+      - '.github/workflows/documentation-diagrams.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'scripts/docs/**'
+      - '.gitattributes'
+      - '.github/workflows/documentation-diagrams.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  diagram-catalog:
+    name: PlantUML sources and SVG catalog
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - name: Verify source and preview consistency
+        run: python3 scripts/docs/diagrams.py --verify

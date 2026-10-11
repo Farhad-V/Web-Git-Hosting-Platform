@@ -1,0 +1,46 @@
+@startuml
+title GitForge V1.0.0 - SM-021 Private Clone / Fetch
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+database PostgreSQL as DB
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Physical Git Repository" as Repo
+Client -> HTTP : Clone/fetch request + PAT
+HTTP -> Auth : Authenticate PAT
+Auth -> DB : Verify PAT / resolve User
+DB --> Auth : User identity
+alt Authentication succeeds
+    Auth --> HTTP : User identity
+    HTTP -> Resolution : Resolve repository
+    Resolution -> DB : Repository metadata
+    DB --> Resolution : Private repository + owner
+    Resolution -> Authz : Authorize read
+    alt User is owner
+        Authz --> Resolution : Allow
+        Resolution -> Storage : Resolve safe target
+        Storage --> Resolution : Target
+        Resolution -> Read : Execute Git read
+        Read -> Process : Invoke git-upload-pack
+        Process -> Git : Approved read
+        Git -> Repo : Read Git data
+        Repo --> Git : Objects/refs
+        Git --> Process : Result
+        Process --> Read : Stream
+        Read --> HTTP : Smart HTTP response
+        HTTP --> Client : Clone/fetch result
+    else User is non-owner
+        Authz --> Resolution : Deny
+        Resolution --> HTTP : Safe denial
+        HTTP --> Client : Access denied
+    end
+else Authentication fails
+    Auth --> HTTP : Failure
+    HTTP --> Client : Authentication denied
+end
+@enduml

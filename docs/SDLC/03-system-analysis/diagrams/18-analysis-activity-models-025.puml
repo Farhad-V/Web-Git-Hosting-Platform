@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - AM-025 Safe Repository Storage Resolution
+start
+:Receive validated logical repository context;
+:Derive internal physical target;
+:Normalize/resolve target under configured repository root;
+if (Target contained within root?) then (yes)
+    :Check expected repository location;
+    if (Repository exists?) then (yes)
+        :Return safe physical repository target;
+    else (no)
+        :Return storage/consistency failure;
+    endif
+else (no)
+    :Classify security-critical path failure;
+    :Reject physical access;
+endif
+stop
+@enduml

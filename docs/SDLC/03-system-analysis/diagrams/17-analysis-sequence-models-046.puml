@@ -1,0 +1,15 @@
+@startuml
+title GitForge V1.0.0 - SM-046 Missing PAT on Write
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+Client -> HTTP : Push request without usable PAT
+HTTP -> Auth : Authenticate
+Auth --> HTTP : Authentication failure
+HTTP --> Client : Deny
+note right of HTTP
+No repository authorization.
+No storage resolution.
+No mutation.
+end note
+@enduml

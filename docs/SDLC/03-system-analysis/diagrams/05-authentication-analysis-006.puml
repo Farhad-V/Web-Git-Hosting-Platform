@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - Anonymous Public Git Read
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Repository Resolution" as Repo
+participant "Repository Authorization" as Authz
+participant "Git Read Coordination" as Read
+Client -> HTTP : Public clone/fetch request
+HTTP -> Repo : Resolve repository
+Repo --> HTTP : Repository metadata
+HTTP -> Authz : Authorize anonymous read
+alt Repository is public
+    Authz --> HTTP : Allow
+    HTTP -> Read : Perform authorized read
+    Read --> HTTP : Git response
+    HTTP --> Client : Git Smart HTTP response
+else Repository is private
+    Authz --> HTTP : Deny
+    HTTP --> Client : Authentication/access required
+end
+@enduml

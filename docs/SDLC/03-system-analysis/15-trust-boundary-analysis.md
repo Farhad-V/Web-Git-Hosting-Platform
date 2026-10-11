@@ -466,85 +466,9 @@ Sensitive external credentials must not cross into this zone in plaintext.
 
 ## 18. High-Level Trust Boundary Diagram
 
-```plantuml
+![GitForge V1.0.0 - High-Level Trust Boundaries](diagrams/15-trust-boundary-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - High-Level Trust Boundaries
-
-left to right direction
-
-actor "Visitor / Web User" as WebUser
-
-actor "Git Client" as GitClient
-
-actor "System Operator" as Operator
-
-rectangle "External Client Trust Zone" {
-
-&#x20;   WebUser
-
-&#x20;   GitClient
-
-}
-
-rectangle "GitForge Application Trust Zone" {
-
-&#x20;   rectangle "Web/API Interface" as Web
-
-&#x20;   rectangle "Authentication" as Auth
-
-&#x20;   rectangle "Authorization" as Authz
-
-&#x20;   rectangle "Repository Coordination" as Repo
-
-&#x20;   rectangle "Repository Storage Coordination" as Storage
-
-&#x20;   rectangle "Git Process Coordination" as Process
-
-&#x20;   rectangle "Diagnostics" as Diag
-
-}
-
-database "PostgreSQL" as DB
-
-folder "Physical Git Repository" as GitRepo
-
-rectangle "Git Executable" as GitExe
-
-WebUser --> Web : untrusted input
-
-GitClient --> Auth : PAT / Git request
-
-Web --> Auth
-
-Auth --> Authz : identity
-
-Repo --> Authz : repository context
-
-Authz --> Repo : allow/deny
-
-Repo --> DB
-
-Repo --> Storage
-
-Storage --> Process : safe target
-
-Process --> GitExe : approved operation
-
-GitExe --> GitRepo
-
-Web --> Diag
-
-Repo --> Diag
-
-Process --> Diag
-
-Diag --> Operator : sanitized diagnostics
-
-@enduml
-
-```
+[PlantUML source](diagrams/15-trust-boundary-analysis-001.puml)
 
 ---
 
@@ -1588,219 +1512,41 @@ However, diagnostic access does not justify exposing application secrets unneces
 
 ## 62. Authentication Boundary Diagram
 
-```plantuml
+![GitForge V1.0.0 - Authentication Trust Boundaries](diagrams/15-trust-boundary-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Authentication Trust Boundaries
-
-left to right direction
-
-actor "Web User" as WebUser
-
-actor "Git Client" as GitClient
-
-rectangle "Untrusted External Zone" {
-
-&#x20;   WebUser
-
-&#x20;   GitClient
-
-}
-
-rectangle "Authentication Zone" {
-
-&#x20;   rectangle "Application Authentication" as AppAuth
-
-&#x20;   rectangle "Git Authentication" as GitAuth
-
-}
-
-database "PostgreSQL" as DB
-
-WebUser --> AppAuth : login credential
-
-GitClient --> GitAuth : PAT
-
-AppAuth --> DB : credential/User verification
-
-GitAuth --> DB : PAT/User verification
-
-AppAuth --> WebUser : authenticated context / failure
-
-GitAuth --> GitClient : identity context / failure
-
-@enduml
-
-```
+[PlantUML source](diagrams/15-trust-boundary-analysis-002.puml)
 
 ---
 
 ## 63. Repository Access Boundary Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Access Trust Boundaries](diagrams/15-trust-boundary-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Access Trust Boundaries
-
-left to right direction
-
-actor Caller
-
-rectangle "Application Trust Zone" {
-
-&#x20;   rectangle "Repository Resolution" as Resolution
-
-&#x20;   rectangle "Repository Authorization" as Authz
-
-&#x20;   rectangle "Repository Storage Coordination" as Storage
-
-}
-
-database PostgreSQL as DB
-
-folder "Physical Git Repository" as Repo
-
-Caller --> Resolution : logical repository identifier
-
-Resolution --> DB : authoritative metadata
-
-DB --> Resolution : owner + visibility
-
-Resolution --> Authz : caller + repository + operation
-
-Authz --> Storage : allow
-
-Storage --> Repo : safe repository target
-
-@enduml
-
-```
+[PlantUML source](diagrams/15-trust-boundary-analysis-003.puml)
 
 ---
 
 ## 64. Git Execution Boundary Diagram
 
-```plantuml
+![GitForge V1.0.0 - Git Execution Trust Boundary](diagrams/15-trust-boundary-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Execution Trust Boundary
-
-left to right direction
-
-actor "Git Client" as Client
-
-rectangle "GitForge Controlled Zone" {
-
-&#x20;   rectangle "Git Smart HTTP Interface" as HTTP
-
-&#x20;   rectangle "Git Authentication" as Auth
-
-&#x20;   rectangle "Repository Authorization" as Authz
-
-&#x20;   rectangle "Repository Storage Coordination" as Storage
-
-&#x20;   rectangle "Git Process Coordination" as Process
-
-}
-
-rectangle "Git Executable" as Git
-
-folder "Physical Git Repository" as Repo
-
-Client --> HTTP : untrusted protocol input
-
-HTTP --> Auth : PAT
-
-Auth --> Authz : identity
-
-Authz --> Storage : authorized repository context
-
-Storage --> Process : safe physical target
-
-HTTP --> Process : approved protocol stream
-
-Process --> Git : controlled operation
-
-Git --> Repo : read/write Git state
-
-@enduml
-
-```
+[PlantUML source](diagrams/15-trust-boundary-analysis-004.puml)
 
 ---
 
 ## 65. PAT Trust Boundary Diagram
 
-```plantuml
+![GitForge V1.0.0 - PAT Trust Boundaries](diagrams/15-trust-boundary-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Trust Boundaries
-
-left to right direction
-
-actor "Authenticated User" as User
-
-actor "Git Client" as Client
-
-rectangle "GitForge" {
-
-&#x20;   rectangle "PAT Coordination" as PAT
-
-&#x20;   rectangle "Git Authentication" as Auth
-
-}
-
-database PostgreSQL as DB
-
-PAT --> User : plaintext PAT once
-
-User --> Client : user-controlled credential handling
-
-Client --> Auth : presented PAT
-
-Auth --> DB : verification + revocation lookup
-
-DB --> Auth : PAT metadata + owner
-
-Auth --> Client : authentication outcome
-
-@enduml
-
-```
+[PlantUML source](diagrams/15-trust-boundary-analysis-005.puml)
 
 ---
 
 ## 66. Repository Content Trust Boundary Diagram
 
-```plantuml
+![GitForge V1.0.0 - Repository Content Trust Boundary](diagrams/15-trust-boundary-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Content Trust Boundary
-
-left to right direction
-
-folder "Physical Git Repository" as Repo
-
-rectangle "Git Read Coordination" as Read
-
-rectangle "Repository Browser" as Browser
-
-actor "Web Caller" as Caller
-
-Repo --> Read : untrusted Git-native content
-
-Read --> Browser : parsed Git data
-
-Browser --> Caller : safe representation
-
-@enduml
-
-```
+[PlantUML source](diagrams/15-trust-boundary-analysis-006.puml)
 
 ---
 

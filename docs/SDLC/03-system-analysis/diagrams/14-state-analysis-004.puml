@@ -1,0 +1,7 @@
+@startuml
+title GitForge V1.0.0 - Repository Visibility State
+[*] --> Public
+[*] --> Private
+Public --> Private : owner changes visibility
+Private --> Public : owner changes visibility
+@enduml

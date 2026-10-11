@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - Repository Visibility Change
+start
+:Receive visibility change request;
+:Resolve authenticated User;
+:Resolve repository;
+if (Caller is owner?) then (yes)
+    :Validate target visibility;
+    if (Target visibility valid?) then (yes)
+        :Persist new visibility;
+        :Use new authorization semantics;
+        :Return success;
+    else (no)
+        :Return validation failure;
+    endif
+else (no)
+    :Deny;
+endif
+stop
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+title main user workflow diagram
+skinparam shadowing false
+rectangle "Authenticate as repository owner" as Start
+rectangle "Create repository and choose visibility" as Create
+rectangle "Issue Git token if needed" as Token
+rectangle "Clone or initialize and push committed data" as Push
+rectangle "Browse branch history files and tags" as Browse
+rectangle "Create a branch and push changes" as Branch
+rectangle "Open same-repository pull request" as Request
+rectangle "Review comparison and hashes" as Review
+hexagon "Refs unchanged and merge clean?" as Valid
+rectangle "Owner merges reviewed change" as Merge
+rectangle "Resolve conflict or refresh review" as Resolve
+rectangle "Optionally queue built-in checks" as Checks
+rectangle "Running worker records results" as Worker
+Start --> Create
+Create --> Token
+Token --> Push
+Push --> Browse
+Browse --> Branch
+Branch --> Request
+Request --> Review
+Review --> Valid
+Valid --> Merge : Yes
+Valid --> Resolve : No
+Resolve --> Review
+Merge --> Checks
+Checks --> Worker
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+title GitForge V1.0.0 - Public Repository Read Authorization Sequence
+actor Visitor
+participant "Client Interface" as Interface
+participant "Repository Resolution" as Repo
+participant "Repository Authorization" as Authz
+participant "Protected Read Responsibility" as Read
+Visitor -> Interface : Request public repository
+Interface -> Repo : Resolve namespace
+Repo --> Interface : Repository(public)
+Interface -> Authz : Authorize(anonymous, repository, read)
+Authz --> Interface : Allow
+Interface -> Read : Perform read
+Read --> Interface : Result
+Interface --> Visitor : Repository response
+@enduml

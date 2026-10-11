@@ -1,0 +1,14 @@
+@startuml
+title GitForge V1.0.0 - AM-044 Private to Public Transition
+start
+:Owner requests Private -> Public;
+:Authorize owner metadata change;
+:Persist Public visibility;
+if (Persistence succeeds?) then (yes)
+    :Future anonymous reads evaluate Public;
+    :Anonymous read result = Allow;
+else (no)
+    :Return update failure;
+endif
+stop
+@enduml

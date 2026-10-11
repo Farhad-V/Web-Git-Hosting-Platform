@@ -1,0 +1,39 @@
+@startuml
+title GitForge V1.0.0 - AM-004 Repository Creation
+start
+:Receive repository creation request;
+if (User authenticated?) then (yes)
+    :Validate repository name;
+    :Validate visibility;
+    if (Input valid?) then (yes)
+        :Check owner namespace uniqueness;
+        if (Namespace available?) then (yes)
+            :Derive safe physical repository target;
+            if (Target safely contained?) then (yes)
+                :Initialize physical Git repository;
+                if (Initialization succeeds?) then (yes)
+                    :Persist repository metadata;
+                    if (Persistence succeeds?) then (yes)
+                        :Repository becomes Available;
+                        :Return success;
+                    else (no)
+                        :Detect partial creation / consistency failure;
+                        :Return failure;
+                    endif
+                else (no)
+                    :Return storage/Git initialization failure;
+                endif
+            else (no)
+                :Reject unsafe physical target;
+            endif
+        else (no)
+            :Reject duplicate repository namespace;
+        endif
+    else (no)
+        :Reject invalid creation input;
+    endif
+else (no)
+    :Deny repository creation;
+endif
+stop
+@enduml

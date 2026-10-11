@@ -1,0 +1,15 @@
+@startuml
+title GitForge V1.0.0 - SM-036 Private to Public Visibility Effect
+actor Owner
+participant "Repository Coordination" as Repo
+database PostgreSQL as DB
+actor "Anonymous Caller" as Anonymous
+participant "Repository Authorization" as Authz
+Owner -> Repo : Change Private to Public
+Repo -> DB : Persist Public
+DB --> Repo : Updated
+Anonymous -> Authz : Request repository read
+Authz -> DB : Load visibility
+DB --> Authz : Public
+Authz --> Anonymous : Allow
+@enduml

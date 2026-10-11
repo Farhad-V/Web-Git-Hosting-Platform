@@ -1,0 +1,34 @@
+@startuml
+title GitForge V1.0.0 - Requirements-Level Data Relationships
+entity User {
+    * user_id
+    --
+    name
+    email
+    password_hash
+}
+entity Repository {
+    * repository_id
+    --
+    owner_id
+    name
+    visibility
+}
+entity PersonalAccessToken {
+    * token_id
+    --
+    owner_id
+    name
+    token_hash
+    revocation_state
+}
+entity "Physical Git Repository" as GitRepository {
+    repository path
+    Git objects
+    references
+    commit history
+}
+User ||--o{ Repository : owns
+User ||--o{ PersonalAccessToken : owns
+Repository ||--|| GitRepository : corresponds to
+@enduml

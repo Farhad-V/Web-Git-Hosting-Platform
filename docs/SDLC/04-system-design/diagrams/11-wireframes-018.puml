@@ -1,0 +1,31 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^farhad / gitforge^
+     .
+     [ Files ]
+     [ Commits ]
+     [ Branches ]
+     [ Settings ]
+     .
+     ^Repository Settings^
+     .
+     Repository
+     farhad / gitforge
+     .
+     Visibility
+     () Public
+     () Private
+     .
+     [ Save Changes ]
+   }
+}
+@endsalt

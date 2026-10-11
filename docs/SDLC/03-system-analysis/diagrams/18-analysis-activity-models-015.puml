@@ -1,0 +1,25 @@
+@startuml
+title GitForge V1.0.0 - AM-015 PAT Creation
+start
+:Receive PAT creation request;
+if (User authenticated?) then (yes)
+    :Generate plaintext PAT;
+    if (Generation succeeds?) then (yes)
+        :Derive verification representation;
+        :Associate PAT with authenticated User;
+        :Persist PAT metadata/verifier;
+        if (Persistence succeeds?) then (yes)
+            :Present plaintext PAT once;
+            :Return creation success;
+        else (no)
+            :Do not report PAT success;
+            :Return persistence failure;
+        endif
+    else (no)
+        :Return PAT-generation failure;
+    endif
+else (no)
+    :Deny PAT creation;
+endif
+stop
+@enduml

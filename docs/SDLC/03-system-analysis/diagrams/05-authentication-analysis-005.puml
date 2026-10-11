@@ -1,0 +1,23 @@
+@startuml
+title GitForge V1.0.0 - PAT Authentication Sequence
+actor "Git Client" as Client
+participant "Git Smart HTTP Interface" as HTTP
+participant "Git Authentication" as Auth
+participant "Application Data Persistence" as Data
+participant "Repository Authorization" as Authz
+Client -> HTTP : Protected Git request + PAT
+HTTP -> Auth : Authenticate(PAT)
+Auth -> Data : Resolve PAT verification data
+Data --> Auth : PAT metadata
+Auth -> Auth : Verify credential
+Auth -> Auth : Check Active/Revoked state
+alt PAT valid and active
+    Auth -> Data : Resolve PAT owner
+    Data --> Auth : User identity
+    Auth --> HTTP : Authenticated(User)
+    HTTP -> Authz : Authorize(User, repository, operation)
+else PAT invalid or revoked
+    Auth --> HTTP : Authentication failure
+    HTTP --> Client : Authentication denied
+end
+@enduml

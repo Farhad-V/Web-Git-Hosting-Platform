@@ -1,0 +1,35 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^farhad / gitforge^
+     .
+     [ Files ]
+     [ Commits ]
+     [ Branches ]
+     [ Settings ]
+     .
+     Branch:
+     [ main V ]
+     .
+     ^Commit History^
+     .
+     {#
+       Message | Author | Date | Commit
+       Add repository storage | Farhad | 2026-08-18 | 8f3a22d
+       Add authorization policy | Farhad | 2026-08-17 | 97ca91a
+       Initial commit | Farhad | 2026-08-16 | 42aa731
+     }
+     .
+     [ Previous ]
+     [ Next ]
+   }
+}
+@endsalt

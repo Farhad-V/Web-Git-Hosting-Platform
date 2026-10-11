@@ -1,0 +1,18 @@
+@startuml
+title GitForge V1.0.0 - Repository Access Trust Boundaries
+left to right direction
+actor Caller
+rectangle "Application Trust Zone" {
+    rectangle "Repository Resolution" as Resolution
+    rectangle "Repository Authorization" as Authz
+    rectangle "Repository Storage Coordination" as Storage
+}
+database PostgreSQL as DB
+folder "Physical Git Repository" as Repo
+Caller --> Resolution : logical repository identifier
+Resolution --> DB : authoritative metadata
+DB --> Resolution : owner + visibility
+Resolution --> Authz : caller + repository + operation
+Authz --> Storage : allow
+Storage --> Repo : safe repository target
+@enduml

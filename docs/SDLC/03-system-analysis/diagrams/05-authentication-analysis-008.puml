@@ -1,0 +1,24 @@
+@startuml
+title GitForge V1.0.0 - Git PAT Authentication Activity
+start
+:Receive protected Git request;
+:Extract authentication credential;
+if (Credential present?) then (yes)
+    :Validate credential format;
+    :Resolve PAT verification data;
+    if (PAT verifies?) then (yes)
+        if (PAT active?) then (yes)
+            :Resolve PAT owner;
+            :Establish User identity;
+            :Continue to repository authorization;
+        else (no)
+            :Authentication denied;
+        endif
+    else (no)
+        :Authentication denied;
+    endif
+else (no)
+    :Authentication denied;
+endif
+stop
+@enduml

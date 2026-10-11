@@ -1690,361 +1690,57 @@ For create/list operations, `Owner` means the authenticated User context and not
 
 ## 61. Read Authorization Activity
 
-```plantuml
+![GitForge V1.0.0 - Repository Read Authorization](diagrams/06-authorization-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Read Authorization
-
-start
-
-:Receive repository read request;
-
-:Resolve repository;
-
-if (Repository public?) then (yes)
-
-&#x20;   :Authorize read;
-
-&#x20;   :Allow;
-
-else (no)
-
-&#x20;   if (Caller authenticated?) then (yes)
-
-&#x20;       if (Caller owns repository?) then (yes)
-
-&#x20;           :Authorize owner read;
-
-&#x20;           :Allow;
-
-&#x20;       else (no)
-
-&#x20;           :Deny;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny;
-
-&#x20;   endif
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-authorization-analysis-001.puml)
 
 ---
 
 ## 62. Write Authorization Activity
 
-```plantuml
+![GitForge V1.0.0 - Repository Write Authorization](diagrams/06-authorization-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Write Authorization
-
-start
-
-:Receive repository write request;
-
-if (Caller authenticated?) then (yes)
-
-&#x20;   :Resolve repository;
-
-&#x20;   if (Caller owns repository?) then (yes)
-
-&#x20;       :Authorize write;
-
-&#x20;       :Allow;
-
-&#x20;   else (no)
-
-&#x20;       :Deny;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-authorization-analysis-002.puml)
 
 ---
 
 ## 63. Visibility Management Authorization Activity
 
-```plantuml
+![GitForge V1.0.0 - Visibility Management Authorization](diagrams/06-authorization-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Visibility Management Authorization
-
-start
-
-:Receive visibility change request;
-
-:Resolve authenticated User;
-
-:Resolve repository;
-
-if (Caller owns repository?) then (yes)
-
-&#x20;   :Authorize management operation;
-
-&#x20;   :Apply valid visibility transition;
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-authorization-analysis-003.puml)
 
 ---
 
 ## 64. Public Repository Read Sequence
 
-```plantuml
+![GitForge V1.0.0 - Public Repository Read Authorization Sequence](diagrams/06-authorization-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Public Repository Read Authorization Sequence
-
-actor Visitor
-
-participant "Client Interface" as Interface
-
-participant "Repository Resolution" as Repo
-
-participant "Repository Authorization" as Authz
-
-participant "Protected Read Responsibility" as Read
-
-Visitor -> Interface : Request public repository
-
-Interface -> Repo : Resolve namespace
-
-Repo --> Interface : Repository(public)
-
-Interface -> Authz : Authorize(anonymous, repository, read)
-
-Authz --> Interface : Allow
-
-Interface -> Read : Perform read
-
-Read --> Interface : Result
-
-Interface --> Visitor : Repository response
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-authorization-analysis-004.puml)
 
 ---
 
 ## 65. Private Repository Owner Read Sequence
 
-```plantuml
+![GitForge V1.0.0 - Private Owner Read Authorization Sequence](diagrams/06-authorization-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Private Owner Read Authorization Sequence
-
-actor "Authenticated User" as User
-
-participant "Client Interface" as Interface
-
-participant "Authentication" as Auth
-
-participant "Repository Resolution" as Repo
-
-participant "Repository Authorization" as Authz
-
-participant "Protected Read Responsibility" as Read
-
-User -> Interface : Request private repository
-
-Interface -> Auth : Resolve identity
-
-Auth --> Interface : User identity
-
-Interface -> Repo : Resolve repository
-
-Repo --> Interface : Repository(private, owner)
-
-Interface -> Authz : Authorize(User, repository, read)
-
-alt User is owner
-
-&#x20;   Authz --> Interface : Allow
-
-&#x20;   Interface -> Read : Perform read
-
-&#x20;   Read --> Interface : Result
-
-&#x20;   Interface --> User : Repository response
-
-else User is not owner
-
-&#x20;   Authz --> Interface : Deny
-
-&#x20;   Interface --> User : Safe denial response
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-authorization-analysis-005.puml)
 
 ---
 
 ## 66. Git Push Authorization Sequence
 
-```plantuml
+![GitForge V1.0.0 - Git Push Authorization Sequence](diagrams/06-authorization-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Push Authorization Sequence
-
-actor "Git Client" as Client
-
-participant "Git Smart HTTP Interface" as HTTP
-
-participant "Git Authentication" as Auth
-
-participant "Repository Resolution" as Repo
-
-participant "Repository Authorization" as Authz
-
-participant "Git Write Coordination" as Write
-
-Client -> HTTP : Push request + PAT
-
-HTTP -> Auth : Authenticate PAT
-
-alt Authentication succeeds
-
-&#x20;   Auth --> HTTP : User identity
-
-&#x20;   HTTP -> Repo : Resolve repository
-
-&#x20;   Repo --> HTTP : Repository(owner, visibility)
-
-&#x20;   HTTP -> Authz : Authorize(User, repository, write)
-
-&#x20;   alt User is owner
-
-&#x20;       Authz --> HTTP : Allow
-
-&#x20;       HTTP -> Write : Execute authorized push
-
-&#x20;       Write --> HTTP : Result
-
-&#x20;       HTTP --> Client : Git response
-
-&#x20;   else User is non-owner
-
-&#x20;       Authz --> HTTP : Deny
-
-&#x20;       HTTP --> Client : Safe denial
-
-&#x20;   end
-
-else Authentication fails
-
-&#x20;   Auth --> HTTP : Authentication failure
-
-&#x20;   HTTP --> Client : Authentication denied
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-authorization-analysis-006.puml)
 
 ---
 
 ## 67. Authorization Model Diagram
 
-```plantuml
+![GitForge V1.0.0 - Authorization Model](diagrams/06-authorization-analysis-007.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Authorization Model
-
-left to right direction
-
-rectangle "Caller Context" {
-
-&#x20;   rectangle "Anonymous" as Anonymous
-
-&#x20;   rectangle "Authenticated User" as User
-
-}
-
-rectangle "Repository Context" {
-
-&#x20;   rectangle "Repository Owner" as Owner
-
-&#x20;   rectangle "Repository Visibility" as Visibility
-
-}
-
-rectangle "Requested Operation" as Operation
-
-rectangle "Repository Authorization" as Authz
-
-rectangle "Allow / Deny" as Decision
-
-Anonymous --> Authz
-
-User --> Authz
-
-Owner --> Authz
-
-Visibility --> Authz
-
-Operation --> Authz
-
-Authz --> Decision
-
-note right of Authz
-
-Read:
-
-Public -> Allow all supported callers
-
-Private -> Owner only
-
-Write:
-
-Owner only
-
-Manage:
-
-Owner only
-
-end note
-
-@enduml
-
-```
+[PlantUML source](diagrams/06-authorization-analysis-007.puml)
 
 ---
 

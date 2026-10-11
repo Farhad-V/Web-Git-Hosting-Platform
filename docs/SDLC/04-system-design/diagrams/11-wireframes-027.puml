@@ -1,0 +1,13 @@
+@startsalt
+{
+   {
+     ^Something Went Wrong^
+     .
+     The repository could not be accessed.
+     Please try again later.
+     .
+     [ Retry ]
+     [ Back ]
+   }
+}
+@endsalt

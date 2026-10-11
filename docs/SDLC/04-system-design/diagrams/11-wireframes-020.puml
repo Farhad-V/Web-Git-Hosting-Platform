@@ -1,0 +1,11 @@
+@startsalt
+{
+   {
+     ^Personal Access Tokens^
+     .
+     You do not have any personal access tokens.
+     .
+     [ Create Token ]
+   }
+}
+@endsalt

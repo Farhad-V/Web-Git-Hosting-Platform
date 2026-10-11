@@ -1,0 +1,23 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Login ]
+     [ Register ]
+   }
+   ==
+   {
+     ^farhad / public-project^
+     Public
+     .
+     [ Files ]
+     [ Commits ]
+     [ Branches ]
+     .
+     Clone URL
+     "https://gitforge.example/farhad/public-project.git"
+     [ Copy ]
+   }
+}
+@endsalt

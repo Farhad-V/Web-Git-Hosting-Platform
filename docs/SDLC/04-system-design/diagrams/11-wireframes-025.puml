@@ -1,0 +1,18 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Login ]
+     [ Register ]
+   }
+   ==
+   {
+     ^Repository Not Found^
+     .
+     The requested repository could not be found.
+     .
+     [ Home ]
+   }
+}
+@endsalt

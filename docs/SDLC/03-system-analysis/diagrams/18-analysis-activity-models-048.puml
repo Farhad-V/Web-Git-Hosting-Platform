@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - AM-048 Git Process Failure
+start
+:Execute approved Git operation;
+if (Process starts?) then (yes)
+    if (Operation completes successfully?) then (yes)
+        :Return Git result;
+    else (no)
+        :Classify Git/process failure;
+        :Return safe failure;
+    endif
+else (no)
+    :Classify process-launch/dependency failure;
+    :Return safe failure;
+endif
+stop
+@enduml

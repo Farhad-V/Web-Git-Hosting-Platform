@@ -1,0 +1,8 @@
+@startuml
+title GitForge V1.0.0 - PAT Authentication State
+[*] --> Active : Create PAT
+Active --> Active : Successful authentication attempt
+Active --> Active : Failed verification attempt with other credential
+Active --> Revoked : Revoke PAT
+Revoked --> Revoked : Authentication denied
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - SM-044 Storage Root Escape Prevention
+participant "Repository Resolution" as Resolution
+participant "Repository Storage Coordination" as Storage
+participant "Failure Handling" as Failure
+participant "Diagnostics" as Diag
+Resolution -> Storage : Valid logical repository context
+Storage -> Storage : Derive physical target
+Storage -> Storage : Verify configured-root containment
+alt Target inside root
+    Storage --> Resolution : Safe physical target
+else Target escapes/ambiguous
+    Storage -> Failure : Security-critical storage failure
+    Failure -> Diag : Sanitized high-value diagnostic
+    Failure --> Resolution : Reject physical access
+end
+@enduml

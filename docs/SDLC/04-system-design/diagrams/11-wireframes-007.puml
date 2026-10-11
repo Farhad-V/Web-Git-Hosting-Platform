@@ -1,0 +1,30 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^farhad / gitforge^
+     Public
+     .
+     [ Files ]
+     [ Commits ]
+     [ Branches ]
+     [ Settings ]
+     .
+     Clone URL
+     "https://gitforge.example/farhad/gitforge.git"
+     [ Copy ]
+     .
+     Repository Summary
+     .
+     Default branch: main
+     Latest commit: 8f3a22d
+   }
+}
+@endsalt

@@ -1,0 +1,22 @@
+@startuml
+title GitForge V1.0.0 - SM-030 Empty Repository Browser
+actor Caller
+participant "Repository Resolution" as Resolution
+participant "Repository Authorization" as Authz
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Physical Git Repository" as Repo
+Caller -> Resolution : View repository
+Resolution -> Authz : Authorize read
+Authz --> Resolution : Allow
+Resolution -> Storage : Resolve physical repository
+Storage --> Resolution : Available repository
+Resolution -> Read : Read repository state
+Read -> Repo : Inspect refs/history
+Repo --> Read : Valid empty repository
+Read --> Caller : Empty repository representation
+note right of Repo
+Empty is valid.
+Missing storage would be a failure.
+end note
+@enduml

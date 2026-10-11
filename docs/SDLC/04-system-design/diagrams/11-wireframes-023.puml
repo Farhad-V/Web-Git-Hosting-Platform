@@ -1,0 +1,16 @@
+@startsalt
+{
+   {
+     ^Revoke Token?^
+     .
+     Token:
+     Laptop
+     .
+     Applications using this token
+     will no longer authenticate.
+     .
+     [ Revoke Token ]
+     [ Cancel ]
+   }
+}
+@endsalt

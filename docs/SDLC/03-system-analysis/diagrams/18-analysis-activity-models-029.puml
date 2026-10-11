@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - AM-029 Generic Failure Handling
+start
+:Receive failure context;
+:Classify failure;
+if (Security-sensitive?) then (yes)
+    :Stop protected operation;
+    :Apply fail-closed outcome;
+endif
+:Sanitize diagnostic data;
+:Record internal diagnostic where possible;
+:Prepare safe external response;
+if (Operation completed authoritatively?) then (yes)
+    :Return appropriate completed outcome;
+else (no)
+    :Do not report success;
+    :Return rejection/denial/failure;
+endif
+stop
+@enduml

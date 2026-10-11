@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - Tree Browsing Activity
+start
+:Receive tree request;
+:Resolve repository;
+:Authorize read;
+if (Authorized?) then (yes)
+    :Resolve reference or commit;
+    :Validate logical tree path;
+    if (Reference/path valid?) then (yes)
+        :Resolve Git tree;
+        :Return tree entries;
+    else (no)
+        :Return safe not-found/validation result;
+    endif
+else (no)
+    :Deny;
+endif
+stop
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - PAT Trust Boundaries
+left to right direction
+actor "Authenticated User" as User
+actor "Git Client" as Client
+rectangle "GitForge" {
+    rectangle "PAT Coordination" as PAT
+    rectangle "Git Authentication" as Auth
+}
+database PostgreSQL as DB
+PAT --> User : plaintext PAT once
+User --> Client : user-controlled credential handling
+Client --> Auth : presented PAT
+Auth --> DB : verification + revocation lookup
+DB --> Auth : PAT metadata + owner
+Auth --> Client : authentication outcome
+@enduml

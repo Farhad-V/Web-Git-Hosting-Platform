@@ -1,0 +1,33 @@
+@startuml
+title GitForge V1.0.0 - SM-007 View Private Repository as Owner
+actor "Authenticated User" as User
+participant "Web/API Interface" as Web
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Repository Authorization" as Authz
+participant "Repository Browser Coordination" as Browser
+participant "Repository Storage Coordination" as Storage
+participant "Git Read Coordination" as Read
+participant "Physical Git Repository" as Repo
+User -> Web : View private repository
+Web -> Resolution : Repository identifier + User identity
+Resolution -> DB : Resolve repository metadata
+DB --> Resolution : Private repository + owner
+Resolution -> Authz : Authorize read(User, repository)
+alt User is owner
+    Authz --> Resolution : Allow
+    Resolution -> Browser : Authorized repository context
+    Browser -> Storage : Resolve physical repository
+    Storage --> Browser : Safe target
+    Browser -> Read : Approved Git-native read
+    Read -> Repo : Read
+    Repo --> Read : Git data
+    Read --> Browser : Result
+    Browser --> Web : Repository view
+    Web --> User : Private repository content
+else User is non-owner
+    Authz --> Resolution : Deny
+    Resolution --> Web : Safe denial
+    Web --> User : Access denied
+end
+@enduml

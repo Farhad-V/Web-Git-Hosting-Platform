@@ -1,0 +1,26 @@
+@startuml
+title GitForge V1.0.0 - Container Architecture
+actor "Web User" as WebUser
+actor "Git User" as GitUser
+actor "System Operator" as Operator
+rectangle "Web Client\nBrowser" as Browser
+rectangle "Git Client\nCLI / IDE" as GitClient
+rectangle "Web Server /\nReverse Proxy" as WebServer
+rectangle "Laravel Application\nGitForge" as App
+database "PostgreSQL\nApplication Metadata" as DB
+folder "Repository Storage\nBare Git Repositories" as Storage
+rectangle "Git Executable /\nGit Processes" as Git
+WebUser --> Browser
+GitUser --> GitClient
+Browser --> WebServer : HTTPS / HTTP
+GitClient --> WebServer : Git Smart HTTP
+WebServer --> App : Application requests
+App --> DB : SQL
+App --> Storage : Safe filesystem operations
+App --> Git : Structured process invocation
+Git --> Storage : Git-native repository access
+Operator --> WebServer : Operational management
+Operator --> App : Operational diagnostics
+Operator --> DB : Administrative operations
+Operator --> Storage : Backup / recovery operations
+@enduml

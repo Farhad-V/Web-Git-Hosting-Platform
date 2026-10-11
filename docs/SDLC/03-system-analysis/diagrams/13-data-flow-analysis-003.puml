@@ -1,0 +1,21 @@
+@startuml
+title GitForge V1.0.0 - Repository Creation Data Flow
+actor "Authenticated User" as User
+rectangle "Web/API Interface" as Web
+rectangle "Repository Coordination" as Repo
+database PostgreSQL as DB
+rectangle "Repository Storage Coordination" as Storage
+rectangle "Git Process Coordination" as Process
+folder "Physical Git Repository" as GitRepo
+User --> Web : name + visibility
+Web --> Repo : validated creation request
+Repo --> DB : check namespace / persist metadata
+DB --> Repo : metadata result
+Repo --> Storage : resolve safe physical target
+Storage --> Process : approved repository initialization
+Process --> GitRepo : initialize repository
+GitRepo --> Process : result
+Process --> Repo : storage result
+Repo --> Web : creation result
+Web --> User : safe response
+@enduml

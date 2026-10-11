@@ -1,0 +1,33 @@
+@startuml
+title GitForge V1.0.0 - Git Write Failure Flow
+start
+:Receive Git write request;
+:Authenticate PAT;
+if (Authentication succeeds?) then (yes)
+    :Resolve repository;
+    if (Repository resolved?) then (yes)
+        :Authorize owner write;
+        if (Authorized?) then (yes)
+            :Resolve physical storage;
+            if (Storage writable?) then (yes)
+                :Execute git-receive-pack;
+                if (Git write succeeds?) then (yes)
+                    :Return success;
+                else (no)
+                    :Classify Git/ref/protocol failure;
+                    :Return safe failure;
+                endif
+            else (no)
+                :Return safe storage failure;
+            endif
+        else (no)
+            :Deny;
+        endif
+    else (no)
+        :Return safe repository failure;
+    endif
+else (no)
+    :Deny;
+endif
+stop
+@enduml

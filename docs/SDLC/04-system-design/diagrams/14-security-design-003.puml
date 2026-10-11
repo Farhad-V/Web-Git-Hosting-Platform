@@ -1,0 +1,28 @@
+@startuml
+title GitForge - Secure Push Flow
+actor "Git Client" as Client
+participant "PAT Authentication" as Authn
+participant "Git Write Service" as Service
+participant "Repository Authorization" as Authz
+participant "Repository Storage" as Storage
+participant "Git Process Executor" as Executor
+participant "git receive-pack" as Git
+Client -> Authn : PAT credential
+alt invalid/revoked
+     Authn --> Client : Authentication failure
+else authenticated
+     Authn --> Service : User identity
+     Service -> Authz : canWrite(user, repository)
+     alt denied
+         Authz --> Client : Deny
+     else allowed
+         Authz --> Service : Allow
+         Service -> Storage : resolveExisting(repository)
+         Storage --> Service : Safe path
+         Service -> Executor : RECEIVE_PACK_RPC
+         Executor -> Git : Structured process invocation
+         Client -> Git : Git protocol data via stdin
+         Git --> Client : Git protocol result via stdout
+     end
+end
+@enduml

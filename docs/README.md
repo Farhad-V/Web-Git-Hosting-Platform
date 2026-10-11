@@ -21,3 +21,7 @@ The detailed engineering files now live inside their related subject folders. Hi
 ## Operational guidance
 
 Start with the [project setup instructions](../README.md), [collaboration and Actions worker guide](SDLC/05-implementation/Features/repository-collaboration.md), [visual system](SDLC/05-implementation/Features/visual-system.md), and [deployment runbook](SDLC/07-deployment/04-deployment-runbook.md). Never store account passwords, personal access tokens, or environment secrets in documentation.
+
+## Diagram catalog
+
+Browse the [PlantUML diagram catalog](diagrams/README.md) for editable sources and rendered SVG previews across the project.

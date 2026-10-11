@@ -1,0 +1,15 @@
+@startuml
+title GitForge V1.0.0 - PAT Authentication State
+[*] --> Received
+Received --> CandidateLookup
+CandidateLookup --> Verifying : candidate found
+CandidateLookup --> Rejected : candidate absent
+Verifying --> RevocationCheck : credential verifies
+Verifying --> Rejected : verification fails
+RevocationCheck --> OwnerResolution : active
+RevocationCheck --> Rejected : revoked
+OwnerResolution --> Authenticated : owner resolved
+OwnerResolution --> Rejected : inconsistent owner state
+Authenticated --> [*]
+Rejected --> [*]
+@enduml

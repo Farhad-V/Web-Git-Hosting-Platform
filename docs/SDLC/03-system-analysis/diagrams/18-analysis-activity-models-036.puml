@@ -1,0 +1,15 @@
+@startuml
+title GitForge V1.0.0 - AM-036 Storage Root Escape Prevention
+start
+:Derive physical repository target;
+:Verify target containment;
+if (Contained inside configured repository root?) then (yes)
+    :Permit storage-resolution continuation;
+else (no)
+    :Reject target;
+    :Classify security-critical failure;
+    :Record sanitized diagnostic;
+    :Stop physical access;
+endif
+stop
+@enduml

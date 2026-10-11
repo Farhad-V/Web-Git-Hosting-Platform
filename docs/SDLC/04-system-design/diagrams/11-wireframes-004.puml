@@ -1,0 +1,24 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^My Repositories^
+     .
+     [ + New Repository ]
+     .
+     {#
+       Repository | Visibility | Updated
+       gitforge | Public | 2026-08-18
+       private-demo | Private | 2026-08-17
+       api-project | Private | 2026-08-15
+     }
+   }
+}
+@endsalt

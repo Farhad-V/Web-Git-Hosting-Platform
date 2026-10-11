@@ -473,44 +473,9 @@ GitForge
 
 The following PlantUML diagram represents the high-level actor and external-system context.
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - System Context
+![GitForge V1.0.0 - System Context](diagrams/03-actors-and-external-systems.svg)
 
-left to right direction
-
-actor Visitor
-actor "Authenticated User" as User
-actor "Repository Owner" as Owner
-actor "System Operator" as Operator
-
-rectangle "GitForge V1.0.0" as GitForge
-
-rectangle "Web Browser" as Browser
-rectangle "Git Client" as GitClient
-database "PostgreSQL" as PostgreSQL
-rectangle "Filesystem Repository Storage" as FS
-rectangle "Git Executable" as Git
-rectangle "Operating System" as OS
-
-Visitor --> Browser
-User --> Browser
-Owner --> Browser
-
-Browser --> GitForge : HTTP / HTTPS
-GitClient --> GitForge : Git Smart HTTP
-
-GitForge --> PostgreSQL : Application data
-GitForge --> FS : Repository storage
-GitForge --> Git : Controlled Git operations
-GitForge --> OS : Runtime / process services
-
-Operator --> OS : Operates environment
-
-User <|-- Owner
-
-@enduml
-```
+[PlantUML source](diagrams/03-actors-and-external-systems.puml)
 
 ---
 

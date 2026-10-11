@@ -1,0 +1,16 @@
+@startuml
+title GitForge V1.0.0 - SM-040 Private Read by Non-Owner
+actor "Authenticated Non-Owner" as User
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Repository Authorization" as Authz
+User -> Resolution : Read private repository
+Resolution -> DB : Resolve repository metadata
+DB --> Resolution : Private + owner B
+Resolution -> Authz : Authorize(User A, repository, read)
+Authz --> Resolution : Deny
+Resolution --> User : Safe denial
+note right of Resolution
+No protected physical Git access occurs.
+end note
+@enduml

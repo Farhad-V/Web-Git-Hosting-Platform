@@ -1,0 +1,32 @@
+@startsalt
+{
+   {+
+     GitForge
+     .
+     [ Repositories ]
+     [ Tokens ]
+     [ Logout ]
+   }
+   ==
+   {
+     ^Commit 8f3a22d^
+     .
+     Add repository storage
+     .
+     Author:
+     Farhad <user@example.com>
+     .
+     Authored:
+     2026-08-18 10:30
+     .
+     Committer:
+     Farhad <user@example.com>
+     .
+     Parent:
+     97ca91a
+     .
+     Tree:
+     [ View Tree ]
+   }
+}
+@endsalt

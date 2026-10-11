@@ -1554,359 +1554,65 @@ A Revoked PAT has no transition back to Active in V1.0.0.
 
 ## 52. Web Authentication State Diagram
 
-```plantuml
+![GitForge V1.0.0 - Web Authentication State](diagrams/05-authentication-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Web Authentication State
-
-\[*] --> Unauthenticated
-
-Unauthenticated --> Authenticated : Login succeeds
-
-Unauthenticated --> Unauthenticated : Login fails
-
-Authenticated --> Unauthenticated : Logout
-
-Authenticated --> Unauthenticated : Session invalid
-
-Authenticated --> Authenticated : Valid authenticated request
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-authentication-analysis-001.puml)
 
 ---
 
 ## 53. PAT Authentication State Diagram
 
-```plantuml
+![GitForge V1.0.0 - PAT Authentication State](diagrams/05-authentication-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Authentication State
-
-\[*] --> Active : Create PAT
-
-Active --> Active : Successful authentication attempt
-
-Active --> Active : Failed verification attempt with other credential
-
-Active --> Revoked : Revoke PAT
-
-Revoked --> Revoked : Authentication denied
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-authentication-analysis-002.puml)
 
 ---
 
 ## 54. Web Login Sequence Analysis
 
-```plantuml
+![GitForge V1.0.0 - Web Login Analysis Sequence](diagrams/05-authentication-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Web Login Analysis Sequence
-
-actor Visitor
-
-participant "Web Interaction" as Web
-
-participant "Web Authentication" as Auth
-
-participant "Application Data Persistence" as Data
-
-Visitor -> Web : Submit login credentials
-
-Web -> Auth : Authenticate(credentials)
-
-Auth -> Data : Resolve candidate user
-
-Data --> Auth : User authentication data
-
-Auth -> Auth : Verify credential
-
-alt Authentication succeeds
-
-&#x20;   Auth --> Web : Authenticated(User)
-
-&#x20;   Web -> Auth : Establish session
-
-&#x20;   Auth --> Web : Session established
-
-&#x20;   Web --> Visitor : Login success
-
-else Authentication fails
-
-&#x20;   Auth --> Web : Authentication failure
-
-&#x20;   Web --> Visitor : Safe failure response
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-authentication-analysis-003.puml)
 
 ---
 
 ## 55. Protected Web Request Sequence
 
-```plantuml
+![GitForge V1.0.0 - Protected Web Authentication Sequence](diagrams/05-authentication-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Protected Web Authentication Sequence
-
-actor "Authenticated User" as User
-
-participant "Web Interaction" as Web
-
-participant "Web Authentication" as Auth
-
-participant "Repository Authorization" as Authz
-
-participant "Protected Responsibility" as Operation
-
-User -> Web : Protected request
-
-Web -> Auth : Resolve session identity
-
-Auth --> Web : User identity
-
-Web -> Authz : Authorize(User, resource, operation)
-
-alt Allowed
-
-&#x20;   Authz --> Web : Allow
-
-&#x20;   Web -> Operation : Perform operation
-
-&#x20;   Operation --> Web : Result
-
-&#x20;   Web --> User : Success response
-
-else Denied
-
-&#x20;   Authz --> Web : Deny
-
-&#x20;   Web --> User : Safe denial response
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-authentication-analysis-004.puml)
 
 ---
 
 ## 56. Git PAT Authentication Sequence
 
-```plantuml
+![GitForge V1.0.0 - PAT Authentication Sequence](diagrams/05-authentication-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - PAT Authentication Sequence
-
-actor "Git Client" as Client
-
-participant "Git Smart HTTP Interface" as HTTP
-
-participant "Git Authentication" as Auth
-
-participant "Application Data Persistence" as Data
-
-participant "Repository Authorization" as Authz
-
-Client -> HTTP : Protected Git request + PAT
-
-HTTP -> Auth : Authenticate(PAT)
-
-Auth -> Data : Resolve PAT verification data
-
-Data --> Auth : PAT metadata
-
-Auth -> Auth : Verify credential
-
-Auth -> Auth : Check Active/Revoked state
-
-alt PAT valid and active
-
-&#x20;   Auth -> Data : Resolve PAT owner
-
-&#x20;   Data --> Auth : User identity
-
-&#x20;   Auth --> HTTP : Authenticated(User)
-
-&#x20;   HTTP -> Authz : Authorize(User, repository, operation)
-
-else PAT invalid or revoked
-
-&#x20;   Auth --> HTTP : Authentication failure
-
-&#x20;   HTTP --> Client : Authentication denied
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-authentication-analysis-005.puml)
 
 ---
 
 ## 57. Anonymous Public Git Read Sequence
 
-```plantuml
+![GitForge V1.0.0 - Anonymous Public Git Read](diagrams/05-authentication-analysis-006.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Anonymous Public Git Read
-
-actor "Git Client" as Client
-
-participant "Git Smart HTTP Interface" as HTTP
-
-participant "Repository Resolution" as Repo
-
-participant "Repository Authorization" as Authz
-
-participant "Git Read Coordination" as Read
-
-Client -> HTTP : Public clone/fetch request
-
-HTTP -> Repo : Resolve repository
-
-Repo --> HTTP : Repository metadata
-
-HTTP -> Authz : Authorize anonymous read
-
-alt Repository is public
-
-&#x20;   Authz --> HTTP : Allow
-
-&#x20;   HTTP -> Read : Perform authorized read
-
-&#x20;   Read --> HTTP : Git response
-
-&#x20;   HTTP --> Client : Git Smart HTTP response
-
-else Repository is private
-
-&#x20;   Authz --> HTTP : Deny
-
-&#x20;   HTTP --> Client : Authentication/access required
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-authentication-analysis-006.puml)
 
 ---
 
 ## 58. Authentication Activity — Web Login
 
-```plantuml
+![GitForge V1.0.0 - Web Login Activity](diagrams/05-authentication-analysis-007.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Web Login Activity
-
-start
-
-:Receive login request;
-
-:Validate input;
-
-if (Input valid?) then (yes)
-
-&#x20;   :Resolve user authentication data;
-
-&#x20;   if (User/credential verifies?) then (yes)
-
-&#x20;       :Establish authenticated session;
-
-&#x20;       :Associate session with User identity;
-
-&#x20;       :Return login success;
-
-&#x20;   else (no)
-
-&#x20;       :Classify authentication failure;
-
-&#x20;       :Return safe failure response;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return validation failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-authentication-analysis-007.puml)
 
 ---
 
 ## 59. Authentication Activity — Git PAT
 
-```plantuml
+![GitForge V1.0.0 - Git PAT Authentication Activity](diagrams/05-authentication-analysis-008.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git PAT Authentication Activity
-
-start
-
-:Receive protected Git request;
-
-:Extract authentication credential;
-
-if (Credential present?) then (yes)
-
-&#x20;   :Validate credential format;
-
-&#x20;   :Resolve PAT verification data;
-
-&#x20;   if (PAT verifies?) then (yes)
-
-&#x20;       if (PAT active?) then (yes)
-
-&#x20;           :Resolve PAT owner;
-
-&#x20;           :Establish User identity;
-
-&#x20;           :Continue to repository authorization;
-
-&#x20;       else (no)
-
-&#x20;           :Authentication denied;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Authentication denied;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Authentication denied;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/05-authentication-analysis-008.puml)
 
 ---
 

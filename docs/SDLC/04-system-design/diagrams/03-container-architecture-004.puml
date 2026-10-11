@@ -1,0 +1,29 @@
+@startuml
+title GitForge - Git Smart HTTP Write Container Flow
+actor "Git Client" as Client
+participant "Web Server" as Web
+participant "Laravel Application" as App
+database PostgreSQL as DB
+participant "Repository Storage" as Storage
+participant "Git receive-pack" as Git
+Client -> Web : Smart HTTP write request
+Web -> App : Forward request
+App -> DB : Authenticate PAT
+DB --> App : User identity
+App -> DB : Resolve repository
+DB --> App : Repository + owner
+App -> App : Owner write authorization
+alt Owner authorized
+     App -> Storage : Resolve safe physical target
+     Storage --> App : Safe target
+     App -> Git : Execute git-receive-pack
+     Git -> Storage : Update Git repository
+     Storage --> Git
+     Git --> App : Protocol result
+     App --> Web : Git protocol response
+     Web --> Client : Git protocol response
+else Unauthorized
+     App --> Web : Denial
+     Web --> Client : Failure
+end
+@enduml

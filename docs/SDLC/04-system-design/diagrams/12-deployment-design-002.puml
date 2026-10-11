@@ -1,0 +1,25 @@
+@startuml
+title GitForge - Deployment Trust Zones
+rectangle "External / Untrusted" {
+   actor "Web Browser" as Browser
+   actor "Git Client" as GitClient
+}
+rectangle "Ingress" {
+   node "Reverse Proxy / TLS" as Proxy
+}
+rectangle "Application-Controlled" {
+   node "Laravel / PHP" as Laravel
+   artifact "Git Executable" as Git
+}
+rectangle "Persistent Internal Data" {
+   database "PostgreSQL" as DB
+   folder "Repository Storage" as Storage
+}
+Browser --> Proxy : HTTPS
+GitClient --> Proxy : Git Smart HTTP / HTTPS
+Proxy --> Laravel
+Laravel --> DB
+Laravel --> Git
+Git --> Storage
+Laravel --> Storage : Controlled state checks
+@enduml

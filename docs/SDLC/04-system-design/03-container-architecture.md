@@ -152,61 +152,9 @@ C-07 Git Executable / Git Processes
 
 ## 6. High-Level Container Model
 
-```plantuml
+![GitForge V1.0.0 - Container Architecture](diagrams/03-container-architecture-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Container Architecture
-
-actor "Web User" as WebUser
-
-actor "Git User" as GitUser
-
-actor "System Operator" as Operator
-
-rectangle "Web Client\\nBrowser" as Browser
-
-rectangle "Git Client\\nCLI / IDE" as GitClient
-
-rectangle "Web Server /\\nReverse Proxy" as WebServer
-
-rectangle "Laravel Application\\nGitForge" as App
-
-database "PostgreSQL\\nApplication Metadata" as DB
-
-folder "Repository Storage\\nBare Git Repositories" as Storage
-
-rectangle "Git Executable /\\nGit Processes" as Git
-
-WebUser --> Browser
-
-GitUser --> GitClient
-
-Browser --> WebServer : HTTPS / HTTP
-
-GitClient --> WebServer : Git Smart HTTP
-
-WebServer --> App : Application requests
-
-App --> DB : SQL
-
-App --> Storage : Safe filesystem operations
-
-App --> Git : Structured process invocation
-
-Git --> Storage : Git-native repository access
-
-Operator --> WebServer : Operational management
-
-Operator --> App : Operational diagnostics
-
-Operator --> DB : Administrative operations
-
-Operator --> Storage : Backup / recovery operations
-
-@enduml
-
-```
+[PlantUML source](diagrams/03-container-architecture-001.puml)
 
 ---
 
@@ -1116,195 +1064,25 @@ Process output may contain untrusted repository content
 
 ## 50. Web Application Flow
 
-```plantuml
+![GitForge - Web Application Request Flow](diagrams/03-container-architecture-002.svg)
 
-@startuml
-
-title GitForge - Web Application Request Flow
-
-actor User
-
-participant Browser
-
-participant "Web Server" as Web
-
-participant "Laravel Application" as App
-
-database PostgreSQL as DB
-
-participant "Repository Storage" as Storage
-
-participant Git
-
-User -> Browser
-
-Browser -> Web : HTTP/HTTPS request
-
-Web -> App : Forward request
-
-App -> DB : Metadata / identity query
-
-DB --> App : Metadata
-
-alt Repository content required
-
-     App -> Storage : Resolve safe repository target
-
-     Storage --> App : Safe target
-
-     App -> Git : Execute approved read operation
-
-     Git -> Storage : Read Git-native state
-
-     Storage --> Git
-
-     Git --> App : Git-native result
-
-end
-
-App --> Web : HTTP response
-
-Web --> Browser : HTTP/HTTPS response
-
-@enduml
-
-```
+[PlantUML source](diagrams/03-container-architecture-002.puml)
 
 ---
 
 ## 51. Git Read Flow
 
-```plantuml
+![GitForge - Git Smart HTTP Read Container Flow](diagrams/03-container-architecture-003.svg)
 
-@startuml
-
-title GitForge - Git Smart HTTP Read Container Flow
-
-actor "Git Client" as Client
-
-participant "Web Server" as Web
-
-participant "Laravel Application" as App
-
-database PostgreSQL as DB
-
-participant "Repository Storage" as Storage
-
-participant "Git upload-pack" as Git
-
-Client -> Web : Smart HTTP read request
-
-Web -> App : Forward request
-
-App -> DB : Resolve repository metadata
-
-DB --> App : Repository + visibility
-
-alt Private repository
-
-     App -> DB : Resolve PAT identity
-
-     DB --> App : Authenticated user
-
-end
-
-App -> App : Authorize read
-
-alt Allowed
-
-     App -> Storage : Resolve safe physical target
-
-     Storage --> App : Safe target
-
-     App -> Git : Execute git-upload-pack
-
-     Git -> Storage : Read repository
-
-     Storage --> Git
-
-     Git --> App : Protocol stream
-
-     App --> Web : Git protocol response
-
-     Web --> Client : Git protocol response
-
-else Denied
-
-     App --> Web : Denial
-
-     Web --> Client : Failure
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/03-container-architecture-003.puml)
 
 ---
 
 ## 52. Git Write Flow
 
-```plantuml
+![GitForge - Git Smart HTTP Write Container Flow](diagrams/03-container-architecture-004.svg)
 
-@startuml
-
-title GitForge - Git Smart HTTP Write Container Flow
-
-actor "Git Client" as Client
-
-participant "Web Server" as Web
-
-participant "Laravel Application" as App
-
-database PostgreSQL as DB
-
-participant "Repository Storage" as Storage
-
-participant "Git receive-pack" as Git
-
-Client -> Web : Smart HTTP write request
-
-Web -> App : Forward request
-
-App -> DB : Authenticate PAT
-
-DB --> App : User identity
-
-App -> DB : Resolve repository
-
-DB --> App : Repository + owner
-
-App -> App : Owner write authorization
-
-alt Owner authorized
-
-     App -> Storage : Resolve safe physical target
-
-     Storage --> App : Safe target
-
-     App -> Git : Execute git-receive-pack
-
-     Git -> Storage : Update Git repository
-
-     Storage --> Git
-
-     Git --> App : Protocol result
-
-     App --> Web : Git protocol response
-
-     Web --> Client : Git protocol response
-
-else Unauthorized
-
-     App --> Web : Denial
-
-     Web --> Client : Failure
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/03-container-architecture-004.puml)
 
 ---
 
@@ -1330,63 +1108,9 @@ Git Executable
 
 ## 54. Creation Flow
 
-```plantuml
+![GitForge - Repository Creation Container Flow](diagrams/03-container-architecture-005.svg)
 
-@startuml
-
-title GitForge - Repository Creation Container Flow
-
-actor User
-
-participant "Laravel Application" as App
-
-database PostgreSQL as DB
-
-participant "Repository Storage" as Storage
-
-participant Git
-
-User -> App : Create repository
-
-App -> App : Validate request
-
-App -> App : Authenticate user
-
-App -> App : Authorize operation
-
-App -> DB : Reserve/persist repository metadata
-
-DB --> App : Metadata result
-
-App -> Storage : Resolve safe new repository location
-
-Storage --> App : Safe target
-
-App -> Git : git init --bare
-
-Git -> Storage : Create repository
-
-Storage --> Git
-
-Git --> App : Initialization result
-
-alt Initialization successful
-
-     App --> User : Repository created
-
-else Initialization failed
-
-     App -> DB : Compensate metadata
-
-     App -> Storage : Cleanup partial storage if safe
-
-     App --> User : Creation failed
-
-end
-
-@enduml
-
-```
+[PlantUML source](diagrams/03-container-architecture-005.puml)
 
 ---
 
@@ -1562,55 +1286,9 @@ Repository Storage
 
 ## 62. Trust-Zone Diagram
 
-```plantuml
+![GitForge - Container Trust Zones](diagrams/03-container-architecture-006.svg)
 
-@startuml
-
-title GitForge - Container Trust Zones
-
-package "Zone A - External / Untrusted" {
-
-     rectangle "Web Client" as Browser
-
-     rectangle "Git Client" as GitClient
-
-}
-
-package "Zone B - Application Controlled" {
-
-     rectangle "Web Server" as Web
-
-     rectangle "Laravel Application" as App
-
-     rectangle "Git Processes" as Git
-
-}
-
-package "Zone C - Persistent Internal Data" {
-
-     database PostgreSQL as DB
-
-     folder "Repository Storage" as Storage
-
-}
-
-Browser --> Web
-
-GitClient --> Web
-
-Web --> App
-
-App --> DB
-
-App --> Git
-
-App --> Storage
-
-Git --> Storage
-
-@enduml
-
-```
+[PlantUML source](diagrams/03-container-architecture-006.puml)
 
 ---
 
@@ -1752,39 +1430,9 @@ or separate PostgreSQL where operationally justified.
 
 ## 69. Production-Like Diagram
 
-```plantuml
+![GitForge - Simple Production-Like Deployment](diagrams/03-container-architecture-007.svg)
 
-@startuml
-
-title GitForge - Simple Production-Like Deployment
-
-node "GitForge Host" {
-
-     rectangle "Web Server" as Web
-
-     rectangle "Laravel / PHP Runtime" as App
-
-     rectangle "Git Executable" as Git
-
-     folder "Persistent Repository Storage" as Repos
-
-     Web --> App
-
-     App --> Git
-
-     App --> Repos
-
-     Git --> Repos
-
-}
-
-database "PostgreSQL" as DB
-
-App --> DB
-
-@enduml
-
-```
+[PlantUML source](diagrams/03-container-architecture-007.puml)
 
 ---
 

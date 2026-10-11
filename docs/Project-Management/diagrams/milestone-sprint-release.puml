@@ -1,0 +1,20 @@
+@startuml
+title milestone sprint release relationship
+skinparam shadowing false
+left to right direction
+rectangle "Requirements and acceptance criteria" as Goal
+rectangle "Refined backlog" as Backlog
+rectangle "Sprint or delivery increment" as Increment
+rectangle "Implementation and verification evidence" as Evidence
+rectangle "Milestone review" as Milestone
+rectangle "Release candidate" as Candidate
+rectangle "Review and release checks" as Gate
+rectangle "Version tag and release notes" as Release
+Goal --> Backlog
+Backlog --> Increment
+Increment --> Evidence
+Evidence --> Milestone
+Evidence --> Candidate
+Candidate --> Gate
+Gate --> Release
+@enduml

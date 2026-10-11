@@ -1,0 +1,14 @@
+@startuml
+title GitForge V1.0.0 - AM-032 Private Read by Non-Owner
+start
+:Resolve private repository;
+:Resolve authenticated User identity;
+if (User is owner?) then (yes)
+    :Allow read;
+    :Continue to storage resolution;
+else (no)
+    :Deny read;
+    :Stop before protected Git content access;
+endif
+stop
+@enduml

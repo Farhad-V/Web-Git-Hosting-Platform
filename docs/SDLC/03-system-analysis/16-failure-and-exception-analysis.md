@@ -988,67 +988,9 @@ Consistency failure
 
 ## 36. Repository Creation Failure Flow
 
-```plantuml
+![GitForge V1.0.0 - Repository Creation Failure Flow](diagrams/16-failure-and-exception-analysis-001.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Creation Failure Flow
-
-start
-
-:Receive creation request;
-
-:Validate request;
-
-if (Valid?) then (yes)
-
-&#x20;   :Check namespace uniqueness;
-
-&#x20;   if (Unique?) then (yes)
-
-&#x20;       :Prepare repository metadata;
-
-&#x20;       :Initialize physical repository;
-
-&#x20;       if (Initialization succeeds?) then (yes)
-
-&#x20;           :Persist/confirm authoritative metadata;
-
-&#x20;           if (Persistence succeeds?) then (yes)
-
-&#x20;               :Report success;
-
-&#x20;           else (no)
-
-&#x20;               :Handle consistency failure;
-
-&#x20;               :Report failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Report creation failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Reject namespace conflict;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Reject invalid request;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/16-failure-and-exception-analysis-001.puml)
 
 ---
 
@@ -1446,47 +1388,9 @@ Permission failure
 
 ## 54. Storage Failure Flow
 
-```plantuml
+![GitForge V1.0.0 - Repository Storage Failure Flow](diagrams/16-failure-and-exception-analysis-002.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Repository Storage Failure Flow
-
-start
-
-:Receive authorized repository operation;
-
-:Resolve physical target;
-
-if (Target safely resolved?) then (yes)
-
-&#x20;   :Check repository availability;
-
-&#x20;   if (Repository available?) then (yes)
-
-&#x20;       :Continue approved Git operation;
-
-&#x20;   else (no)
-
-&#x20;       :Classify storage failure;
-
-&#x20;       :Return safe operational failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Reject physical access;
-
-&#x20;   :Record security/consistency diagnostic;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/16-failure-and-exception-analysis-002.puml)
 
 ---
 
@@ -1658,79 +1562,9 @@ Each stage should retain its own internal failure class.
 
 ## 61. Git Read Failure Flow
 
-```plantuml
+![GitForge V1.0.0 - Git Read Failure Flow](diagrams/16-failure-and-exception-analysis-003.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Read Failure Flow
-
-start
-
-:Receive Git read request;
-
-if (Authentication required?) then (yes)
-
-&#x20;   :Authenticate PAT;
-
-&#x20;   if (Authentication succeeds?) then (yes)
-
-&#x20;   else (no)
-
-&#x20;       :Deny;
-
-&#x20;       stop
-
-&#x20;   endif
-
-endif
-
-:Resolve repository;
-
-if (Repository resolved?) then (yes)
-
-&#x20;   :Authorize read;
-
-&#x20;   if (Allowed?) then (yes)
-
-&#x20;       :Resolve physical storage;
-
-&#x20;       if (Storage available?) then (yes)
-
-&#x20;           :Execute git-upload-pack;
-
-&#x20;           if (Git read succeeds?) then (yes)
-
-&#x20;               :Return Git response;
-
-&#x20;           else (no)
-
-&#x20;               :Return safe Git-read failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Return safe storage failure;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Deny;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Return safe repository failure;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/16-failure-and-exception-analysis-003.puml)
 
 ---
 
@@ -1778,75 +1612,9 @@ Response failure
 
 ## 63. Git Write Failure Flow
 
-```plantuml
+![GitForge V1.0.0 - Git Write Failure Flow](diagrams/16-failure-and-exception-analysis-004.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Git Write Failure Flow
-
-start
-
-:Receive Git write request;
-
-:Authenticate PAT;
-
-if (Authentication succeeds?) then (yes)
-
-&#x20;   :Resolve repository;
-
-&#x20;   if (Repository resolved?) then (yes)
-
-&#x20;       :Authorize owner write;
-
-&#x20;       if (Authorized?) then (yes)
-
-&#x20;           :Resolve physical storage;
-
-&#x20;           if (Storage writable?) then (yes)
-
-&#x20;               :Execute git-receive-pack;
-
-&#x20;               if (Git write succeeds?) then (yes)
-
-&#x20;                   :Return success;
-
-&#x20;               else (no)
-
-&#x20;                   :Classify Git/ref/protocol failure;
-
-&#x20;                   :Return safe failure;
-
-&#x20;               endif
-
-&#x20;           else (no)
-
-&#x20;               :Return safe storage failure;
-
-&#x20;           endif
-
-&#x20;       else (no)
-
-&#x20;           :Deny;
-
-&#x20;       endif
-
-&#x20;   else (no)
-
-&#x20;       :Return safe repository failure;
-
-&#x20;   endif
-
-else (no)
-
-&#x20;   :Deny;
-
-endif
-
-stop
-
-@enduml
-
-```
+[PlantUML source](diagrams/16-failure-and-exception-analysis-004.puml)
 
 ---
 
@@ -2534,71 +2302,9 @@ Avoid Secret Exposure
 
 ## 93. Failure Trust-Boundary Diagram
 
-```plantuml
+![GitForge V1.0.0 - Failure Containment Boundaries](diagrams/16-failure-and-exception-analysis-005.svg)
 
-@startuml
-
-title GitForge V1.0.0 - Failure Containment Boundaries
-
-left to right direction
-
-actor Caller
-
-rectangle "Request Handling" as Request
-
-rectangle "Authentication" as Auth
-
-rectangle "Authorization" as Authz
-
-rectangle "Repository Resolution" as Resolve
-
-rectangle "Storage Coordination" as Storage
-
-rectangle "Git Process Coordination" as Git
-
-rectangle "Failure Handling" as Failure
-
-rectangle "Diagnostics" as Diag
-
-database PostgreSQL as DB
-
-folder "Physical Git Repository" as Repo
-
-Caller --> Request
-
-Request --> Auth
-
-Auth --> Authz
-
-Authz --> Resolve
-
-Resolve --> DB
-
-Resolve --> Storage
-
-Storage --> Repo
-
-Storage --> Git
-
-Request --> Failure : validation/internal failure
-
-Auth --> Failure : authentication failure
-
-Authz --> Failure : denial
-
-Resolve --> Failure : resolution failure
-
-Storage --> Failure : storage failure
-
-Git --> Failure : Git/protocol failure
-
-Failure --> Diag : sanitized diagnostic
-
-Failure --> Caller : safe failure response
-
-@enduml
-
-```
+[PlantUML source](diagrams/16-failure-and-exception-analysis-005.puml)
 
 ---
 

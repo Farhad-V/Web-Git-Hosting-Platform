@@ -1,0 +1,17 @@
+@startuml
+title GitForge V1.0.0 - PAT DFD
+left to right direction
+actor "Authenticated User" as User
+actor "Git Client" as Client
+rectangle "P1\nPAT Coordination" as PAT
+rectangle "P2\nGit Authentication" as Auth
+database "D1\nPostgreSQL" as DB
+User --> PAT : create/revoke PAT
+PAT --> DB : PAT metadata / revocation
+DB --> PAT : PAT state
+PAT --> User : one-time plaintext / result
+Client --> Auth : presented PAT
+Auth --> DB : verification lookup
+DB --> Auth : PAT metadata + owner
+Auth --> Client : authentication outcome/context
+@enduml

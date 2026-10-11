@@ -1,0 +1,20 @@
+@startuml
+title GitForge V1.0.0 - SM-039 Concurrent Push Ref Conflict
+actor "Git Client A" as A
+actor "Git Client B" as B
+participant "Git Write Coordination" as Write
+participant "Git Executable" as Git
+participant "Physical Git Repository" as Repo
+A -> Write : Authorized push A
+B -> Write : Authorized push B
+Write -> Git : Execute push A
+Git -> Repo : Update ref
+Repo --> Git : Success
+Git --> Write : Push A success
+Write --> A : Success
+Write -> Git : Execute push B
+Git -> Repo : Attempt stale/conflicting ref update
+Repo --> Git : Reject
+Git --> Write : Ref rejection
+Write --> B : Git-native write failure
+@enduml

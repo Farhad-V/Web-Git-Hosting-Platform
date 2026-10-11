@@ -1,0 +1,19 @@
+@startuml
+title GitForge V1.0.0 - SM-034 Failure Propagation and Diagnostics
+participant "Domain Responsibility" as Domain
+participant "Failure Handling" as Failure
+participant "Diagnostics" as Diag
+actor Caller
+actor "System Operator" as Operator
+Domain -> Failure : Internal failure context
+Failure -> Failure : Classify + sanitize
+Failure -> Diag : Safe diagnostic event
+Diag --> Operator : Operational diagnostic
+Failure --> Caller : Safe external failure response
+note right of Failure
+No plaintext PAT
+No plaintext password
+No unnecessary filesystem path
+No raw internal stack trace externally
+end note
+@enduml

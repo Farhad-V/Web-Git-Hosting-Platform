@@ -1,0 +1,13 @@
+@startuml
+title GitForge V1.0.0 - PAT Conceptual Lifecycle
+[*] --> Active : Create PAT
+Active --> Revoked : Revoke
+Revoked --> [*]
+note right of Active
+May authenticate
+if token validation succeeds
+end note
+note right of Revoked
+Must not authenticate
+end note
+@enduml

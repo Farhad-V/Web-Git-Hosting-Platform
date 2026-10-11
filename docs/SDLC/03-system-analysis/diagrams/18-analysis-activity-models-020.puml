@@ -1,0 +1,34 @@
+@startuml
+title GitForge V1.0.0 - AM-020 Clone / Fetch
+start
+:Receive clone/fetch interaction;
+:Resolve repository;
+if (Repository Public?) then (yes)
+    :Allow read;
+else (no)
+    :Authenticate PAT;
+    if (Authentication succeeds?) then (yes)
+        :Authorize private owner read;
+        if (Authorized?) then (yes)
+        else (no)
+            :Deny;
+            stop
+        endif
+    else (no)
+        :Deny;
+        stop
+    endif
+endif
+:Resolve safe physical repository;
+if (Storage available?) then (yes)
+    :Execute approved git-upload-pack;
+    if (Git operation succeeds?) then (yes)
+        :Return/stream Git read data;
+    else (no)
+        :Return Git read failure;
+    endif
+else (no)
+    :Return storage failure;
+endif
+stop
+@enduml

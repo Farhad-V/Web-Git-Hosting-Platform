@@ -738,217 +738,33 @@ Total use cases:
 
 # 16. Primary Use Case Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Primary Use Case Model
+![GitForge V1.0.0 - Primary Use Case Model](diagrams/09-use-case-model-001.svg)
 
-left to right direction
-
-actor Visitor
-actor "Authenticated User" as User
-actor "Repository Owner" as Owner
-actor "Git Client" as GitClient
-actor "System Operator" as Operator
-
-User <|-- Owner
-
-rectangle "GitForge V1.0.0" {
-
-&#x20;   usecase "UC-001\\nRegister User Account" as UC001
-&#x20;   usecase "UC-002\\nAuthenticate User" as UC002
-&#x20;   usecase "UC-003\\nLogout" as UC003
-
-&#x20;   usecase "UC-004\\nCreate Repository" as UC004
-&#x20;   usecase "UC-005\\nList Owned Repositories" as UC005
-&#x20;   usecase "UC-006\\nView Repository" as UC006
-&#x20;   usecase "UC-007\\nChange Repository Visibility" as UC007
-&#x20;   usecase "UC-008\\nDelete Repository" as UC008
-
-&#x20;   usecase "UC-009\\nBrowse Repository" as UC009
-&#x20;   usecase "UC-010\\nList Branches" as UC010
-&#x20;   usecase "UC-011\\nView Commit History" as UC011
-&#x20;   usecase "UC-012\\nView Commit Details" as UC012
-&#x20;   usecase "UC-013\\nBrowse Repository Tree" as UC013
-&#x20;   usecase "UC-014\\nView File Content" as UC014
-
-&#x20;   usecase "UC-015\\nDiscover Git Read Service" as UC015
-&#x20;   usecase "UC-016\\nClone Repository" as UC016
-&#x20;   usecase "UC-017\\nFetch Repository" as UC017
-
-&#x20;   usecase "UC-018\\nDiscover Git Write Service" as UC018
-&#x20;   usecase "UC-019\\nPush Repository Changes" as UC019
-
-&#x20;   usecase "UC-020\\nCreate Personal Access Token" as UC020
-&#x20;   usecase "UC-021\\nAuthenticate Git Request\\nwith Personal Access Token" as UC021
-&#x20;   usecase "UC-022\\nRevoke Personal Access Token" as UC022
-
-&#x20;   usecase "UC-023\\nAuthorize Repository Read" as UC023
-&#x20;   usecase "UC-024\\nAuthorize Repository Write" as UC024
-
-&#x20;   usecase "UC-025\\nDiagnose Repository\\nOperation Failure" as UC025
-}
-
-Visitor --> UC001
-Visitor --> UC002
-Visitor --> UC006
-
-User --> UC003
-User --> UC004
-User --> UC005
-User --> UC006
-User --> UC009
-User --> UC020
-User --> UC022
-
-Owner --> UC007
-Owner --> UC008
-Owner --> UC019
-
-UC009 .> UC010 : <<include>>
-UC009 .> UC011 : <<include>>
-UC009 .> UC013 : <<include>>
-
-UC011 .> UC012 : <<extend>>
-UC013 .> UC014 : <<extend>>
-
-GitClient --> UC015
-GitClient --> UC016
-GitClient --> UC017
-GitClient --> UC018
-GitClient --> UC019
-GitClient --> UC021
-
-UC006 .> UC023 : <<include>>
-UC009 .> UC023 : <<include>>
-UC015 .> UC023 : <<include>>
-UC016 .> UC023 : <<include>>
-UC017 .> UC023 : <<include>>
-
-UC018 .> UC024 : <<include>>
-UC019 .> UC024 : <<include>>
-
-UC016 .> UC021 : <<extend>>
-UC017 .> UC021 : <<extend>>
-UC019 .> UC021 : <<include>>
-
-Operator --> UC025
-
-@enduml
-```
+[PlantUML source](diagrams/09-use-case-model-001.puml)
 
 ---
 
 # 17. Repository Browsing Use Case Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Repository Browsing Use Cases
+![GitForge V1.0.0 - Repository Browsing Use Cases](diagrams/09-use-case-model-002.svg)
 
-left to right direction
-
-actor "Authorized Repository Reader" as Reader
-
-rectangle "Repository Browser" {
-
-&#x20;   usecase "UC-009\\nBrowse Repository" as Browse
-&#x20;   usecase "UC-010\\nList Branches" as Branches
-&#x20;   usecase "UC-011\\nView Commit History" as Commits
-&#x20;   usecase "UC-012\\nView Commit Details" as CommitDetail
-&#x20;   usecase "UC-013\\nBrowse Repository Tree" as Tree
-&#x20;   usecase "UC-014\\nView File Content" as File
-&#x20;   usecase "UC-023\\nAuthorize Repository Read" as AuthRead
-}
-
-Reader --> Browse
-
-Browse .> AuthRead : <<include>>
-Browse .> Branches : <<include>>
-Browse .> Commits : <<include>>
-Browse .> Tree : <<include>>
-
-Commits .> CommitDetail : <<extend>>
-Tree .> File : <<extend>>
-
-@enduml
-```
+[PlantUML source](diagrams/09-use-case-model-002.puml)
 
 ---
 
 # 18. Git Smart HTTP Use Case Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Git Smart HTTP Use Cases
+![GitForge V1.0.0 - Git Smart HTTP Use Cases](diagrams/09-use-case-model-003.svg)
 
-left to right direction
-
-actor "Git Client" as Client
-actor "Repository Owner" as Owner
-
-rectangle "GitForge Git Smart HTTP" {
-
-&#x20;   usecase "UC-015\\nDiscover Git Read Service" as DiscoverRead
-&#x20;   usecase "UC-016\\nClone Repository" as Clone
-&#x20;   usecase "UC-017\\nFetch Repository" as Fetch
-
-&#x20;   usecase "UC-018\\nDiscover Git Write Service" as DiscoverWrite
-&#x20;   usecase "UC-019\\nPush Repository Changes" as Push
-
-&#x20;   usecase "UC-021\\nAuthenticate Git Request\\nwith PAT" as AuthPAT
-&#x20;   usecase "UC-023\\nAuthorize Repository Read" as AuthRead
-&#x20;   usecase "UC-024\\nAuthorize Repository Write" as AuthWrite
-}
-
-Client --> DiscoverRead
-Client --> Clone
-Client --> Fetch
-Client --> DiscoverWrite
-Client --> Push
-
-Owner --> Push
-
-DiscoverRead .> AuthRead : <<include>>
-Clone .> AuthRead : <<include>>
-Fetch .> AuthRead : <<include>>
-
-DiscoverWrite .> AuthPAT : <<include>>
-DiscoverWrite .> AuthWrite : <<include>>
-
-Push .> AuthPAT : <<include>>
-Push .> AuthWrite : <<include>>
-
-Clone .> AuthPAT : <<extend>>
-Fetch .> AuthPAT : <<extend>>
-
-@enduml
-```
+[PlantUML source](diagrams/09-use-case-model-003.puml)
 
 ---
 
 # 19. Personal Access Token Use Case Diagram
 
-```plantuml
-@startuml
-title GitForge V1.0.0 - Personal Access Token Use Cases
+![GitForge V1.0.0 - Personal Access Token Use Cases](diagrams/09-use-case-model-004.svg)
 
-left to right direction
-
-actor "Authenticated User" as User
-actor "Git Client" as Client
-
-rectangle "Personal Access Token Management" {
-
-&#x20;   usecase "UC-020\\nCreate Personal Access Token" as Create
-&#x20;   usecase "UC-021\\nAuthenticate Git Request\\nwith PAT" as Authenticate
-&#x20;   usecase "UC-022\\nRevoke Personal Access Token" as Revoke
-}
-
-User --> Create
-User --> Revoke
-Client --> Authenticate
-
-@enduml
-```
+[PlantUML source](diagrams/09-use-case-model-004.puml)
 
 ---
 

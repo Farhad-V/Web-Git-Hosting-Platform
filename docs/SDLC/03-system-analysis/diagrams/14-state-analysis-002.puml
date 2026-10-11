@@ -1,0 +1,8 @@
+@startuml
+title GitForge V1.0.0 - Repository Lifecycle State
+[*] --> NotExisting
+NotExisting --> Creating : valid creation request
+Creating --> Available : metadata + physical repository established
+Creating --> CreationFailed : creation cannot complete consistently
+CreationFailed --> [*]
+@enduml

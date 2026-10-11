@@ -1,0 +1,34 @@
+@startuml
+title GitForge V1.0.0 - SM-008 Change Repository Visibility
+actor "Authenticated User" as User
+participant "Web/API Interface" as Web
+participant "Repository Resolution" as Resolution
+database PostgreSQL as DB
+participant "Repository Authorization" as Authz
+participant "Repository Coordination" as Repo
+participant "Failure Handling" as Failure
+User -> Web : Change visibility
+Web -> Resolution : Resolve repository + User identity
+Resolution -> DB : Load repository metadata
+DB --> Resolution : Repository + owner + current visibility
+Resolution -> Authz : Authorize metadata change
+alt User is owner
+    Authz --> Resolution : Allow
+    Resolution -> Repo : Apply validated visibility change
+    Repo -> DB : Persist new visibility
+    alt Persistence succeeds
+        DB --> Repo : Stored
+        Repo --> Web : Visibility changed
+        Web --> User : Success
+    else Persistence fails
+        DB --> Repo : Failure
+        Repo -> Failure : Persistence failure
+        Failure --> Web : Safe failure
+        Web --> User : Update failed
+    end
+else User is non-owner
+    Authz --> Resolution : Deny
+    Resolution --> Web : Safe denial
+    Web --> User : Access denied
+end
+@enduml

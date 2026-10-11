@@ -1,0 +1,24 @@
+@startuml
+title GitForge V1.0.0 - Context Trust Boundaries
+left to right direction
+rectangle "Untrusted Clients" {
+    actor Visitor
+    rectangle "Web Browser" as Browser
+    rectangle "Git Client" as GitClient
+}
+rectangle "GitForge Trust Boundary" {
+    rectangle "GitForge Application" as App
+}
+rectangle "Controlled Dependencies" {
+    database PostgreSQL
+    folder "Repository Filesystem" as RepoFS
+    rectangle "Git Executable" as Git
+}
+Visitor --> Browser
+Browser --> App : Untrusted HTTP input
+GitClient --> App : Untrusted Git HTTP input
+App --> PostgreSQL : Controlled DB operations
+App --> RepoFS : Controlled repository access
+App --> Git : Controlled process invocation
+Git --> RepoFS
+@enduml

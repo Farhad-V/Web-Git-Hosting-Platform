@@ -1,0 +1,8 @@
+@startuml
+title GitForge V1.0.0 - AM-003 Logout
+start
+:Receive logout request;
+:Invalidate interactive authentication state;
+:Return logged-out state;
+stop
+@enduml

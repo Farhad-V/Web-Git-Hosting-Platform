@@ -1,0 +1,26 @@
+@startuml
+title GitForge V1.0.0 - SM-038 First Push to Empty Repository
+actor "Git Client" as Client
+participant "Git Authentication" as Auth
+participant "Repository Authorization" as Authz
+participant "Git Write Coordination" as Write
+participant "Git Process Coordination" as Process
+participant "Git Executable" as Git
+participant "Empty Physical Git Repository" as Repo
+Client -> Auth : PAT
+Auth --> Client : Owner identity
+Client -> Authz : Push repository
+Authz --> Client : Allow owner write
+Client -> Write : First push
+Write -> Process : git-receive-pack
+Process -> Git : Approved write
+Git -> Repo : Create initial refs / store objects
+Repo --> Git : Success
+Git --> Process : Success
+Process --> Write : Result
+Write --> Client : Push succeeded
+note right of Repo
+Repository transitions logically:
+Empty -> Has History
+end note
+@enduml

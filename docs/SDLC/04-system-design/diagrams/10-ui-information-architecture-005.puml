@@ -1,0 +1,10 @@
+@startuml
+title GitForge - Private Repository Owner Flow
+actor Owner
+Owner -> "Login" : Authenticate
+"Login" -> "My Repositories" : Success
+Owner -> "Repository Overview" : Select private repository
+"Repository Overview" -> Owner : Repository content/navigation
+Owner -> "Files" : Browse
+"Files" -> Owner : Authorized content
+@enduml

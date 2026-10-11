@@ -1,0 +1,32 @@
+@startuml
+title GitForge V1.0.0 - Repository Creation Activity
+start
+:Receive creation request;
+if (User authenticated?) then (yes)
+    :Validate repository name;
+    :Validate visibility;
+    if (Input valid?) then (yes)
+        :Build logical namespace;
+        :Check namespace uniqueness;
+        if (Namespace available?) then (yes)
+            :Establish repository metadata;
+            :Initialize physical Git repository;
+            if (Both representations valid?) then (yes)
+                :Repository becomes Available;
+                :Return success;
+            else (no)
+                :Classify partial failure;
+                :Perform consistency handling;
+                :Return creation failure;
+            endif
+        else (no)
+            :Reject duplicate namespace;
+        endif
+    else (no)
+        :Return validation failure;
+    endif
+else (no)
+    :Authentication required;
+endif
+stop
+@enduml

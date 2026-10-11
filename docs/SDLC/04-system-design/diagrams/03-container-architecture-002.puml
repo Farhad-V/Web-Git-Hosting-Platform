@@ -1,0 +1,25 @@
+@startuml
+title GitForge - Web Application Request Flow
+actor User
+participant Browser
+participant "Web Server" as Web
+participant "Laravel Application" as App
+database PostgreSQL as DB
+participant "Repository Storage" as Storage
+participant Git
+User -> Browser
+Browser -> Web : HTTP/HTTPS request
+Web -> App : Forward request
+App -> DB : Metadata / identity query
+DB --> App : Metadata
+alt Repository content required
+     App -> Storage : Resolve safe repository target
+     Storage --> App : Safe target
+     App -> Git : Execute approved read operation
+     Git -> Storage : Read Git-native state
+     Storage --> Git
+     Git --> App : Git-native result
+end
+App --> Web : HTTP response
+Web --> Browser : HTTP/HTTPS response
+@enduml

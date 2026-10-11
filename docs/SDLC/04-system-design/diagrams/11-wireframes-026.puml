@@ -1,0 +1,12 @@
+@startsalt
+{
+   {
+     ^Not Found^
+     .
+     The requested resource could not be found.
+     .
+     [ Back ]
+     [ Home ]
+   }
+}
+@endsalt

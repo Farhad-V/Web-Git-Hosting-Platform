@@ -1,0 +1,36 @@
+@startuml
+title GitForge V1.0.0 - High-Level Trust Boundaries
+left to right direction
+actor "System Operator" as Operator
+rectangle "External Client Trust Zone" {
+  actor "Visitor / Web User" as WebUser
+  actor "Git Client" as GitClient
+}
+rectangle "GitForge Application Trust Zone" {
+    rectangle "Web/API Interface" as Web
+    rectangle "Authentication" as Auth
+    rectangle "Authorization" as Authz
+    rectangle "Repository Coordination" as Repo
+    rectangle "Repository Storage Coordination" as Storage
+    rectangle "Git Process Coordination" as Process
+    rectangle "Diagnostics" as Diag
+}
+database "PostgreSQL" as DB
+folder "Physical Git Repository" as GitRepo
+rectangle "Git Executable" as GitExe
+WebUser --> Web : untrusted input
+GitClient --> Auth : PAT / Git request
+Web --> Auth
+Auth --> Authz : identity
+Repo --> Authz : repository context
+Authz --> Repo : allow/deny
+Repo --> DB
+Repo --> Storage
+Storage --> Process : safe target
+Process --> GitExe : approved operation
+GitExe --> GitRepo
+Web --> Diag
+Repo --> Diag
+Process --> Diag
+Diag --> Operator : sanitized diagnostics
+@enduml

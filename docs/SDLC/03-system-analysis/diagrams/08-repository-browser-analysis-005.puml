@@ -1,0 +1,27 @@
+@startuml
+title GitForge V1.0.0 - Repository Browser Sequence
+actor "Web User" as User
+participant "Web Interaction" as Web
+participant "Repository Resolution" as Repo
+participant "Repository Authorization" as Authz
+participant "Repository Browser" as Browser
+participant "Repository Storage Coordination" as Storage
+participant "Git Process Coordination" as Git
+User -> Web : Browse repository request
+Web -> Repo : Resolve namespace
+Repo --> Web : Repository metadata
+Web -> Authz : Authorize read
+alt Authorized
+    Authz --> Web : Allow
+    Web -> Browser : Browse(repository, reference, path)
+    Browser -> Storage : Resolve physical repository
+    Storage --> Browser : Safe repository target
+    Browser -> Git : Inspect Git state
+    Git --> Browser : Git-native result
+    Browser --> Web : Safe browser representation
+    Web --> User : Repository content
+else Denied
+    Authz --> Web : Deny
+    Web --> User : Safe denial response
+end
+@enduml
