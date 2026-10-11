@@ -1,0 +1,28 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Liveness and dependency readiness
+start
+:Identify intended backend endpoint and process;
+:Request GET /up;
+if (Laravel runtime responds?) then (yes)
+ :Request /api/v1/health/readiness;
+ :Inspect reported database, Git and storage dependencies;
+ if (Required dependencies ready?) then (yes)
+  :Record readiness response and environment;
+  :Verify frontend-to-backend reachability;
+ else (no)
+  :Record dependency failure;
+  :Block dependent test execution;
+ endif
+else (no)
+ :Investigate runtime, configuration and port ownership;
+endif
+stop
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Validation failure classification and retest
+start
+:Record failed command, endpoint and sanitized output;
+if (Required environment prerequisite missing or incorrect?) then (yes)
+ :Classify dependency, OS, database, configuration, port or tool issue;
+ :Repair environment without changing approved requirements;
+else (no)
+ :Investigate reproducible application defect;
+ :Record defect and correction evidence;
+endif
+:Repeat affected prerequisite and dependent checks;
+if (Fresh required checks pass?) then (yes)
+ :Preserve final result and resume eligible testing;
+else (no)
+ :Keep affected verification blocked or failed;
+endif
+stop
+@enduml

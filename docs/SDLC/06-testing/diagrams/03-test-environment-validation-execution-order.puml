@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Grouped validation execution order
+start
+:Repository, branch, working tree and Git checks;
+:PHP, extensions, Composer and Laravel bootstrap;
+:PostgreSQL, connectivity, configuration and migrations;
+:Node, npm and frontend dependencies;
+:Type checking, lint, frontend tests and build;
+:Backend tests and formatting;
+:Laravel writable paths and Git storage prerequisites;
+:Backend runtime, liveness and readiness;
+:Frontend runtime and API reachability;
+:Configuration safety and evidence readiness;
+:Review failures before dependent test handoff;
+stop
+@enduml

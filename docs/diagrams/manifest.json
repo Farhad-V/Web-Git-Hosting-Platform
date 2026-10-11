@@ -3265,5 +3265,86 @@
     "original_format": "plantuml",
     "source_sha256": "adaac55d64b46670ae61e2d4024a56201cb15d602c305abe7d7da959e7c71640",
     "image_sha256": "af09245c11d3537900c1601680a5550d29bc0b3d89a0e6a1f33d955950880572"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-scope.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-scope.svg",
+    "title": "Environment readiness and functional-test boundary",
+    "original_format": "plantuml",
+    "source_sha256": "e8f71761539534fedc0d7c686f3d0ac1be972beefc6b03142c90469fe9dcb2f4",
+    "image_sha256": "92dfc6fc766aad6a6cfed619d98e01487c2fcc6d10c1d2c5d3e226358b8bd0e0"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-runtime.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-runtime.svg",
+    "title": "Local test runtime dependencies",
+    "original_format": "plantuml",
+    "source_sha256": "db1144abdb3b4afdf2738829215b67ffce71febecea8887379d4168f25c43255",
+    "image_sha256": "41b20fc1322eef454007eb156845eca64d39f0fdc9633c5c1318f3235b40781e"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-health.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-health.svg",
+    "title": "Liveness and dependency readiness",
+    "original_format": "plantuml",
+    "source_sha256": "b5b0225caaab4c2af37b820310db0b9da0e3b108ec2c7ed0b6316b3626d48697",
+    "image_sha256": "29cb78f16953041d8af5473861390399ffe2d39155ad2c971c58c781c27e7d15"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-execution-order.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-execution-order.svg",
+    "title": "Grouped validation execution order",
+    "original_format": "plantuml",
+    "source_sha256": "297080966f551e5b85fe4e959fc72348b9f35ddc542a995b19dd1abb4f5c1b09",
+    "image_sha256": "5c05d4257d49ed23f696a61b7f761ae3fbfab86e7cb27f3f71aa4f37afe120ac"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-symlink-limitation.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-symlink-limitation.svg",
+    "title": "Environment limitation decision",
+    "original_format": "plantuml",
+    "source_sha256": "99bbdfdf0147180a8a293c4683eac3825bd02b278e941bd12980c2bf388619f6",
+    "image_sha256": "e8826d439cc601e2ea6ae2771858553c3d0d10794e4a9c3edac0ec4ae3502057"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-isolation.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-isolation.svg",
+    "title": "Test data and storage isolation",
+    "original_format": "plantuml",
+    "source_sha256": "19035ad6496b2e168b90e5443a200995523da19c8f51c1b92de8867dda3dc9e0",
+    "image_sha256": "5010fd484b5549db4523eb82c5c5d6a66446a003773835a4c51f00385cbc962a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-process-management.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-process-management.svg",
+    "title": "Runtime process identity and endpoint checks",
+    "original_format": "plantuml",
+    "source_sha256": "7e30a50ed1f87f8967b78404d43c98278643d12b8291ec458196117310c6f6a4",
+    "image_sha256": "5912e4cd5d1a753e65434ef855a4821d7eb7d957285b887b96f83ebdb5fd797c"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-failure-triage.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-failure-triage.svg",
+    "title": "Validation failure classification and retest",
+    "original_format": "plantuml",
+    "source_sha256": "3e47495be96e001cd45b3168c6f7cbc6be9ab076bf5e6d4f33882543533e8956",
+    "image_sha256": "4be3fc44444ae3ccd9f79e3026b949dc8ac3b935687cb4f9ec45cf04b445504e"
+  },
+  {
+    "document": "docs/SDLC/06-testing/03-test-environment-validation.md",
+    "source": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-approval.puml",
+    "image": "docs/SDLC/06-testing/diagrams/03-test-environment-validation-approval.svg",
+    "title": "Environment validation approval gate",
+    "original_format": "plantuml",
+    "source_sha256": "c97646b3257a4ff4527be7dadb3999bf9c9f17b144beb1060a762abf1c69c636",
+    "image_sha256": "d97f36f64cb08c5d6a9ea020a1e259f42b05aa861d1f9d90b50e5ca6b81b37d6"
   }
 ]

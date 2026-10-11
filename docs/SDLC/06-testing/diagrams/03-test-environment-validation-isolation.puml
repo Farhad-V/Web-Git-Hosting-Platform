@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Test data and storage isolation
+rectangle "Selected candidate test environment" {
+ component "Synthetic owner, non-owner and visitor" as Users
+ database "Dedicated automated test database" as DB
+ folder "Controlled temporary Git fixtures" as Git
+ artifact "Disposable tokens, refs and commits" as Fixtures
+}
+rectangle "Unrelated data: outside test mutation scope" {
+ database "Development and production databases" as RealDB
+ folder "Source checkout and unrelated repositories" as RealGit
+}
+Users --> DB : test identities and sessions
+Fixtures --> DB : test metadata
+Fixtures --> Git : disposable content and refs
+note bottom of RealDB : Confirm effective database before destructive tests
+note bottom of RealGit : Containment probes must not mutate unrelated paths
+note bottom of Fixtures : Never commit or expose token secrets; clean up owned fixtures
+@enduml

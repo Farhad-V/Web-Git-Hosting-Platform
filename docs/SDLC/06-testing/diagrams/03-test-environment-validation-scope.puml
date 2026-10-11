@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Environment readiness and functional-test boundary
+start
+:Verify repository context and required tooling;
+:Verify backend and frontend dependency infrastructure;
+:Verify database, Git and storage prerequisites;
+:Verify runtime health and API reachability;
+:Record isolated fixtures, safety and evidence readiness;
+if (Required prerequisites satisfied?) then (yes)
+ :Environment eligible for dependent test execution;
+ :Hand off to functional, security and acceptance work packages;
+else (no)
+ :Block affected tests and resolve prerequisite failures;
+endif
+stop
+@enduml

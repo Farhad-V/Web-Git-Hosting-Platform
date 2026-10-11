@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Environment validation approval gate
+start
+:Review disposition of all 32 historical validation checks;
+:Confirm P0 pass and required P1 results or justification;
+:Confirm database, migrations, Git and storage readiness;
+:Confirm test infrastructure, builds and runtime reachability;
+:Review configuration safety, limitations and fresh evidence;
+if (Required evidence complete and no blocking environment issue?) then (yes)
+ :Record explicit approval for the validated candidate;
+ :Hand off to dependent M5 test work packages;
+else (no)
+ :Record BLOCKED or REQUIRES CORRECTION;
+ :Resolve missing evidence or failed prerequisites;
+endif
+stop
+@enduml

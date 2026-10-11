@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Local test runtime dependencies
+actor "Test browser" as Browser
+component "Vite frontend\nHistorical default: loopback 5173" as Frontend
+component "Laravel backend\nHistorical default: loopback 8000" as Backend
+database "Configured PostgreSQL\nHistorical default: loopback 5432" as DB
+component "Configured Git executable" as Git
+folder "Controlled repository storage" as Storage
+artifact "Candidate and effective configuration" as Candidate
+Browser --> Frontend
+Frontend --> Backend : API reachability
+Backend --> DB
+Backend --> Git
+Git --> Storage
+Candidate --> Frontend
+Candidate --> Backend
+note bottom of DB : Automated tests require an isolated test target
+note bottom of Candidate : Record actual versions and ports; do not assume historical defaults
+@enduml

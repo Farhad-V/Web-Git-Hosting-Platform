@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Environment limitation decision
+start
+:Prepare controlled symlink containment fixture;
+if (OS and runtime can create required symlink?) then (yes)
+ :Execute containment case;
+ :Record observed protection or product defect;
+else (no)
+ :Record environment limitation and blocked case;
+ :Seek reliable alternative containment evidence;
+ if (Required assurance established and disposition reviewed?) then (yes)
+  :Record explicit limitation and accepted scope;
+ else (no)
+  :Keep affected verification BLOCKED;
+ endif
+endif
+:Do not count skipped execution as a pass;
+stop
+@enduml

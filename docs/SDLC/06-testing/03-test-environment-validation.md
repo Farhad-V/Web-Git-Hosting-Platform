@@ -14,6 +14,12 @@
 
 ---
 
+## Document and diagram context
+
+This document preserves the historical V1.0.0 WP-03 validation procedure, recorded environment and planning-time snapshots. Its versions, ports, command results and approval labels are not fresh evidence for the current checkout. The legacy status block mixes specification and execution statements; use actual dated execution evidence before accepting any candidate environment. Updating these diagrams does not run the 32 checks or certify that the local services are currently healthy.
+
+Nine diagrams explain the main readiness, isolation and decision boundaries. The ENV-001–ENV-032 sections remain the detailed validation checklist. For current execution commands, database-driver distinctions and worker requirements, use the [testing-plan supplement](01-testing-plan.md#50-current-candidate-testing-supplement). Current automated test defaults and CI environments can differ from the historical development database described below. Confirm the effective isolated target before any destructive operation. A candidate containing Actions also requires dedicated worker verification; synchronous test execution is not worker-readiness evidence.
+
 ## 1. Purpose
 
 This document validates that the GitForge V1.0.0 test environment is correctly configured, operational, reproducible, and suitable for executing the formal M5 test cases.
@@ -73,6 +79,10 @@ The objectives of WP-03 are to verify that:
 ---
 
 ## 3. Validation Scope
+
+![Environment readiness and functional-test boundary](diagrams/03-test-environment-validation-scope.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-scope.puml) · [Full-size SVG](diagrams/03-test-environment-validation-scope.svg)
 
 WP-03 validates the local Windows-based GitForge V1.0.0 testing environment used for M5.
 
@@ -140,6 +150,10 @@ WP-03 validates only that the environment required to perform those tests is rea
 ---
 
 ## 5. Test Environment
+
+![Local test runtime dependencies](diagrams/03-test-environment-validation-runtime.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-runtime.puml) · [Full-size SVG](diagrams/03-test-environment-validation-runtime.svg)
 
 The M5 test environment is the local GitForge development and validation environment.
 
@@ -1103,6 +1117,10 @@ PASS
 
 ## 36. ENV-028 — Readiness Endpoint
 
+![Liveness and dependency readiness](diagrams/03-test-environment-validation-health.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-health.puml) · [Full-size SVG](diagrams/03-test-environment-validation-health.svg)
+
 ### Objective
 
 Verify that the GitForge readiness endpoint reports the application ready for service.
@@ -1281,6 +1299,10 @@ PASS
 
 ## 41. Environment Validation Execution Order
 
+![Grouped validation execution order](diagrams/03-test-environment-validation-execution-order.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-execution-order.puml) · [Full-size SVG](diagrams/03-test-environment-validation-execution-order.svg)
+
 WP-03 should be executed in the following order:
 
 ```text
@@ -1404,6 +1426,10 @@ Formal WP-03 execution requires fresh validation.
 
 ## 43. Environment Limitation — Windows Directory Symlink Support
 
+![Environment limitation decision](diagrams/03-test-environment-validation-symlink-limitation.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-symlink-limitation.puml) · [Full-size SVG](diagrams/03-test-environment-validation-symlink-limitation.svg)
+
 A previously observed environment-specific limitation affects a repository-storage test involving a directory symbolic link outside the configured repository root.
 
 The Windows/PHP environment did not provide the required directory symlink capability for that specific automated test.
@@ -1423,6 +1449,10 @@ If these conditions are not met, the relevant test must be marked `BLOCKED`.
 ---
 
 ## 44. Test Data Isolation
+
+![Test data and storage isolation](diagrams/03-test-environment-validation-isolation.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-isolation.puml) · [Full-size SVG](diagrams/03-test-environment-validation-isolation.svg)
 
 Formal M5 execution must use controlled test data.
 
@@ -1487,6 +1517,10 @@ Any path-containment test that intentionally references an external path must pe
 
 ## 47. Runtime Process Management
 
+![Runtime process identity and endpoint checks](diagrams/03-test-environment-validation-process-management.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-process-management.puml) · [Full-size SVG](diagrams/03-test-environment-validation-process-management.svg)
+
 Backend and frontend runtime processes used during WP-03 must be started in dedicated terminals where practical.
 
 Backend:
@@ -1530,6 +1564,10 @@ A changed port is acceptable only if:
 ---
 
 ## 49. Failure Handling
+
+![Validation failure classification and retest](diagrams/03-test-environment-validation-failure-triage.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-failure-triage.puml) · [Full-size SVG](diagrams/03-test-environment-validation-failure-triage.svg)
 
 If an environment validation fails:
 
@@ -1635,6 +1673,10 @@ WP-03 execution: READY
 
 ## 54. WP-03 Exit Criteria
 
+![Environment validation approval gate](diagrams/03-test-environment-validation-approval.svg)
+
+[PlantUML source](diagrams/03-test-environment-validation-approval.puml) · [Full-size SVG](diagrams/03-test-environment-validation-approval.svg)
+
 WP-03 is complete only when:
 
 - all 32 environment validation checks have been addressed;
@@ -1681,7 +1723,7 @@ REQUIRES CORRECTION
 
 ---
 
-## 56. Current WP-03 Status
+## 56. Historical WP-03 Status Snapshot
 
 Current state:
 

@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Runtime process identity and endpoint checks
+start
+:Identify existing frontend and backend processes;
+:Confirm executable, project root, revision and port;
+if (Existing process belongs to intended candidate?) then (yes)
+ :Reuse appropriate runtime;
+else (no)
+ :Start required candidate runtime without taking over unrelated services;
+endif
+:Record actual listening endpoints;
+:Check frontend, backend and API integration against those endpoints;
+:Avoid attributing stale-process responses to current code;
+:Stop only unnecessary processes owned by this test session;
+stop
+@enduml
