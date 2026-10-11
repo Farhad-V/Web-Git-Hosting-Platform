@@ -81,7 +81,7 @@ const registerSchema = z
 type RegisterFormValues = z.infer<typeof registerSchema>
 
 const inputClassName =
-  'h-11 w-full rounded-lg border border-white/10 bg-[#0d1117] pl-10 pr-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+  'h-11 w-full rounded-lg border border-[var(--border)] bg-[var(--inset)] pl-10 pr-3 text-sm text-white outline-none transition placeholder:text-[var(--muted)] focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
 
 export function RegisterPage() {
   const navigate = useNavigate()
@@ -152,7 +152,7 @@ export function RegisterPage() {
         <>
           Already have an account?{' '}
           <Link
-            className="font-semibold text-blue-400 transition hover:text-blue-300"
+            className="font-semibold text-[var(--accent)] transition hover:text-[var(--accent)]"
             to="/login"
           >
             Sign in
@@ -168,7 +168,7 @@ export function RegisterPage() {
       >
         {submissionError !== null && (
           <div
-            className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+            className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-[var(--red)]"
             role="alert"
           >
             {submissionError}
@@ -177,7 +177,7 @@ export function RegisterPage() {
 
         <div>
           <label
-            className="mb-2 block text-sm font-medium text-slate-200"
+            className="mb-2 block text-sm font-medium text-[var(--text)]"
             htmlFor="name"
           >
             Full name
@@ -185,7 +185,7 @@ export function RegisterPage() {
           <div className="relative">
             <UserRound
               aria-hidden="true"
-              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
             />
             <input
               aria-describedby={errors.name ? 'name-error' : undefined}
@@ -199,7 +199,7 @@ export function RegisterPage() {
             />
           </div>
           {errors.name?.message !== undefined && (
-            <p className="mt-2 text-sm text-red-400" id="name-error">
+            <p className="mt-2 text-sm text-[var(--red)]" id="name-error">
               {errors.name.message}
             </p>
           )}
@@ -207,7 +207,7 @@ export function RegisterPage() {
 
         <div>
           <label
-            className="mb-2 block text-sm font-medium text-slate-200"
+            className="mb-2 block text-sm font-medium text-[var(--text)]"
             htmlFor="username"
           >
             Username
@@ -215,7 +215,7 @@ export function RegisterPage() {
           <div className="relative">
             <AtSign
               aria-hidden="true"
-              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
             />
             <input
               aria-describedby={
@@ -235,11 +235,11 @@ export function RegisterPage() {
             />
           </div>
           {errors.username?.message !== undefined ? (
-            <p className="mt-2 text-sm text-red-400" id="username-error">
+            <p className="mt-2 text-sm text-[var(--red)]" id="username-error">
               {errors.username.message}
             </p>
           ) : (
-            <p className="mt-2 text-xs text-slate-500" id="username-help">
+            <p className="mt-2 text-xs text-[var(--muted)]" id="username-help">
               This becomes your repository namespace.
             </p>
           )}
@@ -247,7 +247,7 @@ export function RegisterPage() {
 
         <div>
           <label
-            className="mb-2 block text-sm font-medium text-slate-200"
+            className="mb-2 block text-sm font-medium text-[var(--text)]"
             htmlFor="email"
           >
             Email address
@@ -255,7 +255,7 @@ export function RegisterPage() {
           <div className="relative">
             <Mail
               aria-hidden="true"
-              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
             />
             <input
               aria-describedby={errors.email ? 'email-error' : undefined}
@@ -269,7 +269,7 @@ export function RegisterPage() {
             />
           </div>
           {errors.email?.message !== undefined && (
-            <p className="mt-2 text-sm text-red-400" id="email-error">
+            <p className="mt-2 text-sm text-[var(--red)]" id="email-error">
               {errors.email.message}
             </p>
           )}
@@ -277,7 +277,7 @@ export function RegisterPage() {
 
         <div>
           <label
-            className="mb-2 block text-sm font-medium text-slate-200"
+            className="mb-2 block text-sm font-medium text-[var(--text)]"
             htmlFor="password"
           >
             Password
@@ -285,7 +285,7 @@ export function RegisterPage() {
           <div className="relative">
             <LockKeyhole
               aria-hidden="true"
-              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
             />
             <input
               aria-describedby={
@@ -301,7 +301,7 @@ export function RegisterPage() {
             />
             <button
               aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 transition hover:text-slate-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted)] transition hover:text-[var(--text)]"
               onClick={() => setShowPassword((visible) => !visible)}
               type="button"
             >
@@ -313,11 +313,11 @@ export function RegisterPage() {
             </button>
           </div>
           {errors.password?.message !== undefined ? (
-            <p className="mt-2 text-sm text-red-400" id="password-error">
+            <p className="mt-2 text-sm text-[var(--red)]" id="password-error">
               {errors.password.message}
             </p>
           ) : (
-            <p className="mt-2 text-xs leading-5 text-slate-500" id="password-help">
+            <p className="mt-2 text-xs leading-5 text-[var(--muted)]" id="password-help">
               At least 12 characters with uppercase, lowercase, number, and symbol.
             </p>
           )}
@@ -325,7 +325,7 @@ export function RegisterPage() {
 
         <div>
           <label
-            className="mb-2 block text-sm font-medium text-slate-200"
+            className="mb-2 block text-sm font-medium text-[var(--text)]"
             htmlFor="password-confirmation"
           >
             Confirm password
@@ -333,7 +333,7 @@ export function RegisterPage() {
           <div className="relative">
             <LockKeyhole
               aria-hidden="true"
-              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
             />
             <input
               aria-describedby={
@@ -357,7 +357,7 @@ export function RegisterPage() {
                   ? 'Hide password confirmation'
                   : 'Show password confirmation'
               }
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 transition hover:text-slate-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted)] transition hover:text-[var(--text)]"
               onClick={() => setShowConfirmation((visible) => !visible)}
               type="button"
             >
@@ -370,7 +370,7 @@ export function RegisterPage() {
           </div>
           {errors.password_confirmation?.message !== undefined && (
             <p
-              className="mt-2 text-sm text-red-400"
+              className="mt-2 text-sm text-[var(--red)]"
               id="password-confirmation-error"
             >
               {errors.password_confirmation.message}

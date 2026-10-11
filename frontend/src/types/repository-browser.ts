@@ -24,6 +24,8 @@ export interface RepositoryCommit {
 }
 
 export interface RepositoryCommitsResponse {
+  page?: number
+  has_more?: boolean
   data: RepositoryCommit[]
   branch: string
 }
@@ -83,6 +85,7 @@ export interface RepositoryBrowserParameters {
 }
 
 export interface RepositoryCommitParameters {
+  page?: number
   branch?: string
   limit?: number
 }

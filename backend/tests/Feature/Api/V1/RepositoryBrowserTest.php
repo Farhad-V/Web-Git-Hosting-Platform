@@ -941,6 +941,89 @@ class RepositoryBrowserTest extends TestCase
     /**
      * Create a managed repository containing one commit.
      */
+    public function test_owner_can_preview_pdf_larger_than_text_limit(): void
+    {
+        $owner = User::factory()->create();
+        $repository = $this->createRepositoryWithHistory($owner);
+        $content = "%PDF-1.7\n".str_repeat('x', 1048577);
+        File::put($this->worktreePath.DIRECTORY_SEPARATOR.'manual.pdf', $content);
+        $runner = app(GitCommandRunner::class);
+        foreach ([['add', 'manual.pdf'], ['commit', '-m', 'Add PDF'], ['push', 'origin', 'main']] as $arguments) {
+            $runner->run(operation: 'seed-pdf-preview', arguments: $arguments, workingDirectory: $this->worktreePath);
+        }
+        $url = route('api.v1.repositories.pdf', ['repository' => $repository, 'branch' => 'main', 'path' => 'manual.pdf']);
+        $response = $this->actingAs($owner, 'web')->get($url);
+        $response->assertOk()->assertHeader('Content-Type', 'application/pdf')->assertHeader('X-Content-Type-Options', 'nosniff');
+        $temporary = $response->baseResponse->getFile()->getPathname();
+        try {
+            $this->assertSame(hash('sha256', $content), hash_file('sha256', $temporary));
+        } finally {
+            unlink($temporary);
+        }
+        config(['git.browser_max_pdf_bytes' => 10]);
+        $this->getJson($url)->assertStatus(413);
+        $this->getJson(route('api.v1.repositories.pdf', ['repository' => $repository, 'path' => '../manual.pdf']))->assertStatus(422);
+        config(['git.browser_max_pdf_bytes' => 104857600]);
+        $this->getJson(route('api.v1.repositories.pdf', ['repository' => $repository, 'path' => 'README.md']))->assertStatus(415);
+    }
+
+    public function test_pdf_endpoint_denies_anonymous_and_non_owner_private_access(): void
+    {
+        $repository = Repository::factory()->privateRepository()->create();
+        $url = route('api.v1.repositories.pdf', ['repository' => $repository, 'path' => 'manual.pdf']);
+        $this->getJson($url)->assertNotFound();
+        $this->actingAs(User::factory()->create(), 'web')->getJson($url)->assertNotFound();
+    }
+
+    public function test_tags_are_paginated_and_rename_preserves_git_history(): void
+    {
+        $owner = User::factory()->create();
+        $repository = $this->createRepositoryWithHistory($owner);
+        $runner = app(GitCommandRunner::class);
+        foreach ([['tag', 'v1.0.0'], ['tag', '-a', 'v1.1.0', '-m', 'Second release'], ['push', 'origin', '--tags']] as $arguments) {
+            $runner->run(operation: 'test-tags', arguments: $arguments, workingDirectory: $this->worktreePath);
+        }
+        $hash = $runner->run(operation: 'test-head', arguments: ['rev-parse', 'HEAD'], workingDirectory: $this->worktreePath);
+        $this->actingAs($owner, 'web')->patchJson(route('api.v1.repositories.update', $repository), ['name' => ' Renamed-Project '])
+            ->assertOk()->assertJsonPath('repository.name', 'renamed-project');
+        $this->getJson(route('api.v1.repositories.tags', $repository).'?limit=1')
+            ->assertOk()->assertJsonCount(1, 'data')->assertJsonPath('has_more', true)
+            ->assertJsonPath('data.0.name', 'v1.1.0')->assertJsonPath('data.0.annotated', true)->assertJsonPath('data.0.commit', $hash);
+        $this->getJson(route('api.v1.repositories.tags', $repository).'?limit=1&page=2')
+            ->assertOk()->assertJsonPath('has_more', false)->assertJsonPath('data.0.name', 'v1.0.0')->assertJsonPath('data.0.annotated', false);
+        $this->getJson(route('api.v1.repositories.commits', $repository))->assertOk()->assertJsonPath('data.0.hash', $hash);
+    }
+
+    public function test_commit_pages_have_no_gaps_or_duplicates(): void
+    {
+        $owner = User::factory()->create();
+        $repository = $this->createRepositoryWithHistory($owner);
+        $runner = app(GitCommandRunner::class);
+        foreach ([['commit', '--allow-empty', '-m', 'Second commit'], ['commit', '--allow-empty', '-m', 'Third commit'], ['push', 'origin', 'main']] as $arguments) {
+            $runner->run(operation: 'test-history-pages', arguments: $arguments, workingDirectory: $this->worktreePath);
+        }
+        $this->actingAs($owner, 'web');
+        foreach ([1 => 'Third commit', 2 => 'Second commit', 3 => 'Initial repository content'] as $page => $subject) {
+            $this->getJson(route('api.v1.repositories.commits', $repository).'?limit=1&page='.$page)
+                ->assertOk()->assertJsonCount(1, 'data')->assertJsonPath('data.0.subject', $subject)->assertJsonPath('has_more', $page < 3);
+        }
+        $this->getJson(route('api.v1.repositories.commits', $repository).'?page=0')->assertUnprocessable();
+    }
+
+    public function test_tags_obey_private_repository_access_controls(): void
+    {
+        $owner = User::factory()->create();
+        $repository = Repository::factory()->create(['owner_id' => $owner->id]);
+        $this->getJson(route('api.v1.repositories.tags', $repository))->assertNotFound();
+        $this->actingAs(User::factory()->create(), 'web')->getJson(route('api.v1.repositories.tags', $repository))->assertNotFound();
+    }
+
+    public function test_public_tags_can_be_read_without_signing_in(): void
+    {
+        $repository = $this->createRepositoryWithHistory(User::factory()->create(), public: true);
+        $this->getJson(route('api.v1.repositories.tags', $repository))->assertOk()->assertJsonPath('data', [])->assertJsonPath('has_more', false);
+    }
+
     private function createRepositoryWithHistory(
         User $owner,
         bool $public = false,

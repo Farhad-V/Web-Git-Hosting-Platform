@@ -267,9 +267,7 @@ describe(
       )
 
       expect(
-        await screen.findByText(
-          'README.md',
-        ),
+        (await screen.findAllByText('README.md'))[0],
       ).toBeInTheDocument()
 
       expect(
@@ -464,9 +462,7 @@ describe(
       } = renderBrowser()
 
       expect(
-        await screen.findByText(
-          maliciousFileName,
-        ),
+        (await screen.findAllByText(maliciousFileName))[0],
       ).toBeInTheDocument()
 
       expect(

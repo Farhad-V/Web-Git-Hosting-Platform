@@ -35,6 +35,7 @@ class BrowseRepositoryRequest extends FormRequest
                 'string',
                 'max:4096',
             ],
+            'page' => ['sometimes', 'integer', 'min:1', 'max:1000'],
             'limit' => [
                 'sometimes',
                 'integer',

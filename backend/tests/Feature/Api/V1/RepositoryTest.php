@@ -706,7 +706,7 @@ class RepositoryTest extends TestCase
         );
     }
 
-    public function test_repository_update_does_not_allow_rename(): void
+    public function test_owner_can_rename_repository(): void
     {
         $owner = User::factory()->create();
 
@@ -735,7 +735,7 @@ class RepositoryTest extends TestCase
         $repository->refresh();
 
         $this->assertSame(
-            'original-name',
+            'new-name',
             $repository->name,
         );
 
@@ -743,6 +743,19 @@ class RepositoryTest extends TestCase
             RepositoryVisibility::PublicAccess,
             $repository->visibility,
         );
+    }
+
+    public function test_rename_rejects_duplicate_unsafe_and_empty_settings(): void
+    {
+        $owner = User::factory()->create();
+        $repository = Repository::factory()->create(['owner_id' => $owner->id, 'name' => 'original']);
+        Repository::factory()->create(['owner_id' => $owner->id, 'name' => 'taken']);
+        $this->actingAs($owner, 'web');
+        foreach (['taken', '../escape', 'bad..name'] as $name) {
+            $this->patchJson(route('api.v1.repositories.update', $repository), ['name' => $name])->assertUnprocessable()->assertJsonValidationErrors('name');
+        }
+        $this->patchJson(route('api.v1.repositories.update', $repository), [])->assertUnprocessable();
+        $this->assertSame('original', $repository->fresh()->name);
     }
 
     public function test_non_owner_cannot_update_repository(): void

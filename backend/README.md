@@ -123,3 +123,19 @@ The production deployment uses Nginx, PHP-FPM 8.4, PostgreSQL 18, HTTPS, and per
 ## Documentation
 
 The complete software-engineering lifecycle is documented in `../docs/`, including requirements, analysis, design, implementation traceability, testing, and milestone state.
+
+## PDF repository previews
+
+The repository browser displays PDF files through a dedicated, policy-controlled `GET /api/v1/repositories/{repository}/pdf?branch=main&path=document.pdf` endpoint. Public repositories allow anonymous reading; private repositories allow only their owner. Git paths are validated and the extracted file must have a PDF signature. Output goes directly to a temporary file, then is served inline with private/no-store caching and removed after sending.
+
+`GIT_BROWSER_MAX_PDF_BYTES` controls the PDF size limit (100 MiB by default). The separate 1 MiB text preview limit is unchanged. Extraction needs sufficient temporary disk space. Embedded previews use the browser PDF viewer and include a download option for browsers without inline PDF support.
+
+## Repository settings, tags, and history
+
+Owners may rename a repository or change its visibility through PATCH /api/v1/repositories/{repository}. Either name or visibility is required. Names follow the same normalization, path safety, and namespace uniqueness rules as creation. Repository storage remains identified by its numeric ID, preserving Git objects and refs after a rename. Existing clone URLs must be updated; old names do not redirect.
+
+The web repository page provides Code, Commits, Tags, and owner-only Settings navigation. GET /api/v1/repositories/{repository}/tags lists annotated and lightweight tags in descending Git version order, including their target commits. Commit and tag lists accept page (1–1000) and limit (1–100) and return has_more. Private repositories retain owner-only reading; public repositories support anonymous reading. Tags are created and pushed using the Git CLI.
+
+## Repository collaboration
+
+Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](../docs/features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.

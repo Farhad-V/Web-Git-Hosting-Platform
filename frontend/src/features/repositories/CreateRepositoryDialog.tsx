@@ -67,7 +67,7 @@ interface CreateRepositoryDialogProps {
 }
 
 const inputClassName =
-  'h-11 w-full rounded-lg border border-white/10 bg-[#0d1117] px-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+  'h-11 w-full rounded-lg border border-[var(--border)] bg-[var(--inset)] px-3 text-sm text-white outline-none transition placeholder:text-[var(--muted)] focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
 
 export function CreateRepositoryDialog({
   isOpen,
@@ -249,17 +249,17 @@ export function CreateRepositoryDialog({
         type="button"
       />
 
-      <section className="relative w-full max-w-xl rounded-2xl border border-white/10 bg-[#161b22] shadow-2xl shadow-black/50">
-        <header className="flex items-start justify-between border-b border-white/10 px-6 py-5">
+      <section className="relative w-full max-w-xl rounded-2xl border border-[var(--border)] glass-panel shadow-2xl shadow-black/50">
+        <header className="flex items-start justify-between border-b border-[var(--border)] px-6 py-5">
           <div>
             <h2
-              className="text-xl font-semibold text-white"
+              className="text-xl font-semibold text-[var(--text)]"
               id="create-repository-title"
             >
               Create a new repository
             </h2>
 
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-[var(--muted)]">
               GitForge creates the repository metadata and managed bare
               Git storage together.
             </p>
@@ -267,7 +267,7 @@ export function CreateRepositoryDialog({
 
           <button
             aria-label="Close"
-            className="rounded-lg p-2 text-slate-500 transition hover:bg-white/5 hover:text-white disabled:opacity-50"
+            className="rounded-lg p-2 text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)] disabled:opacity-50"
             disabled={
               createMutation.isPending
             }
@@ -294,7 +294,7 @@ export function CreateRepositoryDialog({
         >
           {hasGeneralError && (
             <div
-              className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+              className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-[var(--red)]"
               role="alert"
             >
               {getApiErrorMessage(
@@ -306,7 +306,7 @@ export function CreateRepositoryDialog({
 
           <div>
             <label
-              className="mb-2 block text-sm font-medium text-slate-200"
+              className="mb-2 block text-sm font-medium text-[var(--text)]"
               htmlFor="repository-name"
             >
               Repository name
@@ -350,7 +350,7 @@ export function CreateRepositoryDialog({
               ?.message !==
             undefined ? (
               <p
-                className="mt-2 text-sm text-red-400"
+                className="mt-2 text-sm text-[var(--red)]"
                 id="repository-name-error"
               >
                 {
@@ -360,7 +360,7 @@ export function CreateRepositoryDialog({
               </p>
             ) : (
               <p
-                className="mt-2 text-xs text-slate-500"
+                className="mt-2 text-xs text-[var(--muted)]"
                 id="repository-name-help"
               >
                 Names are normalized to lowercase and must be unique
@@ -370,7 +370,7 @@ export function CreateRepositoryDialog({
           </div>
 
           <fieldset>
-            <legend className="mb-3 text-sm font-medium text-slate-200">
+            <legend className="mb-3 text-sm font-medium text-[var(--text)]">
               Visibility
             </legend>
 
@@ -385,18 +385,18 @@ export function CreateRepositoryDialog({
                   )}
                 />
 
-                <span className="flex h-full gap-3 rounded-xl border border-white/10 bg-[#0d1117] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
+                <span className="flex h-full gap-3 rounded-xl border border-[var(--border)] bg-[var(--inset)] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
                   <LockKeyhole
                     aria-hidden="true"
-                    className="mt-0.5 size-5 shrink-0 text-blue-300"
+                    className="mt-0.5 size-5 shrink-0 text-[var(--accent)]"
                   />
 
                   <span>
-                    <span className="block text-sm font-semibold text-white">
+                    <span className="block text-sm font-semibold text-[var(--text)]">
                       Private
                     </span>
 
-                    <span className="mt-1 block text-xs leading-5 text-slate-500">
+                    <span className="mt-1 block text-xs leading-5 text-[var(--muted)]">
                       Only the repository owner may read or manage it.
                     </span>
                   </span>
@@ -413,18 +413,18 @@ export function CreateRepositoryDialog({
                   )}
                 />
 
-                <span className="flex h-full gap-3 rounded-xl border border-white/10 bg-[#0d1117] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
+                <span className="flex h-full gap-3 rounded-xl border border-[var(--border)] bg-[var(--inset)] p-4 transition peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">
                   <Globe2
                     aria-hidden="true"
-                    className="mt-0.5 size-5 shrink-0 text-emerald-300"
+                    className="mt-0.5 size-5 shrink-0 text-[var(--emerald)]"
                   />
 
                   <span>
-                    <span className="block text-sm font-semibold text-white">
+                    <span className="block text-sm font-semibold text-[var(--text)]">
                       Public
                     </span>
 
-                    <span className="mt-1 block text-xs leading-5 text-slate-500">
+                    <span className="mt-1 block text-xs leading-5 text-[var(--muted)]">
                       Anyone may view and clone the repository.
                     </span>
                   </span>
@@ -433,9 +433,9 @@ export function CreateRepositoryDialog({
             </div>
           </fieldset>
 
-          <div className="flex flex-col-reverse gap-3 border-t border-white/10 pt-5 sm:flex-row sm:justify-end">
+          <div className="flex flex-col-reverse gap-3 border-t border-[var(--border)] pt-5 sm:flex-row sm:justify-end">
             <button
-              className="inline-flex h-10 items-center justify-center rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-300 transition hover:bg-white/5 hover:text-white"
+              className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border)] px-4 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)]"
               disabled={
                 createMutation.isPending
               }

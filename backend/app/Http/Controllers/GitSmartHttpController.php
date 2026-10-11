@@ -106,7 +106,7 @@ class GitSmartHttpController extends Controller
             $body = $this->git->rpc(
                 repository: $model,
                 service: 'upload-pack',
-                requestBody: $request->getContent(),
+                requestBody: $request->getContent(asResource: true),
             );
         } catch (GitTransportException $exception) {
             return $this->transportErrorResponse(
@@ -154,7 +154,7 @@ class GitSmartHttpController extends Controller
             $body = $this->git->rpc(
                 repository: $model,
                 service: 'receive-pack',
-                requestBody: $request->getContent(),
+                requestBody: $request->getContent(asResource: true),
             );
         } catch (GitTransportException $exception) {
             return $this->transportErrorResponse(

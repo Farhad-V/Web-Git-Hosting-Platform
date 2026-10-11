@@ -15,6 +15,57 @@ use Tests\TestCase;
 
 class GitSmartHttpServiceTest extends TestCase
 {
+    public function test_streamed_rpc_preserves_binary_input_and_closes_temporary_file(): void
+    {
+        config(['git.max_request_bytes' => 1024]);
+        $body = "0008NA\0K";
+        $source = fopen('php://temp', 'w+b');
+        fwrite($source, $body);
+        rewind($source);
+        $repository = $this->repository();
+        $storage = Mockery::mock(RepositoryStorageService::class);
+        $storage->shouldReceive('resolveExisting')->once()->with($repository)->andReturn('repository.git');
+        $git = Mockery::mock(GitCommandRunner::class);
+        $captured = null;
+        $git->shouldReceive('runRaw')->once()->andReturnUsing(
+            function ($operation, $arguments, $workingDirectory, $input) use ($body, &$captured) {
+                $this->assertSame('rpc-receive-pack', $operation);
+                $this->assertIsResource($input);
+                $this->assertSame($body, stream_get_contents($input));
+                $captured = $input;
+
+                return '0000';
+            },
+        );
+        try {
+            $this->assertSame('0000', (new GitSmartHttpService($storage, $git))->rpc($repository, 'receive-pack', $source));
+            $this->assertFalse(is_resource($captured));
+            $this->assertTrue(is_resource($source));
+        } finally {
+            fclose($source);
+        }
+    }
+
+    public function test_streamed_rpc_rejects_oversized_input_before_touching_storage(): void
+    {
+        config(['git.max_request_bytes' => 4]);
+        $source = fopen('php://temp', 'w+b');
+        fwrite($source, '12345');
+        rewind($source);
+        $storage = Mockery::mock(RepositoryStorageService::class);
+        $storage->shouldNotReceive('resolveExisting');
+        $git = Mockery::mock(GitCommandRunner::class);
+        $git->shouldNotReceive('runRaw');
+        try {
+            (new GitSmartHttpService($storage, $git))->rpc($this->repository(), 'receive-pack', $source);
+            $this->fail('Oversized stream was accepted.');
+        } catch (GitTransportException $exception) {
+            $this->assertSame(413, $exception->processExitCode);
+        } finally {
+            fclose($source);
+        }
+    }
+
     public function test_advertisement_is_executed_through_central_git_runner(): void
     {
         $repository = $this->repository();

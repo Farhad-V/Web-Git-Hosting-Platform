@@ -23,7 +23,7 @@ class GitCommandRunner
         string $operation,
         array $arguments,
         ?string $workingDirectory = null,
-        ?string $input = null,
+        mixed $input = null,
     ): string {
         return trim(
             $this->runRaw(
@@ -42,7 +42,7 @@ class GitCommandRunner
      * protocol responses because trimming or otherwise transforming stdout
      * would corrupt the returned data.
      *
-     * The optional input string is passed directly to the Git process stdin.
+     * The optional input string or stream is passed directly to the Git process stdin.
      * It may contain arbitrary binary protocol data.
      *
      * Observability intentionally records only the approved logical operation
@@ -56,7 +56,8 @@ class GitCommandRunner
         string $operation,
         array $arguments,
         ?string $workingDirectory = null,
-        ?string $input = null,
+        mixed $input = null,
+        mixed $outputStream = null,
     ): string {
         $this->validateArguments(
             $arguments,
@@ -84,6 +85,10 @@ class GitCommandRunner
             throw new InvalidArgumentException(
                 'The Git process timeout must be at least one second.',
             );
+        }
+
+        if ($outputStream !== null) {
+            return $this->runToStream($operation, [$binary, ...$arguments], $workingDirectory, $outputStream, $timeout);
         }
 
         $startedAt = hrtime(true);
@@ -221,6 +226,67 @@ class GitCommandRunner
     /**
      * Return the installed Git version.
      */
+    /** Redirect large binary output directly to disk, including on Windows. */
+    private function runToStream(string $operation, array $command, ?string $workingDirectory, mixed $output, int $timeout): string
+    {
+        if (! is_resource($output) || get_resource_type($output) !== 'stream') {
+            throw new InvalidArgumentException('Git output must be a writable stream.');
+        }
+        $startedAt = hrtime(true);
+        $errors = tmpfile();
+        $process = null;
+        $exitCode = 1;
+        Log::info('git_process_started', ['event' => 'git_process_started', 'request_id' => $this->requestId(), 'operation' => $operation]);
+        try {
+            if ($errors === false) {
+                throw new \RuntimeException('Unable to prepare process output.');
+            }
+            $process = proc_open($command, [
+                0 => ['file', PHP_OS_FAMILY === 'Windows' ? 'NUL' : '/dev/null', 'r'],
+                1 => $output,
+                2 => $errors,
+            ], $pipes, $workingDirectory, array_merge(getenv(), [
+                'GIT_CONFIG_NOSYSTEM' => '1', 'GIT_TERMINAL_PROMPT' => '0', 'LC_ALL' => 'C',
+            ]), ['bypass_shell' => true]);
+            if (! is_resource($process)) {
+                throw new \RuntimeException('Unable to start Git.');
+            }
+            do {
+                $status = proc_get_status($process);
+                if (! $status['running']) {
+                    $exitCode = $status['exitcode'];
+                    break;
+                }
+                if ((hrtime(true) - $startedAt) / 1e9 > $timeout) {
+                    proc_terminate($process);
+                    $exitCode = 124;
+                    break;
+                }
+                usleep(10000);
+            } while (true);
+            if ($exitCode !== 0) {
+                rewind($errors);
+                throw new GitCommandException(operation: $operation, processExitCode: $exitCode, errorOutput: $exitCode === 124 ? 'The Git process exceeded its timeout.' : (string) fread($errors, 8192));
+            }
+            Log::info('git_process_completed', ['event' => 'git_process_completed', 'request_id' => $this->requestId(), 'operation' => $operation, 'result' => 'success', 'exit_code' => 0, 'timed_out' => false, 'duration_ms' => $this->durationMilliseconds($startedAt)]);
+
+            return '';
+        } catch (Throwable $exception) {
+            Log::warning('git_process_failed', ['event' => 'git_process_failed', 'request_id' => $this->requestId(), 'operation' => $operation, 'result' => 'failure', 'exit_code' => $exitCode, 'timed_out' => $exitCode === 124, 'duration_ms' => $this->durationMilliseconds($startedAt)]);
+            if ($exception instanceof GitCommandException) {
+                throw $exception;
+            }
+            throw new GitCommandException(operation: $operation, processExitCode: 1, errorOutput: 'The Git process could not be executed.', previous: $exception);
+        } finally {
+            if (is_resource($process)) {
+                proc_close($process);
+            }
+            if (is_resource($errors)) {
+                fclose($errors);
+            }
+        }
+    }
+
     public function version(): string
     {
         return $this->run(

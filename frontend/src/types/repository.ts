@@ -59,5 +59,6 @@ export interface CreateRepositoryInput {
 }
 
 export interface UpdateRepositoryInput {
+  name?: string
   visibility: RepositoryVisibility
 }

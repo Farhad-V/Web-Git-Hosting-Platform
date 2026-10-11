@@ -165,11 +165,11 @@ export function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-slate-200">
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d1117]/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-5 lg:gap-5 lg:px-8">
+    <div className="min-h-screen text-[var(--text)]">
+      <header className="app-header sticky top-0 z-30 border-b border-[var(--border)] bg-[var(--glass-header)] backdrop-blur-xl">
+        <div className="mx-auto flex min-h-16 flex-wrap py-3 max-w-7xl items-center gap-3 px-5 lg:gap-5 lg:px-8">
           <Link
-            className="flex shrink-0 items-center gap-2 font-semibold text-white"
+            className="flex shrink-0 items-center gap-2 font-semibold text-[var(--text)]"
             to="/dashboard"
           >
             <span className="grid size-9 place-items-center rounded-lg bg-blue-600">
@@ -184,18 +184,18 @@ export function DashboardPage() {
             </span>
           </Link>
 
-          <label className="relative ml-auto hidden w-full max-w-md sm:block">
+          <label className="relative order-last w-full sm:order-none sm:ml-auto sm:max-w-md">
             <span className="sr-only">
               Search repositories
             </span>
 
             <Search
               aria-hidden="true"
-              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted)]"
             />
 
             <input
-              className="h-9 w-full rounded-lg border border-white/10 bg-white/5 pl-9 pr-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              className="h-9 w-full rounded-lg border border-[var(--border)] bg-[var(--subtle)] pl-9 pr-3 text-sm text-[var(--text)] outline-none transition placeholder:text-[var(--muted)] focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
               onChange={(
                 event,
               ) =>
@@ -212,7 +212,7 @@ export function DashboardPage() {
           </label>
 
           <Link
-            className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+            className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-[var(--border)] px-3 py-2 text-sm font-medium text-[var(--text)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)]"
             to="/settings/access-tokens"
           >
             <KeyRound
@@ -230,7 +230,7 @@ export function DashboardPage() {
           </Link>
 
           <button
-            className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white disabled:opacity-60"
+            className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-[var(--border)] px-3 py-2 text-sm font-medium text-[var(--text)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)] disabled:opacity-60"
             disabled={
               isLoggingOut
             }
@@ -264,26 +264,26 @@ export function DashboardPage() {
         {logoutError !==
           null && (
           <div
-            className="mb-6 rounded-lg border border-amber-400/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-200"
+            className="mb-6 rounded-lg border border-amber-400/20 bg-amber-500/10 px-4 py-3 text-sm text-[var(--amber)]"
             role="alert"
           >
             {logoutError}
           </div>
         )}
 
-        <section className="flex flex-col gap-6 border-b border-white/10 pb-8 sm:flex-row sm:items-center sm:justify-between">
+        <section className="workspace-welcome flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm text-blue-400">
+            <p className="text-sm text-[var(--accent)]">
               Dashboard
             </p>
 
-            <h1 className="mt-1 text-3xl font-bold tracking-tight text-white">
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-[var(--text)]">
               Welcome, {user?.name}
             </h1>
 
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 text-[var(--muted)]">
               Manage repositories in the{' '}
-              <span className="font-medium text-slate-300">
+              <span className="font-medium text-[var(--text)]">
                 @{user?.username}
               </span>{' '}
               namespace.
@@ -309,75 +309,75 @@ export function DashboardPage() {
         </section>
 
         <section className="grid gap-5 py-8 md:grid-cols-3">
-          <article className="rounded-xl border border-white/10 bg-[#161b22] p-5">
+          <article className="rounded-xl border border-[var(--border)] glass-panel p-5">
             <div className="flex items-center justify-between">
-              <span className="grid size-10 place-items-center rounded-lg bg-blue-500/10 text-blue-300">
+              <span className="grid size-10 place-items-center rounded-lg bg-blue-500/10 text-[var(--accent)]">
                 <GitFork
                   aria-hidden="true"
                   className="size-5"
                 />
               </span>
 
-              <span className="text-2xl font-bold text-white">
+              <span className="text-2xl font-bold text-[var(--text)]">
                 {repositoriesQuery.isPending
                   ? '—'
                   : totalRepositories}
               </span>
             </div>
 
-            <p className="mt-4 text-sm text-slate-400">
+            <p className="mt-4 text-sm text-[var(--muted)]">
               Owned repositories
             </p>
           </article>
 
-          <article className="rounded-xl border border-white/10 bg-[#161b22] p-5">
+          <article className="rounded-xl border border-[var(--border)] glass-panel p-5">
             <div className="flex items-center justify-between">
-              <span className="grid size-10 place-items-center rounded-lg bg-blue-500/10 text-blue-300">
+              <span className="grid size-10 place-items-center rounded-lg bg-blue-500/10 text-[var(--accent)]">
                 <BookOpen
                   aria-hidden="true"
                   className="size-5"
                 />
               </span>
 
-              <span className="text-2xl font-bold text-white">
+              <span className="text-2xl font-bold text-[var(--text)]">
                 {repositoriesQuery.isPending
                   ? '—'
                   : publicRepositoriesOnPage}
               </span>
             </div>
 
-            <p className="mt-4 text-sm text-slate-400">
+            <p className="mt-4 text-sm text-[var(--muted)]">
               Public on this page
             </p>
           </article>
 
-          <article className="rounded-xl border border-white/10 bg-[#161b22] p-5">
+          <article className="rounded-xl border border-[var(--border)] glass-panel p-5">
             <div className="flex items-center justify-between">
-              <span className="grid size-10 place-items-center rounded-lg bg-blue-500/10 text-blue-300">
+              <span className="grid size-10 place-items-center rounded-lg bg-blue-500/10 text-[var(--accent)]">
                 <UserRound
                   aria-hidden="true"
                   className="size-5"
                 />
               </span>
 
-              <span className="truncate pl-4 text-xl font-bold text-white">
+              <span className="truncate pl-4 text-xl font-bold text-[var(--text)]">
                 @{user?.username ?? ''}
               </span>
             </div>
 
-            <p className="mt-4 text-sm text-slate-400">
+            <p className="mt-4 text-sm text-[var(--muted)]">
               Repository namespace
             </p>
           </article>
         </section>
 
-        <section className="overflow-hidden rounded-xl border border-white/10 bg-[#161b22]">
-          <div className="border-b border-white/10 px-5 py-4">
-            <h2 className="font-semibold text-white">
+        <section className="overflow-hidden rounded-xl border border-[var(--border)] glass-panel">
+          <div className="border-b border-[var(--border)] px-5 py-4">
+            <h2 className="font-semibold text-[var(--text)]">
               Your repositories
             </h2>
 
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-[var(--muted)]">
               Only repositories owned by your account are listed here.
             </p>
           </div>
@@ -385,10 +385,10 @@ export function DashboardPage() {
           <div className="p-5">
             {repositoriesQuery.isPending && (
               <div className="grid place-items-center py-16">
-                <div className="flex items-center gap-3 text-sm text-slate-400">
+                <div className="flex items-center gap-3 text-sm text-[var(--muted)]">
                   <LoaderCircle
                     aria-hidden="true"
-                    className="size-5 animate-spin text-blue-400"
+                    className="size-5 animate-spin text-[var(--accent)]"
                   />
 
                   Loading repositories...
@@ -398,7 +398,7 @@ export function DashboardPage() {
 
             {repositoriesQuery.isError && (
               <div
-                className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-4 text-sm text-red-300"
+                className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-4 text-sm text-[var(--red)]"
                 role="alert"
               >
                 <p>
@@ -409,7 +409,7 @@ export function DashboardPage() {
                 </p>
 
                 <button
-                  className="mt-3 font-semibold text-red-200 underline underline-offset-4"
+                  className="mt-3 font-semibold text-[var(--red)] underline underline-offset-4"
                   onClick={() =>
                     repositoriesQuery.refetch()
                   }
@@ -424,24 +424,24 @@ export function DashboardPage() {
               && repositories.length ===
                 0 && (
                 <div className="grid place-items-center py-16 text-center">
-                  <span className="grid size-14 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400">
+                  <span className="grid size-14 place-items-center rounded-full border border-[var(--border)] bg-[var(--subtle)] text-[var(--muted)]">
                     <GitBranch
                       aria-hidden="true"
                       className="size-6"
                     />
                   </span>
 
-                  <h3 className="mt-4 font-semibold text-white">
+                  <h3 className="mt-4 font-semibold text-[var(--text)]">
                     No repositories yet
                   </h3>
 
-                  <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">
+                  <p className="mt-2 max-w-sm text-sm leading-6 text-[var(--muted)]">
                     Create your first repository to start hosting code
                     with GitForge.
                   </p>
 
                   <button
-                    className="mt-5 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/10"
+                    className="mt-5 inline-flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--subtle)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--hover)]"
                     onClick={() =>
                       setIsCreateDialogOpen(
                         true,
@@ -467,14 +467,14 @@ export function DashboardPage() {
                 <div className="py-14 text-center">
                   <Search
                     aria-hidden="true"
-                    className="mx-auto size-7 text-slate-500"
+                    className="mx-auto size-7 text-[var(--muted)]"
                   />
 
-                  <h3 className="mt-3 font-semibold text-white">
+                  <h3 className="mt-3 font-semibold text-[var(--text)]">
                     No matching repositories
                   </h3>
 
-                  <p className="mt-2 text-sm text-slate-500">
+                  <p className="mt-2 text-sm text-[var(--muted)]">
                     Try a different search term.
                   </p>
                 </div>
@@ -504,15 +504,15 @@ export function DashboardPage() {
 
           {repositoriesQuery.isSuccess
             && lastPage > 1 && (
-              <footer className="flex items-center justify-between border-t border-white/10 px-5 py-4">
-                <p className="text-sm text-slate-500">
+              <footer className="flex items-center justify-between border-t border-[var(--border)] px-5 py-4">
+                <p className="text-sm text-[var(--muted)]">
                   Page {currentPage} of{' '}
                   {lastPage}
                 </p>
 
                 <div className="flex gap-2">
                   <button
-                    className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-300 transition hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--text)] transition hover:bg-[var(--subtle)] disabled:cursor-not-allowed disabled:opacity-40"
                     disabled={
                       currentPage <= 1
                     }
@@ -533,7 +533,7 @@ export function DashboardPage() {
                   </button>
 
                   <button
-                    className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-300 transition hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--text)] transition hover:bg-[var(--subtle)] disabled:cursor-not-allowed disabled:opacity-40"
                     disabled={
                       currentPage >=
                       lastPage

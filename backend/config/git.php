@@ -38,6 +38,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'browser_max_pdf_bytes' => (int) env('GIT_BROWSER_MAX_PDF_BYTES', 104_857_600),
+
     'browser_max_blob_bytes' => (int) env(
         'GIT_BROWSER_MAX_BLOB_BYTES',
         1_048_576,

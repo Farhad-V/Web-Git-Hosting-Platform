@@ -54,7 +54,7 @@ interface CreatePersonalAccessTokenDialogProps {
 }
 
 const inputClassName =
-  'h-11 w-full rounded-lg border border-white/10 bg-[#0d1117] px-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+  'h-11 w-full rounded-lg border border-[var(--border)] bg-[var(--inset)] px-3 text-sm text-white outline-none transition placeholder:text-[var(--muted)] focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
 
 export function CreatePersonalAccessTokenDialog({
   isOpen,
@@ -260,11 +260,11 @@ export function CreatePersonalAccessTokenDialog({
         type="button"
       />
 
-      <section className="relative w-full max-w-xl rounded-2xl border border-white/10 bg-[#161b22] shadow-2xl shadow-black/50">
-        <header className="flex items-start justify-between border-b border-white/10 px-6 py-5">
+      <section className="relative w-full max-w-xl rounded-2xl border border-[var(--border)] glass-panel shadow-2xl shadow-black/50">
+        <header className="flex items-start justify-between border-b border-[var(--border)] px-6 py-5">
           <div>
             <h2
-              className="text-xl font-semibold text-white"
+              className="text-xl font-semibold text-[var(--text)]"
               id="create-token-title"
             >
               {createdToken === null
@@ -272,7 +272,7 @@ export function CreatePersonalAccessTokenDialog({
                 : 'Token created'}
             </h2>
 
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-[var(--muted)]">
               {createdToken === null
                 ? 'Use this token to authenticate Git operations over HTTP.'
                 : 'Copy this token before closing the dialog.'}
@@ -281,7 +281,7 @@ export function CreatePersonalAccessTokenDialog({
 
           <button
             aria-label="Close"
-            className="rounded-lg p-2 text-slate-500 transition hover:bg-white/5 hover:text-white disabled:opacity-50"
+            className="rounded-lg p-2 text-[var(--muted)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)] disabled:opacity-50"
             disabled={
               createMutation.isPending
             }
@@ -300,7 +300,7 @@ export function CreatePersonalAccessTokenDialog({
         {createdToken !== null ? (
           <div className="space-y-5 p-6">
             <div
-              className="flex gap-3 rounded-xl border border-amber-400/20 bg-amber-500/10 p-4 text-amber-200"
+              className="flex gap-3 rounded-xl border border-amber-400/20 bg-amber-500/10 p-4 text-[var(--amber)]"
               role="alert"
             >
               <ShieldAlert
@@ -313,7 +313,7 @@ export function CreatePersonalAccessTokenDialog({
                   This token is shown only once
                 </p>
 
-                <p className="mt-1 text-sm leading-6 text-amber-200/80">
+                <p className="mt-1 text-sm leading-6 text-[var(--amber)]/80">
                   Store it securely. GitForge stores only a hash and
                   cannot display the plaintext token again.
                 </p>
@@ -322,7 +322,7 @@ export function CreatePersonalAccessTokenDialog({
 
             <div>
               <label
-                className="mb-2 block text-sm font-medium text-slate-200"
+                className="mb-2 block text-sm font-medium text-[var(--text)]"
                 htmlFor="created-token-value"
               >
                 Personal access token
@@ -330,7 +330,7 @@ export function CreatePersonalAccessTokenDialog({
 
               <div className="flex flex-col gap-2 sm:flex-row">
                 <input
-                  className="h-11 min-w-0 flex-1 rounded-lg border border-white/10 bg-[#0d1117] px-3 font-mono text-sm text-emerald-300 outline-none"
+                  className="h-11 min-w-0 flex-1 rounded-lg border border-[var(--border)] bg-[var(--inset)] px-3 font-mono text-sm text-[var(--emerald)] outline-none"
                   id="created-token-value"
                   onFocus={(
                     event,
@@ -344,7 +344,7 @@ export function CreatePersonalAccessTokenDialog({
                 />
 
                 <button
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-200 transition hover:bg-white/5 hover:text-white"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-4 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)]"
                   onClick={
                     copyToken
                   }
@@ -354,7 +354,7 @@ export function CreatePersonalAccessTokenDialog({
                   'copied' ? (
                     <Check
                       aria-hidden="true"
-                      className="size-4 text-emerald-400"
+                      className="size-4 text-[var(--emerald)]"
                     />
                   ) : (
                     <Copy
@@ -372,25 +372,25 @@ export function CreatePersonalAccessTokenDialog({
 
               {copyStatus ===
                 'failed' && (
-                <p className="mt-2 text-sm text-amber-300">
+                <p className="mt-2 text-sm text-[var(--amber)]">
                   Automatic copying failed. Select and copy the token
                   manually.
                 </p>
               )}
             </div>
 
-            <div className="rounded-xl border border-white/10 bg-[#0d1117] p-4">
-              <p className="text-sm font-semibold text-white">
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--inset)] p-4">
+              <p className="text-sm font-semibold text-[var(--text)]">
                 {createdToken.token.name}
               </p>
 
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-[var(--muted)]">
                 Git operations are authorized separately by repository
                 ownership and visibility rules.
               </p>
             </div>
 
-            <div className="flex justify-end border-t border-white/10 pt-5">
+            <div className="flex justify-end border-t border-[var(--border)] pt-5">
               <button
                 className="inline-flex h-10 items-center justify-center rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500"
                 onClick={
@@ -414,7 +414,7 @@ export function CreatePersonalAccessTokenDialog({
           >
             {hasGeneralError && (
               <div
-                className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+                className="rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-[var(--red)]"
                 role="alert"
               >
                 {getApiErrorMessage(
@@ -426,7 +426,7 @@ export function CreatePersonalAccessTokenDialog({
 
             <div>
               <label
-                className="mb-2 block text-sm font-medium text-slate-200"
+                className="mb-2 block text-sm font-medium text-[var(--text)]"
                 htmlFor="token-name"
               >
                 Token name
@@ -460,7 +460,7 @@ export function CreatePersonalAccessTokenDialog({
                 ?.message !==
               undefined ? (
                 <p
-                  className="mt-2 text-sm text-red-400"
+                  className="mt-2 text-sm text-[var(--red)]"
                   id="token-name-error"
                 >
                   {
@@ -470,7 +470,7 @@ export function CreatePersonalAccessTokenDialog({
                 </p>
               ) : (
                 <p
-                  className="mt-2 text-xs text-slate-500"
+                  className="mt-2 text-xs text-[var(--muted)]"
                   id="token-name-help"
                 >
                   Choose a descriptive name for the device or Git
@@ -483,10 +483,10 @@ export function CreatePersonalAccessTokenDialog({
               <div className="flex gap-3">
                 <KeyRound
                   aria-hidden="true"
-                  className="mt-0.5 size-5 shrink-0 text-blue-300"
+                  className="mt-0.5 size-5 shrink-0 text-[var(--accent)]"
                 />
 
-                <p className="text-sm leading-6 text-slate-300">
+                <p className="text-sm leading-6 text-[var(--text)]">
                   V1 personal access tokens do not have scopes or
                   expiration dates. Repository authorization is
                   enforced by GitForge for every Git operation.
@@ -494,9 +494,9 @@ export function CreatePersonalAccessTokenDialog({
               </div>
             </div>
 
-            <div className="flex flex-col-reverse gap-3 border-t border-white/10 pt-5 sm:flex-row sm:justify-end">
+            <div className="flex flex-col-reverse gap-3 border-t border-[var(--border)] pt-5 sm:flex-row sm:justify-end">
               <button
-                className="inline-flex h-10 items-center justify-center rounded-lg border border-white/10 px-4 text-sm font-semibold text-slate-300 transition hover:bg-white/5 hover:text-white disabled:opacity-50"
+                className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border)] px-4 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--subtle)] hover:text-[var(--text)] disabled:opacity-50"
                 disabled={
                   createMutation.isPending
                 }

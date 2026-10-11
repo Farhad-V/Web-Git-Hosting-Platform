@@ -19,6 +19,35 @@ class GitCommandRunnerTest extends TestCase
         ]);
     }
 
+    public function test_large_binary_stream_reaches_git_without_buffering_entire_body(): void
+    {
+        $source = tmpfile();
+        $this->assertIsResource($source);
+        $chunk = str_repeat("a\0bc", 262144);
+        $size = strlen($chunk) * 84;
+        $hash = hash_init('sha1');
+        hash_update($hash, "blob {$size}\0");
+
+        try {
+            for ($index = 0; $index < 84; $index++) {
+                fwrite($source, $chunk);
+                hash_update($hash, $chunk);
+            }
+            rewind($source);
+            $before = memory_get_usage(true);
+            memory_reset_peak_usage();
+            $actual = app(GitCommandRunner::class)->run(
+                operation: 'test-large-stream',
+                arguments: ['hash-object', '--stdin'],
+                input: $source,
+            );
+            $this->assertSame(hash_final($hash), $actual);
+            $this->assertLessThan(16 * 1024 * 1024, memory_get_peak_usage(true) - $before);
+        } finally {
+            fclose($source);
+        }
+    }
+
     public function test_it_returns_the_installed_git_version(): void
     {
         $version = app(

@@ -12,13 +12,13 @@ GitForge is a self-hosted Git hosting platform built as a full-stack software-en
 
 GitForge V1.0.0 is released as a GitHub portfolio/local-use project. It is designed to be cloned, inspected, run locally, tested, and evaluated, and it **does not require public hosting**.
 
-V1.0.1 fixes repository-creation data loss, production clone URLs, and backup coordination, and updates vulnerable dependencies. See [V1.0.1 patch release notes](docs/releases/v1.0.1.md) for validation, upgrade instructions, and the required backup-procedure changes.
+V1.0.1 fixes repository-creation data loss, production clone URLs, and backup coordination, and updates vulnerable dependencies. See [V1.0.1 patch release notes](docs/Releases/v1.0.1.md) for validation, upgrade instructions, and the required backup-procedure changes.
 
 ## Core Capabilities
 
 - user registration and session authentication;
 - authenticated profile retrieval and logout;
-- repository creation, listing, metadata retrieval, and visibility updates;
+- repository creation, listing, metadata retrieval, renaming, and visibility updates;
 - owner-centric public/private repository authorization;
 - managed bare Git repository storage;
 - Git clone, fetch, and push over Smart HTTP;
@@ -100,7 +100,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173`.
+Open `http://127.0.0.1:5173`. Vite uses this fixed port and reports an error if it is already occupied, instead of silently switching to another address.
 
 The Vite development server proxies `/api` to `http://127.0.0.1:8000`, so the default local frontend/backend configuration works without a separate API base URL.
 
@@ -111,7 +111,7 @@ The Vite development server proxies `/api` to `http://127.0.0.1:8000`, so the de
 3. Create a personal access token for authenticated Git operations.
 4. Clone/fetch using the repository Smart HTTP URL.
 5. Push as the repository owner using the PAT.
-6. Browse branches, commits, trees, and text files in the web UI.
+6. Browse branches, paginated commits, tags, trees, text files, and PDFs in the web UI.
 7. Revoke PATs that are no longer needed.
 
 ## Quality Gates
@@ -137,6 +137,8 @@ RELEASE_NOTES.md          V1.0.0 release overview
 ```
 
 ## SDLC Documentation
+
+Start with the [documentation index](docs/README.md) for Project Definition, Project Management, Releases, SDLC, and Sprint records.
 
 1. Project Definition — `docs/01-project-definition/`
 2. Requirements Engineering — `docs/02-requirements-engineering/`
@@ -174,3 +176,7 @@ GitForge uses server-side authorization, private repository concealment, CSRF pr
 ## License
 
 The backend Composer package currently declares MIT. No repository-level `LICENSE` file is claimed until the project owner intentionally confirms the final public licensing terms.
+
+## Repository collaboration
+
+Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](docs/features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.

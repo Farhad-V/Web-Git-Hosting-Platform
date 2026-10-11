@@ -52,8 +52,22 @@ class RepositoryBrowserController extends Controller
     }
 
     /**
-     * List commits reachable from a branch.
+     * List repository tags.
      */
+    public function tags(BrowseRepositoryRequest $request, Repository $repository): JsonResponse
+    {
+        Gate::authorize('view', $repository);
+        $validated = $request->validated();
+        try {
+            return response()->json($this->browser->tags($repository, $validated['page'] ?? 1, $validated['limit'] ?? 30));
+        } catch (RepositoryBrowserException $exception) {
+            return $this->browserErrorResponse($exception);
+        } catch (RepositoryStorageException $exception) {
+            return $this->storageErrorResponse($exception);
+        }
+    }
+
+    /** List commits reachable from a branch. */
     public function commits(
         BrowseRepositoryRequest $request,
         Repository $repository,
@@ -75,13 +89,20 @@ class RepositoryBrowserController extends Controller
                 return $this->emptyRepositoryResponse();
             }
 
+            $limit = $validated['limit'] ?? 50;
+            $commits = $this->browser->commits(
+                repository: $repository,
+                branch: $branch,
+                limit: $limit,
+                page: $validated['page'] ?? 1,
+                includeNext: true,
+            );
+
             return response()->json([
-                'data' => $this->browser->commits(
-                    repository: $repository,
-                    branch: $branch,
-                    limit: $validated['limit'] ?? 50,
-                ),
+                'data' => array_slice($commits, 0, $limit),
                 'branch' => $branch,
+                'page' => $validated['page'] ?? 1,
+                'has_more' => count($commits) > $limit,
             ]);
         } catch (RepositoryBrowserException $exception) {
             return $this->browserErrorResponse(
@@ -218,6 +239,34 @@ class RepositoryBrowserController extends Controller
     /**
      * Resolve an explicitly requested branch or Git-native default branch.
      */
+    public function pdf(BrowseRepositoryRequest $request, Repository $repository): Response
+    {
+        Gate::authorize('view', $repository);
+        $validated = $request->validated();
+        try {
+            $branch = $this->resolveBranch($repository, $validated['branch'] ?? null);
+            if ($branch === null) {
+                return $this->emptyRepositoryResponse();
+            }
+            $file = $validated['path'] ?? '';
+            $temporary = $this->browser->pdf($repository, $branch, $file);
+            try {
+                return response()->file($temporary, [
+                    'Content-Type' => 'application/pdf',
+                    'Cache-Control' => 'private, no-store',
+                    'X-Content-Type-Options' => 'nosniff',
+                ])->setContentDisposition('inline', basename($file), 'document.pdf')->deleteFileAfterSend(true);
+            } catch (\Throwable $exception) {
+                unlink($temporary);
+                throw $exception;
+            }
+        } catch (RepositoryBrowserException $exception) {
+            return $this->browserErrorResponse($exception);
+        } catch (RepositoryStorageException $exception) {
+            return $this->storageErrorResponse($exception);
+        }
+    }
+
     private function resolveBranch(
         Repository $repository,
         ?string $requestedBranch,
