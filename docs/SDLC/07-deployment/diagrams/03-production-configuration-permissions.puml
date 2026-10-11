@@ -1,0 +1,23 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Runtime identities and writable paths
+component "Nginx identity\nwww-data in pool socket template" as Nginx
+component "PHP-FPM / worker identity\ngitforge" as Runtime
+artifact "Application source and frontend build\nRead access; not broadly writable" as Source
+folder "backend/storage\nbackend/bootstrap/cache" as Cache
+folder "/var/lib/gitforge/repositories" as Git
+artifact "Restricted backend/.env" as Env
+Nginx --> Runtime : Unix socket mode 0660
+Runtime --> Source : read and execute
+Runtime --> Cache : necessary writes
+Runtime --> Git : authorized repository writes
+Env --> Runtime : configuration
+note bottom of Git : Outside public web roots; preserve across releases
+@enduml

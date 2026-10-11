@@ -2608,5 +2608,59 @@
     "original_format": "plantuml",
     "source_sha256": "1719c720cce474be84dd70bb166f3353aada24fe20f0520e9e0bee39bd184374",
     "image_sha256": "06dc50ce42ba7c5b150a6e04f03216a6955fe9f3991210b2ce384394f18c5b3b"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/03-production-configuration.md",
+    "source": "docs/SDLC/07-deployment/diagrams/03-production-configuration-secrets.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/03-production-configuration-secrets.svg",
+    "title": "Secret provisioning and configuration lifecycle",
+    "original_format": "plantuml",
+    "source_sha256": "d0d21ad64db1bffbd3c118a68f692790c498524cb6e90b6bc229c8d20e96d650",
+    "image_sha256": "7ab5b44c024f21de78576440870898a23672fa9edc2dfbb833d47dd85f204166"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/03-production-configuration.md",
+    "source": "docs/SDLC/07-deployment/diagrams/03-production-configuration-sessions.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/03-production-configuration-sessions.svg",
+    "title": "Session and transport settings",
+    "original_format": "plantuml",
+    "source_sha256": "8ad7edc42339729a01bd05602ab293e84dd97018950a73da4cc04cc619a51764",
+    "image_sha256": "ef9637453a96d348bf1d1474c321a35c887b699c64b75569473c554f63cd7e4a"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/03-production-configuration.md",
+    "source": "docs/SDLC/07-deployment/diagrams/03-production-configuration-limits.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/03-production-configuration-limits.svg",
+    "title": "Git transport and preview limits",
+    "original_format": "plantuml",
+    "source_sha256": "a57b3734a9981527fdea97351ab75eb20d086d2e1cf75ea2224caa38f83ddbe0",
+    "image_sha256": "622e8b7ea3012901673085bd52501a7fcaceced836da4599a56427404c42a8ce"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/03-production-configuration.md",
+    "source": "docs/SDLC/07-deployment/diagrams/03-production-configuration-permissions.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/03-production-configuration-permissions.svg",
+    "title": "Runtime identities and writable paths",
+    "original_format": "plantuml",
+    "source_sha256": "bb557dfc526c1f5b7564714e7499871f673fda6da4a8a80ec934ce4f3b4dbb14",
+    "image_sha256": "b0c810f541bd8c12512aae4a48da292161a7bb3ef61bd5c36139f6b3c610b4b8"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/03-production-configuration.md",
+    "source": "docs/SDLC/07-deployment/diagrams/03-production-configuration-frontend-worker.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/03-production-configuration-frontend-worker.svg",
+    "title": "Frontend build and worker configuration",
+    "original_format": "plantuml",
+    "source_sha256": "95637add8a4a5c65d0dfeb34e695f1935eb2e14621573078057f2d6829df6213",
+    "image_sha256": "e61419675f59126a21b668dec634eb0bc014b31f3647b8c3e7b3299a33103d9f"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/03-production-configuration.md",
+    "source": "docs/SDLC/07-deployment/diagrams/03-production-configuration-verification.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/03-production-configuration-verification.svg",
+    "title": "Configuration acceptance and change control",
+    "original_format": "plantuml",
+    "source_sha256": "d3a3394c99fb4e13bb2fa60bba8e3bec53494cd17ce5f0b20716035a4e90b305",
+    "image_sha256": "1e48be9067aff0f61c2f3bfe93792d352e00e7cc3f0ce73f5cdcfd9483a636af"
   }
 ]

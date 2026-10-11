@@ -1,0 +1,26 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Frontend build and worker configuration
+artifact "Public VITE_API_BASE_URL\nOptional VITE_GIT_BASE_URL" as Public
+artifact "Frontend production build" as SPA
+artifact "Restricted backend configuration" as Env
+component "Laravel request runtime" as API
+database "PostgreSQL jobs and run records" as DB
+component "Dedicated gitforge-actions worker" as Worker
+Public --> SPA : build-time values
+SPA --> API : default same-origin /api/v1
+Env --> API : server settings
+Env --> Worker : same deployed candidate configuration
+API --> DB : enqueue built-in check
+Worker --> DB : consume job and persist result
+note bottom of Public : Browser-visible values must never contain secrets
+note bottom of Worker : Timeout 60s; database retry_after default 90s
+
+@enduml

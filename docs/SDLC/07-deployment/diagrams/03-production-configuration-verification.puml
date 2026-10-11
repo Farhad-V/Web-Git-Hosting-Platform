@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Configuration acceptance and change control
+start
+:Review template changes and migration compatibility;
+:Validate required tools, paths and production flags;
+:Build frontend and production dependencies;
+:Validate Nginx and PHP-FPM configuration;
+:Apply reviewed environment and rebuild caches;
+:Reload affected services and worker;
+:Check ingress, sessions, Git operations and storage;
+if (All candidate checks pass?) then (yes)
+ :Record commit, sanitized configuration evidence and operator;
+else (no)
+ :Keep writes blocked and follow reviewed recovery procedure;
+endif
+stop
+@enduml

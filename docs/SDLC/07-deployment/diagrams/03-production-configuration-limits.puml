@@ -1,0 +1,22 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Git transport and preview limits
+actor "Git client or browser" as Client
+component "Nginx request boundary\n100m body; 60s FastCGI defaults" as Nginx
+component "Laravel Git transport\n104857600-byte request default" as API
+component "Controlled Git process\n30-second default" as Git
+component "Repository browser\nText: 1 MiB; PDF: 100 MiB defaults" as Browse
+Client --> Nginx
+Nginx --> API : Git RPCs; buffering disabled
+API --> Git : authorized arguments and paths
+Nginx --> Browse : permitted preview request
+note bottom of Browse : Preview bounds are independent of Git push limits
+note bottom of Git : Align limits across layers; defaults do not guarantee throughput
+@enduml

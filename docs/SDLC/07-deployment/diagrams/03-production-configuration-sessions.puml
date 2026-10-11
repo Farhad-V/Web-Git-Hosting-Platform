@@ -1,0 +1,21 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Session and transport settings
+actor Browser
+component "Nginx HTTPS ingress" as Nginx
+component "Laravel session and CSRF policies" as API
+database "Database sessions" as Sessions
+Browser --> Nginx : HTTPS / secure cookie
+Nginx --> API : local FastCGI socket
+API --> Sessions : encrypted session data
+API --> Browser : HTTP-only cookie; SameSite=lax
+note bottom of API : Mutating browser requests require CSRF protection
+note bottom of Browser : PAT credentials used by Git clients are separate from browser sessions
+@enduml
