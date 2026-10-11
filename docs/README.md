@@ -8,7 +8,7 @@ GitForge is the Web Git Hosting Platform: a Laravel API and React/TypeScript app
 | --- | --- |
 | [Project-Definition](Project-Definition/README.md) | Product purpose, users, capabilities, and scope |
 | [Project-Management](Project-Management/README.md) | Delivery process, backlog, risks, and completion criteria |
-| [Releases/v1](Releases/v1/README.md) | Version 1 release history and upgrade guidance |
+| [Releases](Releases/README.md) | Version 1 release history and upgrade guidance |
 | [SDLC](SDLC/README.md) | Requirements through maintenance, with links to engineering evidence |
 | [Sprints](Sprints/README.md) | Documented delivery increments and verification records |
 
