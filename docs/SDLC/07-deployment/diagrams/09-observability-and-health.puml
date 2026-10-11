@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Liveness and readiness verification
+start
+:Check GET /up through intended ingress;
+if (Runtime answers?) then (yes)
+  :Check PostgreSQL connectivity and migration state;
+  :Check storage permissions and Git executable;
+  :Run authentication and Git transport acceptance checks;
+  if (Candidate includes Actions?) then (yes)
+    :Verify worker consumes gitforge-actions queue;
+  endif
+  if (All required readiness checks pass?) then (yes)
+    :Record readiness evidence;
+  else (no)
+    :Investigate without resuming writes;
+  endif
+else (no)
+  :Inspect sanitized runtime and ingress logs;
+endif
+stop
+@enduml

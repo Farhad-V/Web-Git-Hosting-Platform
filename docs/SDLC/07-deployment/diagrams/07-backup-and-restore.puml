@@ -1,0 +1,31 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Coordinated backup and restore
+start
+:Block new writes with maintenance mode;
+:Drain in-flight requests and pushes;
+:Pause jobs and direct repository writers;
+:Confirm backend root and writes-paused assertion;
+:Dump PostgreSQL and archive Git storage;
+:Create manifest and checksums;
+if (Backup verification passes?) then (yes)
+  :Retain protected paired backup;
+  if (Restore requested?) then (yes)
+    :Keep writes blocked and verify selected backup;
+    :Restore database and repositories as one recovery set;
+    :Deploy compatible code and rebuild caches;
+    :Verify identity, permissions, Git operations and consistency;
+  endif
+  :Resume only after required checks pass;
+else (no)
+  :Keep writes paused and investigate;
+endif
+stop
+@enduml

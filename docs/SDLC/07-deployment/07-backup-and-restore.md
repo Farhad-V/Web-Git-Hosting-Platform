@@ -42,3 +42,11 @@ After a successful backup and verification, restore paused jobs and run `php art
 ## Security
 
 Backups contain private source code and sensitive account metadata. They require access control, encryption at rest appropriate to the target environment and an explicit retention policy.
+
+## Coordinated backup and restore
+
+![Coordinated backup and restore](diagrams/07-backup-and-restore.svg)
+
+[PlantUML source](diagrams/07-backup-and-restore.puml) · [Full-size SVG](diagrams/07-backup-and-restore.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

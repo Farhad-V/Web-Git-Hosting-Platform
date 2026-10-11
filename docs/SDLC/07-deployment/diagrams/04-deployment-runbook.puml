@@ -1,0 +1,32 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Release execution sequence
+actor Operator
+participant "Candidate release" as Candidate
+participant "Maintenance and writers" as Writers
+participant "Backup scripts" as Backup
+database PostgreSQL as DB
+participant "Nginx / PHP-FPM" as Runtime
+Operator -> Candidate : Preflight, dependencies, frontend build
+Operator -> Writers : Block new writes, drain and pause
+Operator -> Backup : Create and verify paired recovery set
+Backup --> Operator : Verified manifest and checksums
+Operator -> DB : Reviewed migrations
+Operator -> Candidate : Rebuild Laravel caches
+Operator -> Runtime : Validate config, then reload
+Operator -> Runtime : Liveness and acceptance checks
+alt checks pass
+  Operator -> Writers : Resume traffic and writers
+  Operator -> Candidate : Record commit and evidence
+else checks fail
+  Operator -> Writers : Keep writes paused
+  Operator -> Candidate : Compatible rollback or recovery
+end
+@enduml

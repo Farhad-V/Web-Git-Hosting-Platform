@@ -1,0 +1,36 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Deployment gates
+start
+:Select candidate commit and deployment owner;
+:Review prerequisites and migration compatibility;
+if (Preflight and candidate checks pass?) then (yes)
+  :Build immutable candidate artifacts;
+  :Pause writes and drain active operations;
+  :Create and verify coordinated backup;
+  if (Recovery set verified?) then (yes)
+    :Apply migrations and rebuild caches;
+    :Validate configuration and activate candidate;
+    :Run liveness and acceptance checks;
+    if (All required checks pass?) then (yes)
+      :Resume traffic and writers;
+      :Record deployed commit and evidence;
+    else (no)
+      :Keep writes paused;
+      :Follow compatible rollback or paired recovery;
+    endif
+  else (no)
+    :Stop deployment and investigate backup failure;
+  endif
+else (no)
+  :Reject candidate before activation;
+endif
+stop
+@enduml

@@ -36,3 +36,11 @@ Application source and public build output must not be broadly writable by the r
 ## Secret Handling Rule
 
 `deployment/env/production.env.example` contains placeholders only. The real production `.env` is created on the server, permission-restricted, and excluded from Git.
+
+## Production configuration boundaries
+
+![Production configuration boundaries](diagrams/03-production-configuration.svg)
+
+[PlantUML source](diagrams/03-production-configuration.puml) · [Full-size SVG](diagrams/03-production-configuration.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

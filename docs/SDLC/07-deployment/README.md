@@ -18,3 +18,7 @@ Prepare runtime configuration, migrations, workers, health, coordinated backups,
 - [M6 Milestone Review — Deployment](12-m6-milestone-review.md)
 
 Phase documents retain their recorded version context. For new work, revisit the affected requirements and record fresh candidate-specific verification. Return to the [SDLC index](../README.md).
+
+## Deployment diagrams
+
+Each of the 12 phase documents includes a locally rendered SVG preview and an editable PlantUML source in `diagrams/`. The deployment plan includes a current-candidate supplement covering prerequisites, responsibilities, stop gates, acceptance evidence and Actions worker operations. Historical milestone approvals do not certify new candidates or an external production host.

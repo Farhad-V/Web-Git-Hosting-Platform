@@ -38,3 +38,11 @@ For the V1.0.0 portfolio release, M6 requires a reproducible, production-like de
 **APPROVED — M6 Complete.**
 
 GitForge V1.0.0 is deployment-ready at repository level. The next milestone is M7 — V1.0.0 Release and Maintenance Readiness.
+
+## Deployment milestone review
+
+![Deployment milestone review](diagrams/12-m6-milestone-review.svg)
+
+[PlantUML source](diagrams/12-m6-milestone-review.puml) · [Full-size SVG](diagrams/12-m6-milestone-review.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

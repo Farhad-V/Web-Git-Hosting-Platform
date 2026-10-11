@@ -51,3 +51,11 @@ A backup that contains only one domain is incomplete.
 ## V1.0.0 Deployment Boundary
 
 V1.0.0 intentionally uses a single-host topology for clarity and reproducibility. Kubernetes, distributed storage, SSH Git transport and high-availability database clustering are outside this release scope.
+
+## Production deployment topology
+
+![Production deployment topology](diagrams/02-deployment-architecture.svg)
+
+[PlantUML source](diagrams/02-deployment-architecture.puml) · [Full-size SVG](diagrams/02-deployment-architecture.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

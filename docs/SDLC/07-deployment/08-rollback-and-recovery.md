@@ -30,3 +30,11 @@ Database rollback is not assumed to be safe automatically. Each migration requir
 - Git clone/fetch/push regression;
 - migration causes incompatible runtime behavior;
 - deployment introduces unrecoverable frontend or API failure.
+
+## Rollback decision
+
+![Rollback decision](diagrams/08-rollback-and-recovery.svg)
+
+[PlantUML source](diagrams/08-rollback-and-recovery.puml) · [Full-size SVG](diagrams/08-rollback-and-recovery.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Network and runtime trust boundaries
+actor "Public client" as Client
+component "HTTP :80 redirect" as Redirect
+component "HTTPS :443 Nginx" as TLS
+component "Static SPA" as SPA
+component "PHP-FPM local socket" as FPM
+component "Laravel" as API
+database "Private PostgreSQL" as DB
+Client --> Redirect
+Redirect --> TLS : redirect to HTTPS
+Client --> TLS : TLS; credentials protected
+TLS --> SPA : frontend routes
+TLS --> FPM : API / up / Git Smart HTTP
+FPM --> API
+API --> DB
+note right of FPM : No direct public PHP-FPM endpoint
+note bottom of TLS : Git request buffering disabled on transport route
+@enduml

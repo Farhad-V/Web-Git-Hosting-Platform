@@ -1,0 +1,23 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Security review gates
+start
+:Review production configuration and secret handling;
+:Verify TLS, cookies and private database boundary;
+:Verify least-privilege identity and storage permissions;
+:Verify controlled Git binary and sanitized logging;
+:Verify paired backups and recovery plan;
+if (Required controls evidenced for candidate and host?) then (yes)
+  :Record reviewer and evidence;
+else (no)
+  :Block deployment and resolve failed controls;
+endif
+stop
+@enduml

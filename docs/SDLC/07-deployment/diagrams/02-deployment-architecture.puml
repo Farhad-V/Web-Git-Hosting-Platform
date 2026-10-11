@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Production deployment topology
+actor "Browser or Git client" as Client
+node "Linux reference host" {
+  component "Nginx :443" as Nginx
+  artifact "React SPA\nfrontend/dist" as SPA
+  component "PHP-FPM\nlocal Unix socket" as FPM
+  component "Laravel API and Git transport" as API
+  database "PostgreSQL\nprivate endpoint" as DB
+  component "Controlled Git executable" as Git
+  folder "Persistent bare repositories\n/var/lib/gitforge/repositories" as Repos
+}
+Client --> Nginx : HTTPS
+Nginx --> SPA : static assets
+Nginx --> FPM : API / Git / health
+FPM --> API
+API --> DB : metadata
+API --> Git : authorized commands
+Git --> Repos : Git objects and refs
+note bottom of Repos : Persists independently of application releases
+@enduml

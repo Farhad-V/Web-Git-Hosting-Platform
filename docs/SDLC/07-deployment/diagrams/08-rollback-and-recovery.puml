@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Rollback decision
+start
+:Detect deployment failure;
+:Block writes and preserve evidence;
+if (Previous code compatible with current schema?) then (yes)
+  :Activate approved previous application release;
+  :Preserve current PostgreSQL and Git storage;
+else (no)
+  :Select approved paired backup and compatible code;
+  :Review recovery impact before restoration;
+  :Restore database and repositories together;
+endif
+:Rebuild caches and validate runtime;
+if (Consistency and acceptance checks pass?) then (yes)
+  :Resume traffic and record recovery result;
+else (no)
+  :Remain in maintenance and investigate;
+endif
+stop
+@enduml

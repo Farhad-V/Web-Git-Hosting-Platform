@@ -2446,5 +2446,113 @@
     "original_format": "plantuml",
     "source_sha256": "e6d20645d35111f61166d30a6b893ce3cc7860bd006fd395331839a1c32968b0",
     "image_sha256": "7f9165d0d2303f29d4111cc71e762be422c423f1c23fcdf61c9b17386af2d4e7"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/01-deployment-plan.md",
+    "source": "docs/SDLC/07-deployment/diagrams/01-deployment-plan.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/01-deployment-plan.svg",
+    "title": "Deployment gates",
+    "original_format": "plantuml",
+    "source_sha256": "db34407d40a57e3741f1d902c4b5050656f8b07d37e9e38ff5e7c4764731f233",
+    "image_sha256": "5a83d0fd6b08651135301e6a9a01f9e5f6c370fa8948ba8901144c6a7f250b83"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/02-deployment-architecture.md",
+    "source": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture.svg",
+    "title": "Production deployment topology",
+    "original_format": "plantuml",
+    "source_sha256": "732c9c48569927b7e35c3e561f82bcbcc110c0b34f41d6183699c1389fc8fbe0",
+    "image_sha256": "86c5872fcd7d0e235d2b6611636630d20d5a2f4659a5ed43497b0c1a1df257b7"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/03-production-configuration.md",
+    "source": "docs/SDLC/07-deployment/diagrams/03-production-configuration.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/03-production-configuration.svg",
+    "title": "Production configuration boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "6c35ee1e5feb79b494d41dfde25fb14ad51e516b0bf44cb70fceb8f92305855f",
+    "image_sha256": "29f08b46e3b4ab764e0be1682bf85caa7d27a3007886b4f9f148f0aa85b16c3b"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/04-deployment-runbook.md",
+    "source": "docs/SDLC/07-deployment/diagrams/04-deployment-runbook.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/04-deployment-runbook.svg",
+    "title": "Release execution sequence",
+    "original_format": "plantuml",
+    "source_sha256": "cfffbf875c733e5594a04c906d8c29989fda524121c14f400ae349394af24adb",
+    "image_sha256": "38fbeaea7dae6a58a1d1c9af3d7719911230c0dcf1bb0214d78b4895b93f14f7"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/05-database-and-storage-deployment.md",
+    "source": "docs/SDLC/07-deployment/diagrams/05-database-and-storage-deployment.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/05-database-and-storage-deployment.svg",
+    "title": "Persistent state separation",
+    "original_format": "plantuml",
+    "source_sha256": "9f1a2730d3e2378273e785ad86ef1fad949b1c29306fa4db58f4004a530eb106",
+    "image_sha256": "ee2718e2010ab41fb43bd6abc8c5f94464fc8227f3846de597ca14c05dc8a44e"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/06-network-tls-and-runtime.md",
+    "source": "docs/SDLC/07-deployment/diagrams/06-network-tls-and-runtime.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/06-network-tls-and-runtime.svg",
+    "title": "Network and runtime trust boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "d93aa825b58fdfbb345730dd21f8e1666a714dad47755e54f798ea16afd095f1",
+    "image_sha256": "8588d4bd8c2635bf8f11a78aaf0ed609b9a5443c7e4d922f3133b9dd4f7e3020"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/07-backup-and-restore.md",
+    "source": "docs/SDLC/07-deployment/diagrams/07-backup-and-restore.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/07-backup-and-restore.svg",
+    "title": "Coordinated backup and restore",
+    "original_format": "plantuml",
+    "source_sha256": "73af3fc6c6d85b8a565c8a7ed410a62bf6ef69d0b1e568fc82da124a19d744f7",
+    "image_sha256": "df21bf19eb86357d39af3fb19cc0c63164c728dc016053e92bfd213ca377d9d3"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/08-rollback-and-recovery.md",
+    "source": "docs/SDLC/07-deployment/diagrams/08-rollback-and-recovery.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/08-rollback-and-recovery.svg",
+    "title": "Rollback decision",
+    "original_format": "plantuml",
+    "source_sha256": "d54160e8173a0a0129c67e36451c12e5aa3c6f00cfe7c1831a4dd0a2e10fddeb",
+    "image_sha256": "9be88ef75ef0f8e2562aa58b473f2c445d0743af065cd86b49ef121d9e0ab870"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/09-observability-and-health.md",
+    "source": "docs/SDLC/07-deployment/diagrams/09-observability-and-health.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/09-observability-and-health.svg",
+    "title": "Liveness and readiness verification",
+    "original_format": "plantuml",
+    "source_sha256": "916a44adc6469270aa7ed7e68d024147e6b04d87f0199708abd878f96fdb1600",
+    "image_sha256": "eea70b6a5811428b1272123b91f1a3e38d2779b31f06e886136fecc242b38a50"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/10-deployment-validation.md",
+    "source": "docs/SDLC/07-deployment/diagrams/10-deployment-validation.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/10-deployment-validation.svg",
+    "title": "Repository validation and host acceptance",
+    "original_format": "plantuml",
+    "source_sha256": "ce3bee04126cc8a0c0f516ab61aab82ad7edcd86434c9beae76ddac6fa8de2f1",
+    "image_sha256": "9d191543377d37ecc748924413496716cfca0fb54994ff975c9a64b41cfb8cc7"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/11-deployment-security-checklist.md",
+    "source": "docs/SDLC/07-deployment/diagrams/11-deployment-security-checklist.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/11-deployment-security-checklist.svg",
+    "title": "Security review gates",
+    "original_format": "plantuml",
+    "source_sha256": "8f8a520faa9c1a8cd48c198f3c089d02b2111211c1b0c8e4363f039d955fba67",
+    "image_sha256": "36f24a0258cdc7be0a4f2391e9094d3f5c9f26b5bd6da7f53361375c3e2d3586"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/12-m6-milestone-review.md",
+    "source": "docs/SDLC/07-deployment/diagrams/12-m6-milestone-review.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/12-m6-milestone-review.svg",
+    "title": "Deployment milestone review",
+    "original_format": "plantuml",
+    "source_sha256": "9d56d237b4244f139f26d94f6116973c3ea95de221d5c72cf4f572e2fd1f49c5",
+    "image_sha256": "c45eaa0509835eac751f03d51133b22e16ee1137e1b40847841c9ef7da895d3e"
   }
 ]

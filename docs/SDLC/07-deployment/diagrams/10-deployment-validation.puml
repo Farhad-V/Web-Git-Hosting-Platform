@@ -1,0 +1,26 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Repository validation and host acceptance
+start
+:Check out candidate in clean CI runner;
+:Set up PHP, Node and PostgreSQL;
+:Validate templates, script syntax and backup guards;
+:Install production backend dependencies;
+:Migrate and cache Laravel configuration and routes;
+:Build frontend and validate Nginx syntax;
+:Verify Laravel /up and cache artifacts;
+if (CI checks pass?) then (yes)
+  :Repository package validation evidence available;
+  :Operator separately validates real host, TLS and Git workflows;
+else (no)
+  :Reject candidate and repair failing check;
+endif
+stop
+@enduml

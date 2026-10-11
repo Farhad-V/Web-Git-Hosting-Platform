@@ -1,0 +1,23 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Deployment milestone review
+start
+:Collect architecture, runbook and configuration deliverables;
+:Review automated candidate validation evidence;
+:Review backup, recovery and security controls;
+:Record repository and public-host scope boundaries;
+if (Required milestone evidence accepted?) then (yes)
+  :Record explicit milestone decision;
+  :Hand off to release and maintenance readiness;
+else (no)
+  :Record gaps and repeat affected validation;
+endif
+stop
+@enduml

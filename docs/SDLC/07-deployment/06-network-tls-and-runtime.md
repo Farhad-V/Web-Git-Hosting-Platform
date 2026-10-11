@@ -26,3 +26,11 @@ A real public deployment replaces the example host and certificate paths with th
 - 443/TCP: HTTPS application traffic.
 - 80/TCP: redirect to HTTPS only.
 - PostgreSQL is not publicly exposed by default.
+
+## Network and runtime trust boundaries
+
+![Network and runtime trust boundaries](diagrams/06-network-tls-and-runtime.svg)
+
+[PlantUML source](diagrams/06-network-tls-and-runtime.puml) · [Full-size SVG](diagrams/06-network-tls-and-runtime.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

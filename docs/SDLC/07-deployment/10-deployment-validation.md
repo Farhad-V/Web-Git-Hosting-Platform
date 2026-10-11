@@ -37,3 +37,11 @@ A green workflow means the repository contains a reproducible deployment package
 ## Manual Public-Host Validation
 
 When a real host is later attached, run `BASE_URL=https://<domain> deployment/scripts/smoke-test.sh` and then exercise the approved authentication, repository, PAT and Git transport acceptance workflows.
+
+## Repository validation and host acceptance
+
+![Repository validation and host acceptance](diagrams/10-deployment-validation.svg)
+
+[PlantUML source](diagrams/10-deployment-validation.puml) · [Full-size SVG](diagrams/10-deployment-validation.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

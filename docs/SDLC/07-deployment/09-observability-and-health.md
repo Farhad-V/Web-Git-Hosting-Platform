@@ -28,3 +28,11 @@ Laravel and Nginx logs must not contain passwords, plaintext PATs, PAT hashes, A
 ## Deployment Evidence
 
 Deployment Validation run `32659338381` passed on a clean GitHub-hosted runner, providing reproducible evidence that production dependency installation, migration, build, Nginx syntax and application liveness are valid.
+
+## Liveness and readiness verification
+
+![Liveness and readiness verification](diagrams/09-observability-and-health.svg)
+
+[PlantUML source](diagrams/09-observability-and-health.puml) · [Full-size SVG](diagrams/09-observability-and-health.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

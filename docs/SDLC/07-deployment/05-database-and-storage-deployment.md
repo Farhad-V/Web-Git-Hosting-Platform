@@ -28,3 +28,11 @@ Repository storage persists independently from `/var/www/gitforge`. Deploying or
 ## Consistency Rule
 
 Database metadata and physical Git storage form a logical pair. Missing storage must not be silently recreated for existing metadata, and orphaned storage must not be automatically adopted without an explicit recovery procedure.
+
+## Persistent state separation
+
+![Persistent state separation](diagrams/05-database-and-storage-deployment.svg)
+
+[PlantUML source](diagrams/05-database-and-storage-deployment.puml) · [Full-size SVG](diagrams/05-database-and-storage-deployment.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

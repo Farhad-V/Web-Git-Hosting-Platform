@@ -31,3 +31,11 @@ Use a supported Linux host with Nginx, PHP 8.4/PHP-FPM, Composer, Node.js/npm, P
 ## Failure Rule
 
 Do not declare deployment successful after a failed build, dependency install, migration, configuration validation, liveness check or critical smoke test.
+
+## Release execution sequence
+
+![Release execution sequence](diagrams/04-deployment-runbook.svg)
+
+[PlantUML source](diagrams/04-deployment-runbook.puml) · [Full-size SVG](diagrams/04-deployment-runbook.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.

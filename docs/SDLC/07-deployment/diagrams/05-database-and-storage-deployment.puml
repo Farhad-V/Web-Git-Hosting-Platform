@@ -1,0 +1,21 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Persistent state separation
+folder "Application release\n/var/www/gitforge" as Release
+component "Laravel policies and storage services" as API
+database "PostgreSQL metadata\nRepository ID and owner" as DB
+folder "Bare Git storage\n/var/lib/gitforge/repositories" as Git
+Release --> API : execute candidate code
+API --> DB : validated identity
+API --> Git : controlled storage path
+DB <--> Git : logical consistency pair
+note bottom of Git : Never replace persistent state during a code-only rollback
+note bottom of DB : Missing or orphaned storage requires explicit recovery
+@enduml

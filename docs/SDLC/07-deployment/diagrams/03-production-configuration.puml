@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Production configuration boundaries
+artifact "Versioned example templates\nNo production secrets" as Templates
+actor "Deployment operator" as Operator
+artifact "Restricted backend/.env\nHost-specific secrets" as Env
+component "Nginx and PHP-FPM config" as Server
+component "Laravel config cache" as Cache
+component "Dedicated runtime identity" as Runtime
+Templates --> Operator : review and customize
+Operator --> Env : inject secrets privately
+Operator --> Server : host and TLS paths
+Env --> Cache : rebuild after changes
+Cache --> Runtime : production configuration
+Server --> Runtime : local socket / service identity
+note bottom of Runtime : APP_DEBUG=false; writable paths restricted
+@enduml

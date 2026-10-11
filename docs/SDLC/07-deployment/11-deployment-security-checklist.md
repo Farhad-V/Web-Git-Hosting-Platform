@@ -21,3 +21,11 @@
 ## Approval Rule
 
 All repository-side required controls for the portfolio V1.0.0 deployment package are satisfied. Host-specific controls such as a real certificate and DNS record are applied only when an external public host is attached.
+
+## Security review gates
+
+![Security review gates](diagrams/11-deployment-security-checklist.svg)
+
+[PlantUML source](diagrams/11-deployment-security-checklist.puml) · [Full-size SVG](diagrams/11-deployment-security-checklist.svg)
+
+This diagram illustrates the documented procedure. Historical approvals remain tied to their recorded release and evidence; new candidates require fresh validation.
