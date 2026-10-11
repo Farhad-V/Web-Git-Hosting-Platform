@@ -81,8 +81,18 @@ jobs:
           test -f docs/Releases/v1/History/09-m7-milestone-review.md
           grep -Fq '## [1.0.0]' CHANGELOG.md
           version="$(node -p "require('./frontend/package.json').version")"
-          test -f "docs/Releases/v1/v${version}.md"
-          grep -Fq "## [${version}]" CHANGELOG.md
+          major="${version%%.*}"
+          if [[ "$version" == *-dev ]]; then
+            planned="${version%-dev}"
+            notes="docs/Releases/v${major}/v${planned}.md"
+            test -f "$notes"
+            grep -Fq "**Planned release: v${planned}.**" CHANGELOG.md
+            grep -Fq '**DRAFT — UNRELEASED.**' "$notes"
+            echo "Validating unreleased development metadata for planned v${planned}; no publication."
+          else
+            test -f "docs/Releases/v${major}/v${version}.md"
+            grep -Fq "## [${version}]" CHANGELOG.md
+          fi
           node -e "const p = require('./frontend/package.json'); const l = require('./frontend/package-lock.json'); if (p.version !== l.version || p.version !== l.packages[''].version) process.exit(1)"
           grep -Fq 'GitForge V1.0.0' docs/Releases/v1/v1.0.0.md
           grep -Fq 'Public hosting is not part of the V1.0.0 acceptance criteria' docs/Releases/v1/v1.0.0.md

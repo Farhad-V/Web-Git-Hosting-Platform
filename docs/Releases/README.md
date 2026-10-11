@@ -8,12 +8,14 @@ This folder is the entry point for published version history, unreleased changes
 | --- | --- | --- |
 | v1.0.0 | Published 2026-08-23 | [First stable release](v1/v1.0.0.md) |
 | v1.0.1 | Published 2026-10-10; latest released baseline | [Reliability and security patch](v1/v1.0.1.md) |
-| Next version | Merged development; version and publication pending | [Unreleased changes](v1/UNRELEASED.md) |
+| v2.0.0 | Planned; unreleased; validation pending | [Version 2 drafts](v2/README.md) |
 
 Published status was checked against GitHub releases on 2026-10-11. See [release identities](v1/RELEASE-MANIFEST.md) for immutable tag commits.
 
 ## Release operations
 
+- [Version 2 planned release](v2/README.md)
+- [Version 2 candidate checklist](v2/RELEASE-CHECKLIST.md)
 - [Version 1 index](v1/README.md)
 - [Candidate checklist](v1/RELEASE-CHECKLIST.md)
 - [Upgrade guide](v1/UPGRADE-GUIDE.md)
