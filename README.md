@@ -176,7 +176,11 @@ GitForge uses server-side authorization, private repository concealment, CSRF pr
 
 ## License
 
-The backend Composer package currently declares MIT. No repository-level `LICENSE` file is claimed until the project owner intentionally confirms the final public licensing terms.
+Copyright (c) 2026 Farhad Valizadegan. **All rights reserved.**
+
+Use, execution, copying, modification, redistribution and derivative works of the original project materials require **prior written permission** from Farhad Valizadegan. See [LICENSE](LICENSE) for the scope and permission-request process.
+
+Third-party dependencies and framework/scaffold materials retain their own licenses; see [third-party licensing notes](THIRD_PARTY_NOTICES.md). Previously granted permissions are not retroactively revoked. Public GitHub viewing and forking remain subject to GitHub's terms.
 
 ## Repository collaboration
 
