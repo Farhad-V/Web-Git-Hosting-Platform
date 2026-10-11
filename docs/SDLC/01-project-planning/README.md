@@ -2,6 +2,7 @@
 
 Planning establishes the user problem, intended outcomes, scope boundaries, delivery approach, risks, and evidence required to call work complete. The historical M0 project-definition milestone remains part of the original v1.0.0 record; this folder provides planning navigation for ongoing work.
 
+- [Project planning overview](project-planning-overview.md)
 - [Planning process](project-planning.md)
 - [Project definition](../../Project-Definition/project-definition-overview.md)
 - [Goals and success criteria](../../Project-Definition/project-success-criteria.md)
