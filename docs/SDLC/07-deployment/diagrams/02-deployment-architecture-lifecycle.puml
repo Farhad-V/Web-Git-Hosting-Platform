@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Activation and recovery boundaries
+start
+:Build selected candidate and review migrations;
+:Pause and drain requests, pushes and jobs;
+:Verify paired database and Git backup;
+:Migrate, rebuild caches and validate server configuration;
+:Activate application and restart candidate worker if required;
+:Verify ingress, identity, storage and Git workflows;
+if (Required checks pass?) then (yes)
+ :Resume traffic and record deployed commit;
+else (no)
+ if (Previous code compatible with current schema?) then (yes)
+  :Roll back code while preserving current state;
+ else (no)
+  :Use reviewed paired recovery with compatible code;
+ endif
+ :Verify recovery before resuming writes;
+endif
+stop
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Request routing
+actor "Browser / Git client" as Client
+component "Nginx ingress" as Nginx
+artifact "frontend/dist" as SPA
+component "PHP-FPM socket" as FPM
+component "Laravel entry point" as API
+Client --> Nginx : HTTPS :443
+Nginx --> SPA : static assets and SPA fallback
+Nginx --> FPM : /api/* ; /up
+Nginx --> FPM : *.git/info/refs and pack RPCs
+FPM --> API : backend/public/index.php
+note bottom of Nginx : HTTP :80 redirects to HTTPS\nGit transport buffering disabled
+note bottom of API : Authentication and repository authorization before Git operations
+@enduml

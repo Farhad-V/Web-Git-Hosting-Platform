@@ -1,0 +1,23 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Failure domains and operational checks
+component "Nginx ingress" as Ingress
+component "PHP-FPM / Laravel" as App
+database PostgreSQL as DB
+component "Git executable and storage" as Git
+component "Actions worker if candidate requires it" as Worker
+artifact "Sanitized logs and acceptance evidence" as Evidence
+Ingress --> Evidence : TLS and routing checks
+App --> Evidence : /up runtime liveness
+DB --> Evidence : connectivity and migrations
+Git --> Evidence : permissions and clone/fetch/push
+Worker --> Evidence : queue consumption and run completion
+note bottom of Evidence : /up alone does not establish readiness\nSingle host remains one shared failure domain
+@enduml

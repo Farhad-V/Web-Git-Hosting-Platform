@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Release and persistent-state boundaries
+artifact "Selected application commit" as Release
+folder "Application code and frontend build" as Code
+folder "Laravel storage and bootstrap cache" as Runtime
+database "PostgreSQL metadata" as DB
+folder "Persistent bare repositories" as Repos
+artifact "Paired backup + manifest + checksums" as Backup
+Release --> Code : deployment artifacts
+Code --> Runtime : runtime cache and logs
+DB --> Backup : database dump while writes paused
+Repos --> Backup : Git archive during same pause
+DB <--> Repos : identity and storage consistency
+note bottom of Code : Code rollback preserves persistent state\nSchema compatibility must be reviewed
+note bottom of Backup : Secrets and TLS key recovery handled separately
+@enduml

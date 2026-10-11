@@ -2554,5 +2554,59 @@
     "original_format": "plantuml",
     "source_sha256": "9d56d237b4244f139f26d94f6116973c3ea95de221d5c72cf4f572e2fd1f49c5",
     "image_sha256": "c45eaa0509835eac751f03d51133b22e16ee1137e1b40847841c9ef7da895d3e"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/02-deployment-architecture.md",
+    "source": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-request-routing.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-request-routing.svg",
+    "title": "Request routing",
+    "original_format": "plantuml",
+    "source_sha256": "f198ed5a56d0b251f1e6dfccdef1716e376a934e459d44ce835be37ac2686106",
+    "image_sha256": "09da9721e810a54db953fc6d19d7cda93bd2367e775c3ccf3844a3b5620e221b"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/02-deployment-architecture.md",
+    "source": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-trust-boundaries.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-trust-boundaries.svg",
+    "title": "Trust and configuration boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "b21bf21293607681e7957b0607079bd674a4346286c48534852fa10bbb90caec",
+    "image_sha256": "b4d8a05d73c078cbb882a64c1335617d6e3b1d073125321f81009fcfbfe81faf"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/02-deployment-architecture.md",
+    "source": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-persistent-state.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-persistent-state.svg",
+    "title": "Release and persistent-state boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "752100d6318e0ff851a5dab81654fe413dd1224ebc2c948feb3e4f3254e937df",
+    "image_sha256": "197cea05764a9f774f255fb88bb6adb07feb5b867e98489f4ad95ea876d7911b"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/02-deployment-architecture.md",
+    "source": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-actions-worker.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-actions-worker.svg",
+    "title": "Actions worker runtime for newer candidates",
+    "original_format": "plantuml",
+    "source_sha256": "f036dfe8ef7eec08fe1a8e88d239b636151ba4436c0b55f4d96fe6ea064f4ebe",
+    "image_sha256": "b3f8f4437b70e1ddcc8ab37a2755784181a1741eb9a02ee68fee9ab1878e13fe"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/02-deployment-architecture.md",
+    "source": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-lifecycle.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-lifecycle.svg",
+    "title": "Activation and recovery boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "5ebcb99ab6e22390d2280db01ca574e85fe375d021c814889db750d94d96e58d",
+    "image_sha256": "0b7509c8e2ca1572d81d805fbe809b060766b928f7c91ef483f18f587c5b308e"
+  },
+  {
+    "document": "docs/SDLC/07-deployment/02-deployment-architecture.md",
+    "source": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-failure-domains.puml",
+    "image": "docs/SDLC/07-deployment/diagrams/02-deployment-architecture-failure-domains.svg",
+    "title": "Failure domains and operational checks",
+    "original_format": "plantuml",
+    "source_sha256": "1719c720cce474be84dd70bb166f3353aada24fe20f0520e9e0bee39bd184374",
+    "image_sha256": "06dc50ce42ba7c5b150a6e04f03216a6955fe9f3991210b2ce384394f18c5b3b"
   }
 ]

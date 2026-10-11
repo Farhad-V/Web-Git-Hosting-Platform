@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Actions worker runtime for newer candidates
+actor "Repository owner" as Owner
+participant "Laravel request runtime" as API
+database "PostgreSQL queue and run records" as DB
+participant "Dedicated queue worker" as Worker
+participant "Controlled Git operations" as Git
+Owner -> API : Queue built-in repository checks
+API -> DB : Persist run and enqueue job
+API --> Owner : Run reference
+Worker -> DB : Consume gitforge-actions queue
+Worker -> Git : Commit, tree and connectivity checks
+Git --> Worker : Check results
+Worker -> DB : Persist completion or failure
+Owner -> API : Read run status
+API -> DB : Retrieve permitted run
+API --> Owner : Result
+note over Worker : Separate process; supervised by host operator\nNo arbitrary project scripts or CI runner
+@enduml

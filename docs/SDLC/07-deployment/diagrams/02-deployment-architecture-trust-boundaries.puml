@@ -1,0 +1,31 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Trust and configuration boundaries
+actor "Untrusted external client" as Client
+rectangle "Public ingress boundary" {
+ component "Nginx / TLS" as TLS
+}
+rectangle "Private application runtime" {
+ component "PHP-FPM as gitforge" as App
+ artifact "Restricted .env" as Env
+ component "Configured Git binary" as Git
+}
+rectangle "Persistent private state" {
+ database PostgreSQL as DB
+ folder "Bare Git repositories" as Repos
+}
+Client --> TLS : HTTPS
+TLS --> App : local FastCGI socket
+Env --> App : validated configuration
+App --> DB : restricted database role
+App --> Git : policy-approved subprocess
+Git --> Repos : controlled paths
+note bottom of Env : Secrets are not part of versioned templates
+@enduml
