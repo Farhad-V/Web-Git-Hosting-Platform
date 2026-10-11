@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Security Design |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -2319,47 +2310,26 @@ Invalid database secret configuration
 ## 138. Control Matrix
 
 | Threat | Primary Control |
-
 |---|---|
-
 | Password theft from DB | Secure password hashing |
-
 | Session fixation | Session regeneration |
-
 | CSRF | Laravel CSRF middleware |
-
 | SQL injection | Eloquent/parameterized queries |
-
 | XSS | Output encoding |
-
 | Broken access control | Central authorization policy |
-
 | Private repo disclosure | Owner-only private read + concealment |
-
 | Unauthorized push | Owner-only write authorization |
-
 | PAT theft from DB | Hash-only secret persistence |
-
 | Revoked token use | `revoked_at` validation |
-
 | Path traversal | ID-based mapping + containment |
-
 | Command injection | No shell + structured args |
-
 | Git option injection | Allowlisted commands + argument validation |
-
 | Arbitrary repo code execution | No repository script/hook execution |
-
 | Secret logging | Sensitive field exclusion |
-
 | Git process hang | Explicit timeout |
-
 | Resource exhaustion | Streaming + limits |
-
 | Public filesystem exposure | Repository root outside web root |
-
 | DB privilege escalation | Least-privilege application role |
-
 | Insecure transport | HTTPS |
 
 ---

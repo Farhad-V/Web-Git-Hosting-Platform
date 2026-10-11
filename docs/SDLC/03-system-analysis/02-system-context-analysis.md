@@ -159,7 +159,7 @@ Global repository-management UI
 Application superuser role
 ```
 ---
-## 11. External Software Actor â€” Git Client
+## 11. External Software Actor — Git Client
 The Git Client is the principal external software actor.
 Typical client operations include:
 ```text
@@ -203,7 +203,7 @@ Read another user's private repository
 Push to another user's repository
 ```
 ---
-## 13. External System â€” Web Browser
+## 13. External System — Web Browser
 A Web Browser is the client environment used by human actors.
 The browser communicates with GitForge using application HTTP requests and responses.
 Browser interactions include:
@@ -216,7 +216,7 @@ Browser interactions include:
 The browser is outside the trusted application boundary.
 Client-side state shall not be treated as authoritative for authorization.
 ---
-## 14. External System â€” PostgreSQL
+## 14. External System — PostgreSQL
 PostgreSQL is the primary application-data persistence dependency.
 GitForge uses PostgreSQL as the authoritative store for application-managed data such as:
 ```text
@@ -230,7 +230,7 @@ Session/application data where applicable
 PostgreSQL remains outside the GitForge application-process boundary.
 External users shall not access it directly.
 ---
-## 15. External System â€” Repository Filesystem
+## 15. External System — Repository Filesystem
 The repository filesystem stores physical Git repositories.
 It is authoritative for Git-native repository state including:
 ```text
@@ -245,7 +245,7 @@ File content
 GitForge mediates access to this storage.
 Clients shall not supply arbitrary physical repository paths.
 ---
-## 16. External System â€” Git Executable
+## 16. External System — Git Executable
 GitForge relies on the Git executable for approved Git-native operations.
 Examples include:
 ```text
@@ -260,7 +260,7 @@ GitForge shall control:
 - when execution is permitted.
 The client shall not be able to request arbitrary shell commands.
 ---
-## 17. External System â€” Operating System
+## 17. External System — Operating System
 The operating system provides the execution environment for:
 - PHP/runtime processes;
 - filesystem operations;
@@ -270,7 +270,7 @@ The operating system provides the execution environment for:
 - networking.
 The operating system remains outside the GitForge application boundary.
 ---
-## 18. External System â€” Runtime Configuration
+## 18. External System — Runtime Configuration
 Runtime configuration provides settings such as:
 ```text
 Database connection
@@ -283,7 +283,7 @@ Application secrets
 Configuration originates outside normal user requests.
 Protected configuration values shall not be exposed to ordinary clients.
 ---
-## 19. External System â€” Logging Destination
+## 19. External System — Logging Destination
 GitForge emits operational and security-relevant diagnostic events to configured logging facilities.
 Examples include:
 - repository operation failures;
@@ -313,53 +313,53 @@ Reusable plaintext credentials shall not be intentionally logged.
 ## 21. Web Read Context Flow
 ```text
 Human Actor
-    â†“
+    ↓
 Web Browser
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Authentication / Authorization / Repository Logic
-    â†“
+    ↓
 PostgreSQL and/or Repository Storage
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Web Browser
 ```
 ---
 ## 22. Web Authentication Context Flow
 ```text
 Visitor
-    â†“
+    ↓
 Web Browser
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Authentication Responsibility
-    â†“
+    ↓
 PostgreSQL
-    â†“
+    ↓
 Session Identity
-    â†“
+    ↓
 Web Browser
 ```
 ---
 ## 23. Public Repository Browse Context Flow
 ```text
 Visitor
-    â†“
+    ↓
 Browser
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Resolve Repository Metadata
-    â†“
+    ↓
 Public Visibility?
-    â†“ Yes
+    ↓ Yes
 Repository Storage / Git Inspection
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Browser
 ```
 No authentication is required for approved public repository read operations.
@@ -367,21 +367,21 @@ No authentication is required for approved public repository read operations.
 ## 24. Private Repository Browse Context Flow
 ```text
 User
-   â†“
+   ↓
 Browser
-   â†“
+   ↓
 GitForge
-   â†“
+   ↓
 Authenticate
-   â†“
+   ↓
 Resolve Repository
-   â†“
+   ↓
 Authorize Read
-   â†“
+   ↓
 Repository Storage / Git Inspection
-   â†“
+   ↓
 GitForge
-   â†“
+   ↓
 Browser
 ```
 An authenticated non-owner shall be denied private repository access.
@@ -389,75 +389,75 @@ An authenticated non-owner shall be denied private repository access.
 ## 25. Public Git Read Context Flow
 ```text
 Git Client
-    â†“
+    ↓
 Git Smart HTTP Request
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Resolve Repository
-    â†“
+    ↓
 Repository Public?
-    â†“ Yes
+    ↓ Yes
 Authorize Anonymous Read
-    â†“
+    ↓
 Approved Git Read Service
-    â†“
+    ↓
 Git Executable
-    â†“
+    ↓
 Repository Filesystem
-    â†“
+    ↓
 Git Smart HTTP Response
-    â†“
+    ↓
 Git Client
 ```
 ---
 ## 26. Private Git Read Context Flow
 ```text
 Git Client
-    â†“
+    ↓
 Git Smart HTTP Request
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Authenticate PAT
-    â†“
+    ↓
 Resolve User
-    â†“
+    ↓
 Resolve Repository
-    â†“
+    ↓
 Authorize Repository Read
-    â†“
+    ↓
 Approved Git Read Service
-    â†“
+    ↓
 Git Executable
-    â†“
+    ↓
 Repository Filesystem
-    â†“
+    ↓
 Git Client
 ```
 ---
 ## 27. Git Write Context Flow
 ```text
 Git Client
-    â†“
+    ↓
 Authenticated Git Smart HTTP Request
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Validate PAT
-    â†“
+    ↓
 Resolve User
-    â†“
+    ↓
 Resolve Repository
-    â†“
+    ↓
 Authorize Owner Write
-    â†“
+    ↓
 Approved git-receive-pack Operation
-    â†“
+    ↓
 Git Executable
-    â†“
+    ↓
 Repository Filesystem
-    â†“
+    ↓
 Git Client
 ```
 Write authorization shall occur before repository mutation.
@@ -465,21 +465,21 @@ Write authorization shall occur before repository mutation.
 ## 28. Repository Creation Context Flow
 ```text
 Authenticated User
-        â†“
+        ↓
 Browser
-        â†“
+        ↓
 GitForge
-        â†“
+        ↓
 Validate Repository Data
-        â†“
+        ↓
 Verify Namespace Uniqueness
-        â†“
+        ↓
 Create Application Metadata
-        â†“
+        ↓
 Initialize Physical Git Repository
-        â†“
+        ↓
 Establish Consistent State
-        â†“
+        ↓
 Return Repository Result
 ```
 Failure handling must preserve consistency between application metadata and physical repository state.
@@ -487,19 +487,19 @@ Failure handling must preserve consistency between application metadata and phys
 ## 29. PAT Creation Context Flow
 ```text
 Authenticated User
-        â†“
+        ↓
 Browser
-        â†“
+        ↓
 GitForge
-        â†“
+        ↓
 Authenticate Session
-        â†“
+        ↓
 Generate Secure Token
-        â†“
+        ↓
 Persist Non-Plaintext Representation
-        â†“
+        ↓
 Display Plaintext Once
-        â†“
+        ↓
 User Stores Credential
 ```
 GitForge shall not provide later plaintext token recovery.
@@ -507,19 +507,19 @@ GitForge shall not provide later plaintext token recovery.
 ## 30. PAT Authentication Context Flow
 ```text
 Git Client
-    â†“
+    ↓
 Credential
-    â†“
+    ↓
 GitForge
-    â†“
+    ↓
 Validate Token
-    â†“
+    ↓
 Check Revocation
-    â†“
+    ↓
 Resolve Token Owner
-    â†“
+    ↓
 Establish Identity
-    â†“
+    ↓
 Perform Repository Authorization
 ```
 PAT authentication does not independently grant repository permission.
@@ -528,13 +528,13 @@ PAT authentication does not independently grant repository permission.
 The principal trust direction is:
 ```text
 External Input
-     â†“
+     ↓
 Untrusted
-     â†“
+     ↓
 Validation / Authentication / Authorization
-     â†“
+     ↓
 Trusted Application Decision
-     â†“
+     ↓
 Controlled Internal Operation
 ```
 Inputs from the following are untrusted:
@@ -549,7 +549,7 @@ Git protocol request data
 Repository content
 ```
 ---
-## 32. Trust Boundary â€” Browser to GitForge
+## 32. Trust Boundary — Browser to GitForge
 The browser-to-application boundary is a trust boundary.
 GitForge must evaluate:
 - input validity;
@@ -558,7 +558,7 @@ GitForge must evaluate:
 - authorization conditions.
 A hidden or disabled UI control does not constitute authorization enforcement.
 ---
-## 33. Trust Boundary â€” Git Client to GitForge
+## 33. Trust Boundary — Git Client to GitForge
 The Git Client boundary is security-sensitive.
 Before executing a protected Git operation, GitForge must determine:
 ```text
@@ -569,12 +569,12 @@ Authenticated identity
 Authorization result
 ```
 ---
-## 34. Trust Boundary â€” GitForge to PostgreSQL
+## 34. Trust Boundary — GitForge to PostgreSQL
 GitForge sends controlled application persistence operations to PostgreSQL.
 External actors have no direct database access.
 Protected mutations require application-level validation and authorization first.
 ---
-## 35. Trust Boundary â€” GitForge to Repository Filesystem
+## 35. Trust Boundary — GitForge to Repository Filesystem
 Repository filesystem access is security-sensitive.
 GitForge must ensure:
 - repository identifiers are validated;
@@ -583,7 +583,7 @@ GitForge must ensure:
 - traversal attempts are rejected;
 - protected repository access is authorized.
 ---
-## 36. Trust Boundary â€” GitForge to Git Executable
+## 36. Trust Boundary — GitForge to Git Executable
 Process execution is a critical trust boundary.
 GitForge must control:
 ```text
@@ -824,22 +824,22 @@ This analysis primarily derives from:
 Representative mappings include:
 ```text
 Web Browser
-    â†’ IR-001 â€“ IR-025
+    → IR-001 – IR-025
 Git Smart HTTP
-    â†’ FR-036 â€“ FR-049
-    â†’ IR-026 â€“ IR-044
+    → FR-036 – FR-049
+    → IR-026 – IR-044
 PostgreSQL
-    â†’ DR-001 â€“ DR-016
-    â†’ IR-045 â€“ IR-050
+    → DR-001 – DR-016
+    → IR-045 – IR-050
 Repository Filesystem
-    â†’ FR-067 â€“ FR-070
-    â†’ IR-051 â€“ IR-060
+    → FR-067 – FR-070
+    → IR-051 – IR-060
 Git Executable
-    â†’ FR-071 â€“ FR-074
-    â†’ IR-061 â€“ IR-069
+    → FR-071 – FR-074
+    → IR-061 – IR-069
 Authorization
-    â†’ FR-061 â€“ FR-066
-    â†’ AR-001 â€“ AR-060
+    → FR-061 – FR-066
+    → AR-001 – AR-060
 ```
 Detailed analysis traceability will be consolidated in:
 ```text
@@ -847,7 +847,7 @@ Detailed analysis traceability will be consolidated in:
 ```
 ---
 ## 51. Context Analysis Findings
-### CA-001 â€” Dual Client Channels
+### CA-001 — Dual Client Channels
 GitForge has two materially different client interaction channels:
 ```text
 Web HTTP
@@ -858,25 +858,25 @@ Status:
 ```text
 Confirmed
 ```
-### CA-002 â€” Dual Persistence Authorities
+### CA-002 — Dual Persistence Authorities
 PostgreSQL and physical Git repository storage represent distinct authoritative data domains.
 Status:
 ```text
 Confirmed
 ```
-### CA-003 â€” Controlled Git Execution Boundary
+### CA-003 — Controlled Git Execution Boundary
 The Git executable is an external dependency behind a controlled process-execution boundary.
 Status:
 ```text
 Confirmed
 ```
-### CA-004 â€” Internal Repository Paths
+### CA-004 — Internal Repository Paths
 Physical repository paths are internal application resources and shall not be directly selected by external actors.
 Status:
 ```text
 Confirmed
 ```
-### CA-005 â€” Operator Versus Application Administrator
+### CA-005 — Operator Versus Application Administrator
 The System Operator is operationally significant but does not require an application-level administrator role in V1.0.0.
 Status:
 ```text

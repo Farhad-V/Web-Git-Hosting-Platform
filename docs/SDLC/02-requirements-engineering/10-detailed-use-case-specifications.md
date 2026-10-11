@@ -62,7 +62,7 @@ Each detailed use case contains the following information where applicable:
 
 ---
 
-# 4. UC-001 â€” Register User Account
+# 4. UC-001 — Register User Account
 
 ## 4.1 Summary
 
@@ -119,7 +119,7 @@ Each detailed use case contains the following information where applicable:
 
 ## 4.6 Alternative Flows
 
-### A1 â€” Optional Automatic Authentication
+### A1 — Optional Automatic Authentication
 
 If V1.0.0 uses automatic login after registration:
 
@@ -133,32 +133,32 @@ If automatic login is not used, the user proceeds to UC-002 separately.
 
 ## 4.7 Exception Flows
 
-### E1 â€” Missing Required Input
+### E1 — Missing Required Input
 
 1. required registration input is missing;
 2. GitForge rejects the request;
 3. validation feedback is returned;
 4. no account is created.
 
-### E2 â€” Invalid Email
+### E2 — Invalid Email
 
 1. submitted email does not satisfy validation rules;
 2. GitForge rejects the request;
 3. no account is created.
 
-### E3 â€” Duplicate Email
+### E3 — Duplicate Email
 
 1. submitted normalized email already belongs to an existing user;
 2. GitForge rejects the request;
 3. no duplicate account is created.
 
-### E4 â€” Invalid Password
+### E4 — Invalid Password
 
 1. submitted password fails applicable password rules;
 2. GitForge rejects the request;
 3. no account is created.
 
-### E5 â€” Persistence Failure
+### E5 — Persistence Failure
 
 1. validated registration data cannot be persisted;
 2. GitForge reports a controlled failure;
@@ -205,7 +205,7 @@ BR-074
 
 ---
 
-# 5. UC-002 â€” Authenticate User
+# 5. UC-002 — Authenticate User
 
 ## 5.1 Summary
 
@@ -259,25 +259,25 @@ BR-074
 
 ## 5.6 Exception Flows
 
-### E1 â€” Unknown User
+### E1 — Unknown User
 
 1. no matching account can be authenticated;
 2. GitForge rejects the attempt;
 3. no session is created.
 
-### E2 â€” Invalid Password
+### E2 — Invalid Password
 
 1. password verification fails;
 2. GitForge rejects the attempt;
 3. no authenticated session is established.
 
-### E3 â€” Invalid Request Input
+### E3 — Invalid Request Input
 
 1. required authentication input is missing or invalid;
 2. GitForge returns validation failure;
 3. no session is created.
 
-### E4 â€” Session Failure
+### E4 — Session Failure
 
 1. credentials are valid;
 2. session creation fails;
@@ -325,7 +325,7 @@ BR-053
 
 ---
 
-# 6. UC-004 â€” Create Repository
+# 6. UC-004 — Create Repository
 
 ## 6.1 Summary
 
@@ -390,7 +390,7 @@ BR-053
 
 ## 6.6 Alternative Flows
 
-### A1 â€” Default Visibility
+### A1 — Default Visibility
 
 If the application defines a default repository visibility:
 
@@ -402,40 +402,40 @@ If the application defines a default repository visibility:
 
 ## 6.7 Exception Flows
 
-### E1 â€” Unauthenticated Request
+### E1 — Unauthenticated Request
 
 1. authentication is absent or invalid;
 2. GitForge rejects repository creation.
 
-### E2 â€” Invalid Repository Name
+### E2 — Invalid Repository Name
 
 1. submitted name violates repository naming rules;
 2. GitForge returns validation feedback;
 3. repository is not created.
 
-### E3 â€” Duplicate Repository Name
+### E3 — Duplicate Repository Name
 
 1. owner already has a repository with the same normalized name;
 2. GitForge rejects the request.
 
-### E4 â€” Unsupported Visibility
+### E4 — Unsupported Visibility
 
 1. visibility is not `public` or `private`;
 2. GitForge rejects the request.
 
-### E5 â€” Physical Repository Initialization Failure
+### E5 — Physical Repository Initialization Failure
 
 1. Git repository initialization fails;
 2. GitForge reports controlled failure;
 3. repository creation is not reported as successful.
 
-### E6 â€” Metadata Persistence Failure
+### E6 — Metadata Persistence Failure
 
 1. persistence fails;
 2. GitForge applies the approved consistency strategy;
 3. repository creation is not reported as successful.
 
-### E7 â€” Unsafe Repository Path
+### E7 — Unsafe Repository Path
 
 1. repository path resolution violates storage-root rules;
 2. GitForge aborts creation;
@@ -493,7 +493,7 @@ BR-035
 
 ---
 
-# 7. UC-006 â€” View Repository
+# 7. UC-006 — View Repository
 
 ## 7.1 Summary
 
@@ -540,7 +540,7 @@ Authorization depends on repository visibility and actor identity.
 
 ## 7.5 Alternative Flows
 
-### A1 â€” Public Repository Anonymous Access
+### A1 — Public Repository Anonymous Access
 
 If anonymous web viewing of public repositories is enabled:
 
@@ -548,7 +548,7 @@ If anonymous web viewing of public repositories is enabled:
 2. repository is confirmed public;
 3. permitted public repository information is returned.
 
-### A2 â€” Repository Owner Access
+### A2 — Repository Owner Access
 
 1. authenticated user owns the repository;
 2. owner authorization succeeds;
@@ -558,25 +558,25 @@ If anonymous web viewing of public repositories is enabled:
 
 ## 7.6 Exception Flows
 
-### E1 â€” Repository Not Found
+### E1 — Repository Not Found
 
 1. repository cannot be resolved;
 2. GitForge returns defined not-found behavior.
 
-### E2 â€” Private Repository Without Authentication
+### E2 — Private Repository Without Authentication
 
 1. repository is private;
 2. no authenticated identity exists;
 3. GitForge denies protected access.
 
-### E3 â€” Private Repository Unauthorized User
+### E3 — Private Repository Unauthorized User
 
 1. repository is private;
 2. user is authenticated;
 3. user lacks repository read permission;
 4. GitForge denies access.
 
-### E4 â€” Invalid Repository Identifier
+### E4 — Invalid Repository Identifier
 
 1. identifier fails validation;
 2. repository lookup does not proceed with unsafe input.
@@ -619,7 +619,7 @@ BR-024
 
 ---
 
-# 8. UC-009 â€” Browse Repository
+# 8. UC-009 — Browse Repository
 
 ## 8.1 Summary
 
@@ -678,7 +678,7 @@ UC-014 View File Content
 
 ## 8.6 Exception Flows
 
-### E1 â€” Unauthorized Access
+### E1 — Unauthorized Access
 
 Repository read authorization fails.
 
@@ -686,7 +686,7 @@ Result:
 
 * repository content is not returned.
 
-### E2 â€” Missing Physical Repository
+### E2 — Missing Physical Repository
 
 Application metadata exists but physical repository storage is unavailable.
 
@@ -695,7 +695,7 @@ Result:
 * GitForge returns controlled failure;
 * inconsistency is logged.
 
-### E3 â€” Invalid Revision
+### E3 — Invalid Revision
 
 Requested revision cannot be resolved.
 
@@ -703,7 +703,7 @@ Result:
 
 * browsing request fails predictably.
 
-### E4 â€” Unsupported File Content
+### E4 — Unsupported File Content
 
 Requested file is unsupported for normal text display.
 
@@ -748,7 +748,7 @@ BR-084
 
 ---
 
-# 9. UC-016 â€” Clone Repository
+# 9. UC-016 — Clone Repository
 
 ## 9.1 Summary
 
@@ -780,7 +780,7 @@ Authentication requirements depend on repository visibility.
 
 ---
 
-## 9.4 Main Success Flow â€” Private Repository
+## 9.4 Main Success Flow — Private Repository
 
 1. User runs a supported `git clone` command.
 2. Git Client sends Git Smart HTTP discovery request.
@@ -798,7 +798,7 @@ Authentication requirements depend on repository visibility.
 
 ---
 
-## 9.5 Alternative Flow â€” Public Anonymous Clone
+## 9.5 Alternative Flow — Public Anonymous Clone
 
 If anonymous Git clone for public repositories is enabled:
 
@@ -812,7 +812,7 @@ If anonymous Git clone for public repositories is enabled:
 
 ## 9.6 Exception Flows
 
-### E1 â€” Repository Not Found
+### E1 — Repository Not Found
 
 GitForge cannot resolve the target repository.
 
@@ -820,25 +820,25 @@ Result:
 
 * Git operation fails with protocol-compatible behavior.
 
-### E2 â€” Private Repository Without Valid Credentials
+### E2 — Private Repository Without Valid Credentials
 
 1. repository is private;
 2. supported authentication cannot be established;
 3. clone is denied.
 
-### E3 â€” Authenticated but Unauthorized
+### E3 — Authenticated but Unauthorized
 
 1. identity is valid;
 2. identity lacks repository read access;
 3. clone is denied.
 
-### E4 â€” Revoked Personal Access Token
+### E4 — Revoked Personal Access Token
 
 1. supplied token resolves as revoked;
 2. authentication fails;
 3. Git operation is denied.
 
-### E5 â€” Missing Repository Storage
+### E5 — Missing Repository Storage
 
 Physical repository is unavailable.
 
@@ -847,7 +847,7 @@ Result:
 * Git operation fails;
 * operational failure is logged.
 
-### E6 â€” Upload-Pack Failure
+### E6 — Upload-Pack Failure
 
 Git process fails.
 
@@ -896,7 +896,7 @@ BR-064
 
 ---
 
-# 10. UC-017 â€” Fetch Repository
+# 10. UC-017 — Fetch Repository
 
 ## 10.1 Summary
 
@@ -940,7 +940,7 @@ BR-064
 
 ---
 
-## 10.5 Alternative Flow â€” Public Anonymous Fetch
+## 10.5 Alternative Flow — Public Anonymous Fetch
 
 If anonymous public Git access is enabled:
 
@@ -997,7 +997,7 @@ BR-061
 
 ---
 
-# 11. UC-019 â€” Push Repository Changes
+# 11. UC-019 — Push Repository Changes
 
 ## 11.1 Summary
 
@@ -1059,32 +1059,32 @@ BR-061
 
 ## 11.6 Exception Flows
 
-### E1 â€” Anonymous Push
+### E1 — Anonymous Push
 
 1. no valid authenticated identity exists;
 2. push is rejected;
 3. receive-pack must not execute.
 
-### E2 â€” Invalid Token
+### E2 — Invalid Token
 
 1. token validation fails;
 2. no identity is resolved;
 3. push is rejected.
 
-### E3 â€” Revoked Token
+### E3 — Revoked Token
 
 1. token is revoked;
 2. authentication fails;
 3. push is rejected.
 
-### E4 â€” Non-Owner Push
+### E4 — Non-Owner Push
 
 1. credential resolves to a valid user;
 2. user lacks repository write permission;
 3. GitForge denies write authorization;
 4. receive-pack does not execute.
 
-### E5 â€” Missing Repository
+### E5 — Missing Repository
 
 Repository cannot be resolved.
 
@@ -1092,7 +1092,7 @@ Result:
 
 * push fails.
 
-### E6 â€” Missing Physical Repository
+### E6 — Missing Physical Repository
 
 Metadata exists but repository storage is unavailable.
 
@@ -1101,7 +1101,7 @@ Result:
 * receive-pack does not proceed successfully;
 * failure is logged.
 
-### E7 â€” Receive-Pack Failure
+### E7 — Receive-Pack Failure
 
 Git process exits unsuccessfully.
 
@@ -1110,7 +1110,7 @@ Result:
 * GitForge forwards or translates failure according to supported protocol behavior;
 * operation is not reported as successful.
 
-### E8 â€” Unsafe Repository Path
+### E8 — Unsafe Repository Path
 
 Repository storage path cannot be safely resolved.
 
@@ -1184,7 +1184,7 @@ BR-065
 
 ---
 
-# 12. UC-020 â€” Create Personal Access Token
+# 12. UC-020 — Create Personal Access Token
 
 ## 12.1 Summary
 
@@ -1235,15 +1235,15 @@ BR-065
 
 ## 12.5 Exception Flows
 
-### E1 â€” Unauthenticated Request
+### E1 — Unauthenticated Request
 
 Token creation is denied.
 
-### E2 â€” Invalid Token Name
+### E2 — Invalid Token Name
 
 Validation fails and no token is created.
 
-### E3 â€” Token Generation Failure
+### E3 — Token Generation Failure
 
 Secure token generation fails.
 
@@ -1251,7 +1251,7 @@ Result:
 
 * token creation fails.
 
-### E4 â€” Persistence Failure
+### E4 — Persistence Failure
 
 Token metadata cannot be persisted.
 
@@ -1310,7 +1310,7 @@ BR-049
 
 ---
 
-# 13. UC-021 â€” Authenticate Git Request with Personal Access Token
+# 13. UC-021 — Authenticate Git Request with Personal Access Token
 
 ## 13.1 Summary
 
@@ -1360,7 +1360,7 @@ BR-049
 
 ---
 
-## 13.6 Alternative Flow â€” Token Scope Evaluation
+## 13.6 Alternative Flow — Token Scope Evaluation
 
 If token scopes are adopted:
 
@@ -1373,13 +1373,13 @@ If token scopes are adopted:
 
 ## 13.7 Exception Flows
 
-### E1 â€” Missing Token
+### E1 — Missing Token
 
 When authentication is required and no supported credential exists:
 
 * authentication fails.
 
-### E2 â€” Invalid Token
+### E2 — Invalid Token
 
 No matching valid token exists.
 
@@ -1387,7 +1387,7 @@ Result:
 
 * authentication fails.
 
-### E3 â€” Revoked Token
+### E3 — Revoked Token
 
 Token exists but is revoked.
 
@@ -1395,7 +1395,7 @@ Result:
 
 * authentication fails.
 
-### E4 â€” Missing Token Owner
+### E4 — Missing Token Owner
 
 Token metadata has an invalid owner relationship.
 
@@ -1443,7 +1443,7 @@ BR-051
 
 ---
 
-# 14. UC-022 â€” Revoke Personal Access Token
+# 14. UC-022 — Revoke Personal Access Token
 
 ## 14.1 Summary
 
@@ -1488,7 +1488,7 @@ BR-051
 
 ## 14.5 Exception Flows
 
-### E1 â€” Token Not Found
+### E1 — Token Not Found
 
 Token cannot be resolved.
 
@@ -1496,7 +1496,7 @@ Result:
 
 * revocation is not performed.
 
-### E2 â€” Token Belongs to Another User
+### E2 — Token Belongs to Another User
 
 Ownership verification fails.
 
@@ -1504,11 +1504,11 @@ Result:
 
 * request is denied.
 
-### E3 â€” Unauthenticated Request
+### E3 — Unauthenticated Request
 
 Revocation request is denied.
 
-### E4 â€” Persistence Failure
+### E4 — Persistence Failure
 
 Revocation state cannot be persisted.
 
@@ -1547,7 +1547,7 @@ BR-053
 
 ---
 
-# 15. UC-023 â€” Authorize Repository Read
+# 15. UC-023 — Authorize Repository Read
 
 ## 15.1 Summary
 
@@ -1580,7 +1580,7 @@ BR-053
 
 ---
 
-## 15.5 Main Success Flow â€” Repository Owner
+## 15.5 Main Success Flow — Repository Owner
 
 1. GitForge resolves repository.
 2. GitForge resolves authenticated identity.
@@ -1591,7 +1591,7 @@ BR-053
 
 ---
 
-## 15.6 Alternative Flow â€” Public Repository
+## 15.6 Alternative Flow — Public Repository
 
 If the interface permits anonymous public read:
 
@@ -1601,7 +1601,7 @@ If the interface permits anonymous public read:
 
 ---
 
-## 15.7 Alternative Flow â€” Other Authorized User
+## 15.7 Alternative Flow — Other Authorized User
 
 If future approved requirements introduce additional read roles:
 
@@ -1615,21 +1615,21 @@ No such additional permission must be assumed for V1.0.0 unless formally approve
 
 ## 15.8 Exception Flows
 
-### E1 â€” Private Repository Without Identity
+### E1 — Private Repository Without Identity
 
 Authorization fails.
 
-### E2 â€” Private Repository Non-Owner
+### E2 — Private Repository Non-Owner
 
 Under the default V1.0.0 ownership model:
 
 * authorization fails unless a later approved rule grants read access.
 
-### E3 â€” Invalid Credential
+### E3 — Invalid Credential
 
 Authentication fails before authorization can grant protected access.
 
-### E4 â€” Repository Missing
+### E4 — Repository Missing
 
 Authorization cannot produce a grant for nonexistent repository content.
 
@@ -1672,7 +1672,7 @@ BR-055
 
 ---
 
-# 16. UC-024 â€” Authorize Repository Write
+# 16. UC-024 — Authorize Repository Write
 
 ## 16.1 Summary
 
@@ -1722,11 +1722,11 @@ BR-055
 
 ## 16.6 Exception Flows
 
-### E1 â€” No Authentication
+### E1 — No Authentication
 
 Write authorization fails.
 
-### E2 â€” Invalid Credential
+### E2 — Invalid Credential
 
 Authentication cannot establish identity.
 
@@ -1734,7 +1734,7 @@ Result:
 
 * authorization fails.
 
-### E3 â€” Revoked Token
+### E3 — Revoked Token
 
 Token cannot authenticate request.
 
@@ -1742,13 +1742,13 @@ Result:
 
 * authorization fails.
 
-### E4 â€” Authenticated Non-Owner
+### E4 — Authenticated Non-Owner
 
 Under the default V1.0.0 model:
 
 * write authorization fails.
 
-### E5 â€” Token Scope Insufficient
+### E5 — Token Scope Insufficient
 
 If scopes are implemented:
 
@@ -1756,7 +1756,7 @@ If scopes are implemented:
 * token does not permit requested write operation;
 * authorization fails.
 
-### E6 â€” Public Repository
+### E6 — Public Repository
 
 Public visibility does not alter repository write rules.
 
@@ -1812,13 +1812,13 @@ The principal identity and repository-management sequence is:
 
 ```text
 UC-001 Register User Account
-&#x20;       â†“
+        ↓
 UC-002 Authenticate User
-&#x20;       â†“
+        ↓
 UC-004 Create Repository
-&#x20;       â†“
+        ↓
 UC-006 View Repository
-&#x20;       â†“
+        ↓
 UC-009 Browse Repository
 ```
 
@@ -1826,11 +1826,11 @@ The Git read sequence is:
 
 ```text
 Git Client
-&#x20;   â†“
+    ↓
 UC-021 Authenticate with PAT
-&#x20;   â†“
+    ↓
 UC-023 Authorize Repository Read
-&#x20;   â†“
+    ↓
 UC-016 Clone Repository
 or
 UC-017 Fetch Repository
@@ -1842,13 +1842,13 @@ The Git write sequence is:
 
 ```text
 UC-020 Create Personal Access Token
-&#x20;       â†“
+        ↓
 Git Client
-&#x20;       â†“
+        ↓
 UC-021 Authenticate with PAT
-&#x20;       â†“
+        ↓
 UC-024 Authorize Repository Write
-&#x20;       â†“
+        ↓
 UC-019 Push Repository Changes
 ```
 

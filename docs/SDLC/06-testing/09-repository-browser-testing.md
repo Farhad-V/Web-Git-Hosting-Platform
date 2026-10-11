@@ -400,45 +400,45 @@ The following service tests were identified:
 
 ```text
 
-test\_empty\_repository\_has\_no\_branches
+test_empty_repository_has_no_branches
 
-test\_it\_lists\_repository\_branches
+test_it_lists_repository_branches
 
-test\_it\_lists\_repository\_commits
+test_it_lists_repository_commits
 
-test\_it\_limits\_repository\_commits
+test_it_limits_repository_commits
 
-test\_it\_returns\_commit\_details
+test_it_returns_commit_details
 
-test\_it\_returns\_root\_commit\_details\_without\_parents
+test_it_returns_root_commit_details_without_parents
 
-test\_it\_rejects\_invalid\_commit\_identifier
+test_it_rejects_invalid_commit_identifier
 
-test\_it\_rejects\_unknown\_commit\_identifier
+test_it_rejects_unknown_commit_identifier
 
-test\_it\_rejects\_non\_commit\_git\_object
+test_it_rejects_non_commit_git_object
 
-test\_it\_lists\_root\_and\_nested\_tree\_entries
+test_it_lists_root_and_nested_tree_entries
 
-test\_it\_reads\_blob\_without\_trimming\_content
+test_it_reads_blob_without_trimming_content
 
-test\_it\_rejects\_unknown\_branch
+test_it_rejects_unknown_branch
 
-test\_it\_rejects\_invalid\_branch
+test_it_rejects_invalid_branch
 
-test\_it\_rejects\_invalid\_repository\_path
+test_it_rejects_invalid_repository_path
 
-test\_it\_rejects\_missing\_repository\_path
+test_it_rejects_missing_repository_path
 
-test\_it\_rejects\_directory\_when\_blob\_is\_requested
+test_it_rejects_directory_when_blob_is_requested
 
-test\_it\_rejects\_blob\_larger\_than\_configured\_limit
+test_it_rejects_blob_larger_than_configured_limit
 
-test\_it\_rejects\_invalid\_blob\_size\_configuration
+test_it_rejects_invalid_blob_size_configuration
 
-test\_it\_rejects\_binary\_blob
+test_it_rejects_binary_blob
 
-test\_corrupt\_repository\_storage\_is\_rejected\_before\_browsing
+test_corrupt_repository_storage_is_rejected_before_browsing
 
 ```
 
@@ -460,37 +460,37 @@ The following feature/API tests were identified:
 
 ```text
 
-test\_owner\_can\_list\_repository\_branches
+test_owner_can_list_repository_branches
 
-test\_owner\_can\_list\_repository\_commits
+test_owner_can_list_repository_commits
 
-test\_owner\_can\_view\_repository\_commit\_details
+test_owner_can_view_repository_commit_details
 
-test\_invalid\_commit\_identifier\_is\_rejected
+test_invalid_commit_identifier_is_rejected
 
-test\_unknown\_commit\_identifier\_returns\_not\_found
+test_unknown_commit_identifier_returns_not_found
 
-test\_owner\_can\_browse\_repository\_tree
+test_owner_can_browse_repository_tree
 
-test\_owner\_can\_read\_repository\_blob
+test_owner_can_read_repository_blob
 
-test\_git\_native\_default\_branch\_is\_used\_when\_branch\_is\_omitted
+test_git_native_default_branch_is_used_when_branch_is_omitted
 
-test\_empty\_repository\_returns\_controlled\_responses
+test_empty_repository_returns_controlled_responses
 
-test\_private\_repository\_cannot\_be\_browsed\_by\_another\_user
+test_private_repository_cannot_be_browsed_by_another_user
 
-test\_anonymous\_visitor\_cannot\_browse\_private\_repository
+test_anonymous_visitor_cannot_browse_private_repository
 
-test\_authenticated\_user\_can\_browse\_public\_repository
+test_authenticated_user_can_browse_public_repository
 
-test\_anonymous\_visitor\_can\_browse\_public\_repository
+test_anonymous_visitor_can_browse_public_repository
 
-test\_browser\_query\_parameters\_are\_validated
+test_browser_query_parameters_are_validated
 
-test\_unknown\_branch\_and\_path\_return\_not\_found
+test_unknown_branch_and_path_return_not_found
 
-test\_missing\_repository\_storage\_fails\_closed
+test_missing_repository_storage_fails_closed
 
 ```
 
@@ -548,7 +548,7 @@ Primary API evidence:
 
 ```text
 
-test\_owner\_can\_browse\_repository\_tree
+test_owner_can_browse_repository_tree
 
 ```
 
@@ -560,7 +560,7 @@ Primary service evidence:
 
 ```text
 
-test\_it\_lists\_root\_and\_nested\_tree\_entries
+test_it_lists_root_and_nested_tree_entries
 
 ```
 
@@ -602,7 +602,7 @@ Primary service evidence:
 
 ```text
 
-test\_it\_lists\_root\_and\_nested\_tree\_entries
+test_it_lists_root_and_nested_tree_entries
 
 ```
 
@@ -648,7 +648,7 @@ API evidence:
 
 ```text
 
-test\_owner\_can\_read\_repository\_blob
+test_owner_can_read_repository_blob
 
 ```
 
@@ -660,7 +660,7 @@ Service evidence:
 
 ```text
 
-test\_it\_reads\_blob\_without\_trimming\_content
+test_it_reads_blob_without_trimming_content
 
 ```
 
@@ -724,7 +724,7 @@ API evidence:
 
 ```text
 
-test\_unknown\_branch\_and\_path\_return\_not\_found
+test_unknown_branch_and_path_return_not_found
 
 ```
 
@@ -736,7 +736,7 @@ Service evidence:
 
 ```text
 
-test\_it\_rejects\_missing\_repository\_path
+test_it_rejects_missing_repository_path
 
 ```
 
@@ -774,13 +774,13 @@ Verify that invalid or nonexistent repository references do not produce unintend
 
 ```text
 
-test\_invalid\_commit\_identifier\_is\_rejected
+test_invalid_commit_identifier_is_rejected
 
-test\_unknown\_commit\_identifier\_returns\_not\_found
+test_unknown_commit_identifier_returns_not_found
 
-test\_it\_rejects\_invalid\_commit\_identifier
+test_it_rejects_invalid_commit_identifier
 
-test\_it\_rejects\_unknown\_commit\_identifier
+test_it_rejects_unknown_commit_identifier
 
 ```
 
@@ -792,11 +792,11 @@ test\_it\_rejects\_unknown\_commit\_identifier
 
 ```text
 
-test\_it\_rejects\_invalid\_branch
+test_it_rejects_invalid_branch
 
-test\_it\_rejects\_unknown\_branch
+test_it_rejects_unknown_branch
 
-test\_unknown\_branch\_and\_path\_return\_not\_found
+test_unknown_branch_and_path_return_not_found
 
 ```
 
@@ -838,7 +838,7 @@ API evidence:
 
 ```text
 
-test\_owner\_can\_list\_repository\_commits
+test_owner_can_list_repository_commits
 
 ```
 
@@ -850,9 +850,9 @@ Service evidence:
 
 ```text
 
-test\_it\_lists\_repository\_commits
+test_it_lists_repository_commits
 
-test\_it\_limits\_repository\_commits
+test_it_limits_repository_commits
 
 ```
 
@@ -894,7 +894,7 @@ API evidence:
 
 ```text
 
-test\_owner\_can\_view\_repository\_commit\_details
+test_owner_can_view_repository_commit_details
 
 ```
 
@@ -906,9 +906,9 @@ Service evidence:
 
 ```text
 
-test\_it\_returns\_commit\_details
+test_it_returns_commit_details
 
-test\_it\_returns\_root\_commit\_details\_without\_parents
+test_it_returns_root_commit_details_without_parents
 
 ```
 
@@ -950,7 +950,7 @@ Primary service evidence:
 
 ```text
 
-test\_it\_rejects\_non\_commit\_git\_object
+test_it_rejects_non_commit_git_object
 
 ```
 
@@ -988,7 +988,7 @@ Verify that repository browser data belonging to a private repository is not dis
 
 ```text
 
-test\_private\_repository\_cannot\_be\_browsed\_by\_another\_user
+test_private_repository_cannot_be_browsed_by_another_user
 
 ```
 
@@ -1000,7 +1000,7 @@ test\_private\_repository\_cannot\_be\_browsed\_by\_another\_user
 
 ```text
 
-test\_anonymous\_visitor\_cannot\_browse\_private\_repository
+test_anonymous_visitor_cannot_browse_private_repository
 
 ```
 
@@ -1012,9 +1012,9 @@ test\_anonymous\_visitor\_cannot\_browse\_private\_repository
 
 ```text
 
-test\_authenticated\_user\_can\_browse\_public\_repository
+test_authenticated_user_can_browse_public_repository
 
-test\_anonymous\_visitor\_can\_browse\_public\_repository
+test_anonymous_visitor_can_browse_public_repository
 
 ```
 
@@ -1048,7 +1048,7 @@ The feature suite includes:
 
 ```text
 
-test\_git\_native\_default\_branch\_is\_used\_when\_branch\_is\_omitted
+test_git_native_default_branch_is_used_when_branch_is_omitted
 
 ```
 
@@ -1078,7 +1078,7 @@ The service suite includes:
 
 ```text
 
-test\_empty\_repository\_has\_no\_branches
+test_empty_repository_has_no_branches
 
 ```
 
@@ -1090,7 +1090,7 @@ The API suite includes:
 
 ```text
 
-test\_empty\_repository\_returns\_controlled\_responses
+test_empty_repository_returns_controlled_responses
 
 ```
 
@@ -1120,7 +1120,7 @@ The API suite includes:
 
 ```text
 
-test\_browser\_query\_parameters\_are\_validated
+test_browser_query_parameters_are_validated
 
 ```
 
@@ -1154,7 +1154,7 @@ The API suite includes:
 
 ```text
 
-test\_missing\_repository\_storage\_fails\_closed
+test_missing_repository_storage_fails_closed
 
 ```
 
@@ -1166,7 +1166,7 @@ The service suite includes:
 
 ```text
 
-test\_it\_rejects\_missing\_repository\_path
+test_it_rejects_missing_repository_path
 
 ```
 
@@ -1196,7 +1196,7 @@ The service suite includes:
 
 ```text
 
-test\_corrupt\_repository\_storage\_is\_rejected\_before\_browsing
+test_corrupt_repository_storage_is_rejected_before_browsing
 
 ```
 
@@ -1226,13 +1226,13 @@ Supporting service evidence includes:
 
 ```text
 
-test\_it\_rejects\_directory\_when\_blob\_is\_requested
+test_it_rejects_directory_when_blob_is_requested
 
-test\_it\_rejects\_blob\_larger\_than\_configured\_limit
+test_it_rejects_blob_larger_than_configured_limit
 
-test\_it\_rejects\_invalid\_blob\_size\_configuration
+test_it_rejects_invalid_blob_size_configuration
 
-test\_it\_rejects\_binary\_blob
+test_it_rejects_binary_blob
 
 ```
 
@@ -1280,11 +1280,11 @@ Supporting evidence includes:
 
 ```text
 
-test\_it\_rejects\_invalid\_repository\_path
+test_it_rejects_invalid_repository_path
 
-test\_it\_rejects\_missing\_repository\_path
+test_it_rejects_missing_repository_path
 
-test\_corrupt\_repository\_storage\_is\_rejected\_before\_browsing
+test_corrupt_repository_storage_is_rejected_before_browsing
 
 ```
 
@@ -1350,9 +1350,9 @@ Supporting feature tests verify:
 
 ```text
 
-test\_authenticated\_user\_can\_browse\_public\_repository
+test_authenticated_user_can_browse_public_repository
 
-test\_anonymous\_visitor\_can\_browse\_public\_repository
+test_anonymous_visitor_can_browse_public_repository
 
 ```
 

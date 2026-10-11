@@ -110,14 +110,14 @@ The review included:
 The validated requirement inventory is:
 
 ```text
-Functional Requirements      FR-001 â€“ FR-098
-Non-Functional Requirements  NFR-001 â€“ NFR-098
-Data Requirements            DR-001 â€“ DR-094
-Interface Requirements       IR-001 â€“ IR-100
-Business Rules               BR-001 â€“ BR-096
-Authorization Requirements   AR-001 â€“ AR-060
-Use Cases                    UC-001 â€“ UC-025
-User Stories                 US-001 â€“ US-029
+Functional Requirements      FR-001 – FR-098
+Non-Functional Requirements  NFR-001 – NFR-098
+Data Requirements            DR-001 – DR-094
+Interface Requirements       IR-001 – IR-100
+Business Rules               BR-001 – BR-096
+Authorization Requirements   AR-001 – AR-060
+Use Cases                    UC-001 – UC-025
+User Stories                 US-001 – US-029
 ```
 
 All major V1.0.0 requirement categories are represented.
@@ -211,23 +211,23 @@ The minimum GitForge V1.0.0 workflow is:
 
 ```text
 Register
-&#x20;  â†“
+   ↓
 Authenticate
-&#x20;  â†“
+   ↓
 Create Repository
-&#x20;  â†“
+   ↓
 View Repository
-&#x20;  â†“
+   ↓
 Browse Repository
-&#x20;  â†“
+   ↓
 Create Personal Access Token
-&#x20;  â†“
+   ↓
 Clone
-&#x20;  â†“
+   ↓
 Fetch
-&#x20;  â†“
+   ↓
 Push
-&#x20;  â†“
+   ↓
 Revoke Personal Access Token
 ```
 
@@ -355,7 +355,7 @@ The ownership model is:
 
 ```text
 One Repository
-&#x20;   â†“
+    ↓
 Exactly One Primary Owner
 ```
 
@@ -634,11 +634,11 @@ Won't Have in V1.0.0
 Therefore:
 
 ```text
-FR-086 â€“ FR-088
+FR-086 – FR-088
 UC-008
 US-008
 AR-027
-BR-078 â€“ BR-080
+BR-078 – BR-080
 ```
 
 are classified as:
@@ -753,13 +753,13 @@ The authorization chain is:
 
 ```text
 PAT
-&#x20;â†“
+ ↓
 Authenticate User
-&#x20;â†“
+ ↓
 Resolve Repository
-&#x20;â†“
+ ↓
 Evaluate Repository Authorization
-&#x20;â†“
+ ↓
 Allow / Deny
 ```
 
@@ -921,9 +921,9 @@ PASS
 Critical integrity requirements include:
 
 ```text
-Repository metadata â†” physical repository consistency
-Owner â†” repository relationship consistency
-PAT â†” user ownership consistency
+Repository metadata ↔ physical repository consistency
+Owner ↔ repository relationship consistency
+PAT ↔ user ownership consistency
 Repository namespace uniqueness
 Safe repository-path derivation
 No fabricated Git state
@@ -1093,13 +1093,13 @@ PASS
 Required interfaces are adequately represented:
 
 ```text
-Browser â†” GitForge
-Git Client â†” GitForge
-GitForge â†” PostgreSQL
-GitForge â†” Filesystem
-GitForge â†” Git Executable
-GitForge â†” Runtime Configuration
-GitForge â†” Logging
+Browser ↔ GitForge
+Git Client ↔ GitForge
+GitForge ↔ PostgreSQL
+GitForge ↔ Filesystem
+GitForge ↔ Git Executable
+GitForge ↔ Runtime Configuration
+GitForge ↔ Logging
 ```
 
 The exact API routes, request structures, component interfaces, and protocol adapters are intentionally deferred to System Design.
@@ -1368,7 +1368,7 @@ All previously identified critical scope ambiguities are now resolved sufficient
 
 # 46. Validation Findings
 
-## Finding VAL-001 â€” Public Repository Semantics
+## Finding VAL-001 — Public Repository Semantics
 
 Previous state:
 
@@ -1391,7 +1391,7 @@ Closed
 
 ---
 
-## Finding VAL-002 â€” Repository Naming
+## Finding VAL-002 — Repository Naming
 
 Previous state:
 
@@ -1411,7 +1411,7 @@ Closed
 
 ---
 
-## Finding VAL-003 â€” Repository Deletion
+## Finding VAL-003 — Repository Deletion
 
 Previous state:
 
@@ -1433,7 +1433,7 @@ Closed
 
 ---
 
-## Finding VAL-004 â€” Repository Rename
+## Finding VAL-004 — Repository Rename
 
 Previous state:
 
@@ -1455,7 +1455,7 @@ Closed
 
 ---
 
-## Finding VAL-005 â€” PAT Scopes
+## Finding VAL-005 — PAT Scopes
 
 Previous state:
 
@@ -1477,7 +1477,7 @@ Closed
 
 ---
 
-## Finding VAL-006 â€” PAT Expiration
+## Finding VAL-006 — PAT Expiration
 
 Previous state:
 
@@ -1499,7 +1499,7 @@ Closed
 
 ---
 
-## Finding VAL-007 â€” Non-Owner Repository Permissions
+## Finding VAL-007 — Non-Owner Repository Permissions
 
 Previous state:
 
@@ -1593,7 +1593,7 @@ PASS
 
 The Requirements Engineering Plan defined the following exit criteria.
 
-## EC-01 â€” Functional Requirements Documented
+## EC-01 — Functional Requirements Documented
 
 Result:
 
@@ -1603,7 +1603,7 @@ PASS
 
 ---
 
-## EC-02 â€” Material Non-Functional Requirements Documented
+## EC-02 — Material Non-Functional Requirements Documented
 
 Result:
 
@@ -1613,7 +1613,7 @@ PASS
 
 ---
 
-## EC-03 â€” Actors and External Systems Identified
+## EC-03 — Actors and External Systems Identified
 
 Result:
 
@@ -1623,7 +1623,7 @@ PASS
 
 ---
 
-## EC-04 â€” Data Requirements Documented
+## EC-04 — Data Requirements Documented
 
 Result:
 
@@ -1633,7 +1633,7 @@ PASS
 
 ---
 
-## EC-05 â€” Interface Requirements Documented
+## EC-05 — Interface Requirements Documented
 
 Result:
 
@@ -1643,7 +1643,7 @@ PASS
 
 ---
 
-## EC-06 â€” Business Rules Documented
+## EC-06 — Business Rules Documented
 
 Result:
 
@@ -1653,7 +1653,7 @@ PASS
 
 ---
 
-## EC-07 â€” Primary Use Cases Modeled
+## EC-07 — Primary Use Cases Modeled
 
 Result:
 
@@ -1663,7 +1663,7 @@ PASS
 
 ---
 
-## EC-08 â€” Critical Workflows Detailed
+## EC-08 — Critical Workflows Detailed
 
 Result:
 
@@ -1673,7 +1673,7 @@ PASS
 
 ---
 
-## EC-09 â€” User Stories and Acceptance Criteria Defined Where Useful
+## EC-09 — User Stories and Acceptance Criteria Defined Where Useful
 
 Result:
 
@@ -1683,7 +1683,7 @@ PASS
 
 ---
 
-## EC-10 â€” Authorization Requirements Explicit
+## EC-10 — Authorization Requirements Explicit
 
 Result:
 
@@ -1693,7 +1693,7 @@ PASS
 
 ---
 
-## EC-11 â€” Requirements Prioritized
+## EC-11 — Requirements Prioritized
 
 Result:
 
@@ -1703,7 +1703,7 @@ PASS
 
 ---
 
-## EC-12 â€” Requirements Traceable to Project Definition
+## EC-12 — Requirements Traceable to Project Definition
 
 Result:
 
@@ -1713,7 +1713,7 @@ PASS
 
 ---
 
-## EC-13 â€” Consistency and Completeness Reviewed
+## EC-13 — Consistency and Completeness Reviewed
 
 Result:
 
@@ -1723,7 +1723,7 @@ PASS
 
 ---
 
-## EC-14 â€” No Critical Ambiguity
+## EC-14 — No Critical Ambiguity
 
 Result:
 
@@ -1735,7 +1735,7 @@ Previously open critical decisions were resolved in this validation document.
 
 ---
 
-## EC-15 â€” Scope Consistent with M0
+## EC-15 — Scope Consistent with M0
 
 Result:
 
@@ -1745,7 +1745,7 @@ PASS
 
 ---
 
-## EC-16 â€” Sufficient Input for System Analysis
+## EC-16 — Sufficient Input for System Analysis
 
 Result:
 
@@ -1789,7 +1789,7 @@ That document shall:
 * evaluate M1 exit criteria;
 * identify deferred requirements;
 * confirm repository consistency;
-* authorize transition to M2 â€” System Analysis.
+* authorize transition to M2 — System Analysis.
 
 No System Analysis work shall be considered formally started until the M1 milestone review is complete.
 

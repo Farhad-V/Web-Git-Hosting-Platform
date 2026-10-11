@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Data Flow Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -302,13 +293,13 @@ Conceptually:
 
 Application Metadata
 
-&#x20;       ↓
+        ↓
 
 PostgreSQL
 
 Git-Native State
 
-&#x20;       ↓
+        ↓
 
 Physical Git Repository
 
@@ -371,29 +362,17 @@ Diagnostics
 Major data classes include:
 
 | Data Class | Examples |
-
 |---|---|
-
 | Identity Data | User identifier, login identity |
-
 | Authentication Data | Password credential, PAT |
-
 | Repository Metadata | Owner, name, visibility |
-
 | Authorization Context | Caller identity, repository relationship, requested operation |
-
 | Git Namespace Data | Branch names, tags, refs |
-
 | Git History Data | Commits, parents, authors, messages |
-
 | Git Tree Data | Trees, paths, filenames |
-
 | Git Content Data | Blob/file content |
-
 | Git Transport Data | Smart HTTP protocol request/response |
-
 | Diagnostic Data | Failure class, operation, timestamp |
-
 | Storage Mapping Data | Logical repository to safe physical target |
 
 ---
@@ -434,35 +413,35 @@ Conceptually:
 
 Visitor
 
-&#x20; ↓
+  ↓
 
 Registration Input
 
-&#x20; ↓
+  ↓
 
 Web/API Interface
 
-&#x20; ↓
+  ↓
 
 Input Validation
 
-&#x20; ↓
+  ↓
 
 Application Authentication / User Coordination
 
-&#x20; ↓
+  ↓
 
 PostgreSQL
 
-&#x20; ↓
+  ↓
 
 User Record
 
-&#x20; ↓
+  ↓
 
 Registration Result
 
-&#x20; ↓
+  ↓
 
 Visitor/User
 
@@ -486,27 +465,27 @@ Conceptually:
 
 User
 
-&#x20; ↓
+  ↓
 
 Login Credential
 
-&#x20; ↓
+  ↓
 
 Web/API Interface
 
-&#x20; ↓
+  ↓
 
 Credential Verification
 
-&#x20; ↓
+  ↓
 
 PostgreSQL
 
-&#x20; ↓
+  ↓
 
 Identity Established
 
-&#x20; ↓
+  ↓
 
 Authenticated Application Context
 
@@ -548,19 +527,19 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Logout Request
 
-&#x20;     ↓
+      ↓
 
 Application Authentication
 
-&#x20;     ↓
+      ↓
 
 Invalidate Interactive Authentication State
 
-&#x20;     ↓
+      ↓
 
 Logged-Out Result
 
@@ -578,35 +557,35 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Repository Creation Input
 
-&#x20;     ↓
+      ↓
 
 Validation
 
-&#x20;     ↓
+      ↓
 
 Repository Coordination
 
-&#x20;     ↓
+      ↓
 
 Namespace Uniqueness Check
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
-&#x20;     ↓
+      ↓
 
 Safe Storage Resolution
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository Initialization
 
-&#x20;     ↓
+      ↓
 
 Consistent Repository Result
 
@@ -648,23 +627,23 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 List Owned Repositories
 
-&#x20;     ↓
+      ↓
 
 Repository Coordination
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
-&#x20;     ↓
+      ↓
 
 Repository Metadata Collection
 
-&#x20;     ↓
+      ↓
 
 User
 
@@ -694,27 +673,27 @@ Conceptually:
 
 Caller
 
-&#x20; ↓
+  ↓
 
 Logical Repository Identifier
 
-&#x20; ↓
+  ↓
 
 Repository Resolution
 
-&#x20; ↓
+  ↓
 
 PostgreSQL Metadata
 
-&#x20; ↓
+  ↓
 
 Authorization
 
-&#x20; ↓
+  ↓
 
 Optional Git-Native Read
 
-&#x20; ↓
+  ↓
 
 Repository View
 
@@ -730,27 +709,27 @@ Conceptually:
 
 Authenticated Owner
 
-&#x20;     ↓
+      ↓
 
 Visibility Update Request
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Owner Authorization
 
-&#x20;     ↓
+      ↓
 
 Validated Visibility
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
-&#x20;     ↓
+      ↓
 
 Updated Repository Metadata
 
@@ -768,7 +747,7 @@ The authoritative data flow is:
 
 Visibility
 
-&#x20;   ↓
+    ↓
 
 PostgreSQL
 
@@ -780,7 +759,7 @@ not:
 
 Visibility
 
-&#x20;   ↓
+    ↓
 
 Physical Git Repository
 
@@ -798,39 +777,39 @@ Conceptually:
 
 Web Caller
 
-&#x20;   ↓
+    ↓
 
 Repository Identifier
 
-&#x20;   ↓
+    ↓
 
 Repository Resolution
 
-&#x20;   ↓
+    ↓
 
 Authorization
 
-&#x20;   ↓
+    ↓
 
 Repository Storage Resolution
 
-&#x20;   ↓
+    ↓
 
 Git Read Coordination
 
-&#x20;   ↓
+    ↓
 
 Git Process Coordination
 
-&#x20;   ↓
+    ↓
 
 Physical Git Repository
 
-&#x20;   ↓
+    ↓
 
 Git-Native Result
 
-&#x20;   ↓
+    ↓
 
 Web Representation
 
@@ -844,23 +823,23 @@ Web Representation
 
 Authorized Caller
 
-&#x20;     ↓
+      ↓
 
 Repository
 
-&#x20;     ↓
+      ↓
 
 Git Read Coordination
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Branch/Ref Data
 
-&#x20;     ↓
+      ↓
 
 Web Response
 
@@ -874,23 +853,23 @@ Web Response
 
 Authorized Caller
 
-&#x20;     ↓
+      ↓
 
 Repository + Branch/Ref Context
 
-&#x20;     ↓
+      ↓
 
 Git Read Coordination
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Commit History
 
-&#x20;     ↓
+      ↓
 
 Web Response
 
@@ -904,23 +883,23 @@ Web Response
 
 Authorized Caller
 
-&#x20;     ↓
+      ↓
 
 Repository + Commit Identifier
 
-&#x20;     ↓
+      ↓
 
 Git Read Coordination
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Commit Metadata / Related Git Data
 
-&#x20;     ↓
+      ↓
 
 Web Response
 
@@ -934,27 +913,27 @@ Web Response
 
 Authorized Caller
 
-&#x20;     ↓
+      ↓
 
 Repository + Revision + Path
 
-&#x20;     ↓
+      ↓
 
 Validation
 
-&#x20;     ↓
+      ↓
 
 Git Read Coordination
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Tree Entries
 
-&#x20;     ↓
+      ↓
 
 Web Response
 
@@ -968,27 +947,27 @@ Web Response
 
 Authorized Caller
 
-&#x20;     ↓
+      ↓
 
 Repository + Revision + File Path
 
-&#x20;     ↓
+      ↓
 
 Validation
 
-&#x20;     ↓
+      ↓
 
 Git Read Coordination
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Blob/File Content
 
-&#x20;     ↓
+      ↓
 
 Safe Web Representation
 
@@ -1034,31 +1013,31 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 PAT Creation Request
 
-&#x20;     ↓
+      ↓
 
 PAT Coordination
 
-&#x20;     ↓
+      ↓
 
 Generate Plaintext PAT
 
-&#x20;     ↓
+      ↓
 
 Derive Verification Representation
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
-&#x20;     +
+      +
 
 One-Time Plaintext Presentation
 
-&#x20;     ↓
+      ↓
 
 User
 
@@ -1074,17 +1053,17 @@ The plaintext PAT has a restricted flow.
 
 Credential Generation
 
-&#x20;     ↓
+      ↓
 
 Plaintext PAT
 
-&#x20;     ├────────→ User once
+      ├────────→ User once
 
-&#x20;     ↓
+      ↓
 
 Verification Transformation
 
-&#x20;     ↓
+      ↓
 
 Non-Recoverable Stored Representation
 
@@ -1102,27 +1081,27 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Presented PAT
 
-&#x20;   ↓
+    ↓
 
 Git Smart HTTP Interface
 
-&#x20;   ↓
+    ↓
 
 Git Authentication
 
-&#x20;   ↓
+    ↓
 
 PAT Verification Metadata
 
-&#x20;   ↓
+    ↓
 
 PostgreSQL
 
-&#x20;   ↓
+    ↓
 
 Authenticated User Identity
 
@@ -1158,27 +1137,27 @@ The identity must continue to Repository Authorization.
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 PAT Revocation Request
 
-&#x20;     ↓
+      ↓
 
 PAT Coordination
 
-&#x20;     ↓
+      ↓
 
 Resolve PAT Ownership
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
-&#x20;     ↓
+      ↓
 
 Persist Revoked State
 
-&#x20;     ↓
+      ↓
 
 Future Authentication Denied
 
@@ -1194,27 +1173,27 @@ For Public Repository:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Read Discovery Request
 
-&#x20;   ↓
+    ↓
 
 Repository Resolution
 
-&#x20;   ↓
+    ↓
 
 Public Read Authorization
 
-&#x20;   ↓
+    ↓
 
 Safe Physical Repository
 
-&#x20;   ↓
+    ↓
 
 git-upload-pack Discovery
 
-&#x20;   ↓
+    ↓
 
 Git Protocol Response
 
@@ -1228,31 +1207,31 @@ Git Protocol Response
 
 Git Client + PAT
 
-&#x20;     ↓
+      ↓
 
 Git Authentication
 
-&#x20;     ↓
+      ↓
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Owner Read Authorization
 
-&#x20;     ↓
+      ↓
 
 Safe Physical Repository
 
-&#x20;     ↓
+      ↓
 
 git-upload-pack Discovery
 
-&#x20;     ↓
+      ↓
 
 Git Protocol Response
 
@@ -1268,35 +1247,35 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Repository Read Request
 
-&#x20;   ↓
+    ↓
 
 Authentication if required
 
-&#x20;   ↓
+    ↓
 
 Repository Resolution
 
-&#x20;   ↓
+    ↓
 
 Read Authorization
 
-&#x20;   ↓
+    ↓
 
 Repository Storage Resolution
 
-&#x20;   ↓
+    ↓
 
 git-upload-pack
 
-&#x20;   ↓
+    ↓
 
 Refs / Pack Data
 
-&#x20;   ↓
+    ↓
 
 Git Client
 
@@ -1312,31 +1291,31 @@ Fetch follows the same principal authorization and storage path as clone.
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Fetch Request
 
-&#x20;   ↓
+    ↓
 
 Authentication if required
 
-&#x20;   ↓
+    ↓
 
 Repository Resolution
 
-&#x20;   ↓
+    ↓
 
 Read Authorization
 
-&#x20;   ↓
+    ↓
 
 git-upload-pack
 
-&#x20;   ↓
+    ↓
 
 Requested Git Data
 
-&#x20;   ↓
+    ↓
 
 Git Client
 
@@ -1378,31 +1357,31 @@ Authorization context
 
 Git Client + PAT
 
-&#x20;     ↓
+      ↓
 
 Git Authentication
 
-&#x20;     ↓
+      ↓
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Owner Write Authorization
 
-&#x20;     ↓
+      ↓
 
 Safe Physical Repository
 
-&#x20;     ↓
+      ↓
 
 git-receive-pack Discovery
 
-&#x20;     ↓
+      ↓
 
 Git Protocol Response
 
@@ -1418,47 +1397,47 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 PAT
 
-&#x20;   ↓
+    ↓
 
 Git Authentication
 
-&#x20;   ↓
+    ↓
 
 Authenticated User
 
-&#x20;   ↓
+    ↓
 
 Repository Resolution
 
-&#x20;   ↓
+    ↓
 
 Owner Write Authorization
 
-&#x20;   ↓
+    ↓
 
 Safe Physical Repository
 
-&#x20;   ↓
+    ↓
 
 git-receive-pack
 
-&#x20;   ↓
+    ↓
 
 Incoming Git Objects + Ref Updates
 
-&#x20;   ↓
+    ↓
 
 Physical Git Repository
 
-&#x20;   ↓
+    ↓
 
 Git Result
 
-&#x20;   ↓
+    ↓
 
 Git Client
 
@@ -1514,19 +1493,19 @@ Conceptually:
 
 Caller Identity
 
-&#x20;     +
+      +
 
 Repository Metadata
 
-&#x20;     +
+      +
 
 Requested Operation
 
-&#x20;     ↓
+      ↓
 
 Repository Authorization
 
-&#x20;     ↓
+      ↓
 
 Allow / Deny
 
@@ -1540,19 +1519,19 @@ Allow / Deny
 
 No Authenticated Identity
 
-&#x20;     +
+      +
 
 Public Repository
 
-&#x20;     +
+      +
 
 Read Operation
 
-&#x20;     ↓
+      ↓
 
 Authorization
 
-&#x20;     ↓
+      ↓
 
 Allow
 
@@ -1566,23 +1545,23 @@ Allow
 
 Authenticated User
 
-&#x20;     +
+      +
 
 Private Repository
 
-&#x20;     +
+      +
 
 Owner Relationship
 
-&#x20;     +
+      +
 
 Read Operation
 
-&#x20;     ↓
+      ↓
 
 Authorization
 
-&#x20;     ↓
+      ↓
 
 Allow
 
@@ -1604,23 +1583,23 @@ Deny
 
 Authenticated User
 
-&#x20;     +
+      +
 
 Repository
 
-&#x20;     +
+      +
 
 Owner Relationship
 
-&#x20;     +
+      +
 
 Write Operation
 
-&#x20;     ↓
+      ↓
 
 Authorization
 
-&#x20;     ↓
+      ↓
 
 Allow
 
@@ -1644,19 +1623,19 @@ Conceptually:
 
 Validated Logical Repository
 
-&#x20;     ↓
+      ↓
 
 Resolved Application Metadata
 
-&#x20;     ↓
+      ↓
 
 Approved Authorization Context
 
-&#x20;     ↓
+      ↓
 
 Repository Storage Coordination
 
-&#x20;     ↓
+      ↓
 
 Safe Internal Physical Target
 
@@ -1674,27 +1653,27 @@ Approved Git operations follow:
 
 Logical Git Operation
 
-&#x20;     +
+      +
 
 Safe Repository Target
 
-&#x20;     +
+      +
 
 Controlled Input
 
-&#x20;     ↓
+      ↓
 
 Git Process Coordination
 
-&#x20;     ↓
+      ↓
 
 Git Executable
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Git Result
 
@@ -1734,15 +1713,15 @@ Conceptually:
 
 Internal Failure
 
-&#x20;     ↓
+      ↓
 
 Failure Classification
 
-&#x20;     ↓
+      ↓
 
 Safe Diagnostic Event
 
-&#x20;     +
+      +
 
 Safe External Response
 
@@ -1758,19 +1737,19 @@ Conceptually:
 
 Application / Git Failure
 
-&#x20;     ↓
+      ↓
 
 Failure Handling
 
-&#x20;     ↓
+      ↓
 
 Sanitized Diagnostic Data
 
-&#x20;     ↓
+      ↓
 
 Diagnostics
 
-&#x20;     ↓
+      ↓
 
 System Operator
 
@@ -1853,45 +1832,25 @@ Internal stack traces in external responses
 ## 62. Data Flow Responsibility Matrix
 
 | Data Flow | Primary Logical Responsibility | Authority / Destination |
-
 |---|---|---|
-
 | Registration input | User Registration | PostgreSQL |
-
 | Login credential | Application Authentication | PostgreSQL-backed verification |
-
 | Repository creation metadata | Repository Coordination | PostgreSQL |
-
 | Repository physical initialization | Storage / Git Process Coordination | Physical Git Repository |
-
 | Visibility update | Repository Coordination | PostgreSQL |
-
 | Repository listing | Repository Coordination | PostgreSQL |
-
 | Branch list | Git Read Coordination | Physical Git Repository |
-
 | Commit history | Git Read Coordination | Physical Git Repository |
-
 | Commit details | Git Read Coordination | Physical Git Repository |
-
 | Tree data | Git Read Coordination | Physical Git Repository |
-
 | File/blob data | Git Read Coordination | Physical Git Repository |
-
 | PAT creation | PAT Coordination | PostgreSQL + one-time user output |
-
 | PAT verification | Git Authentication | PostgreSQL |
-
 | PAT revocation | PAT Coordination | PostgreSQL |
-
 | Clone/fetch | Git Read Coordination | Physical Git Repository |
-
 | Push | Git Write Coordination | Physical Git Repository |
-
 | Authorization context | Repository Authorization | Decision only |
-
 | Storage mapping | Repository Storage Coordination | Safe internal target |
-
 | Diagnostic event | Diagnostics | Operational diagnostic sink |
 
 ---
@@ -1906,35 +1865,35 @@ Important transformations include:
 
 Registration credential
 
-&#x20;   ↓
+    ↓
 
 Stored verification representation
 
 Plaintext PAT
 
-&#x20;   ↓
+    ↓
 
 Stored non-recoverable verification representation
 
 Logical repository namespace
 
-&#x20;   ↓
+    ↓
 
 Repository metadata resolution
 
-&#x20;   ↓
+    ↓
 
 Safe physical storage target
 
 Git-native repository state
 
-&#x20;   ↓
+    ↓
 
 Web-oriented repository representation
 
 Internal failure
 
-&#x20;   ↓
+    ↓
 
 Safe external failure response
 
@@ -1950,23 +1909,23 @@ The following anti-patterns are prohibited by analysis:
 
 Client filesystem path
 
-&#x20;   → authoritative storage target
+    → authoritative storage target
 
 Valid PAT
 
-&#x20;   → automatic repository permission
+    → automatic repository permission
 
 Public visibility
 
-&#x20;   → public write permission
+    → public write permission
 
 PostgreSQL commit copy
 
-&#x20;   → authoritative Git history
+    → authoritative Git history
 
 Physical repository existence
 
-&#x20;   → authorization grant
+    → authorization grant
 
 ```
 
@@ -2038,7 +1997,7 @@ Plaintext PAT flow is restricted to:
 
 Generation
 
-&#x20;   ↓
+    ↓
 
 One-Time Presentation
 
@@ -2050,7 +2009,7 @@ and:
 
 Presented Credential
 
-&#x20;   ↓
+    ↓
 
 Verification
 
@@ -2078,7 +2037,7 @@ Conceptually:
 
 Git Protocol Input
 
-&#x20;     ↓
+      ↓
 
 Approved Git Service
 
@@ -2090,7 +2049,7 @@ not:
 
 Git Protocol Input
 
-&#x20;     ↓
+      ↓
 
 Arbitrary Process Execution
 
@@ -2108,11 +2067,11 @@ Conceptually:
 
 Internal Error Detail
 
-&#x20;     ↓
+      ↓
 
 Sanitization / Classification
 
-&#x20;     ↓
+      ↓
 
 Safe External Error
 

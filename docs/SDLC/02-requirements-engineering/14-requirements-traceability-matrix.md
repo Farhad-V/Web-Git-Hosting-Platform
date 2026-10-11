@@ -47,19 +47,19 @@ The intended end-to-end traceability chain is:
 
 ```text
 Project Definition
-&#x20;       â†“
+        ↓
 Requirement
-&#x20;       â†“
+        ↓
 Use Case / User Story
-&#x20;       â†“
+        ↓
 System Analysis
-&#x20;       â†“
+        ↓
 System Design
-&#x20;       â†“
+        ↓
 Implementation
-&#x20;       â†“
+        ↓
 Test Case
-&#x20;       â†“
+        ↓
 Release Verification
 ```
 
@@ -67,15 +67,15 @@ A shorter operational form is:
 
 ```text
 Goal
-&#x20; â†“
+  ↓
 Requirement
-&#x20; â†“
+  ↓
 Behavior
-&#x20; â†“
+  ↓
 Design
-&#x20; â†“
+  ↓
 Code
-&#x20; â†“
+  ↓
 Test
 ```
 
@@ -98,13 +98,13 @@ Example:
 ```text
 FR-019
 Repository creation
-&#x20;   â†“
+    ↓
 UC-004
-&#x20;   â†“
+    ↓
 US-004
-&#x20;   â†“
+    ↓
 Future repository creation service
-&#x20;   â†“
+    ↓
 Future feature/integration tests
 ```
 
@@ -122,12 +122,12 @@ Example:
 
 ```text
 Future authorization middleware
-&#x20;       â†‘
+        ↑
 AR-001
 AR-004
 FR-061
 FR-066
-&#x20;       â†‘
+        ↑
 Repository security objective
 ```
 
@@ -165,26 +165,26 @@ The RTM derives from the following approved M0 and M1 artifacts:
 
 ```text
 01-project-definition/
-&#x20;   docs/Project-Definition/README.md#project-charter
-&#x20;   docs/Project-Definition/README.md#problem-statement
-&#x20;   docs/Project-Definition/README.md#product-vision
-&#x20;   docs/Project-Definition/README.md#project-goals
-&#x20;   docs/Project-Definition/README.md#stakeholders
+    docs/Project-Definition/README.md#project-charter
+    docs/Project-Definition/README.md#problem-statement
+    docs/Project-Definition/README.md#product-vision
+    docs/Project-Definition/README.md#project-goals
+    docs/Project-Definition/README.md#stakeholders
 
 02-requirements-engineering/
-&#x20;   01-requirements-engineering-plan.md
-&#x20;   02-requirements-elicitation.md
-&#x20;   03-actors-and-external-systems.md
-&#x20;   04-functional-requirements.md
-&#x20;   05-non-functional-requirements.md
-&#x20;   06-data-requirements.md
-&#x20;   07-interface-requirements.md
-&#x20;   08-business-rules.md
-&#x20;   09-use-case-model.md
-&#x20;   10-detailed-use-case-specifications.md
-&#x20;   11-user-stories-and-acceptance-criteria.md
-&#x20;   12-authorization-requirements-matrix.md
-&#x20;   13-requirements-prioritization.md
+    01-requirements-engineering-plan.md
+    02-requirements-elicitation.md
+    03-actors-and-external-systems.md
+    04-functional-requirements.md
+    05-non-functional-requirements.md
+    06-data-requirements.md
+    07-interface-requirements.md
+    08-business-rules.md
+    09-use-case-model.md
+    10-detailed-use-case-specifications.md
+    11-user-stories-and-acceptance-criteria.md
+    12-authorization-requirements-matrix.md
+    13-requirements-prioritization.md
 ```
 
 ---
@@ -193,47 +193,47 @@ The RTM derives from the following approved M0 and M1 artifacts:
 
 The following project-level goals provide the primary requirement origin.
 
-## PG-001 â€” Deliver a Working Web Git Hosting Platform
+## PG-001 — Deliver a Working Web Git Hosting Platform
 
 Traceable requirements include:
 
 ```text
-FR-013 â€“ FR-049
-FR-089 â€“ FR-095
-DR-008 â€“ DR-029
-IR-019 â€“ IR-069
-UC-004 â€“ UC-019
-US-004 â€“ US-018
+FR-013 – FR-049
+FR-089 – FR-095
+DR-008 – DR-029
+IR-019 – IR-069
+UC-004 – UC-019
+US-004 – US-018
 ```
 
 ---
 
-## PG-002 â€” Support Real Git Client Operations
+## PG-002 — Support Real Git Client Operations
 
 Traceable requirements include:
 
 ```text
-FR-036 â€“ FR-049
+FR-036 – FR-049
 NFR-026
 NFR-027
-NFR-063 â€“ NFR-067
-IR-026 â€“ IR-044
-IR-061 â€“ IR-069
-UC-015 â€“ UC-019
-US-015 â€“ US-018
+NFR-063 – NFR-067
+IR-026 – IR-044
+IR-061 – IR-069
+UC-015 – UC-019
+US-015 – US-018
 ```
 
 ---
 
-## PG-003 â€” Protect Repository Access
+## PG-003 — Protect Repository Access
 
 Traceable requirements include:
 
 ```text
-FR-061 â€“ FR-066
-NFR-001 â€“ NFR-018
-BR-017 â€“ BR-031
-AR-001 â€“ AR-060
+FR-061 – FR-066
+NFR-001 – NFR-018
+BR-017 – BR-031
+AR-001 – AR-060
 UC-023
 UC-024
 US-022
@@ -242,51 +242,51 @@ US-023
 
 ---
 
-## PG-004 â€” Protect Credentials and Authentication
+## PG-004 — Protect Credentials and Authentication
 
 Traceable requirements include:
 
 ```text
-FR-001 â€“ FR-009
-FR-050 â€“ FR-060
-NFR-019 â€“ NFR-022
-DR-030 â€“ DR-043
-IR-082 â€“ IR-085
-AR-035 â€“ AR-044
+FR-001 – FR-009
+FR-050 – FR-060
+NFR-019 – NFR-022
+DR-030 – DR-043
+IR-082 – IR-085
+AR-035 – AR-044
 UC-001
 UC-002
-UC-020 â€“ UC-022
+UC-020 – UC-022
 US-001
 US-002
-US-019 â€“ US-021
+US-019 – US-021
 ```
 
 ---
 
-## PG-005 â€” Preserve Repository and Data Integrity
+## PG-005 — Preserve Repository and Data Integrity
 
 Traceable requirements include:
 
 ```text
-FR-067 â€“ FR-078
-NFR-028 â€“ NFR-038
-DR-017 â€“ DR-029
-DR-055 â€“ DR-070
-BR-032 â€“ BR-040
-BR-062 â€“ BR-075
-US-024 â€“ US-026
+FR-067 – FR-078
+NFR-028 – NFR-038
+DR-017 – DR-029
+DR-055 – DR-070
+BR-032 – BR-040
+BR-062 – BR-075
+US-024 – US-026
 ```
 
 ---
 
-## PG-006 â€” Provide Maintainable and Testable Engineering
+## PG-006 — Provide Maintainable and Testable Engineering
 
 Traceable requirements include:
 
 ```text
-NFR-042 â€“ NFR-053
-NFR-071 â€“ NFR-082
-FR-096 â€“ FR-098
+NFR-042 – NFR-053
+NFR-071 – NFR-082
+FR-096 – FR-098
 US-029
 ```
 
@@ -298,9 +298,9 @@ US-029
 
 | Requirement     | Related Use Case       | User Story             | Priority | Status |
 | --------------- | ---------------------- | ---------------------- | -------- | ------ |
-| FR-001 â€“ FR-004 | UC-001                 | US-001                 | Must     | Mapped |
-| FR-005 â€“ FR-009 | UC-002, UC-003         | US-002, US-003         | Must     | Mapped |
-| FR-010 â€“ FR-012 | UC-002, UC-004, UC-020 | US-002, US-004, US-019 | Must     | Mapped |
+| FR-001 – FR-004 | UC-001                 | US-001                 | Must     | Mapped |
+| FR-005 – FR-009 | UC-002, UC-003         | US-002, US-003         | Must     | Mapped |
+| FR-010 – FR-012 | UC-002, UC-004, UC-020 | US-002, US-004, US-019 | Must     | Mapped |
 
 ---
 
@@ -308,7 +308,7 @@ US-029
 
 | Requirement     | Related Use Case | User Story | Priority | Status |
 | --------------- | ---------------- | ---------- | -------- | ------ |
-| FR-013 â€“ FR-020 | UC-004           | US-004     | Must     | Mapped |
+| FR-013 – FR-020 | UC-004           | US-004     | Must     | Mapped |
 
 Primary related authorization requirements:
 
@@ -324,13 +324,13 @@ AR-012
 
 | Requirement     | Related Use Case | User Story     | Priority | Status |
 | --------------- | ---------------- | -------------- | -------- | ------ |
-| FR-021 â€“ FR-024 | UC-005, UC-006   | US-005, US-006 | Must     | Mapped |
-| FR-025 â€“ FR-028 | UC-006, UC-023   | US-006, US-022 | Must     | Mapped |
+| FR-021 – FR-024 | UC-005, UC-006   | US-005, US-006 | Must     | Mapped |
+| FR-025 – FR-028 | UC-006, UC-023   | US-006, US-022 | Must     | Mapped |
 
 Primary authorization mapping:
 
 ```text
-AR-013 â€“ AR-018
+AR-013 – AR-018
 ```
 
 ---
@@ -350,7 +350,7 @@ AR-013 â€“ AR-018
 Primary authorization mapping:
 
 ```text
-AR-029 â€“ AR-034
+AR-029 – AR-034
 ```
 
 ---
@@ -359,13 +359,13 @@ AR-029 â€“ AR-034
 
 | Requirement     | Related Use Case               | User Story                     | Priority | Status |
 | --------------- | ------------------------------ | ------------------------------ | -------- | ------ |
-| FR-036 â€“ FR-039 | UC-015, UC-016                 | US-015                         | Must     | Mapped |
-| FR-040 â€“ FR-042 | UC-016, UC-017, UC-021, UC-023 | US-016, US-017, US-020, US-022 | Must     | Mapped |
+| FR-036 – FR-039 | UC-015, UC-016                 | US-015                         | Must     | Mapped |
+| FR-040 – FR-042 | UC-016, UC-017, UC-021, UC-023 | US-016, US-017, US-020, US-022 | Must     | Mapped |
 
 Primary authorization mapping:
 
 ```text
-AR-045 â€“ AR-049
+AR-045 – AR-049
 ```
 
 ---
@@ -374,12 +374,12 @@ AR-045 â€“ AR-049
 
 | Requirement     | Related Use Case               | User Story             | Priority | Status |
 | --------------- | ------------------------------ | ---------------------- | -------- | ------ |
-| FR-043 â€“ FR-049 | UC-018, UC-019, UC-021, UC-024 | US-018, US-020, US-023 | Must     | Mapped |
+| FR-043 – FR-049 | UC-018, UC-019, UC-021, UC-024 | US-018, US-020, US-023 | Must     | Mapped |
 
 Primary authorization mapping:
 
 ```text
-AR-050 â€“ AR-055
+AR-050 – AR-055
 ```
 
 ---
@@ -388,14 +388,14 @@ AR-050 â€“ AR-055
 
 | Requirement     | Related Use Case | User Story | Priority | Status |
 | --------------- | ---------------- | ---------- | -------- | ------ |
-| FR-050 â€“ FR-054 | UC-020           | US-019     | Must     | Mapped |
-| FR-055 â€“ FR-057 | UC-021           | US-020     | Must     | Mapped |
-| FR-058 â€“ FR-060 | UC-022           | US-021     | Must     | Mapped |
+| FR-050 – FR-054 | UC-020           | US-019     | Must     | Mapped |
+| FR-055 – FR-057 | UC-021           | US-020     | Must     | Mapped |
+| FR-058 – FR-060 | UC-022           | US-021     | Must     | Mapped |
 
 Primary authorization mapping:
 
 ```text
-AR-035 â€“ AR-044
+AR-035 – AR-044
 ```
 
 ---
@@ -404,14 +404,14 @@ AR-035 â€“ AR-044
 
 | Requirement     | Related Use Case | User Story | Priority | Status |
 | --------------- | ---------------- | ---------- | -------- | ------ |
-| FR-061 â€“ FR-063 | UC-023           | US-022     | Must     | Mapped |
-| FR-064 â€“ FR-066 | UC-024           | US-023     | Must     | Mapped |
+| FR-061 – FR-063 | UC-023           | US-022     | Must     | Mapped |
+| FR-064 – FR-066 | UC-024           | US-023     | Must     | Mapped |
 
 Primary authorization mapping:
 
 ```text
-AR-001 â€“ AR-005
-AR-013 â€“ AR-024
+AR-001 – AR-005
+AR-013 – AR-024
 ```
 
 ---
@@ -420,7 +420,7 @@ AR-013 â€“ AR-024
 
 | Requirement     | Related Use Case                               | User Story                                             | Priority | Status |
 | --------------- | ---------------------------------------------- | ------------------------------------------------------ | -------- | ------ |
-| FR-067 â€“ FR-070 | UC-004, UC-009, UC-016, UC-017, UC-019, UC-025 | US-004, US-009, US-016, US-017, US-018, US-024, US-025 | Must     | Mapped |
+| FR-067 – FR-070 | UC-004, UC-009, UC-016, UC-017, UC-019, UC-025 | US-004, US-009, US-016, US-017, US-018, US-024, US-025 | Must     | Mapped |
 
 ---
 
@@ -428,7 +428,7 @@ AR-013 â€“ AR-024
 
 | Requirement     | Related Use Case | User Story              | Priority | Status |
 | --------------- | ---------------- | ----------------------- | -------- | ------ |
-| FR-071 â€“ FR-074 | UC-015 â€“ UC-019  | US-015 â€“ US-018, US-026 | Must     | Mapped |
+| FR-071 – FR-074 | UC-015 – UC-019  | US-015 – US-018, US-026 | Must     | Mapped |
 
 ---
 
@@ -436,7 +436,7 @@ AR-013 â€“ AR-024
 
 | Requirement     | Related Use Case | User Story | Priority | Status |
 | --------------- | ---------------- | ---------- | -------- | ------ |
-| FR-075 â€“ FR-078 | Multiple         | US-027     | Must     | Mapped |
+| FR-075 – FR-078 | Multiple         | US-027     | Must     | Mapped |
 
 ---
 
@@ -444,7 +444,7 @@ AR-013 â€“ AR-024
 
 | Requirement     | Related Use Case | User Story             | Priority | Status |
 | --------------- | ---------------- | ---------------------- | -------- | ------ |
-| FR-079 â€“ FR-083 | Multiple, UC-025 | US-025, US-028, US-029 | Must     | Mapped |
+| FR-079 – FR-083 | Multiple, UC-025 | US-025, US-028, US-029 | Must     | Mapped |
 
 ---
 
@@ -452,8 +452,8 @@ AR-013 â€“ AR-024
 
 | Requirement     | Related Use Case | User Story | Priority                     | Status      |
 | --------------- | ---------------- | ---------- | ---------------------------- | ----------- |
-| FR-084 â€“ FR-085 | UC-007           | US-007     | Should / Must-if-implemented | Mapped      |
-| FR-086 â€“ FR-088 | UC-008           | US-008     | Could / Conditional          | Conditional |
+| FR-084 – FR-085 | UC-007           | US-007     | Should / Must-if-implemented | Mapped      |
+| FR-086 – FR-088 | UC-008           | US-008     | Could / Conditional          | Conditional |
 
 ---
 
@@ -461,7 +461,7 @@ AR-013 â€“ AR-024
 
 | Requirement     | Related Use Case                | User Story                      | Priority | Status |
 | --------------- | ------------------------------- | ------------------------------- | -------- | ------ |
-| FR-089 â€“ FR-095 | UC-001 â€“ UC-014, UC-020, UC-022 | US-001 â€“ US-014, US-019, US-021 | Must     | Mapped |
+| FR-089 – FR-095 | UC-001 – UC-014, UC-020, UC-022 | US-001 – US-014, US-019, US-021 | Must     | Mapped |
 
 ---
 
@@ -470,7 +470,7 @@ AR-013 â€“ AR-024
 | Requirement | Related Use Case        | User Story              | Priority | Status |
 | ----------- | ----------------------- | ----------------------- | -------- | ------ |
 | FR-096      | UC-025                  | US-029                  | Should   | Mapped |
-| FR-097      | UC-020 â€“ UC-022, UC-025 | US-019 â€“ US-021, US-029 | Must     | Mapped |
+| FR-097      | UC-020 – UC-022, UC-025 | US-019 – US-021, US-029 | Must     | Mapped |
 | FR-098      | UC-025                  | US-025, US-029          | Should   | Mapped |
 
 ---
@@ -481,7 +481,7 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Related Functional Areas                                        | Priority | Verification Direction |
 | ----------------- | --------------------------------------------------------------- | -------- | ---------------------- |
-| NFR-001 â€“ NFR-018 | Authentication, authorization, repository access, Git execution | Must     | Security tests         |
+| NFR-001 – NFR-018 | Authentication, authorization, repository access, Git execution | Must     | Security tests         |
 
 ---
 
@@ -489,7 +489,7 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Related Artifacts              | Priority | Verification Direction |
 | ----------------- | ------------------------------ | -------- | ---------------------- |
-| NFR-019 â€“ NFR-022 | UC-002, UC-003, US-002, US-003 | Must     | Feature/security tests |
+| NFR-019 – NFR-022 | UC-002, UC-003, US-002, US-003 | Must     | Feature/security tests |
 
 ---
 
@@ -497,8 +497,8 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Related Areas                 | Priority | Verification Direction              |
 | ----------------- | ----------------------------- | -------- | ----------------------------------- |
-| NFR-023 â€“ NFR-025 | Web UI and repository browser | Should   | Performance testing                 |
-| NFR-026 â€“ NFR-027 | Git Smart HTTP                | Must     | Git integration/performance testing |
+| NFR-023 – NFR-025 | Web UI and repository browser | Should   | Performance testing                 |
+| NFR-026 – NFR-027 | Git Smart HTTP                | Must     | Git integration/performance testing |
 
 ---
 
@@ -506,8 +506,8 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Related Areas                          | Priority | Verification Direction    |
 | ----------------- | -------------------------------------- | -------- | ------------------------- |
-| NFR-028 â€“ NFR-033 | Git/repository operations              | Must     | Integration/failure tests |
-| NFR-034 â€“ NFR-038 | Metadata and physical repository state | Must     | Integrity tests           |
+| NFR-028 – NFR-033 | Git/repository operations              | Must     | Integration/failure tests |
+| NFR-034 – NFR-038 | Metadata and physical repository state | Must     | Integrity tests           |
 
 ---
 
@@ -516,8 +516,8 @@ AR-013 â€“ AR-024
 | Requirement Range | Priority | Verification Direction       |
 | ----------------- | -------- | ---------------------------- |
 | NFR-039           | Should   | Deployment observation       |
-| NFR-040 â€“ NFR-041 | Must     | Failure/restart tests        |
-| NFR-075 â€“ NFR-077 | Should   | Backup/recovery verification |
+| NFR-040 – NFR-041 | Must     | Failure/restart tests        |
+| NFR-075 – NFR-077 | Should   | Backup/recovery verification |
 | NFR-078           | Must     | Recovery failure tests       |
 
 ---
@@ -526,8 +526,8 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Priority                      | Verification Direction   |
 | ----------------- | ----------------------------- | ------------------------ |
-| NFR-042 â€“ NFR-047 | Should / Must where specified | Design/code review       |
-| NFR-048 â€“ NFR-053 | Must                          | Test architecture review |
+| NFR-042 – NFR-047 | Should / Must where specified | Design/code review       |
+| NFR-048 – NFR-053 | Must                          | Test architecture review |
 
 ---
 
@@ -535,8 +535,8 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Priority | Verification Direction |
 | ----------------- | -------- | ---------------------- |
-| NFR-054 â€“ NFR-058 | Should   | UI acceptance testing  |
-| NFR-059 â€“ NFR-062 | Should   | Accessibility review   |
+| NFR-054 – NFR-058 | Should   | UI acceptance testing  |
+| NFR-059 – NFR-062 | Should   | Accessibility review   |
 
 ---
 
@@ -544,7 +544,7 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Priority | Verification Direction                 |
 | ----------------- | -------- | -------------------------------------- |
-| NFR-063 â€“ NFR-067 | Must     | Git client/browser compatibility tests |
+| NFR-063 – NFR-067 | Must     | Git client/browser compatibility tests |
 
 ---
 
@@ -552,8 +552,8 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Priority                  | Verification Direction      |
 | ----------------- | ------------------------- | --------------------------- |
-| NFR-068 â€“ NFR-070 | Should / scope constraint | Load/design review          |
-| NFR-071 â€“ NFR-074 | Should                    | Log/diagnostic verification |
+| NFR-068 – NFR-070 | Should / scope constraint | Load/design review          |
+| NFR-071 – NFR-074 | Should                    | Log/diagnostic verification |
 
 ---
 
@@ -561,12 +561,12 @@ AR-013 â€“ AR-024
 
 | Requirement Range | Priority | Verification Direction              |
 | ----------------- | -------- | ----------------------------------- |
-| NFR-079 â€“ NFR-082 | Must     | Deployment testing                  |
-| NFR-083 â€“ NFR-085 | Should   | Environment verification            |
-| NFR-086 â€“ NFR-088 | Must     | Security/privacy review             |
-| NFR-089 â€“ NFR-091 | Must     | Error-handling tests                |
-| NFR-092 â€“ NFR-094 | Must     | Content-safety tests                |
-| NFR-095 â€“ NFR-098 | Must     | 07-deployment/operational verification |
+| NFR-079 – NFR-082 | Must     | Deployment testing                  |
+| NFR-083 – NFR-085 | Should   | Environment verification            |
+| NFR-086 – NFR-088 | Must     | Security/privacy review             |
+| NFR-089 – NFR-091 | Must     | Error-handling tests                |
+| NFR-092 – NFR-094 | Must     | Content-safety tests                |
+| NFR-095 – NFR-098 | Must     | 07-deployment/operational verification |
 
 ---
 
@@ -574,23 +574,23 @@ AR-013 â€“ AR-024
 
 | Data Requirement Range | Functional Dependency       | Priority           | Future Design Mapping              |
 | ---------------------- | --------------------------- | ------------------ | ---------------------------------- |
-| DR-001 â€“ DR-007        | Identity/authentication     | Must               | User schema                        |
-| DR-008 â€“ DR-016        | Repository metadata         | Must               | Repository schema                  |
-| DR-017 â€“ DR-023        | Physical repository storage | Must               | Repository storage design          |
-| DR-024 â€“ DR-029        | Git-native objects and refs | Must               | Git storage/process design         |
-| DR-030 â€“ DR-039        | PAT metadata                | Must               | Token schema/authentication design |
-| DR-040 â€“ DR-043        | Sessions                    | Must               | Authentication/session design      |
-| DR-044 â€“ DR-048        | Repository browser          | Must               | Git repository access components   |
-| DR-049 â€“ DR-054        | Entity relationships        | Must               | Database schema                    |
-| DR-055 â€“ DR-060        | Integrity                   | Must               | Constraints/transactions/services  |
-| DR-061 â€“ DR-065        | Validation                  | Must               | Validation rules                   |
-| DR-066 â€“ DR-070        | Security                    | Must               | Security controls                  |
-| DR-071 â€“ DR-073        | Privacy                     | Must               | Privacy/security design            |
-| DR-074 â€“ DR-077        | Lifecycle                   | Must / Conditional | Lifecycle services                 |
-| DR-078 â€“ DR-081        | Retention                   | Should             | Operations design                  |
-| DR-082 â€“ DR-085        | Recovery                    | Should             | Backup/recovery design             |
-| DR-086 â€“ DR-090        | Derived Git data            | Must               | Git inspection services            |
-| DR-091 â€“ DR-094        | Operational data            | Should             | Logging/observability design       |
+| DR-001 – DR-007        | Identity/authentication     | Must               | User schema                        |
+| DR-008 – DR-016        | Repository metadata         | Must               | Repository schema                  |
+| DR-017 – DR-023        | Physical repository storage | Must               | Repository storage design          |
+| DR-024 – DR-029        | Git-native objects and refs | Must               | Git storage/process design         |
+| DR-030 – DR-039        | PAT metadata                | Must               | Token schema/authentication design |
+| DR-040 – DR-043        | Sessions                    | Must               | Authentication/session design      |
+| DR-044 – DR-048        | Repository browser          | Must               | Git repository access components   |
+| DR-049 – DR-054        | Entity relationships        | Must               | Database schema                    |
+| DR-055 – DR-060        | Integrity                   | Must               | Constraints/transactions/services  |
+| DR-061 – DR-065        | Validation                  | Must               | Validation rules                   |
+| DR-066 – DR-070        | Security                    | Must               | Security controls                  |
+| DR-071 – DR-073        | Privacy                     | Must               | Privacy/security design            |
+| DR-074 – DR-077        | Lifecycle                   | Must / Conditional | Lifecycle services                 |
+| DR-078 – DR-081        | Retention                   | Should             | Operations design                  |
+| DR-082 – DR-085        | Recovery                    | Should             | Backup/recovery design             |
+| DR-086 – DR-090        | Derived Git data            | Must               | Git inspection services            |
+| DR-091 – DR-094        | Operational data            | Should             | Logging/observability design       |
 
 ---
 
@@ -598,19 +598,19 @@ AR-013 â€“ AR-024
 
 | Interface Requirement Range | Related System Boundary    | Priority                  | Future Design Artifact          |
 | --------------------------- | -------------------------- | ------------------------- | ------------------------------- |
-| IR-001 â€“ IR-018             | Browser â†” GitForge         | Must / Should             | UI information architecture     |
-| IR-019 â€“ IR-025             | HTTP application interface | Must                      | API/route design                |
-| IR-026 â€“ IR-040             | Git Smart HTTP             | Must                      | Git HTTP protocol design        |
-| IR-041 â€“ IR-044             | Git Client                 | Must                      | Compatibility design            |
-| IR-045 â€“ IR-050             | PostgreSQL                 | Must                      | Database design                 |
-| IR-051 â€“ IR-060             | Filesystem                 | Must                      | Repository storage design       |
-| IR-061 â€“ IR-069             | Git executable             | Must                      | Git process-execution design    |
-| IR-070 â€“ IR-075             | Runtime configuration      | Must                      | 07-deployment/configuration design |
-| IR-076 â€“ IR-081             | Logging                    | Should / Must for secrets | Observability design            |
-| IR-082 â€“ IR-085             | Authentication             | Must                      | Authentication design           |
-| IR-086 â€“ IR-090             | Authorization              | Must                      | Authorization design            |
-| IR-091 â€“ IR-094             | Validation                 | Must                      | Validation design               |
-| IR-095 â€“ IR-100             | Error responses            | Must                      | Error-handling design           |
+| IR-001 – IR-018             | Browser ↔ GitForge         | Must / Should             | UI information architecture     |
+| IR-019 – IR-025             | HTTP application interface | Must                      | API/route design                |
+| IR-026 – IR-040             | Git Smart HTTP             | Must                      | Git HTTP protocol design        |
+| IR-041 – IR-044             | Git Client                 | Must                      | Compatibility design            |
+| IR-045 – IR-050             | PostgreSQL                 | Must                      | Database design                 |
+| IR-051 – IR-060             | Filesystem                 | Must                      | Repository storage design       |
+| IR-061 – IR-069             | Git executable             | Must                      | Git process-execution design    |
+| IR-070 – IR-075             | Runtime configuration      | Must                      | 07-deployment/configuration design |
+| IR-076 – IR-081             | Logging                    | Should / Must for secrets | Observability design            |
+| IR-082 – IR-085             | Authentication             | Must                      | Authentication design           |
+| IR-086 – IR-090             | Authorization              | Must                      | Authorization design            |
+| IR-091 – IR-094             | Validation                 | Must                      | Validation design               |
+| IR-095 – IR-100             | Error responses            | Must                      | Error-handling design           |
 
 ---
 
@@ -619,14 +619,14 @@ AR-013 â€“ AR-024
 ## 12.1 Identity Rules
 
 ```text
-BR-001 â€“ BR-010
+BR-001 – BR-010
 ```
 
 Primary mappings:
 
 ```text
-FR-001 â€“ FR-012
-DR-001 â€“ DR-007
+FR-001 – FR-012
+DR-001 – DR-007
 UC-001
 UC-002
 US-001
@@ -638,15 +638,15 @@ US-002
 ## 12.2 Repository Ownership and Visibility Rules
 
 ```text
-BR-011 â€“ BR-031
+BR-011 – BR-031
 ```
 
 Primary mappings:
 
 ```text
-FR-013 â€“ FR-028
-FR-043 â€“ FR-049
-AR-010 â€“ AR-024
+FR-013 – FR-028
+FR-043 – FR-049
+AR-010 – AR-024
 UC-004
 UC-006
 UC-019
@@ -664,14 +664,14 @@ US-023
 ## 12.3 Repository Storage and Consistency Rules
 
 ```text
-BR-032 â€“ BR-040
+BR-032 – BR-040
 ```
 
 Primary mappings:
 
 ```text
-FR-067 â€“ FR-070
-DR-017 â€“ DR-029
+FR-067 – FR-070
+DR-017 – DR-029
 US-024
 US-025
 ```
@@ -681,17 +681,17 @@ US-025
 ## 12.4 PAT Rules
 
 ```text
-BR-041 â€“ BR-050
+BR-041 – BR-050
 ```
 
 Primary mappings:
 
 ```text
-FR-050 â€“ FR-060
-DR-030 â€“ DR-039
-AR-035 â€“ AR-044
-UC-020 â€“ UC-022
-US-019 â€“ US-021
+FR-050 – FR-060
+DR-030 – DR-039
+AR-035 – AR-044
+UC-020 – UC-022
+US-019 – US-021
 ```
 
 ---
@@ -699,14 +699,14 @@ US-019 â€“ US-021
 ## 12.5 Authorization Rules
 
 ```text
-BR-051 â€“ BR-061
+BR-051 – BR-061
 ```
 
 Primary mappings:
 
 ```text
-FR-061 â€“ FR-066
-AR-001 â€“ AR-060
+FR-061 – FR-066
+AR-001 – AR-060
 UC-023
 UC-024
 US-022
@@ -718,15 +718,15 @@ US-023
 ## 12.6 Git Process and Validation Rules
 
 ```text
-BR-062 â€“ BR-075
+BR-062 – BR-075
 ```
 
 Primary mappings:
 
 ```text
-FR-071 â€“ FR-083
-IR-061 â€“ IR-069
-US-026 â€“ US-028
+FR-071 – FR-083
+IR-061 – IR-069
+US-026 – US-028
 ```
 
 ---
@@ -734,13 +734,13 @@ US-026 â€“ US-028
 ## 12.7 Repository Lifecycle Rules
 
 ```text
-BR-076 â€“ BR-080
+BR-076 – BR-080
 ```
 
 Primary mappings:
 
 ```text
-FR-084 â€“ FR-088
+FR-084 – FR-088
 UC-007
 UC-008
 US-007
@@ -752,18 +752,18 @@ US-008
 ## 12.8 Content, Operations and Scope Rules
 
 ```text
-BR-081 â€“ BR-096
+BR-081 – BR-096
 ```
 
 Primary mappings:
 
 ```text
-FR-029 â€“ FR-035
-FR-096 â€“ FR-098
-NFR-092 â€“ NFR-098
-UC-009 â€“ UC-014
+FR-029 – FR-035
+FR-096 – FR-098
+NFR-092 – NFR-098
+UC-009 – UC-014
 UC-025
-US-009 â€“ US-014
+US-009 – US-014
 US-029
 ```
 
@@ -773,18 +773,18 @@ US-029
 
 | Authorization Range | Primary Requirement Area | Use Cases               | User Stories                   |
 | ------------------- | ------------------------ | ----------------------- | ------------------------------ |
-| AR-001 â€“ AR-005     | General authorization    | UC-023, UC-024          | US-022, US-023                 |
-| AR-006 â€“ AR-009     | Account access           | UC-001 â€“ UC-003         | US-001 â€“ US-003                |
-| AR-010 â€“ AR-012     | Repository creation      | UC-004                  | US-004                         |
-| AR-013 â€“ AR-018     | Repository reads         | UC-006, UC-023          | US-006, US-022                 |
-| AR-019 â€“ AR-024     | Repository writes        | UC-019, UC-024          | US-018, US-023                 |
-| AR-025 â€“ AR-028     | Repository settings      | UC-007, UC-008          | US-007, US-008                 |
-| AR-029 â€“ AR-034     | Repository browser       | UC-009 â€“ UC-014         | US-009 â€“ US-014                |
-| AR-035 â€“ AR-039     | PAT management           | UC-020, UC-022          | US-019, US-021                 |
-| AR-040 â€“ AR-044     | PAT authentication       | UC-021                  | US-020                         |
-| AR-045 â€“ AR-049     | Git read                 | UC-015 â€“ UC-017, UC-023 | US-015 â€“ US-017, US-022        |
-| AR-050 â€“ AR-055     | Git write                | UC-018, UC-019, UC-024  | US-018, US-023                 |
-| AR-056 â€“ AR-060     | Authorization failures   | UC-023 â€“ UC-025         | US-022, US-023, US-028, US-029 |
+| AR-001 – AR-005     | General authorization    | UC-023, UC-024          | US-022, US-023                 |
+| AR-006 – AR-009     | Account access           | UC-001 – UC-003         | US-001 – US-003                |
+| AR-010 – AR-012     | Repository creation      | UC-004                  | US-004                         |
+| AR-013 – AR-018     | Repository reads         | UC-006, UC-023          | US-006, US-022                 |
+| AR-019 – AR-024     | Repository writes        | UC-019, UC-024          | US-018, US-023                 |
+| AR-025 – AR-028     | Repository settings      | UC-007, UC-008          | US-007, US-008                 |
+| AR-029 – AR-034     | Repository browser       | UC-009 – UC-014         | US-009 – US-014                |
+| AR-035 – AR-039     | PAT management           | UC-020, UC-022          | US-019, US-021                 |
+| AR-040 – AR-044     | PAT authentication       | UC-021                  | US-020                         |
+| AR-045 – AR-049     | Git read                 | UC-015 – UC-017, UC-023 | US-015 – US-017, US-022        |
+| AR-050 – AR-055     | Git write                | UC-018, UC-019, UC-024  | US-018, US-023                 |
+| AR-056 – AR-060     | Authorization failures   | UC-023 – UC-025         | US-022, US-023, US-028, US-029 |
 
 ---
 
@@ -792,31 +792,31 @@ US-029
 
 | Use Case                                     | Primary Functional Requirements | User Story     | Priority |
 | -------------------------------------------- | ------------------------------- | -------------- | -------- |
-| UC-001 Register User Account                 | FR-001 â€“ FR-004                 | US-001         | Must     |
-| UC-002 Authenticate User                     | FR-005 â€“ FR-009                 | US-002         | Must     |
+| UC-001 Register User Account                 | FR-001 – FR-004                 | US-001         | Must     |
+| UC-002 Authenticate User                     | FR-005 – FR-009                 | US-002         | Must     |
 | UC-003 Logout                                | FR-008                          | US-003         | Must     |
-| UC-004 Create Repository                     | FR-013 â€“ FR-020                 | US-004         | Must     |
+| UC-004 Create Repository                     | FR-013 – FR-020                 | US-004         | Must     |
 | UC-005 List Owned Repositories               | FR-021                          | US-005         | Must     |
-| UC-006 View Repository                       | FR-022 â€“ FR-028                 | US-006         | Must     |
-| UC-007 Change Repository Visibility          | FR-084 â€“ FR-085                 | US-007         | Should   |
-| UC-008 Delete Repository                     | FR-086 â€“ FR-088                 | US-008         | Could    |
+| UC-006 View Repository                       | FR-022 – FR-028                 | US-006         | Must     |
+| UC-007 Change Repository Visibility          | FR-084 – FR-085                 | US-007         | Should   |
+| UC-008 Delete Repository                     | FR-086 – FR-088                 | US-008         | Could    |
 | UC-009 Browse Repository                     | FR-029                          | US-009         | Must     |
 | UC-010 List Branches                         | FR-030                          | US-010         | Must     |
 | UC-011 View Commit History                   | FR-031                          | US-011         | Must     |
 | UC-012 View Commit Details                   | FR-032                          | US-012         | Should   |
 | UC-013 Browse Repository Tree                | FR-033, FR-035                  | US-013         | Must     |
 | UC-014 View File Content                     | FR-034                          | US-014         | Must     |
-| UC-015 Discover Git Read Service             | FR-036 â€“ FR-039                 | US-015         | Must     |
-| UC-016 Clone Repository                      | FR-036 â€“ FR-041                 | US-015, US-016 | Must     |
+| UC-015 Discover Git Read Service             | FR-036 – FR-039                 | US-015         | Must     |
+| UC-016 Clone Repository                      | FR-036 – FR-041                 | US-015, US-016 | Must     |
 | UC-017 Fetch Repository                      | FR-042                          | US-017         | Must     |
-| UC-018 Discover Git Write Service            | FR-043 â€“ FR-045                 | US-018         | Must     |
-| UC-019 Push Repository Changes               | FR-043 â€“ FR-049                 | US-018         | Must     |
-| UC-020 Create PAT                            | FR-050 â€“ FR-054                 | US-019         | Must     |
-| UC-021 Authenticate Git Request with PAT     | FR-055 â€“ FR-057                 | US-020         | Must     |
-| UC-022 Revoke PAT                            | FR-058 â€“ FR-060                 | US-021         | Must     |
-| UC-023 Authorize Repository Read             | FR-061 â€“ FR-063                 | US-022         | Must     |
-| UC-024 Authorize Repository Write            | FR-064 â€“ FR-066                 | US-023         | Must     |
-| UC-025 Diagnose Repository Operation Failure | FR-096 â€“ FR-098                 | US-025, US-029 | Should   |
+| UC-018 Discover Git Write Service            | FR-043 – FR-045                 | US-018         | Must     |
+| UC-019 Push Repository Changes               | FR-043 – FR-049                 | US-018         | Must     |
+| UC-020 Create PAT                            | FR-050 – FR-054                 | US-019         | Must     |
+| UC-021 Authenticate Git Request with PAT     | FR-055 – FR-057                 | US-020         | Must     |
+| UC-022 Revoke PAT                            | FR-058 – FR-060                 | US-021         | Must     |
+| UC-023 Authorize Repository Read             | FR-061 – FR-063                 | US-022         | Must     |
+| UC-024 Authorize Repository Write            | FR-064 – FR-066                 | US-023         | Must     |
+| UC-025 Diagnose Repository Operation Failure | FR-096 – FR-098                 | US-025, US-029 | Should   |
 
 ---
 
@@ -981,13 +981,13 @@ For these areas, the expected final traceability chain is:
 
 ```text
 Requirement
-&#x20;   â†“
+    ↓
 Design
-&#x20;   â†“
+    ↓
 Implementation
-&#x20;   â†“
+    ↓
 Automated Test
-&#x20;   â†“
+    ↓
 Release Evidence
 ```
 
@@ -1021,11 +1021,11 @@ The following requirements remain conditional at this stage.
 ## 22.1 Repository Deletion
 
 ```text
-FR-086 â€“ FR-088
+FR-086 – FR-088
 UC-008
 US-008
 AR-027
-BR-078 â€“ BR-080
+BR-078 – BR-080
 ```
 
 Current priority:
@@ -1214,14 +1214,14 @@ Updates are required when:
 Current M1 traceability coverage includes:
 
 ```text
-Functional Requirements      FR-001 â€“ FR-098
-Non-Functional Requirements  NFR-001 â€“ NFR-098
-Data Requirements            DR-001 â€“ DR-094
-Interface Requirements       IR-001 â€“ IR-100
-Business Rules               BR-001 â€“ BR-096
-Authorization Requirements   AR-001 â€“ AR-060
-Use Cases                    UC-001 â€“ UC-025
-User Stories                 US-001 â€“ US-029
+Functional Requirements      FR-001 – FR-098
+Non-Functional Requirements  NFR-001 – NFR-098
+Data Requirements            DR-001 – DR-094
+Interface Requirements       IR-001 – IR-100
+Business Rules               BR-001 – BR-096
+Authorization Requirements   AR-001 – AR-060
+Use Cases                    UC-001 – UC-025
+User Stories                 US-001 – US-029
 ```
 
 These requirement families have defined mapping paths into subsequent SDLC phases.

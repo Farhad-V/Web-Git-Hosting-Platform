@@ -424,21 +424,21 @@ Before WP-12 enhancement, the existing Smart HTTP feature suite already covered:
 
 ```text
 
-test\_owner\_token\_can\_advertise\_receive\_pack
+test_owner_token_can_advertise_receive_pack
 
-test\_non\_owner\_cannot\_advertise\_receive\_pack
+test_non_owner_cannot_advertise_receive_pack
 
-test\_owner\_token\_can\_execute\_receive\_pack\_rpc
+test_owner_token_can_execute_receive_pack_rpc
 
-test\_non\_owner\_cannot\_execute\_receive\_pack\_rpc
+test_non_owner_cannot_execute_receive_pack_rpc
 
-test\_receive\_pack\_rejects\_incorrect\_content\_type
+test_receive_pack_rejects_incorrect_content_type
 
-test\_oversized\_receive\_pack\_rpc\_is\_rejected
+test_oversized_receive_pack_rpc_is_rejected
 
-test\_corrupt\_repository\_storage\_fails\_closed\_for\_receive\_pack\_rpc
+test_corrupt_repository_storage_fails_closed_for_receive_pack_rpc
 
-test\_receive\_pack\_requires\_authentication
+test_receive_pack_requires_authentication
 
 ```
 
@@ -530,17 +530,17 @@ The suite contains:
 
 ```text
 
-test\_real\_git\_client\_can\_push\_new\_commit\_with\_valid\_owner\_pat
+test_real_git_client_can_push_new_commit_with_valid_owner_pat
 
-test\_successful\_push\_is\_visible\_through\_repository\_browser
+test_successful_push_is_visible_through_repository_browser
 
-test\_real\_git\_client\_rejects\_push\_without\_credentials
+test_real_git_client_rejects_push_without_credentials
 
-test\_real\_git\_client\_rejects\_push\_with\_invalid\_pat
+test_real_git_client_rejects_push_with_invalid_pat
 
-test\_real\_git\_client\_rejects\_push\_with\_revoked\_pat
+test_real_git_client_rejects_push_with_revoked_pat
 
-test\_real\_git\_client\_rejects\_push\_by\_authenticated\_non\_owner
+test_real_git_client_rejects_push_by_authenticated_non_owner
 
 ```
 
@@ -598,69 +598,69 @@ Conceptual execution path:
 
 PHPUnit
 
-&#x20; |
+  |
 
-&#x20; +-- create temporary SQLite database
+  +-- create temporary SQLite database
 
-&#x20; |
+  |
 
-&#x20; +-- migrate schema
+  +-- migrate schema
 
-&#x20; |
+  |
 
-&#x20; +-- create repository metadata
+  +-- create repository metadata
 
-&#x20; |
+  |
 
-&#x20; +-- initialize managed bare repository
+  +-- initialize managed bare repository
 
-&#x20; |
+  |
 
-&#x20; +-- seed initial commit
+  +-- seed initial commit
 
-&#x20; |
+  |
 
-&#x20; +-- start Laravel HTTP server
+  +-- start Laravel HTTP server
 
-&#x20; |
+  |
 
-&#x20; +-- git clone
+  +-- git clone
 
-&#x20; |
+  |
 
-&#x20; +-- modify local repository
+  +-- modify local repository
 
-&#x20; |
+  |
 
-&#x20; +-- git commit
+  +-- git commit
 
-&#x20; |
+  |
 
-&#x20; +-- git push
+  +-- git push
 
-&#x20;         |
+          |
 
-&#x20;         v
+          v
 
-&#x20;   Git Smart HTTP
+    Git Smart HTTP
 
-&#x20;         |
+          |
 
-&#x20;         v
+          v
 
-&#x20;   git-receive-pack
+    git-receive-pack
 
-&#x20;         |
+          |
 
-&#x20;         v
+          v
 
-&#x20;   managed bare repository
+    managed bare repository
 
-&#x20;         |
+          |
 
-&#x20;         v
+          v
 
-&#x20;   repository browser verification
+    repository browser verification
 
 ```
 
@@ -680,9 +680,9 @@ The normal PHPUnit environment uses:
 
 ```text
 
-DB\_CONNECTION=sqlite
+DB_CONNECTION=sqlite
 
-DB\_DATABASE=:memory:
+DB_DATABASE=:memory:
 
 ```
 
@@ -730,9 +730,9 @@ The test uses isolated managed repository storage configured through:
 
 ```text
 
-GITFORGE\_REPOSITORY\_ROOT=<temporary-path>
+GITFORGE_REPOSITORY_ROOT=<temporary-path>
 
-GIT\_INITIAL\_BRANCH=main
+GIT_INITIAL_BRANCH=main
 
 ```
 
@@ -790,7 +790,7 @@ Interactive credential prompting is disabled through:
 
 ```text
 
-GIT\_TERMINAL\_PROMPT=0
+GIT_TERMINAL_PROMPT=0
 
 ```
 
@@ -884,37 +884,37 @@ The write path is:
 
 PAT supplied
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 PAT validated
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 User identity resolved
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Target repository resolved
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Repository ownership evaluated
 
-&#x20;   |
+    |
 
-&#x20;   +--> owner -> receive-pack allowed
+    +--> owner -> receive-pack allowed
 
-&#x20;   |
+    |
 
-&#x20;   +--> non-owner -> forbidden
+    +--> non-owner -> forbidden
 
 ```
 
@@ -990,7 +990,7 @@ Existing integration test:
 
 ```text
 
-test\_owner\_token\_can\_advertise\_receive\_pack
+test_owner_token_can_advertise_receive_pack
 
 ```
 
@@ -1042,7 +1042,7 @@ New E2E test:
 
 ```text
 
-test\_real\_git\_client\_can\_push\_new\_commit\_with\_valid\_owner\_pat
+test_real_git_client_can_push_new_commit_with_valid_owner_pat
 
 ```
 
@@ -1056,45 +1056,45 @@ Execution flow:
 
 create managed repository
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 seed initial commit
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 git clone
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 modify README.md
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 git add
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 git commit
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 git push origin main
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 resolve remote refs/heads/main
 
@@ -1154,7 +1154,7 @@ New E2E test:
 
 ```text
 
-test\_real\_git\_client\_rejects\_push\_without\_credentials
+test_real_git_client_rejects_push_without_credentials
 
 ```
 
@@ -1166,7 +1166,7 @@ Supporting integration test:
 
 ```text
 
-test\_receive\_pack\_requires\_authentication
+test_receive_pack_requires_authentication
 
 ```
 
@@ -1224,7 +1224,7 @@ New E2E test:
 
 ```text
 
-test\_real\_git\_client\_rejects\_push\_with\_invalid\_pat
+test_real_git_client_rejects_push_with_invalid_pat
 
 ```
 
@@ -1282,7 +1282,7 @@ New E2E test:
 
 ```text
 
-test\_real\_git\_client\_rejects\_push\_with\_revoked\_pat
+test_real_git_client_rejects_push_with_revoked_pat
 
 ```
 
@@ -1340,7 +1340,7 @@ New real-client E2E test:
 
 ```text
 
-test\_real\_git\_client\_rejects\_push\_by\_authenticated\_non\_owner
+test_real_git_client_rejects_push_by_authenticated_non_owner
 
 ```
 
@@ -1352,9 +1352,9 @@ Supporting integration tests:
 
 ```text
 
-test\_non\_owner\_cannot\_advertise\_receive\_pack
+test_non_owner_cannot_advertise_receive_pack
 
-test\_non\_owner\_cannot\_execute\_receive\_pack\_rpc
+test_non_owner_cannot_execute_receive_pack_rpc
 
 ```
 
@@ -1414,7 +1414,7 @@ New E2E test:
 
 ```text
 
-test\_successful\_push\_is\_visible\_through\_repository\_browser
+test_successful_push_is_visible_through_repository_browser
 
 ```
 
@@ -1686,7 +1686,7 @@ Existing integration test:
 
 ```text
 
-test\_corrupt\_repository\_storage\_fails\_closed\_for\_receive\_pack\_rpc
+test_corrupt_repository_storage_fails_closed_for_receive_pack_rpc
 
 ```
 
@@ -1698,9 +1698,9 @@ Supporting receive-pack protection tests:
 
 ```text
 
-test\_receive\_pack\_rejects\_incorrect\_content\_type
+test_receive_pack_rejects_incorrect_content_type
 
-test\_oversized\_receive\_pack\_rpc\_is\_rejected
+test_oversized_receive_pack_rpc_is_rejected
 
 ```
 
@@ -1732,9 +1732,9 @@ Existing evidence:
 
 ```text
 
-test\_owner\_token\_can\_advertise\_receive\_pack
+test_owner_token_can_advertise_receive_pack
 
-test\_non\_owner\_cannot\_advertise\_receive\_pack
+test_non_owner_cannot_advertise_receive_pack
 
 ```
 
@@ -1766,9 +1766,9 @@ Existing evidence:
 
 ```text
 
-test\_owner\_token\_can\_execute\_receive\_pack\_rpc
+test_owner_token_can_execute_receive_pack_rpc
 
-test\_non\_owner\_cannot\_execute\_receive\_pack\_rpc
+test_non_owner_cannot_execute_receive_pack_rpc
 
 ```
 
@@ -1800,7 +1800,7 @@ Existing evidence:
 
 ```text
 
-test\_receive\_pack\_requires\_authentication
+test_receive_pack_requires_authentication
 
 ```
 
@@ -1832,7 +1832,7 @@ Existing test:
 
 ```text
 
-test\_receive\_pack\_rejects\_incorrect\_content\_type
+test_receive_pack_rejects_incorrect_content_type
 
 ```
 
@@ -1864,7 +1864,7 @@ Existing test:
 
 ```text
 
-test\_oversized\_receive\_pack\_rpc\_is\_rejected
+test_oversized_receive_pack_rpc_is_rejected
 
 ```
 
@@ -1896,7 +1896,7 @@ Existing test:
 
 ```text
 
-test\_corrupt\_repository\_storage\_fails\_closed\_for\_receive\_pack\_rpc
+test_corrupt_repository_storage_fails_closed_for_receive_pack_rpc
 
 ```
 
@@ -1974,7 +1974,7 @@ Command executed:
 
 php artisan test `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpWriteEndToEndTest.php
+    tests\\Feature\\Git\\GitSmartHttpWriteEndToEndTest.php
 
 ```
 
@@ -2044,9 +2044,9 @@ Command executed:
 
 php artisan test `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpTest.php `
+    tests\\Feature\\Git\\GitSmartHttpTest.php `
 
-&#x20;   --filter="receive\_pack|receive pack"
+    --filter="receive_pack|receive pack"
 
 ```
 
@@ -2182,9 +2182,9 @@ Command executed:
 
 vendor\\bin\\pint --test `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpTest.php `
+    tests\\Feature\\Git\\GitSmartHttpTest.php `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpWriteEndToEndTest.php
+    tests\\Feature\\Git\\GitSmartHttpWriteEndToEndTest.php
 
 ```
 
@@ -2451,39 +2451,39 @@ The real Git client successfully completed the write protocol:
 
 receive-pack advertisement
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 authentication
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 authorization
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 ref negotiation
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 pack transmission
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 receive-pack execution
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 ref update
 

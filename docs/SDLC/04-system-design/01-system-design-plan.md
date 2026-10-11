@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | System Design Plan |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---

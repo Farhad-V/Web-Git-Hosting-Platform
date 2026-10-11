@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Git Process Execution Design |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -344,7 +335,7 @@ git
 
 Arguments:
 
-\[
+[
 
    "upload-pack",
 
@@ -2171,29 +2162,17 @@ preserve Git protocol semantics
 ## 127. Operation Design Matrix
 
 | Operation | Git Command Family | Repository Access | Streaming | Mutation |
-
 |---|---|---|---:|---:|
-
 | Bare initialization | `git init --bare` | New target | No | Yes |
-
 | Read advertisement | `git upload-pack --advertise-refs` | Existing | No/Small stream | No |
-
 | Clone/fetch RPC | `git upload-pack --stateless-rpc` | Existing | Yes | No |
-
 | Write advertisement | `git receive-pack --advertise-refs` | Existing | No/Small stream | No |
-
 | Push RPC | `git receive-pack --stateless-rpc` | Existing | Yes | Yes |
-
 | Branch list | `git for-each-ref` | Existing | No | No |
-
 | Commit history | `git log` / `git rev-list` | Existing | No | No |
-
 | Commit detail | `git show` / plumbing | Existing | No | No |
-
 | Tree list | `git ls-tree` | Existing | No | No |
-
 | Blob read | `git cat-file` | Existing | No/Bounded | No |
-
 | Repository verify | `git rev-parse` / controlled verification | Existing | No | No |
 
 ---
@@ -2203,25 +2182,15 @@ preserve Git protocol semantics
 ## 128. Failure Matrix
 
 | Condition | Start Process? | Result |
-
 |---|---:|---|
-
 | Authorization denied | No | Authorization failure |
-
 | Unsafe repository path | No | Security failure |
-
 | Repository missing | No | Consistency/not-found failure |
-
 | Git binary missing | No/Start fails | Infrastructure failure |
-
 | Timeout | Yes | Git process timeout |
-
 | Non-zero exit | Yes | Git process failure |
-
 | Invalid commit/ref | Yes or prevalidated | Object/ref not found |
-
 | Push rejected by Git | Yes | Git-native rejection |
-
 | Storage full during push | Yes | Git/storage failure |
 
 ---

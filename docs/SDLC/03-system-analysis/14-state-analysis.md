@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | State Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -196,13 +187,13 @@ Conceptually:
 
 Application State
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
 Git-Native State
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
@@ -218,7 +209,7 @@ PAT revocation
 
 Repository ownership
 
-&#x20;   ↓
+    ↓
 
 PostgreSQL
 
@@ -236,7 +227,7 @@ Git refs
 
 Repository object graph
 
-&#x20;   ↓
+    ↓
 
 Physical Git Repository
 
@@ -266,19 +257,19 @@ Conceptually:
 
 Unauthenticated
 
-&#x20;     ↓
+      ↓
 
 Successful Login
 
-&#x20;     ↓
+      ↓
 
 Authenticated
 
-&#x20;     ↓
+      ↓
 
 Logout / Authentication Invalidation
 
-&#x20;     ↓
+      ↓
 
 Unauthenticated
 
@@ -304,11 +295,11 @@ Conceptually:
 
 Unauthenticated
 
-&#x20;     ↓
+      ↓
 
 Failed Login
 
-&#x20;     ↓
+      ↓
 
 Unauthenticated
 
@@ -326,11 +317,11 @@ Conceptually:
 
 Not Existing
 
-&#x20;     ↓
+      ↓
 
 Creation
 
-&#x20;     ↓
+      ↓
 
 Available
 
@@ -458,11 +449,11 @@ Transition:
 
 Empty
 
-&#x20; ↓
+  ↓
 
 First Successful Push
 
-&#x20; ↓
+  ↓
 
 Has History
 
@@ -498,7 +489,7 @@ Therefore:
 
 Empty
 
-&#x20;   ≠
+    ≠
 
 Missing
 
@@ -518,7 +509,7 @@ Metadata Exists
 
 Physical Repository Missing
 
-&#x20;   ↓
+    ↓
 
 Storage Inconsistency
 
@@ -540,7 +531,7 @@ Metadata Missing
 
 Physical Repository Exists
 
-&#x20;   ↓
+    ↓
 
 Orphaned Storage
 
@@ -620,7 +611,7 @@ Conceptually:
 
 Public
 
-&#x20;   ↓
+    ↓
 
 Anonymous Read Allowed
 
@@ -636,7 +627,7 @@ versus:
 
 Private
 
-&#x20;   ↓
+    ↓
 
 Owner Read Allowed
 
@@ -784,7 +775,7 @@ Verification Success
 
 Owner User Resolved
 
-&#x20;     ↓
+      ↓
 
 Authenticated User Identity
 
@@ -802,7 +793,7 @@ Conceptually:
 
 PAT Revoked
 
-&#x20;     ↓
+      ↓
 
 Authentication Denied
 
@@ -900,23 +891,23 @@ Authentication is included where required.
 
 Received
 
-&#x20;  ↓
+   ↓
 
 Repository Resolved
 
-&#x20;  ↓
+   ↓
 
 Public Read Authorized
 
-&#x20;  ↓
+   ↓
 
 Storage Resolved
 
-&#x20;  ↓
+   ↓
 
 git-upload-pack Executing
 
-&#x20;  ↓
+   ↓
 
 Succeeded / Failed
 
@@ -930,31 +921,31 @@ Succeeded / Failed
 
 Received
 
-&#x20;  ↓
+   ↓
 
 PAT Authentication
 
-&#x20;  ↓
+   ↓
 
 User Identified
 
-&#x20;  ↓
+   ↓
 
 Repository Resolved
 
-&#x20;  ↓
+   ↓
 
 Owner Read Authorized
 
-&#x20;  ↓
+   ↓
 
 Storage Resolved
 
-&#x20;  ↓
+   ↓
 
 git-upload-pack Executing
 
-&#x20;  ↓
+   ↓
 
 Succeeded / Failed
 
@@ -1188,11 +1179,11 @@ Invalid transition:
 
 Creating
 
-&#x20;  ↓
+   ↓
 
 Physical Storage Failure
 
-&#x20;  ↓
+   ↓
 
 Available
 
@@ -1344,7 +1335,7 @@ Conceptually:
 
 Commit object created
 
-&#x20;     ↓
+      ↓
 
 Persisted in Git object database
 
@@ -1366,11 +1357,11 @@ Conceptually:
 
 Revision
 
-&#x20; ↓
+  ↓
 
 Tree
 
-&#x20; ↓
+  ↓
 
 Blob
 
@@ -1518,7 +1509,7 @@ Conceptually:
 
 Authorization = Deny
 
-&#x20;     ↓
+      ↓
 
 Do not proceed to protected physical access
 
@@ -1628,15 +1619,15 @@ Conceptually:
 
 Authenticated / Anonymous Context
 
-&#x20;     ↓
+      ↓
 
 Repository Context
 
-&#x20;     ↓
+      ↓
 
 Read Authorization Evaluation
 
-&#x20;     ↓
+      ↓
 
 Allow / Deny
 
@@ -1652,15 +1643,15 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Repository Context
 
-&#x20;     ↓
+      ↓
 
 Owner Relationship Evaluation
 
-&#x20;     ↓
+      ↓
 
 Allow / Deny
 
@@ -1840,11 +1831,11 @@ If a visibility update cannot be persisted:
 
 Requested New Visibility
 
-&#x20;     ↓
+      ↓
 
 Persistence Failure
 
-&#x20;     ↓
+      ↓
 
 Do Not Report New Visibility as Committed
 
@@ -1860,11 +1851,11 @@ If PAT creation cannot establish valid authoritative token state:
 
 Creation Requested
 
-&#x20;     ↓
+      ↓
 
 Generation/Persistence Failure
 
-&#x20;     ↓
+      ↓
 
 PAT Not Available
 
@@ -1882,15 +1873,15 @@ PAT creation contains a short-lived sensitive presentation state:
 
 Generated
 
-&#x20;     ↓
+      ↓
 
 Persisted Verification State
 
-&#x20;     ↓
+      ↓
 
 Plaintext Presented Once
 
-&#x20;     ↓
+      ↓
 
 Plaintext No Longer Recoverable
 
@@ -2006,35 +1997,35 @@ Example:
 
 Received Push
 
-&#x20;     ↓
+      ↓
 
-\[Valid PAT]
+[Valid PAT]
 
-&#x20;     ↓
+      ↓
 
 Authenticated
 
-&#x20;     ↓
+      ↓
 
-\[Repository Resolved]
+[Repository Resolved]
 
-&#x20;     ↓
+      ↓
 
 Repository Context
 
-&#x20;     ↓
+      ↓
 
-\[Owner]
+[Owner]
 
-&#x20;     ↓
+      ↓
 
 Authorized
 
-&#x20;     ↓
+      ↓
 
-\[Storage Available]
+[Storage Available]
 
-&#x20;     ↓
+      ↓
 
 Executing Write
 
@@ -2101,37 +2092,21 @@ Non-Owner → Collaborator
 ## 92. State Analysis Responsibility Matrix
 
 | State Area | Logical Responsibility |
-
 |---|---|
-
 | Interactive authentication | Application Authentication |
-
 | PAT lifecycle | PAT Coordination |
-
 | PAT authentication | Git Authentication |
-
 | Repository lifecycle | Repository Coordination |
-
 | Repository visibility | Repository Coordination |
-
 | Repository ownership | Repository Metadata |
-
 | Repository availability | Repository Storage Coordination |
-
 | Git history state | Physical Git Repository |
-
 | Read authorization outcome | Repository Authorization |
-
 | Write authorization outcome | Repository Authorization |
-
 | Git read interaction state | Git Read Coordination |
-
 | Git write interaction state | Git Write Coordination |
-
 | Git process outcome | Git Process Coordination |
-
 | Failure classification | Failure Handling |
-
 | Diagnostic state | Diagnostics |
 
 ---
@@ -2139,21 +2114,13 @@ Non-Owner → Collaborator
 ## 93. State Transition Decision Table — Repository
 
 | Current State | Event | Guard | Next State |
-
 |---|---|---|---|
-
 | Not Existing | Create | Valid + unique namespace | Creating |
-
 | Creating | Physical + metadata creation succeeds | Consistent state | Available |
-
 | Creating | Creation fails | Any critical failure | Creation Failed |
-
 | Available/Public | Change visibility | Owner authorized | Available/Private |
-
 | Available/Private | Change visibility | Owner authorized | Available/Public |
-
 | Available/Empty | First successful push | Owner authorized | Available/Has History |
-
 | Available/Has History | Successful push | Owner authorized | Available/Has History |
 
 ---
@@ -2161,19 +2128,12 @@ Non-Owner → Collaborator
 ## 94. State Transition Decision Table — PAT
 
 | Current State | Event | Guard | Next State |
-
 |---|---|---|---|
-
 | None | Create PAT | Authenticated User | Created |
-
 | Created | Creation completes | Verification state stored | Active |
-
 | Active | Authenticate | Valid + not revoked | Remains Active |
-
 | Active | Revoke | PAT owner | Revoked |
-
 | Revoked | Authenticate | Any | Remains Revoked / Deny |
-
 | Revoked | Reactivate | Any | Unsupported |
 
 ---
@@ -2181,21 +2141,13 @@ Non-Owner → Collaborator
 ## 95. State Transition Decision Table — Git Read
 
 | Current State | Event | Guard | Next State |
-
 |---|---|---|---|
-
 | Received | Authenticate | Required + valid | Repository Resolution |
-
 | Received | Resolve repository | Public anonymous read | Repository Resolution |
-
 | Repository Resolved | Authorize read | Policy allows | Storage Resolution |
-
 | Repository Resolved | Authorize read | Policy denies | Failed/Denied |
-
 | Storage Resolved | Execute read | Repository available | Executing |
-
 | Executing | Git succeeds | Valid result | Succeeded |
-
 | Executing | Git fails | Any | Failed |
 
 ---
@@ -2203,21 +2155,13 @@ Non-Owner → Collaborator
 ## 96. State Transition Decision Table — Git Write
 
 | Current State | Event | Guard | Next State |
-
 |---|---|---|---|
-
 | Received | Authenticate PAT | Valid + active | Repository Resolution |
-
 | Received | Authenticate PAT | Invalid/revoked | Failed/Denied |
-
 | Repository Resolved | Authorize write | Owner | Storage Resolution |
-
 | Repository Resolved | Authorize write | Non-owner | Failed/Denied |
-
 | Storage Resolved | Execute write | Repository available | Executing |
-
 | Executing | Git succeeds | Ref/object update succeeds | Succeeded |
-
 | Executing | Git rejects/fails | Any | Failed |
 
 ---

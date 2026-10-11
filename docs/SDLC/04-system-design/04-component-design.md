@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Component Design |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -2757,61 +2748,33 @@ Concrete schema is defined in:
 Major capability mapping:
 
 | Capability | Primary Component |
-
 |---|---|
-
 | Registration | Authentication |
-
 | Login | Authentication |
-
 | Logout | Authentication |
-
 | Repository creation | Repository Management |
-
 | Repository listing | Repository Management |
-
 | Repository metadata view | Repository Management |
-
 | Visibility update | Repository Management + Authorization |
-
 | Repository browser | Repository Browser |
-
 | Branch listing | Repository Browser |
-
 | Commit history | Repository Browser |
-
 | Commit details | Repository Browser |
-
 | Tree browsing | Repository Browser |
-
 | File/blob view | Repository Browser |
-
 | PAT creation | PAT Management |
-
 | PAT authentication | PAT Management + Authentication |
-
 | PAT revocation | PAT Management |
-
 | Git read | Git Read Service |
-
 | Clone | Git Read Service |
-
 | Fetch | Git Read Service |
-
 | Git write | Git Write Service |
-
 | Push | Git Write Service |
-
 | Read authorization | Repository Authorization |
-
 | Write authorization | Repository Authorization |
-
 | Physical repository resolution | Repository Storage |
-
 | Git-native operations | Git Process Execution |
-
 | Metadata persistence | Persistence |
-
 | Diagnostics | Observability |
 
 ---

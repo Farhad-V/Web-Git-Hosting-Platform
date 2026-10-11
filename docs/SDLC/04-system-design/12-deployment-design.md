@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Deployment Design |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -1835,27 +1826,16 @@ GitForge V1.0.0 does not require SSH Git transport.
 ## 105. Core Configuration
 
 | Setting | Purpose | Secret |
-
 |---|---|---:|
-
 | `APP_ENV` | Runtime environment | No |
-
 | `APP_KEY` | Laravel cryptographic application key | Yes |
-
 | `APP_URL` | Public application URL | No |
-
 | `DB_HOST` | PostgreSQL host | No |
-
 | `DB_PORT` | PostgreSQL port | No |
-
 | `DB_DATABASE` | Database name | No |
-
 | `DB_USERNAME` | Database role | Usually no |
-
 | `DB_PASSWORD` | Database credential | Yes |
-
 | `GITFORGE_REPOSITORY_ROOT` | Persistent Git storage root | No |
-
 | `GITFORGE_GIT_BINARY` | Git executable path | No |
 
 ---

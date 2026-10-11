@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Repository Storage Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -166,13 +157,13 @@ GitForge uses two distinct authoritative storage domains.
 
 Application Metadata
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
 Git-Native Repository State
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
@@ -248,7 +239,7 @@ Conceptually:
 
 PostgreSQL
 
-&#x20;   ↓
+    ↓
 
 Who owns the repository?
 
@@ -258,7 +249,7 @@ Is it public or private?
 
 Physical Git Repository
 
-&#x20;   ↓
+    ↓
 
 What branches exist?
 
@@ -308,11 +299,11 @@ Conceptually:
 
 User
 
-&#x20; ↓
+  ↓
 
 Owns Namespace
 
-&#x20; ↓
+  ↓
 
 Contains Repositories
 
@@ -370,19 +361,19 @@ Conceptually:
 
 Validated Owner
 
-&#x20;     +
+      +
 
 Validated Repository Name
 
-&#x20;     ↓
+      ↓
 
 Repository Metadata Resolution
 
-&#x20;     ↓
+      ↓
 
 Internal Storage Mapping
 
-&#x20;     ↓
+      ↓
 
 Safe Physical Repository Path
 
@@ -402,7 +393,7 @@ Conceptually:
 
 Repository Storage Root
 
-&#x20;       ↓
+        ↓
 
 Managed Repository Space
 
@@ -422,7 +413,7 @@ Invariant:
 
 Resolved Repository Path
 
-&#x20;       ∈
+        ∈
 
 Configured Repository Root
 
@@ -468,19 +459,19 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Validate Repository Request
 
-&#x20;     ↓
+      ↓
 
 Create Application Repository Identity
 
-&#x20;     ↓
+      ↓
 
 Create Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Repository Available
 
@@ -528,7 +519,7 @@ Metadata Created
 
 Physical Storage Failed
 
-&#x20;       ↓
+        ↓
 
 Inconsistent Repository
 
@@ -550,15 +541,15 @@ Conceptually:
 
 Repository Metadata Exists
 
-&#x20;     +
+      +
 
 Physical Repository Exists
 
-&#x20;     +
+      +
 
 No Commit History
 
-&#x20;     ↓
+      ↓
 
 Valid Empty Repository
 
@@ -626,19 +617,19 @@ Conceptually:
 
 <owner>/<repository>
 
-&#x20;     ↓
+      ↓
 
 Resolve User Namespace
 
-&#x20;     ↓
+      ↓
 
 Resolve Repository Metadata
 
-&#x20;     ↓
+      ↓
 
 Authorization Context
 
-&#x20;     ↓
+      ↓
 
 Physical Storage Resolution
 
@@ -654,15 +645,15 @@ For protected repository interactions:
 
 Resolve Metadata
 
-&#x20;     ↓
+      ↓
 
 Determine Repository Context
 
-&#x20;     ↓
+      ↓
 
 Authorize
 
-&#x20;     ↓
+      ↓
 
 Resolve Physical Storage
 
@@ -682,7 +673,7 @@ Conceptually:
 
 Physical Repository Exists
 
-&#x20;     ≠
+      ≠
 
 Caller Authorized
 
@@ -700,15 +691,15 @@ For a Public Repository:
 
 Repository Resolved
 
-&#x20;     ↓
+      ↓
 
 Read Authorized
 
-&#x20;     ↓
+      ↓
 
 Physical Repository Resolved
 
-&#x20;     ↓
+      ↓
 
 Read Operation
 
@@ -726,23 +717,23 @@ For a Private Repository:
 
 Authenticate
 
-&#x20;     ↓
+      ↓
 
 Resolve User
 
-&#x20;     ↓
+      ↓
 
 Resolve Repository
 
-&#x20;     ↓
+      ↓
 
 Authorize Owner Read
 
-&#x20;     ↓
+      ↓
 
 Resolve Physical Repository
 
-&#x20;     ↓
+      ↓
 
 Read Operation
 
@@ -758,23 +749,23 @@ For all supported writes:
 
 Authenticate PAT
 
-&#x20;     ↓
+      ↓
 
 Resolve User
 
-&#x20;     ↓
+      ↓
 
 Resolve Repository
 
-&#x20;     ↓
+      ↓
 
 Authorize Owner Write
 
-&#x20;     ↓
+      ↓
 
 Resolve Physical Repository
 
-&#x20;     ↓
+      ↓
 
 Mutation
 
@@ -894,7 +885,7 @@ Invariant:
 
 Logical Repository A
 
-&#x20;     ↓
+      ↓
 
 Physical Repository A
 
@@ -906,7 +897,7 @@ never:
 
 Logical Repository A
 
-&#x20;     ↓
+      ↓
 
 Physical Repository B
 
@@ -924,15 +915,15 @@ Conceptually:
 
 Application Repository
 
-&#x20;      1
+       1
 
-&#x20;      |
+       |
 
-&#x20;      | maps to
+       | maps to
 
-&#x20;      |
+       |
 
-&#x20;      1
+       1
 
 Physical Git Repository
 
@@ -1020,7 +1011,7 @@ Conceptually:
 
 PAT Metadata
 
-&#x20;   ↓
+    ↓
 
 PostgreSQL
 
@@ -1048,15 +1039,15 @@ Conceptually:
 
 Repository Storage Coordination
 
-&#x20;     ↓
+      ↓
 
 Safe Physical Target
 
-&#x20;     ↓
+      ↓
 
 Git Process Coordination
 
-&#x20;     ↓
+      ↓
 
 Git Executable
 
@@ -1201,37 +1192,21 @@ Repository access must remain confined to the intended repository target.
 ## 54. Repository Storage Responsibility Matrix
 
 | Responsibility | Logical Owner |
-
 |---|---|
-
 | Validate repository namespace | Repository Coordination |
-
 | Resolve repository metadata | Repository Resolution |
-
 | Persist application metadata | PostgreSQL Persistence |
-
 | Determine repository owner | Repository Metadata |
-
 | Determine visibility | Repository Metadata |
-
 | Evaluate access | Repository Authorization |
-
 | Derive physical repository target | Repository Storage Coordination |
-
 | Enforce storage-root containment | Repository Storage Coordination |
-
 | Initialize physical Git repository | Git Process / Storage Coordination |
-
 | Read Git-native state | Git Read Coordination |
-
 | Mutate Git-native state | Git Write Coordination |
-
 | Persist Git objects/refs | Physical Git Repository |
-
 | Detect missing repository storage | Repository Storage Coordination |
-
 | Classify storage inconsistency | Failure Handling |
-
 | Record diagnostics | Diagnostics |
 
 ---
@@ -1244,39 +1219,39 @@ Conceptually:
 
 Caller
 
-&#x20; ↓
+  ↓
 
 Logical Repository Identifier
 
-&#x20; ↓
+  ↓
 
 Repository Resolution
 
-&#x20; ↓
+  ↓
 
 PostgreSQL Metadata
 
-&#x20; ↓
+  ↓
 
 Authorization
 
-&#x20; ↓
+  ↓
 
 Repository Storage Coordination
 
-&#x20; ↓
+  ↓
 
 Safe Physical Repository Target
 
-&#x20; ↓
+  ↓
 
 Git Read / Write Coordination
 
-&#x20; ↓
+  ↓
 
 Git Executable
 
-&#x20; ↓
+  ↓
 
 Physical Git Repository
 
@@ -1290,31 +1265,31 @@ Physical Git Repository
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Repository Creation Request
 
-&#x20;     ↓
+      ↓
 
 Validation
 
-&#x20;     ↓
+      ↓
 
 Namespace Uniqueness Check
 
-&#x20;     ↓
+      ↓
 
 Repository Metadata
 
-&#x20;     ↓
+      ↓
 
 Safe Storage Target
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository Initialization
 
-&#x20;     ↓
+      ↓
 
 Consistent Available Repository
 
@@ -1328,31 +1303,31 @@ Consistent Available Repository
 
 Web Caller
 
-&#x20;   ↓
+    ↓
 
 Repository Identifier
 
-&#x20;   ↓
+    ↓
 
 Repository Resolution
 
-&#x20;   ↓
+    ↓
 
 Authorization
 
-&#x20;   ↓
+    ↓
 
 Safe Physical Repository
 
-&#x20;   ↓
+    ↓
 
 Git-Native Read
 
-&#x20;   ↓
+    ↓
 
 Branches / Commits / Trees / Files
 
-&#x20;   ↓
+    ↓
 
 Web Response
 
@@ -1366,23 +1341,23 @@ Web Response
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Logical Repository
 
-&#x20;   ↓
+    ↓
 
 Authorization
 
-&#x20;   ↓
+    ↓
 
 Safe Physical Repository
 
-&#x20;   ↓
+    ↓
 
 git-upload-pack
 
-&#x20;   ↓
+    ↓
 
 Git Protocol Output
 
@@ -1396,27 +1371,27 @@ Git Protocol Output
 
 Git Client + PAT
 
-&#x20;     ↓
+      ↓
 
 Authentication
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Owner Authorization
 
-&#x20;     ↓
+      ↓
 
 Safe Physical Repository
 
-&#x20;     ↓
+      ↓
 
 git-receive-pack
 
-&#x20;     ↓
+      ↓
 
 Refs / Objects Mutated
 
@@ -1710,7 +1685,7 @@ or
 
 Cross-repository mapping uncertainty
 
-&#x20;       ↓
+        ↓
 
 Do Not Access Physical Repository
 
@@ -1874,7 +1849,7 @@ Conceptually:
 
 Read Operation
 
-&#x20;     +
+      +
 
 Write Operation
 
@@ -1896,15 +1871,15 @@ Conceptually:
 
 Initial Empty Repository
 
-&#x20;     ↓
+      ↓
 
 Push
 
-&#x20;     ↓
+      ↓
 
 Objects + Refs
 
-&#x20;     ↓
+      ↓
 
 Larger Repository
 
@@ -1981,21 +1956,13 @@ Uncertain repository identity or path resolution prevents physical access.
 ## 73. Repository Storage Decision Table
 
 | Metadata | Physical Repository | Authorization | Result |
-
 |---|---|---|---|
-
 | Missing | Unknown | N/A | Safe not-found handling |
-
 | Present | Present | Allow | Perform approved repository operation |
-
 | Present | Present | Deny | Deny access |
-
 | Present | Missing | Allow | Storage consistency failure |
-
 | Present | Corrupt | Allow | Operational failure |
-
 | Missing | Present | N/A | Orphaned storage; do not expose automatically |
-
 | Present | Target escapes root | Any | Reject |
 
 ---
@@ -2003,15 +1970,10 @@ Uncertain repository identity or path resolution prevents physical access.
 ## 74. Repository Creation Decision Table
 
 | Name Valid | Namespace Unique | Physical Init | Result |
-
 |---|---|---|---|
-
 | No | N/A | Not attempted | Reject |
-
 | Yes | No | Not attempted | Reject |
-
 | Yes | Yes | Success | Repository may become available |
-
 | Yes | Yes | Failure | Creation fails / consistency handling required |
 
 Exact transaction ordering belongs to System Design.
@@ -2021,19 +1983,12 @@ Exact transaction ordering belongs to System Design.
 ## 75. Storage Access Decision Table
 
 | Operation | Authorization Required | Physical Repository Required |
-
 |---|---:|---:|
-
 | Public repository web read | Yes, public-read policy | Yes |
-
 | Private repository web read | Yes, owner | Yes |
-
 | Public anonymous Git clone/fetch | Yes, public-read policy | Yes |
-
 | Private Git clone/fetch | Yes, owner | Yes |
-
 | Git push | Yes, owner | Yes |
-
 | Repository creation | Authenticated User ownership context | Creates physical repository |
 
 ---

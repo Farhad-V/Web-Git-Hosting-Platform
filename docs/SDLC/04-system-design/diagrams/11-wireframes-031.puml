@@ -1,4 +1,11 @@
 @startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
 title GitForge - Public Repository Visitor Flow
 actor Visitor
 Visitor -> "Repository Overview" : Open public repository

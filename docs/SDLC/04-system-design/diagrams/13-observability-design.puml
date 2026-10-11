@@ -1,4 +1,11 @@
 @startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
 title GitForge - Observability Logging Flow
 actor Client
 participant "HTTP / Git Adapter" as Adapter

@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Trust Boundary Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -106,11 +97,11 @@ Conceptually:
 
 Untrusted / Less Trusted Context
 
-&#x20;       ↓
+        ↓
 
 Validation / Verification / Authorization
 
-&#x20;       ↓
+        ↓
 
 Trusted Internal Context
 
@@ -130,25 +121,25 @@ Examples:
 
 Valid PAT
 
-&#x20;   ≠
+    ≠
 
 Authorized Repository Access
 
 Validated Repository Name
 
-&#x20;   ≠
+    ≠
 
 Authorized Physical Storage Access
 
 Authenticated User
 
-&#x20;   ≠
+    ≠
 
 Owner of Every Repository
 
 Authorized Owner
 
-&#x20;   ≠
+    ≠
 
 Trusted Repository Content
 
@@ -480,7 +471,7 @@ Boundary:
 
 Visitor / Web User
 
-&#x20;     ↓
+      ↓
 
 Web/API Interface
 
@@ -556,7 +547,7 @@ Boundary:
 
 External Credential
 
-&#x20;     ↓
+      ↓
 
 Application Authentication
 
@@ -608,11 +599,11 @@ Boundary:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 PAT
 
-&#x20;   ↓
+    ↓
 
 Git Authentication
 
@@ -630,23 +621,23 @@ It is not trusted before verification.
 
 Presented PAT
 
-&#x20;     ↓
+      ↓
 
 Candidate Resolution
 
-&#x20;     ↓
+      ↓
 
 Credential Verification
 
-&#x20;     ↓
+      ↓
 
 Revocation Check
 
-&#x20;     ↓
+      ↓
 
 Owner Resolution
 
-&#x20;     ↓
+      ↓
 
 Authenticated User Identity
 
@@ -688,7 +679,7 @@ Boundary:
 
 Authenticated Identity
 
-&#x20;     ↓
+      ↓
 
 Repository Authorization
 
@@ -720,7 +711,7 @@ The following transition is invalid:
 
 Valid Authentication
 
-&#x20;     ↓
+      ↓
 
 Automatic Repository Access
 
@@ -732,15 +723,15 @@ Required transition:
 
 Authenticated Identity
 
-&#x20;     +
+      +
 
 Repository Context
 
-&#x20;     +
+      +
 
 Requested Operation
 
-&#x20;     ↓
+      ↓
 
 Authorization Decision
 
@@ -756,7 +747,7 @@ Boundary:
 
 External <owner>/<repository>
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
@@ -812,7 +803,7 @@ Boundary:
 
 Authoritative Repository Metadata
 
-&#x20;     ↓
+      ↓
 
 Repository Authorization
 
@@ -860,7 +851,7 @@ Boundary:
 
 Authorization Decision
 
-&#x20;     ↓
+      ↓
 
 Repository Storage Coordination
 
@@ -878,11 +869,11 @@ For private read:
 
 Authenticate
 
-&#x20;     ↓
+      ↓
 
 Authorize Owner Read
 
-&#x20;     ↓
+      ↓
 
 Storage Resolution
 
@@ -894,11 +885,11 @@ For write:
 
 Authenticate
 
-&#x20;     ↓
+      ↓
 
 Authorize Owner Write
 
-&#x20;     ↓
+      ↓
 
 Storage Resolution
 
@@ -934,11 +925,11 @@ Boundary:
 
 Resolved Logical Repository
 
-&#x20;     ↓
+      ↓
 
 Repository Storage Coordination
 
-&#x20;     ↓
+      ↓
 
 Physical Repository Target
 
@@ -1012,7 +1003,7 @@ Boundary:
 
 Safe Physical Repository Target
 
-&#x20;     ↓
+      ↓
 
 Git Process Coordination
 
@@ -1032,7 +1023,7 @@ Conceptually:
 
 External Path
 
-&#x20;   ✗
+    ✗
 
 Git Process
 
@@ -1044,7 +1035,7 @@ versus:
 
 Safe Internal Target
 
-&#x20;   ✓
+    ✓
 
 Git Process
 
@@ -1060,7 +1051,7 @@ Boundary:
 
 External Git Protocol Input
 
-&#x20;     ↓
+      ↓
 
 Approved Git Service Coordination
 
@@ -1078,7 +1069,7 @@ Conceptually:
 
 Git Protocol Input
 
-&#x20;     ↓
+      ↓
 
 Approved git-upload-pack
 
@@ -1094,7 +1085,7 @@ Not:
 
 Git Protocol Input
 
-&#x20;     ↓
+      ↓
 
 Arbitrary Shell Command
 
@@ -1134,7 +1125,7 @@ Boundary:
 
 GitForge
 
-&#x20;   ↓
+    ↓
 
 Git Executable
 
@@ -1178,7 +1169,7 @@ Boundary:
 
 Git Executable
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
@@ -1240,7 +1231,7 @@ Boundary:
 
 Git Repository Content
 
-&#x20;     ↓
+      ↓
 
 Repository Browser / Web Representation
 
@@ -1304,7 +1295,7 @@ Boundary:
 
 Validated Application State Change
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
@@ -1342,7 +1333,7 @@ Boundary:
 
 Authoritative Stored Metadata
 
-&#x20;     ↓
+      ↓
 
 Application Logic
 
@@ -1372,11 +1363,11 @@ Boundary:
 
 GitForge
 
-&#x20;   ↓
+    ↓
 
 Plaintext PAT
 
-&#x20;   ↓
+    ↓
 
 User-Controlled Environment
 
@@ -1412,7 +1403,7 @@ Boundary:
 
 Internal Processing
 
-&#x20;     ↓
+      ↓
 
 Diagnostics
 
@@ -1454,7 +1445,7 @@ Boundary:
 
 Diagnostics
 
-&#x20;     ↓
+      ↓
 
 System Operator
 
@@ -1469,43 +1460,24 @@ However, diagnostic access does not justify exposing application secrets unneces
 ## 61. Trust Boundary Map
 
 | ID | From | To | Primary Concern |
-
 |---|---|---|---|
-
 | TB-01 | Web Client | Web/API Interface | Untrusted application input |
-
 | TB-02 | Login Credential | Authentication | Credential verification |
-
 | TB-03 | Git Client PAT | Git Authentication | PAT verification |
-
 | TB-04 | Authentication | Authorization | Identity ≠ permission |
-
 | TB-05 | Logical Repository ID | Repository Resolution | Namespace validation |
-
 | TB-06 | Repository Metadata | Authorization | Authoritative policy context |
-
 | TB-07 | Authorization | Storage Coordination | Protected physical access |
-
 | TB-08 | Logical Repository | Physical Target | Path safety |
-
 | TB-09 | Storage Coordination | Git Process | Safe target propagation |
-
 | TB-10 | Git Protocol Input | Git Process | Untrusted protocol data |
-
 | TB-11 | Application | Git Executable | Controlled execution |
-
 | TB-12 | Git Executable | Git Repository | Git-native authority |
-
 | TB-13 | Git Repository Content | Web Representation | Untrusted content |
-
 | TB-14 | Application | PostgreSQL | Authoritative persistence |
-
 | TB-15 | PostgreSQL | Application | Stored-state consistency |
-
 | TB-16 | PAT Generation | User | Secret exposure |
-
 | TB-17 | Internal Processing | Diagnostics | Secret leakage |
-
 | TB-18 | Diagnostics | Operator | Operational information exposure |
 
 ---
@@ -1558,23 +1530,23 @@ Protected access follows:
 
 Untrusted Request
 
-&#x20;     ↓
+      ↓
 
 Authentication if required
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Authorization
 
-&#x20;     ↓
+      ↓
 
 Safe Storage Resolution
 
-&#x20;     ↓
+      ↓
 
 Approved Git Operation
 
@@ -2005,31 +1977,18 @@ Uncertain identity, authorization, repository mapping, or storage target prevent
 ## 81. Trust Boundary Decision Table
 
 | Boundary Condition | Result |
-
 |---|---|
-
 | External input invalid | Reject |
-
 | Credential invalid | Deny identity |
-
 | PAT revoked | Deny identity |
-
 | User authenticated but non-owner requests write | Deny |
-
 | Private repository + anonymous read | Deny |
-
 | Public repository + anonymous read | Continue through controlled read path |
-
 | Physical target escapes repository root | Reject |
-
 | Git operation not approved | Reject |
-
 | Repository content requested for browser | Treat as untrusted content |
-
 | Diagnostic contains plaintext credential | Suppress / prevent |
-
 | Authorization uncertain | Deny |
-
 | Storage mapping uncertain | Do not access physical repository |
 
 ---
@@ -2037,35 +1996,20 @@ Uncertain identity, authorization, repository mapping, or storage target prevent
 ## 82. Trust Boundary Responsibility Matrix
 
 | Boundary Concern | Logical Responsibility |
-
 |---|---|
-
 | Web input validation | Web/API Interface |
-
 | Interactive credential verification | Application Authentication |
-
 | PAT verification | Git Authentication |
-
 | Repository access decision | Repository Authorization |
-
 | Repository metadata resolution | Repository Resolution |
-
 | Physical path derivation | Repository Storage Coordination |
-
 | Storage-root containment | Repository Storage Coordination |
-
 | Approved Git operation selection | Git Read/Write Coordination |
-
 | Process invocation | Git Process Coordination |
-
 | Repository content handling | Repository Browser / Git Read Coordination |
-
 | PAT creation secret handling | PAT Coordination |
-
 | Diagnostic sanitization | Failure Handling / Diagnostics |
-
 | Persistent application authority | PostgreSQL Persistence |
-
 | Git-native authority | Physical Git Repository |
 
 ---

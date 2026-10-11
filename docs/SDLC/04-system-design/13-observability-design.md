@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Observability Design |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -2387,29 +2378,17 @@ readiness_failed
 ## 116. Common Fields
 
 | Field | Purpose |
-
 |---|---|
-
 | `timestamp` | Event time |
-
 | `level` | Severity |
-
 | `event` | Stable event name |
-
 | `message` | Human-readable summary |
-
 | `request_id` | Correlation |
-
 | `user_id` | Authenticated identity where applicable |
-
 | `repository_id` | Internal repository identity |
-
 | `operation` | Requested operation |
-
 | `result` | Success/failure/allow/deny |
-
 | `duration_ms` | Timing |
-
 | `failure_category` | Stable failure class |
 
 ---
@@ -2419,27 +2398,16 @@ readiness_failed
 ## 117. Never Log
 
 | Value | Logging Rule |
-
 |---|---|
-
 | Password | Never |
-
 | Plaintext PAT | Never |
-
 | PAT hash | Never |
-
 | Raw Authorization header | Never |
-
 | Session secret | Never |
-
 | APP_KEY | Never |
-
 | DB password | Never |
-
 | Full environment dump | Never |
-
 | Packfile payload | Never |
-
 | Arbitrary blob content | Never |
 
 ---

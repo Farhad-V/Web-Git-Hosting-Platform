@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Repository Lifecycle Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -188,15 +179,15 @@ Conceptually:
 
 Repository Request
 
-&#x20;     ↓
+      ↓
 
 Application Identity Established
 
-&#x20;     +
+      +
 
 Physical Git Repository Established
 
-&#x20;     ↓
+      ↓
 
 Repository Available
 
@@ -240,11 +231,11 @@ Conceptually:
 
 Authenticated User X
 
-&#x20;     ↓
+      ↓
 
 Create Repository
 
-&#x20;     ↓
+      ↓
 
 Repository.owner = X
 
@@ -332,21 +323,21 @@ Conceptually:
 
 Owner X + Repository Name Y
 
-&#x20;       ↓
+        ↓
 
 Namespace X/Y
 
-&#x20;       ↓
+        ↓
 
 Already exists?
 
-&#x20;   /          \\
+    /          \\
 
-&#x20; Yes           No
+  Yes           No
 
-&#x20;  |             |
+   |             |
 
-&#x20;Reject        Continue
+ Reject        Continue
 
 ```
 
@@ -434,15 +425,15 @@ Conceptually:
 
 Resolved Internal Storage Identity
 
-&#x20;     ↓
+      ↓
 
 Validate Storage Target
 
-&#x20;     ↓
+      ↓
 
 Initialize Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Verify Initialization Result
 
@@ -472,11 +463,11 @@ Conceptually:
 
 Application Metadata
 
-&#x20;       +
+        +
 
 Physical Git Repository
 
-&#x20;       ↓
+        ↓
 
 Consistent Repository
 
@@ -608,11 +599,11 @@ Repository creation must preserve the logical invariant:
 
 Usable Repository
 
-&#x20;   =
+    =
 
 Valid Application Metadata
 
-&#x20;   +
+    +
 
 Valid Physical Git Repository
 
@@ -634,7 +625,7 @@ Step A succeeds
 
 Step B fails
 
-&#x20;     ↓
+      ↓
 
 Restore safe consistent state
 
@@ -890,7 +881,7 @@ Therefore:
 
 Database transaction alone
 
-&#x20;   ≠
+    ≠
 
 Whole repository creation atomicity
 
@@ -1238,19 +1229,19 @@ Conceptually:
 
 Resolve Repository Metadata
 
-&#x20;       ↓
+        ↓
 
 Resolve Expected Storage Identity
 
-&#x20;       ↓
+        ↓
 
 Physical Repository Exists?
 
-&#x20;       ↓
+        ↓
 
 Usable Git Repository?
 
-&#x20;       ↓
+        ↓
 
 Consistent / Inconsistent
 
@@ -1268,11 +1259,11 @@ If metadata exists but physical storage is missing:
 
 Repository metadata exists
 
-&#x20;       +
+        +
 
 Physical repository missing
 
-&#x20;       ↓
+        ↓
 
 Consistency failure
 
@@ -1348,7 +1339,7 @@ Therefore:
 
 No commits
 
-&#x20;   ≠
+    ≠
 
 Repository failure
 
@@ -1450,11 +1441,11 @@ Conceptually:
 
 Available
 
-&#x20;  ↓
+   ↓
 
 Operational Failure
 
-&#x20;  ↓
+   ↓
 
 Unavailable
 
@@ -1470,11 +1461,11 @@ If the underlying operational problem is corrected and repository consistency re
 
 Unavailable
 
-&#x20;   ↓
+    ↓
 
 Dependency Restored
 
-&#x20;   ↓
+    ↓
 
 Available
 
@@ -1513,29 +1504,17 @@ This distinction is important for diagnosis.
 ## 61. Repository Lifecycle Failure Matrix
 
 | Failure | Lifecycle Interpretation |
-
 |---|---|
-
 | Invalid name | Creation rejected |
-
 | Duplicate namespace | Creation rejected |
-
 | Invalid visibility | Creation rejected |
-
 | Authentication missing | Creation rejected |
-
 | Database unavailable before creation | Creation fails |
-
 | Git initialization fails | Creation fails / consistency handling required |
-
 | Metadata exists, repository missing | Inconsistent |
-
 | Filesystem temporarily unavailable | Unavailable |
-
 | Git executable unavailable | Unavailable for Git-dependent operations |
-
 | Repository corrupted | Unavailable or Inconsistent depending on condition |
-
 | Visibility update persistence fails | Existing visibility remains authoritative unless successful change confirmed |
 
 ---
@@ -1550,7 +1529,7 @@ Conceptually:
 
 Uncertain final state
 
-&#x20;     ↓
+      ↓
 
 Do not report successful creation
 
@@ -1695,31 +1674,18 @@ Diagnostics
 ## 69. Repository Creation Responsibility Matrix
 
 | Responsibility | Logical Owner |
-
 |---|---|
-
 | Receive creation request | Web Interaction |
-
 | Establish creator identity | Web Authentication |
-
 | Validate repository name | Validation |
-
 | Validate visibility | Validation |
-
 | Build logical namespace | Repository Management |
-
 | Check namespace uniqueness | Repository Management / Persistence |
-
 | Establish ownership | Repository Management |
-
 | Persist metadata | Application Data Persistence |
-
 | Resolve storage identity | Repository Storage Coordination |
-
 | Initialize Git repository | Repository Storage / Git Process Coordination |
-
 | Detect partial failure | Repository Management / Failure Handling |
-
 | Record operational failure | Diagnostics |
 
 ---
@@ -1727,21 +1693,13 @@ Diagnostics
 ## 70. Visibility Change Responsibility Matrix
 
 | Responsibility | Logical Owner |
-
 |---|---|
-
 | Receive change request | Web Interaction |
-
 | Resolve caller identity | Web Authentication |
-
 | Resolve repository | Repository Management |
-
 | Authorize owner | Repository Authorization |
-
 | Validate visibility | Validation |
-
 | Persist visibility | Application Data Persistence |
-
 | Apply new policy on future requests | Repository Authorization |
 
 ---
@@ -1821,23 +1779,14 @@ No repository rename transition exists in V1.0.0.
 ## 74. Repository Creation Decision Table
 
 | Condition | Result |
-
 |---|---|
-
 | User unauthenticated | Reject |
-
 | Invalid repository name | Reject |
-
 | Invalid visibility | Reject |
-
 | Namespace already exists | Reject |
-
 | Metadata establishment fails | Fail |
-
 | Physical repository initialization fails | Fail / consistency handling |
-
 | Metadata and physical repository valid | Repository Available |
-
 | Final consistency uncertain | Do not report success |
 
 ---

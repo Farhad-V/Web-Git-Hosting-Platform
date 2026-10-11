@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Analysis Traceability |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -233,31 +224,18 @@ Failure-sensitive requirements should map to failure analysis
 The following dimensions are used:
 
 | Dimension | Meaning |
-
 |---|---|
-
 | Context | System boundary and external actors |
-
 | Domain | Core concepts and relationships |
-
 | Responsibility | Logical responsibility allocation |
-
 | Behavior | Functional analysis |
-
 | Data Flow | Movement of information |
-
 | State | Valid state transitions |
-
 | Security | Authentication, authorization, trust |
-
 | Failure | Negative and exceptional behavior |
-
 | Interaction | Sequence ordering |
-
 | Decision Flow | Activity branching |
-
 | Storage | Logical-to-physical repository handling |
-
 | Git Protocol | Git Smart HTTP read/write behavior |
 
 ---
@@ -265,23 +243,14 @@ The following dimensions are used:
 ## 9. Requirement Category to Analysis Mapping
 
 | Requirement Category | Primary M2 Analysis Artifacts |
-
 |---|---|
-
 | Functional Requirements | 03, 04, 05–12, 17, 18 |
-
 | Non-Functional Requirements | 12, 15, 16, 17, 18 |
-
 | Data Requirements | 03, 07, 11, 12, 13, 14 |
-
 | Interface Requirements | 02, 08, 09, 10, 13, 17, 18 |
-
 | Business Rules | 03, 05, 06, 07, 11, 14, 16 |
-
 | Authorization Requirements | 05, 06, 09, 10, 11, 15, 17, 18 |
-
 | Use Cases | 05–18 |
-
 | User Stories / Acceptance Criteria | 05–18 |
 
 ---
@@ -335,17 +304,11 @@ Supporting artifacts:
 ## 11. Actor Traceability
 
 | Actor | Primary Analysis Coverage |
-
 |---|---|
-
 | Visitor | 02, 06, 08, 09, 13, 15, 17, 18 |
-
 | Authenticated User | 02, 05–08, 11, 13–18 |
-
 | Repository Owner | 03, 06–12, 14–18 |
-
 | Git Client | 02, 05, 09–13, 15–18 |
-
 | System Operator | 02, 15, 16, 17, 18 |
 
 ---
@@ -901,29 +864,17 @@ Physical Git Repository
 ## 23. Data Authority Traceability
 
 | Data | Authority |
-
 |---|---|
-
 | User identity metadata | PostgreSQL |
-
 | Repository metadata | PostgreSQL |
-
 | Repository owner | PostgreSQL |
-
 | Repository visibility | PostgreSQL |
-
 | PAT metadata | PostgreSQL |
-
 | PAT revocation state | PostgreSQL |
-
 | Git refs | Physical Git Repository |
-
 | Commits | Physical Git Repository |
-
 | Trees | Physical Git Repository |
-
 | Blobs | Physical Git Repository |
-
 | Git history | Physical Git Repository |
 
 Primary analysis:
@@ -2454,7 +2405,7 @@ Analysis invariant:
 
 Uncertain security-sensitive state
 
-&#x20;     ↓
+      ↓
 
 Deny / Reject / Fail
 
@@ -2945,15 +2896,10 @@ Preserved
 ## 78. Use-Case Coverage Summary
 
 | Classification | Count |
-
 |---|---:|
-
 | Approved V1.0.0 use cases | 25 |
-
 | Actively analyzed use cases | 24 |
-
 | Explicitly deferred use cases | 1 |
-
 | Unmapped active use cases | 0 |
 
 Deferred:
@@ -2969,37 +2915,21 @@ UC-008 Delete Repository
 ## 79. Critical Security Coverage Summary
 
 | Concern | Covered |
-
 |---|---|
-
 | Interactive authentication | Yes |
-
 | PAT authentication | Yes |
-
 | PAT revocation | Yes |
-
 | Authentication/authorization separation | Yes |
-
 | Public read | Yes |
-
 | Private owner-only read | Yes |
-
 | Owner-only write | Yes |
-
 | Anonymous push denial | Yes |
-
 | Non-owner push denial | Yes |
-
 | Safe repository path derivation | Yes |
-
 | Controlled Git execution | Yes |
-
 | Repository content untrusted | Yes |
-
 | Secret diagnostic suppression | Yes |
-
 | Fail closed | Yes |
-
 | No false success | Yes |
 
 ---
@@ -3007,25 +2937,15 @@ UC-008 Delete Repository
 ## 80. Core Git Coverage Summary
 
 | Git Capability | Analysis Coverage |
-
 |---|---|
-
 | Read-service discovery | Complete |
-
 | Clone | Complete |
-
 | Fetch | Complete |
-
 | Write-service discovery | Complete |
-
 | Push | Complete |
-
 | First push | Complete |
-
 | Ref rejection | Complete |
-
 | Empty repository behavior | Complete |
-
 | Git process failure | Complete |
 
 ---
@@ -3033,27 +2953,16 @@ UC-008 Delete Repository
 ## 81. Repository Browser Coverage Summary
 
 | Capability | Analysis Coverage |
-
 |---|---|
-
 | Repository view | Complete |
-
 | Branch listing | Complete |
-
 | Commit history | Complete |
-
 | Commit details | Complete |
-
 | Tree browsing | Complete |
-
 | File/blob viewing | Complete |
-
 | Empty repository | Complete |
-
 | Missing object | Complete |
-
 | Invalid revision/path | Complete |
-
 | Untrusted content | Complete |
 
 ---
@@ -3061,19 +2970,12 @@ UC-008 Delete Repository
 ## 82. Data Authority Coverage Summary
 
 | Concern | Coverage |
-
 |---|---|
-
 | Application metadata authority | Complete |
-
 | Git-native authority | Complete |
-
 | Metadata/storage separation | Complete |
-
 | Metadata/storage inconsistency | Complete |
-
 | Orphaned physical repository | Complete |
-
 | Missing physical repository | Complete |
 
 ---
@@ -3081,31 +2983,18 @@ UC-008 Delete Repository
 ## 83. Failure Coverage Summary
 
 | Failure Area | Coverage |
-
 |---|---|
-
 | Validation | Complete |
-
 | Authentication | Complete |
-
 | Authorization | Complete |
-
 | Resolution | Complete |
-
 | Persistence | Complete |
-
 | Storage | Complete |
-
 | Git process | Complete |
-
 | Git protocol | Complete |
-
 | Consistency | Complete |
-
 | Security-critical failure | Complete |
-
 | Diagnostics | Complete |
-
 | Unexpected internal failure | Complete |
 
 ---
@@ -3502,23 +3391,23 @@ If an approved requirement changes after M2:
 
 Requirement Change
 
-&#x20;     ↓
+      ↓
 
 Impact Analysis
 
-&#x20;     ↓
+      ↓
 
 Affected M2 Artifacts Identified
 
-&#x20;     ↓
+      ↓
 
 Analysis Updated
 
-&#x20;     ↓
+      ↓
 
 Traceability Updated
 
-&#x20;     ↓
+      ↓
 
 Validation Repeated
 
@@ -3621,47 +3510,26 @@ blocks System Design entry.
 ## 106. Traceability Validation Checklist
 
 | Check | Result |
-
 |---|---|
-
 | System context maps to approved actors/external systems | Pass |
-
 | Domain concepts derive from approved requirements | Pass |
-
 | Authentication requirements analyzed | Pass |
-
 | Authorization requirements analyzed | Pass |
-
 | Repository lifecycle requirements analyzed | Pass |
-
 | Repository browser requirements analyzed | Pass |
-
 | Git read requirements analyzed | Pass |
-
 | Git write requirements analyzed | Pass |
-
 | PAT requirements analyzed | Pass |
-
 | Repository storage requirements analyzed | Pass |
-
 | Data-flow requirements analyzed | Pass |
-
 | State requirements analyzed | Pass |
-
 | Trust boundaries analyzed | Pass |
-
 | Failure behavior analyzed | Pass |
-
 | Sequence interactions modeled | Pass |
-
 | Activity decision flows modeled | Pass |
-
 | Active use cases have analysis coverage | Pass |
-
 | Deferred features remain deferred | Pass |
-
 | Excluded features remain excluded | Pass |
-
 | Critical security requirements have negative-path coverage | Pass |
 
 ---

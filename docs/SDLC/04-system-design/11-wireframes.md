@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Wireframes |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -200,9 +191,9 @@ Repository pages use:
 
 +--------------------------------------------------------------+
 
-| owner / repository                         \[Public|Private]  |
+| owner / repository                         [Public|Private]  |
 
-| Files    Commits    Branches    Settings \[Owner only]       |
+| Files    Commits    Branches    Settings [Owner only]       |
 
 +--------------------------------------------------------------+
 
@@ -290,7 +281,7 @@ Example:
 
 Email
 
-\[user@example]
+[user@example]
 
 Enter a valid email address.
 
@@ -1170,7 +1161,7 @@ Commits
 
 Branches
 
-Settings \[owner only]
+Settings [owner only]
 
 ```
 
@@ -1327,23 +1318,14 @@ Repository pages should not move primary repository navigation between unrelated
 ## 103. Repository Controls
 
 | UI Element | Visitor | Authenticated Non-Owner | Owner |
-
 |---|---:|---:|---:|
-
 | Public repository Files | Show | Show | Show |
-
 | Public repository Commits | Show | Show | Show |
-
 | Public repository Branches | Show | Show | Show |
-
 | Private repository content | Hide/Not Found | Hide/Not Found | Show |
-
 | Repository Settings | Hide | Hide | Show |
-
 | Visibility control | Hide | Hide | Show |
-
 | Clone public URL | Show | Show | Show |
-
 | Clone private URL | Hide | Hide | Show |
 
 ---
@@ -1351,17 +1333,11 @@ Repository pages should not move primary repository navigation between unrelated
 ## 104. Global Controls
 
 | UI Element | Visitor | Authenticated User |
-
 |---|---:|---:|
-
 | Login | Show | Hide/Redirect |
-
 | Register | Show | Hide/Redirect |
-
 | Repositories | Hide | Show |
-
 | Tokens | Hide | Show |
-
 | Logout | Hide | Show |
 
 ---
@@ -1371,19 +1347,12 @@ Repository pages should not move primary repository navigation between unrelated
 ## 105. Empty States
 
 | Context | Message | Primary Action |
-
 |---|---|---|
-
 | No repositories | No repositories yet | Create Repository |
-
 | Empty repository | This repository is empty | Clone / Initial push guidance |
-
 | No branches | No branches yet | None |
-
 | No commits | No commits yet | None |
-
 | Empty tree | This directory is empty | Navigate back |
-
 | No PATs | No personal access tokens | Create Token |
 
 ---
@@ -1393,23 +1362,14 @@ Repository pages should not move primary repository navigation between unrelated
 ## 106. Errors
 
 | Condition | User-Facing State |
-
 |---|---|
-
 | Validation failure | Inline validation |
-
 | Login failure | Authentication error |
-
 | Unknown public repository | Not Found |
-
 | Unauthorized private repository | Not Found / concealed |
-
 | Unknown commit | Not Found |
-
 | Repository storage missing | Operational error |
-
 | Git execution failure | Operational error |
-
 | Internal server failure | Generic operational error |
 
 ---
@@ -1539,35 +1499,20 @@ Filesystem diagnostics
 ## 116. Wireframe-to-Route Mapping
 
 | Wireframe | Route Concept |
-
 |---|---|
-
 | Home | `GET /` |
-
 | Register | `GET /register` |
-
 | Login | `GET /login` |
-
 | My Repositories | `GET /repositories` |
-
 | Create Repository | `GET /repositories/create` |
-
 | Repository Overview | `GET /{owner}/{repository}` |
-
 | Files | `GET /{owner}/{repository}/tree/{ref}` |
-
 | File | `GET /{owner}/{repository}/blob/{ref}` |
-
 | Branches | `GET /{owner}/{repository}/branches` |
-
 | Commit History | `GET /{owner}/{repository}/commits` |
-
 | Commit Details | `GET /{owner}/{repository}/commits/{commit}` |
-
 | Repository Settings | `GET /{owner}/{repository}/settings` |
-
 | PAT List | `GET /settings/tokens` |
-
 | Create PAT | `GET /settings/tokens/create` |
 
 ---
@@ -1577,21 +1522,13 @@ Filesystem diagnostics
 ## 117. Form/Action Mapping
 
 | UI Action | HTTP Action |
-
 |---|---|
-
 | Register | `POST /register` |
-
 | Login | `POST /login` |
-
 | Logout | `POST /logout` |
-
 | Create Repository | `POST /repositories` |
-
 | Change Visibility | `PATCH /{owner}/{repository}/visibility` |
-
 | Create PAT | `POST /settings/tokens` |
-
 | Revoke PAT | `POST /settings/tokens/{token}/revoke` |
 
 ---

@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Repository Browser Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -184,11 +175,11 @@ Its principal responsibility is:
 
 Authorized Git Repository
 
-&#x20;       ↓
+        ↓
 
 Controlled Git Inspection
 
-&#x20;       ↓
+        ↓
 
 Web-Readable Representation
 
@@ -286,15 +277,15 @@ Conceptually:
 
 <owner>/<repository>
 
-&#x20;       ↓
+        ↓
 
 Validate Namespace
 
-&#x20;       ↓
+        ↓
 
 Resolve Repository Metadata
 
-&#x20;       ↓
+        ↓
 
 Determine Visibility / Owner
 
@@ -342,23 +333,23 @@ Logical order:
 
 Receive Browser Request
 
-&#x20;       ↓
+        ↓
 
 Resolve Repository Metadata
 
-&#x20;       ↓
+        ↓
 
 Determine Caller Context
 
-&#x20;       ↓
+        ↓
 
 Authorize Read
 
-&#x20;       ↓
+        ↓
 
 Resolve Physical Repository
 
-&#x20;       ↓
+        ↓
 
 Inspect Git State
 
@@ -450,11 +441,11 @@ Conceptually:
 
 Repository Metadata
 
-&#x20;       +
+        +
 
 Git-Native State
 
-&#x20;       ↓
+        ↓
 
 Repository Browser View
 
@@ -474,19 +465,19 @@ Conceptually:
 
 Repository
 
-&#x20;   ↓
+    ↓
 
 Authorize Read
 
-&#x20;   ↓
+    ↓
 
 Inspect Refs
 
-&#x20;   ↓
+    ↓
 
 Filter/Interpret Branch References
 
-&#x20;   ↓
+    ↓
 
 Return Branch List
 
@@ -534,11 +525,11 @@ Conceptually:
 
 Repository Available
 
-&#x20;       +
+        +
 
 No branch refs
 
-&#x20;       ↓
+        ↓
 
 Empty Branch List
 
@@ -580,19 +571,19 @@ Conceptually:
 
 Repository
 
-&#x20;   ↓
+    ↓
 
 Authorize Read
 
-&#x20;   ↓
+    ↓
 
 Resolve Reference
 
-&#x20;   ↓
+    ↓
 
 Traverse Commit History
 
-&#x20;   ↓
+    ↓
 
 Return Commit Summaries
 
@@ -636,11 +627,11 @@ Result:
 
 Repository Available
 
-&#x20;       +
+        +
 
 No reachable commits
 
-&#x20;       ↓
+        ↓
 
 Empty Commit History
 
@@ -660,23 +651,23 @@ Conceptually:
 
 Commit Identifier
 
-&#x20;     ↓
+      ↓
 
 Validate Identifier
 
-&#x20;     ↓
+      ↓
 
 Resolve in Authorized Repository
 
-&#x20;     ↓
+      ↓
 
 Commit Exists?
 
-&#x20;   /          \\
+    /          \\
 
-&#x20; Yes           No
+  Yes           No
 
-&#x20;  |             |
+   |             |
 
 Return Detail   Safe Not-Found Result
 
@@ -730,23 +721,23 @@ Conceptually:
 
 Repository
 
-&#x20;   ↓
+    ↓
 
 Authorize Read
 
-&#x20;   ↓
+    ↓
 
 Resolve Reference / Commit
 
-&#x20;   ↓
+    ↓
 
 Resolve Tree
 
-&#x20;   ↓
+    ↓
 
 Resolve Requested Logical Path
 
-&#x20;   ↓
+    ↓
 
 Return Tree Entries
 
@@ -798,7 +789,7 @@ The following distinction is mandatory:
 
 Git Tree Path
 
-&#x20;     ≠
+      ≠
 
 Server Filesystem Path
 
@@ -842,23 +833,23 @@ Conceptually:
 
 Repository
 
-&#x20;   ↓
+    ↓
 
 Authorize Read
 
-&#x20;   ↓
+    ↓
 
 Resolve Reference
 
-&#x20;   ↓
+    ↓
 
 Resolve Tree Path
 
-&#x20;   ↓
+    ↓
 
 Resolve Blob
 
-&#x20;   ↓
+    ↓
 
 Return Safe File Representation
 
@@ -910,11 +901,11 @@ Conceptually:
 
 Repository Content
 
-&#x20;     ↓
+      ↓
 
 Untrusted Data
 
-&#x20;     ↓
+      ↓
 
 Safe Presentation
 
@@ -1004,15 +995,15 @@ Conceptually:
 
 Requested Reference
 
-&#x20;      ↓
+       ↓
 
 Validate
 
-&#x20;      ↓
+       ↓
 
 Resolve in Repository
 
-&#x20;      ↓
+       ↓
 
 Git Object / Commit Context
 
@@ -1146,11 +1137,11 @@ If repository metadata resolves successfully but physical repository storage is 
 
 Authorization may succeed
 
-&#x20;       ↓
+        ↓
 
 Physical repository resolution fails
 
-&#x20;       ↓
+        ↓
 
 Operational/consistency failure
 
@@ -1262,15 +1253,15 @@ Conceptually:
 
 Internal Browser Failure
 
-&#x20;       ↓
+        ↓
 
 Classify
 
-&#x20;       ↓
+        ↓
 
 Diagnostic Record
 
-&#x20;       +
+        +
 
 Safe External Response
 
@@ -1332,19 +1323,19 @@ Conceptually:
 
 Repository Browser
 
-&#x20;       ↓
+        ↓
 
 Repository Storage Coordination
 
-&#x20;       ↓
+        ↓
 
 Git Process Coordination
 
-&#x20;       ↓
+        ↓
 
 Git Executable
 
-&#x20;       ↓
+        ↓
 
 Physical Repository
 
@@ -1412,43 +1403,43 @@ Conceptually:
 
 Browser Client
 
-&#x20;     ↓
+      ↓
 
 Web Interaction
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Authorization
 
-&#x20;     ↓
+      ↓
 
 Repository Browser
 
-&#x20;     ↓
+      ↓
 
 Storage Coordination
 
-&#x20;     ↓
+      ↓
 
 Git Inspection
 
-&#x20;     ↓
+      ↓
 
 Physical Git Repository
 
-&#x20;     ↓
+      ↓
 
 Git Result
 
-&#x20;     ↓
+      ↓
 
 Safe Presentation
 
-&#x20;     ↓
+      ↓
 
 Browser Client
 
@@ -1507,33 +1498,19 @@ Browser Client
 ## 62. Repository Browser Responsibility Matrix
 
 | Responsibility | Logical Owner |
-
 |---|---|
-
 | Receive browser request | Web Interaction |
-
 | Resolve repository metadata | Repository Management / Persistence |
-
 | Resolve caller identity | Authentication when required |
-
 | Evaluate read permission | Repository Authorization |
-
 | Resolve physical repository | Repository Storage Coordination |
-
 | Resolve Git reference | Repository Browser / Git Process Coordination |
-
 | Read branch refs | Repository Browser / Git Process Coordination |
-
 | Read commits | Repository Browser / Git Process Coordination |
-
 | Read trees | Repository Browser / Git Process Coordination |
-
 | Read blobs | Repository Browser / Git Process Coordination |
-
 | Classify content for presentation | Repository Browser |
-
 | Handle browser failure | Failure Handling |
-
 | Record diagnostics | Diagnostics |
 
 ---
@@ -1634,15 +1611,15 @@ Conceptually:
 
 Physical Git Repository
 
-&#x20;       ↓
+        ↓
 
 Untrusted Repository Content
 
-&#x20;       ↓
+        ↓
 
 GitForge Presentation Logic
 
-&#x20;       ↓
+        ↓
 
 Safe Browser Output
 
@@ -1805,29 +1782,17 @@ These are normal not-found conditions, not necessarily repository corruption.
 ## 73. Repository Browser Decision Table
 
 | Condition | Result |
-
 |---|---|
-
 | Repository not resolved | Safe not-found result |
-
 | Public repository + Visitor | Allow read |
-
 | Public repository + Authenticated non-owner | Allow read |
-
 | Private repository + Visitor | Deny |
-
 | Private repository + Authenticated non-owner | Deny |
-
 | Private repository + Owner | Allow read |
-
 | Repository empty | Return empty-state representation |
-
 | Requested reference missing | Safe reference-not-found result |
-
 | Requested tree/file path missing | Safe path-not-found result |
-
 | Physical repository missing | Operational/consistency failure |
-
 | Git inspection fails | Safe operational failure |
 
 ---
@@ -1835,15 +1800,10 @@ These are normal not-found conditions, not necessarily repository corruption.
 ## 74. Branch Browsing Decision Table
 
 | Condition | Result |
-
 |---|---|
-
 | Authorized repository with branches | Return branches |
-
 | Authorized empty repository | Return empty branch list |
-
 | Unauthorized repository | Deny |
-
 | Physical repository unavailable | Operational failure |
 
 ---
@@ -1851,19 +1811,12 @@ These are normal not-found conditions, not necessarily repository corruption.
 ## 75. Commit Browsing Decision Table
 
 | Condition | Result |
-
 |---|---|
-
 | Valid authorized reference with commits | Return commit history |
-
 | Empty repository | Empty commit history |
-
 | Unknown reference | Safe not-found result |
-
 | Unknown commit | Safe not-found result |
-
 | Unauthorized repository | Deny |
-
 | Git inspection failure | Operational failure |
 
 ---
@@ -1871,19 +1824,12 @@ These are normal not-found conditions, not necessarily repository corruption.
 ## 76. File Browsing Decision Table
 
 | Condition | Result |
-
 |---|---|
-
 | Valid authorized blob path | Return safe content representation |
-
 | Path refers to tree | Return tree representation where requested |
-
 | Path absent | Safe not-found result |
-
 | Binary content | Safe unsupported/binary representation |
-
 | Unauthorized repository | Deny |
-
 | Physical repository unavailable | Operational failure |
 
 ---

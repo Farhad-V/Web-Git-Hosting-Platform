@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Container Architecture |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -161,21 +152,13 @@ C-07 Git Executable / Git Processes
 ## 7. Container Responsibility Summary
 
 | ID | Container | Primary Responsibility |
-
 |---|---|---|
-
 | C-01 | Web Client | Interactive browser access |
-
 | C-02 | Git Client | Git clone/fetch/push operations |
-
 | C-03 | Web Server / Reverse Proxy | HTTP ingress and request forwarding |
-
 | C-04 | Laravel Application | Core application behavior and policy |
-
 | C-05 | PostgreSQL | Authoritative application metadata |
-
 | C-06 | Repository Storage | Persistent bare Git repository storage |
-
 | C-07 | Git Executable / Processes | Git-native protocol and repository operations |
 
 ---
@@ -2013,35 +1996,20 @@ Infrastructure failure must not result in successful operation reporting.
 ## 107. Responsibility Matrix
 
 | Capability | Web Client | Git Client | Web Server | Laravel | PostgreSQL | Repo Storage | Git |
-
 |---|---:|---:|---:|---:|---:|---:|---:|
-
 | Registration UI | X |  |  | X | X |  |  |
-
 | Login | X |  | X | X | X |  |  |
-
 | Session auth | X |  | X | X | X |  |  |
-
 | PAT auth |  | X | X | X | X |  |  |
-
 | Repository metadata |  |  |  | X | X |  |  |
-
 | Repository authorization |  |  |  | X | X |  |  |
-
 | Repository creation | X |  | X | X | X | X | X |
-
 | Repository browser | X |  | X | X |  | X | X |
-
 | Clone/fetch |  | X | X | X | X | X | X |
-
 | Push |  | X | X | X | X | X | X |
-
 | PAT creation | X |  | X | X | X |  |  |
-
 | PAT revocation | X |  | X | X | X |  |  |
-
 | Git-native state |  |  |  |  |  | X | X |
-
 | Application metadata |  |  |  | X | X |  |  |
 
 ---

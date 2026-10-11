@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Analysis Sequence Models |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -181,47 +172,26 @@ Physical Git Repository
 ## 6. Participant Responsibility Summary
 
 | Participant | Primary Analysis Responsibility |
-
 |---|---|
-
 | Visitor | Anonymous web interaction |
-
 | Authenticated User | Authenticated application interaction |
-
 | Git Client | Git Smart HTTP interaction |
-
 | Web/API Interface | Receive application requests |
-
 | Application Authentication | Establish interactive User identity |
-
 | PAT Coordination | PAT creation and revocation |
-
 | Git Authentication | Authenticate Git Client through PAT |
-
 | Repository Coordination | Repository lifecycle and metadata behavior |
-
 | Repository Resolution | Resolve logical repository |
-
 | Repository Authorization | Produce Allow/Deny decision |
-
 | Repository Browser Coordination | Coordinate repository browsing |
-
 | Repository Storage Coordination | Derive safe physical repository target |
-
 | Git Read Coordination | Coordinate Git-native reads |
-
 | Git Write Coordination | Coordinate Git-native writes |
-
 | Git Process Coordination | Execute approved Git operation |
-
 | Failure Handling | Classify and contain failures |
-
 | Diagnostics | Record safe operational information |
-
 | PostgreSQL | Authoritative application metadata |
-
 | Physical Git Repository | Authoritative Git-native state |
-
 | Git Executable | Perform approved Git-native operations |
 
 ---
@@ -234,27 +204,27 @@ Protected interactions generally follow:
 
 Request
 
-&#x20; ↓
+  ↓
 
 Authentication if required
 
-&#x20; ↓
+  ↓
 
 Repository Resolution
 
-&#x20; ↓
+  ↓
 
 Authorization
 
-&#x20; ↓
+  ↓
 
 Safe Storage Resolution
 
-&#x20; ↓
+  ↓
 
 Approved Git/Application Operation
 
-&#x20; ↓
+  ↓
 
 Result
 
@@ -344,27 +314,27 @@ Critical ordering:
 
 Authenticated User
 
-&#x20;   ↓
+    ↓
 
 Validate
 
-&#x20;   ↓
+    ↓
 
 Check namespace
 
-&#x20;   ↓
+    ↓
 
 Derive safe physical target
 
-&#x20;   ↓
+    ↓
 
 Initialize Git repository
 
-&#x20;   ↓
+    ↓
 
 Persist/confirm authoritative metadata
 
-&#x20;   ↓
+    ↓
 
 Report available
 
@@ -464,11 +434,11 @@ Plaintext PAT flow:
 
 Generated
 
-&#x20;   ↓
+    ↓
 
 Verification representation persisted
 
-&#x20;   ↓
+    ↓
 
 Plaintext shown once
 
@@ -769,47 +739,26 @@ Plaintext PAT is not recoverably persisted.
 ## 62. Sequence Model Coverage Matrix
 
 | Sequence Model | Primary Use Cases |
-
 |---|---|
-
 | SM-001 Registration | UC-001 |
-
 | SM-002 Login | UC-002 |
-
 | SM-003 Logout | UC-003 |
-
 | SM-004 Repository Creation | UC-004 |
-
 | SM-005 List Repositories | UC-005 |
-
 | SM-006/007 Repository View | UC-006, UC-023 |
-
 | SM-008 Visibility Change | UC-007 |
-
 | SM-009–013 Browser | UC-009–UC-014 |
-
 | SM-014 PAT Creation | UC-020 |
-
 | SM-015/016 PAT Authentication | UC-021 |
-
 | SM-017 PAT Revocation | UC-022 |
-
 | SM-018/019 Read Discovery | UC-015, UC-023 |
-
 | SM-020/021 Clone/Fetch | UC-016, UC-017, UC-023 |
-
 | SM-023 Write Discovery | UC-018, UC-024 |
-
 | SM-024 Push | UC-019, UC-024 |
-
 | SM-025–028 Git Write Failures | UC-019, UC-021, UC-024, UC-025 |
-
 | SM-031 Authorization | UC-023, UC-024 |
-
 | SM-032 Storage Resolution | UC-025 |
-
 | SM-033 Git Process Execution | UC-015–UC-019 |
-
 | SM-034 Diagnostics | UC-025 |
 
 ---
@@ -824,7 +773,7 @@ Where authentication is required:
 
 Credential Verification
 
-&#x20;     ↓
+      ↓
 
 User Identity
 
@@ -886,49 +835,49 @@ The following sequences must never occur:
 
 Invalid PAT
 
-&#x20;   ↓
+    ↓
 
 Authenticated Identity
 
 Authenticated Non-Owner
 
-&#x20;   ↓
+    ↓
 
 Authorized Write
 
 Private + Anonymous
 
-&#x20;   ↓
+    ↓
 
 Protected Read
 
 Invalid Repository Identifier
 
-&#x20;   ↓
+    ↓
 
 Physical Filesystem Access
 
 Unsafe Physical Target
 
-&#x20;   ↓
+    ↓
 
 Git Process Execution
 
 Git Failure
 
-&#x20;   ↓
+    ↓
 
 Success Response
 
 Revoked PAT
 
-&#x20;   ↓
+    ↓
 
 Authenticated User
 
 Repository Metadata Missing
 
-&#x20;   ↓
+    ↓
 
 Expose Orphaned Physical Repository
 

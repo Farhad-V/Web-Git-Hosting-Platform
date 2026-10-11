@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Failure and Exception Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -240,11 +231,11 @@ Example:
 
 Authenticated Non-Owner
 
-&#x20;     ↓
+      ↓
 
 Push Request
 
-&#x20;     ↓
+      ↓
 
 Authorization Denied
 
@@ -258,15 +249,15 @@ Example:
 
 Authenticated Owner
 
-&#x20;     ↓
+      ↓
 
 Push Authorized
 
-&#x20;     ↓
+      ↓
 
 Physical Repository Corrupt
 
-&#x20;     ↓
+      ↓
 
 Operation Failed
 
@@ -286,11 +277,11 @@ Conceptually:
 
 Invalid Input
 
-&#x20;     ↓
+      ↓
 
 Validation Failure
 
-&#x20;     ↓
+      ↓
 
 Reject
 
@@ -302,11 +293,11 @@ This is different from:
 
 Valid Request
 
-&#x20;     ↓
+      ↓
 
 Operational Execution
 
-&#x20;     ↓
+      ↓
 
 Runtime Failure
 
@@ -382,7 +373,7 @@ Repository metadata stored
 
 Physical repository creation failed
 
-&#x20;   ↓
+    ↓
 
 Do Not Report Repository Creation Success
 
@@ -394,7 +385,7 @@ Visibility update requested
 
 Database persistence failed
 
-&#x20;   ↓
+    ↓
 
 Do Not Report Visibility Change Success
 
@@ -406,7 +397,7 @@ PAT revocation requested
 
 Revocation persistence failed
 
-&#x20;   ↓
+    ↓
 
 Do Not Report PAT Revocation Success
 
@@ -424,23 +415,23 @@ Conceptually:
 
 Failure
 
-&#x20; ↓
+  ↓
 
 Classify
 
-&#x20; ↓
+  ↓
 
 Prevent Invalid Continuation
 
-&#x20; ↓
+  ↓
 
 Preserve Safe State
 
-&#x20; ↓
+  ↓
 
 Emit Safe Diagnostic
 
-&#x20; ↓
+  ↓
 
 Return Safe External Result
 
@@ -458,15 +449,15 @@ Example:
 
 Physical Repository Missing
 
-&#x20;     ↓
+      ↓
 
 Repository Storage Failure
 
-&#x20;     ↓
+      ↓
 
 Repository Browser Failure
 
-&#x20;     ↓
+      ↓
 
 Safe Web Failure Response
 
@@ -734,15 +725,15 @@ Conceptually:
 
 External Input
 
-&#x20;     ↓
+      ↓
 
 Validation
 
-&#x20;     ↓
+      ↓
 
 Invalid
 
-&#x20;     ↓
+      ↓
 
 Reject
 
@@ -784,15 +775,15 @@ Conceptually:
 
 Login Request
 
-&#x20;     ↓
+      ↓
 
 Credential Verification
 
-&#x20;     ↓
+      ↓
 
 Failure
 
-&#x20;     ↓
+      ↓
 
 Remain Unauthenticated
 
@@ -810,15 +801,15 @@ Conceptually:
 
 Presented PAT
 
-&#x20;     ↓
+      ↓
 
 Verification / Revocation / Owner Resolution
 
-&#x20;     ↓
+      ↓
 
 Failure
 
-&#x20;     ↓
+      ↓
 
 No Git User Identity
 
@@ -874,15 +865,15 @@ Conceptually:
 
 Identity + Repository + Operation
 
-&#x20;     ↓
+      ↓
 
 Authorization
 
-&#x20;     ↓
+      ↓
 
 Deny
 
-&#x20;     ↓
+      ↓
 
 Protected Execution Stops
 
@@ -936,15 +927,15 @@ Conceptually:
 
 Logical Repository Identifier
 
-&#x20;     ↓
+      ↓
 
 Resolution
 
-&#x20;     ↓
+      ↓
 
 Failure
 
-&#x20;     ↓
+      ↓
 
 Stop Protected Repository Flow
 
@@ -1056,11 +1047,11 @@ If persistence fails:
 
 Requested Visibility
 
-&#x20;     ↓
+      ↓
 
 Not Authoritatively Stored
 
-&#x20;     ↓
+      ↓
 
 Do Not Report Update Success
 
@@ -1168,7 +1159,7 @@ Repository Available
 
 No Commits
 
-&#x20;     ↓
+      ↓
 
 Valid Empty State
 
@@ -1424,7 +1415,7 @@ If:
 
 Logical Repository A
 
-&#x20;     ↓
+      ↓
 
 Resolves to Physical Repository B
 
@@ -1518,15 +1509,15 @@ Example:
 
 Public Repository
 
-&#x20;     ↓
+      ↓
 
 Anonymous Read Allowed
 
-&#x20;     ↓
+      ↓
 
 Physical Repository Missing
 
-&#x20;     ↓
+      ↓
 
 Storage Failure
 
@@ -1784,11 +1775,11 @@ Conceptually:
 
 Malformed / Invalid Protocol
 
-&#x20;     ↓
+      ↓
 
 Reject or Fail Current Interaction
 
-&#x20;     ↓
+      ↓
 
 Do Not Execute Uncontrolled Operation
 
@@ -1914,15 +1905,15 @@ Conceptually:
 
 Detect Inconsistency
 
-&#x20;     ↓
+      ↓
 
 Stop Protected Operation
 
-&#x20;     ↓
+      ↓
 
 Record Diagnostic
 
-&#x20;     ↓
+      ↓
 
 Return Safe Failure
 
@@ -2106,19 +2097,19 @@ Example:
 
 Push Request
 
-&#x20;     ↓
+      ↓
 
 Storage Missing
 
-&#x20;     ↓
+      ↓
 
 Storage Failure
 
-&#x20;     ↓
+      ↓
 
 Git Write Aborted
 
-&#x20;     ↓
+      ↓
 
 Safe Client Failure
 
@@ -2311,39 +2302,22 @@ Avoid Secret Exposure
 ## 94. Failure Handling Responsibility Matrix
 
 | Failure Area | Primary Logical Responsibility |
-
 |---|---|
-
 | Input validation failure | Web/API Interface |
-
 | Interactive authentication failure | Application Authentication |
-
 | PAT authentication failure | Git Authentication |
-
 | Repository authorization denial | Repository Authorization |
-
 | Repository resolution failure | Repository Resolution |
-
 | Repository creation failure | Repository Coordination |
-
 | Visibility update failure | Repository Coordination |
-
 | PAT creation/revocation failure | PAT Coordination |
-
 | Physical storage failure | Repository Storage Coordination |
-
 | Browser Git-read failure | Repository Browser / Git Read Coordination |
-
 | Smart HTTP read failure | Git Read Coordination |
-
 | Smart HTTP write failure | Git Write Coordination |
-
 | Git process failure | Git Process Coordination |
-
 | Persistence failure | Persistence Coordination |
-
 | Failure classification | Failure Handling |
-
 | Safe diagnostics | Diagnostics |
 
 ---
@@ -2351,19 +2325,12 @@ Avoid Secret Exposure
 ## 95. Failure Decision Table — Authentication
 
 | Condition | Result |
-
 |---|---|
-
 | Missing required credential | Deny |
-
 | Invalid credential | Deny |
-
 | Unknown PAT | Deny |
-
 | Revoked PAT | Deny |
-
 | PAT owner unresolved | Deny + consistency diagnostic |
-
 | Credential verification succeeds | Continue to authorization where required |
 
 ---
@@ -2371,23 +2338,14 @@ Avoid Secret Exposure
 ## 96. Failure Decision Table — Authorization
 
 | Condition | Result |
-
 |---|---|
-
 | Public repository + read | Allow read path |
-
 | Private repository + owner read | Allow |
-
 | Private repository + non-owner read | Deny |
-
 | Private repository + anonymous read | Deny |
-
 | Owner write | Allow |
-
 | Non-owner write | Deny |
-
 | Anonymous write | Deny |
-
 | Authorization context uncertain | Deny |
 
 ---
@@ -2395,21 +2353,13 @@ Avoid Secret Exposure
 ## 97. Failure Decision Table — Repository Storage
 
 | Metadata | Physical Storage | Result |
-
 |---|---|---|
-
 | Present | Present and usable | Continue |
-
 | Present | Missing | Consistency/storage failure |
-
 | Present | Corrupt | Operational failure |
-
 | Present | Unavailable | Operational failure |
-
 | Missing | Present | Orphaned-storage consistency failure |
-
 | Missing | Missing | Repository not found |
-
 | Any | Target escapes root | Security failure |
 
 ---
@@ -2417,23 +2367,14 @@ Avoid Secret Exposure
 ## 98. Failure Decision Table — Git Read
 
 | Condition | Result |
-
 |---|---|
-
 | Public + valid repository + storage available | Execute read |
-
 | Private + valid PAT + owner + storage available | Execute read |
-
 | Authentication fails | Deny |
-
 | Authorization fails | Deny |
-
 | Storage missing | Fail |
-
 | `git-upload-pack` fails | Fail |
-
 | Protocol malformed | Reject/fail |
-
 | Response delivery fails | Fail current interaction |
 
 ---
@@ -2441,23 +2382,14 @@ Avoid Secret Exposure
 ## 99. Failure Decision Table — Git Write
 
 | Condition | Result |
-
 |---|---|
-
 | Valid PAT + owner + storage available | Execute write |
-
 | Missing/invalid/revoked PAT | Deny |
-
 | Non-owner | Deny |
-
 | Storage missing/unwritable | Fail |
-
 | `git-receive-pack` fails | Fail |
-
 | Ref update rejected | Git write failure |
-
 | Protocol malformed | Reject/fail |
-
 | Mutation result uncertain | Do not report success |
 
 ---
@@ -2465,21 +2397,13 @@ Avoid Secret Exposure
 ## 100. Failure Decision Table — PAT
 
 | Condition | Result |
-
 |---|---|
-
 | Unauthenticated PAT creation | Deny |
-
 | Token generation failure | Fail creation |
-
 | PAT persistence failure | Fail creation |
-
 | Active valid PAT | Authentication may succeed |
-
 | Revoked PAT | Deny |
-
 | Non-owner revocation | Deny |
-
 | Revocation persistence failure | Do not report revocation success |
 
 ---

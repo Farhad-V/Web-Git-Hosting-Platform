@@ -172,7 +172,7 @@ Use cases are grouped into the following functional areas:
 
 # 7. Identity Use Cases
 
-## UC-001 â€” Register User Account
+## UC-001 — Register User Account
 
 **Primary actor:** Visitor
 
@@ -191,7 +191,7 @@ FR-004
 
 ---
 
-## UC-002 â€” Authenticate User
+## UC-002 — Authenticate User
 
 **Primary actor:** Visitor
 
@@ -209,7 +209,7 @@ FR-007
 
 ---
 
-## UC-003 â€” Logout
+## UC-003 — Logout
 
 **Primary actor:** Authenticated User
 
@@ -227,7 +227,7 @@ FR-008
 
 # 8. Repository Management Use Cases
 
-## UC-004 â€” Create Repository
+## UC-004 — Create Repository
 
 **Primary actor:** Authenticated User
 
@@ -255,7 +255,7 @@ FR-020
 
 ---
 
-## UC-005 â€” List Owned Repositories
+## UC-005 — List Owned Repositories
 
 **Primary actor:** Authenticated User
 
@@ -271,7 +271,7 @@ FR-021
 
 ---
 
-## UC-006 â€” View Repository
+## UC-006 — View Repository
 
 **Primary actors:**
 
@@ -297,7 +297,7 @@ FR-028
 
 ---
 
-## UC-007 â€” Change Repository Visibility
+## UC-007 — Change Repository Visibility
 
 **Primary actor:** Repository Owner
 
@@ -326,7 +326,7 @@ FR-085
 
 ---
 
-## UC-008 â€” Delete Repository
+## UC-008 — Delete Repository
 
 **Primary actor:** Repository Owner
 
@@ -353,7 +353,7 @@ FR-088
 
 # 9. Repository Browser Use Cases
 
-## UC-009 â€” Browse Repository
+## UC-009 — Browse Repository
 
 **Primary actors:**
 
@@ -373,7 +373,7 @@ FR-029
 
 ---
 
-## UC-010 â€” List Branches
+## UC-010 — List Branches
 
 **Primary actor:** Authorized repository reader
 
@@ -387,7 +387,7 @@ FR-030
 
 ---
 
-## UC-011 â€” View Commit History
+## UC-011 — View Commit History
 
 **Primary actor:** Authorized repository reader
 
@@ -401,7 +401,7 @@ FR-031
 
 ---
 
-## UC-012 â€” View Commit Details
+## UC-012 — View Commit Details
 
 **Primary actor:** Authorized repository reader
 
@@ -415,7 +415,7 @@ FR-032
 
 ---
 
-## UC-013 â€” Browse Repository Tree
+## UC-013 — Browse Repository Tree
 
 **Primary actor:** Authorized repository reader
 
@@ -430,7 +430,7 @@ FR-035
 
 ---
 
-## UC-014 â€” View File Content
+## UC-014 — View File Content
 
 **Primary actor:** Authorized repository reader
 
@@ -447,7 +447,7 @@ FR-035
 
 # 10. Git Read Use Cases
 
-## UC-015 â€” Discover Git Read Service
+## UC-015 — Discover Git Read Service
 
 **Primary actor:** Git Client
 
@@ -465,7 +465,7 @@ FR-038
 
 ---
 
-## UC-016 â€” Clone Repository
+## UC-016 — Clone Repository
 
 **Primary actor:** Git Client
 
@@ -490,7 +490,7 @@ FR-041
 
 ---
 
-## UC-017 â€” Fetch Repository
+## UC-017 — Fetch Repository
 
 **Primary actor:** Git Client
 
@@ -508,7 +508,7 @@ FR-042
 
 # 11. Git Write Use Cases
 
-## UC-018 â€” Discover Git Write Service
+## UC-018 — Discover Git Write Service
 
 **Primary actor:** Git Client
 
@@ -524,7 +524,7 @@ FR-043
 
 ---
 
-## UC-019 â€” Push Repository Changes
+## UC-019 — Push Repository Changes
 
 **Primary actor:** Git Client
 
@@ -549,7 +549,7 @@ FR-049
 
 # 12. Personal Access Token Use Cases
 
-## UC-020 â€” Create Personal Access Token
+## UC-020 — Create Personal Access Token
 
 **Primary actor:** Authenticated User
 
@@ -574,7 +574,7 @@ FR-054
 
 ---
 
-## UC-021 â€” Authenticate Git Request with Personal Access Token
+## UC-021 — Authenticate Git Request with Personal Access Token
 
 **Primary actor:** Git Client
 
@@ -596,7 +596,7 @@ FR-059
 
 ---
 
-## UC-022 â€” Revoke Personal Access Token
+## UC-022 — Revoke Personal Access Token
 
 **Primary actor:** Authenticated User
 
@@ -620,7 +620,7 @@ Authorization is primarily a cross-cutting requirement rather than a user goal.
 
 For modeling purposes, the following supporting use cases are defined.
 
-## UC-023 â€” Authorize Repository Read
+## UC-023 — Authorize Repository Read
 
 **Primary requesting actors:**
 
@@ -649,7 +649,7 @@ FR-066
 
 ---
 
-## UC-024 â€” Authorize Repository Write
+## UC-024 — Authorize Repository Write
 
 **Primary requesting actors:**
 
@@ -680,7 +680,7 @@ FR-066
 
 # 14. Operational Supporting Use Cases
 
-## UC-025 â€” Diagnose Repository Operation Failure
+## UC-025 — Diagnose Repository Operation Failure
 
 **Primary actor:** System Operator
 
@@ -778,10 +778,10 @@ Example:
 
 ```text
 Push Repository Changes
-&#x20;       |
-&#x20;       +-- includes --> Authenticate Git Request with PAT
-&#x20;       |
-&#x20;       +-- includes --> Authorize Repository Write
+        |
+        +-- includes --> Authenticate Git Request with PAT
+        |
+        +-- includes --> Authorize Repository Write
 ```
 
 ---
@@ -794,8 +794,8 @@ Example:
 
 ```text
 Browse Repository Tree
-&#x20;       |
-&#x20;       +-- optionally --> View File Content
+        |
+        +-- optionally --> View File Content
 ```
 
 ---
@@ -806,8 +806,8 @@ Repository Owner is modeled as a specialization of Authenticated User:
 
 ```text
 Authenticated User
-&#x20;       ^
-&#x20;       |
+        ^
+        |
 Repository Owner
 ```
 
@@ -821,13 +821,13 @@ A Repository Owner therefore inherits applicable authenticated-user capabilities
 
 ```text
 Visitor
-&#x20;  â†“
+   ↓
 UC-001 Register User Account
-&#x20;  â†“
+   ↓
 UC-002 Authenticate User
-&#x20;  â†“
+   ↓
 UC-004 Create Repository
-&#x20;  â†“
+   ↓
 UC-006 View Repository
 ```
 
@@ -837,17 +837,17 @@ UC-006 View Repository
 
 ```text
 Authorized User
-&#x20;  â†“
+   ↓
 UC-006 View Repository
-&#x20;  â†“
+   ↓
 UC-009 Browse Repository
-&#x20;  â†“
+   ↓
 UC-010 List Branches
-&#x20;  â†“
+   ↓
 UC-011 View Commit History
-&#x20;  â†“
+   ↓
 UC-013 Browse Repository Tree
-&#x20;  â†“
+   ↓
 UC-014 View File Content
 ```
 
@@ -857,11 +857,11 @@ UC-014 View File Content
 
 ```text
 Git Client
-&#x20;  â†“
+   ↓
 UC-015 Discover Git Read Service
-&#x20;  â†“
+   ↓
 UC-023 Authorize Repository Read
-&#x20;  â†“
+   ↓
 UC-016 Clone Repository
 ```
 
@@ -869,11 +869,11 @@ For a private repository:
 
 ```text
 Git Client
-&#x20;  â†“
+   ↓
 UC-021 Authenticate Git Request with PAT
-&#x20;  â†“
+   ↓
 UC-023 Authorize Repository Read
-&#x20;  â†“
+   ↓
 UC-016 Clone Repository
 ```
 
@@ -883,15 +883,15 @@ UC-016 Clone Repository
 
 ```text
 Authenticated User
-&#x20;  â†“
+   ↓
 UC-020 Create Personal Access Token
-&#x20;  â†“
+   ↓
 Git Client
-&#x20;  â†“
+   ↓
 UC-021 Authenticate Git Request with PAT
-&#x20;  â†“
+   ↓
 UC-024 Authorize Repository Write
-&#x20;  â†“
+   ↓
 UC-019 Push Repository Changes
 ```
 
@@ -968,14 +968,14 @@ Detailed alternative and exception flows will be documented in the detailed use-
 
 | Use Case Group         | Functional Requirements          |
 | ---------------------- | -------------------------------- |
-| Identity               | FR-001 â€“ FR-009                  |
-| Repository Management  | FR-013 â€“ FR-028, FR-084 â€“ FR-088 |
-| Repository Browser     | FR-029 â€“ FR-035                  |
-| Git Read               | FR-036 â€“ FR-042                  |
-| Git Write              | FR-043 â€“ FR-049                  |
-| Personal Access Tokens | FR-050 â€“ FR-060                  |
-| Authorization          | FR-061 â€“ FR-066                  |
-| Operational Support    | FR-096 â€“ FR-098                  |
+| Identity               | FR-001 – FR-009                  |
+| Repository Management  | FR-013 – FR-028, FR-084 – FR-088 |
+| Repository Browser     | FR-029 – FR-035                  |
+| Git Read               | FR-036 – FR-042                  |
+| Git Write              | FR-043 – FR-049                  |
+| Personal Access Tokens | FR-050 – FR-060                  |
+| Authorization          | FR-061 – FR-066                  |
+| Operational Support    | FR-096 – FR-098                  |
 
 ---
 

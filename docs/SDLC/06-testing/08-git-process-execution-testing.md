@@ -242,19 +242,19 @@ Conceptually:
 
 Controller / Application Workflow
 
-&#x20;       ↓
+        ↓
 
 Approved Application Service
 
-&#x20;       ↓
+        ↓
 
 Repository Storage Resolution
 
-&#x20;       ↓
+        ↓
 
 Git Process Execution Boundary
 
-&#x20;       ↓
+        ↓
 
 Configured Git Executable
 
@@ -348,47 +348,47 @@ The approved Git Process Execution Design defines the following logical operatio
 
 ```text
 
-INIT\_BARE
+INIT_BARE
 
 
 
-UPLOAD\_PACK\_ADVERTISE
+UPLOAD_PACK_ADVERTISE
 
 
 
-UPLOAD\_PACK\_RPC
+UPLOAD_PACK_RPC
 
 
 
-RECEIVE\_PACK\_ADVERTISE
+RECEIVE_PACK_ADVERTISE
 
 
 
-RECEIVE\_PACK\_RPC
+RECEIVE_PACK_RPC
 
 
 
-LIST\_REFS
+LIST_REFS
 
 
 
-COMMIT\_HISTORY
+COMMIT_HISTORY
 
 
 
-COMMIT\_DETAILS
+COMMIT_DETAILS
 
 
 
-TREE\_LIST
+TREE_LIST
 
 
 
-BLOB\_READ
+BLOB_READ
 
 
 
-REPOSITORY\_VERIFY
+REPOSITORY_VERIFY
 
 ```
 
@@ -468,15 +468,15 @@ Conceptual form:
 
 ```text
 
-\[
+[
 
-&#x20;   configured Git binary,
+    configured Git binary,
 
-&#x20;   argument 1,
+    argument 1,
 
-&#x20;   argument 2,
+    argument 2,
 
-&#x20;   ...
+    ...
 
 ]
 
@@ -506,11 +506,11 @@ Git processes execute with an explicitly supplied environment including:
 
 ```text
 
-GIT\_CONFIG\_NOSYSTEM=1
+GIT_CONFIG_NOSYSTEM=1
 
-GIT\_TERMINAL\_PROMPT=0
+GIT_TERMINAL_PROMPT=0
 
-LC\_ALL=C
+LC_ALL=C
 
 ```
 
@@ -1217,7 +1217,7 @@ Command:
 
 ```powershell
 
-php artisan test --filter=test\_unsupported\_git\_service\_is\_rejected
+php artisan test --filter=test_unsupported_git_service_is_rejected
 
 ```
 
@@ -1357,11 +1357,11 @@ Git executable runs with expected arguments and controlled execution context.
 
 ```text
 
-test\_it\_returns\_the\_installed\_git\_version
+test_it_returns_the_installed_git_version
 
-test\_it\_can\_preserve\_raw\_git\_output
+test_it_can_preserve_raw_git_output
 
-test\_it\_passes\_stdin\_to\_git\_without\_modifying\_it
+test_it_passes_stdin_to_git_without_modifying_it
 
 ```
 
@@ -1597,11 +1597,11 @@ No raw external input selects these subcommands.
 
 ```text
 
-test\_receive\_pack\_is\_an\_allowed\_transport\_service
+test_receive_pack_is_an_allowed_transport_service
 
-test\_unsupported\_transport\_service\_is\_rejected
+test_unsupported_transport_service_is_rejected
 
-test\_unsupported\_git\_service\_is\_rejected
+test_unsupported_git_service_is_rejected
 
 ```
 
@@ -1723,7 +1723,7 @@ Primary test:
 
 ```text
 
-test\_process\_arguments\_are\_not\_interpreted\_by\_a\_shell
+test_process_arguments_are_not_interpreted_by_a_shell
 
 ```
 
@@ -1749,7 +1749,7 @@ Additional test:
 
 ```text
 
-test\_branch\_name\_cannot\_be\_used\_as\_git\_option
+test_branch_name_cannot_be_used_as_git_option
 
 ```
 
@@ -1781,11 +1781,11 @@ Symfony Process receives:
 
 ```text
 
-command: \[
+command: [
 
-&#x20;   $binary,
+    $binary,
 
-&#x20;   ...$arguments,
+    ...$arguments,
 
 ]
 
@@ -1905,11 +1905,11 @@ Repository Browser calls:
 
 repositoryPath()
 
-&#x20;   ↓
+    ↓
 
 exists()
 
-&#x20;   ↓
+    ↓
 
 resolveExisting()
 
@@ -2059,7 +2059,7 @@ Primary test:
 
 ```text
 
-test\_it\_throws\_exception\_for\_failed\_git\_command
+test_it_throws_exception_for_failed_git_command
 
 ```
 
@@ -2107,11 +2107,11 @@ After process execution:
 
 if process is not successful
 
-&#x20;   capture exit code
+    capture exit code
 
-&#x20;   emit bounded failure log
+    emit bounded failure log
 
-&#x20;   throw GitCommandException
+    throw GitCommandException
 
 ```
 
@@ -2215,7 +2215,7 @@ Primary test:
 
 ```text
 
-test\_it\_throws\_exception\_for\_failed\_git\_command
+test_it_throws_exception_for_failed_git_command
 
 ```
 
@@ -2243,7 +2243,7 @@ Primary observability test:
 
 ```text
 
-test\_failed\_process\_logs\_bounded\_failure\_without\_stderr\_or\_arguments
+test_failed_process_logs_bounded_failure_without_stderr_or_arguments
 
 ```
 
@@ -2273,19 +2273,19 @@ The process log contains bounded operational metadata such as:
 
 event
 
-request\_id
+request_id
 
 operation
 
 result
 
-failure\_category
+failure_category
 
-exit\_code
+exit_code
 
-timed\_out
+timed_out
 
-duration\_ms
+duration_ms
 
 ```
 
@@ -2399,7 +2399,7 @@ Primary test:
 
 ```text
 
-test\_process\_timeout\_is\_mapped\_to\_git\_command\_exception
+test_process_timeout_is_mapped_to_git_command_exception
 
 ```
 
@@ -2411,7 +2411,7 @@ Test configuration:
 
 ```text
 
-git.timeout\_seconds = 1
+git.timeout_seconds = 1
 
 ```
 
@@ -2467,7 +2467,7 @@ Supporting test:
 
 ```text
 
-test\_timeout\_logs\_classified\_timeout\_without\_process\_payload
+test_timeout_logs_classified_timeout_without_process_payload
 
 ```
 
@@ -2479,15 +2479,15 @@ The timeout log includes:
 
 ```text
 
-failure\_category = git\_process\_timeout
+failure_category = git_process_timeout
 
-exit\_code = 124
+exit_code = 124
 
-timed\_out = true
+timed_out = true
 
-configured\_timeout
+configured_timeout
 
-duration\_ms
+duration_ms
 
 ```
 
@@ -2541,9 +2541,9 @@ Automated evidence:
 
 ```text
 
-test\_it\_rejects\_non\_string\_arguments
+test_it_rejects_non_string_arguments
 
-test\_it\_rejects\_null\_bytes\_in\_arguments
+test_it_rejects_null_bytes_in_arguments
 
 ```
 
@@ -2579,7 +2579,7 @@ Automated evidence:
 
 ```text
 
-test\_it\_rejects\_empty\_git\_binary\_configuration
+test_it_rejects_empty_git_binary_configuration
 
 ```
 
@@ -2635,7 +2635,7 @@ Automated evidence:
 
 ```text
 
-test\_it\_rejects\_invalid\_timeout\_configuration
+test_it_rejects_invalid_timeout_configuration
 
 ```
 
@@ -2647,7 +2647,7 @@ Invalid configuration:
 
 ```text
 
-git.timeout\_seconds = 0
+git.timeout_seconds = 0
 
 ```
 
@@ -2715,7 +2715,7 @@ Automated evidence:
 
 ```text
 
-test\_it\_can\_preserve\_raw\_git\_output
+test_it_can_preserve_raw_git_output
 
 ```
 
@@ -2751,7 +2751,7 @@ Automated evidence:
 
 ```text
 
-test\_it\_passes\_stdin\_to\_git\_without\_modifying\_it
+test_it_passes_stdin_to_git_without_modifying_it
 
 ```
 
@@ -2829,9 +2829,9 @@ receive-pack
 
 ```text
 
-UPLOAD\_PACK
+UPLOAD_PACK
 
-RECEIVE\_PACK
+RECEIVE_PACK
 
 ```
 
@@ -2995,13 +2995,13 @@ The process runner uses:
 
 new Process(
 
-&#x20;   command: \[
+    command: [
 
-&#x20;       $binary,
+        $binary,
 
-&#x20;       ...$arguments,
+        ...$arguments,
 
-&#x20;   ],
+    ],
 
 )
 
@@ -3015,7 +3015,7 @@ No equivalent of the following is used for normal Git execution:
 
 ```text
 
-shell\_exec()
+shell_exec()
 
 exec("git " . $userInput)
 
@@ -3085,7 +3085,7 @@ Automated evidence:
 
 ```text
 
-test\_branch\_name\_cannot\_be\_used\_as\_git\_option
+test_branch_name_cannot_be_used_as_git_option
 
 ```
 
@@ -3119,11 +3119,11 @@ The approved design requires:
 
 Repository Storage
 
-&#x20;       ↓
+        ↓
 
 validated physical repository target
 
-&#x20;       ↓
+        ↓
 
 Git Process Execution
 
@@ -3143,7 +3143,7 @@ Git Smart HTTP:
 
 requireRepositoryPath()
 
-&#x20;   ↓
+    ↓
 
 RepositoryStorageService::resolveExisting()
 
@@ -3159,7 +3159,7 @@ Repository Browser:
 
 repositoryPath()
 
-&#x20;   ↓
+    ↓
 
 RepositoryStorageService::resolveExisting()
 
@@ -3287,9 +3287,9 @@ Successful process execution logs:
 
 ```text
 
-git\_process\_started
+git_process_started
 
-git\_process\_completed
+git_process_completed
 
 ```
 
@@ -3301,7 +3301,7 @@ Failure logs:
 
 ```text
 
-git\_process\_failed
+git_process_failed
 
 ```
 
@@ -3313,7 +3313,7 @@ Timeout logs:
 
 ```text
 
-git\_process\_timeout
+git_process_timeout
 
 ```
 
@@ -3325,7 +3325,7 @@ Process-start failures log:
 
 ```text
 
-git\_process\_start\_failed
+git_process_start_failed
 
 ```
 
@@ -3389,9 +3389,9 @@ This is directly exercised by:
 
 ```text
 
-test\_failed\_process\_logs\_bounded\_failure\_without\_stderr\_or\_arguments
+test_failed_process_logs_bounded_failure_without_stderr_or_arguments
 
-test\_timeout\_logs\_classified\_timeout\_without\_process\_payload
+test_timeout_logs_classified_timeout_without_process_payload
 
 ```
 
@@ -3423,7 +3423,7 @@ PASS
 
 ```text
 
-git.timeout\_seconds
+git.timeout_seconds
 
 ```
 
@@ -3887,23 +3887,23 @@ WP-08 traceability:
 
 FR-071 – FR-074
 
-&#x20;       ↓
+        ↓
 
 Git Process Execution Design
 
-&#x20;       ↓
+        ↓
 
 Git Process Executor / Application Services
 
-&#x20;       ↓
+        ↓
 
 TC-GEXEC-001 – TC-GEXEC-007
 
-&#x20;       ↓
+        ↓
 
 Automated Unit / Feature / Security Tests
 
-&#x20;       ↓
+        ↓
 
 WP-08 Execution Evidence
 

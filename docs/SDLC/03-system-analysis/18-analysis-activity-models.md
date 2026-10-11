@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Analysis Activity Models |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -163,17 +154,11 @@ These outcomes have distinct meanings.
 ## 6. Outcome Meaning
 
 | Outcome | Meaning |
-
 |---|---|
-
 | Succeeded | Requested operation completed successfully |
-
 | Allowed | Policy permits downstream protected processing |
-
 | Denied | Policy or authentication prevents access |
-
 | Rejected | Request/input is invalid |
-
 | Failed | Valid/authorized operation could not complete |
 
 ---
@@ -267,19 +252,12 @@ No downstream activity may skip these decisions.
 ## 15. Read Authorization Decision Table
 
 | Visibility | Caller | Ownership | Result |
-
 |---|---|---|---|
-
 | Public | Anonymous | N/A | Allow |
-
 | Public | Authenticated | Non-owner | Allow |
-
 | Public | Authenticated | Owner | Allow |
-
 | Private | Anonymous | N/A | Deny |
-
 | Private | Authenticated | Non-owner | Deny |
-
 | Private | Authenticated | Owner | Allow |
 
 ---
@@ -380,11 +358,11 @@ Only repository owner write is allowed.
 
 Plaintext generated
 
-&#x20;     ↓
+      ↓
 
 Verification representation persisted
 
-&#x20;     ↓
+      ↓
 
 Plaintext presented once
 
@@ -534,7 +512,7 @@ Invalid activity:
 
 External Input
 
-&#x20;   ↓
+    ↓
 
 Arbitrary Shell Command
 
@@ -546,11 +524,11 @@ Required activity:
 
 Validated Internal Operation
 
-&#x20;   +
+    +
 
 Safe Repository Target
 
-&#x20;   ↓
+    ↓
 
 Approved Git Execution
 
@@ -818,27 +796,27 @@ The primary protected workflow order is:
 
 Validate
 
-&#x20;  ↓
+   ↓
 
 Authenticate if required
 
-&#x20;  ↓
+   ↓
 
 Resolve logical repository
 
-&#x20;  ↓
+   ↓
 
 Authorize
 
-&#x20;  ↓
+   ↓
 
 Resolve safe physical repository
 
-&#x20;  ↓
+   ↓
 
 Execute approved Git/application operation
 
-&#x20;  ↓
+   ↓
 
 Handle result
 
@@ -937,61 +915,33 @@ Incomplete authoritative state change or Git execution does not produce success.
 ## 70. Activity Coverage Matrix
 
 | Activity Model | Primary Use Cases |
-
 |---|---|
-
 | AM-001 | UC-001 |
-
 | AM-002 | UC-002 |
-
 | AM-003 | UC-003 |
-
 | AM-004 | UC-004 |
-
 | AM-005 | UC-005 |
-
 | AM-006 | UC-006, UC-023 |
-
 | AM-007 | UC-024 |
-
 | AM-008 | UC-006, UC-009 |
-
 | AM-009 | UC-007 |
-
 | AM-010 | UC-010 |
-
 | AM-011 | UC-011 |
-
 | AM-012 | UC-012 |
-
 | AM-013 | UC-013 |
-
 | AM-014 | UC-014 |
-
 | AM-015 | UC-020 |
-
 | AM-016 | UC-021 |
-
 | AM-017 | UC-022 |
-
 | AM-018/019 | UC-015, UC-023 |
-
 | AM-020 | UC-016, UC-017 |
-
 | AM-021 | UC-018, UC-024 |
-
 | AM-022–024 | UC-019, UC-024, UC-025 |
-
 | AM-025–027 | UC-004, UC-006, UC-009–UC-019, UC-025 |
-
 | AM-028 | UC-015–UC-019 |
-
 | AM-029–031 | UC-025 |
-
 | AM-032–034 | UC-023, UC-024 |
-
 | AM-040–042 | UC-025 |
-
 | AM-050 | UC-019, UC-021, UC-024, UC-025 |
 
 ---

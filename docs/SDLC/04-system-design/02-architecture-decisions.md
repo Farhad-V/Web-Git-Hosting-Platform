@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Architecture Decisions |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -4279,147 +4270,76 @@ PAT expiration
 ## 262. Decision Matrix
 
 | ADR | Decision | Status |
-
 |---|---|---|
-
 | ADR-001 | Modular Monolith | Accepted |
-
 | ADR-002 | Laravel Application Framework | Accepted |
-
 | ADR-003 | PostgreSQL Application Database | Accepted |
-
 | ADR-004 | Git-Native State Outside PostgreSQL | Accepted |
-
 | ADR-005 | Bare Git Repositories | Accepted |
-
 | ADR-006 | Logical Namespace Separate from Physical Path | Accepted |
-
 | ADR-007 | Configured Repository Root | Accepted |
-
 | ADR-008 | System Git Executable | Accepted |
-
 | ADR-009 | No Arbitrary Shell Execution | Accepted |
-
 | ADR-010 | Git Smart HTTP Transport | Accepted |
-
 | ADR-011 | Separate Git Read/Write Services | Accepted |
-
 | ADR-012 | Session Authentication for Web UI | Accepted |
-
 | ADR-013 | PAT Authentication for Git | Accepted |
-
 | ADR-014 | One-Time PAT Plaintext | Accepted |
-
 | ADR-015 | PAT Scopes/Expiration Deferred | Accepted |
-
 | ADR-016 | Centralized Repository Authorization | Accepted |
-
 | ADR-017 | Authorization Before Protected Storage | Accepted |
-
 | ADR-018 | Owner-Only Repository Write | Accepted |
-
 | ADR-019 | Visibility Controls Read Only | Accepted |
-
 | ADR-020 | Git-Native Repository Browser Reads | Accepted |
-
 | ADR-021 | Repository Content Is Untrusted | Accepted |
-
 | ADR-022 | Thin HTTP Controllers | Accepted |
-
 | ADR-023 | Application Services Coordinate Use Cases | Accepted |
-
 | ADR-024 | Explicit Repository Storage Component | Accepted |
-
 | ADR-025 | Explicit Git Process Component | Accepted |
-
 | ADR-026 | Repository Creation Compensation | Accepted |
-
 | ADR-027 | Database Integrity Constraints | Accepted |
-
 | ADR-028 | Explicit API Validation | Accepted |
-
 | ADR-029 | Eloquent for Metadata Persistence | Accepted |
-
 | ADR-030 | Database Transactions | Accepted |
-
 | ADR-031 | Shared Core Services Across Protocols | Accepted |
-
 | ADR-032 | Protocol-Specific Git Responses | Accepted |
-
 | ADR-033 | Git Payload Streaming | Accepted |
-
 | ADR-034 | Git Process Timeout | Accepted |
-
 | ADR-035 | Controlled Git Process Environment | Accepted |
-
 | ADR-036 | Fail-Closed Architecture | Accepted |
-
 | ADR-037 | No Application Admin Role | Accepted |
-
 | ADR-038 | System Operator Outside Repository ACL | Accepted |
-
 | ADR-039 | Structured Application Logging | Accepted |
-
 | ADR-040 | Sensitive Data Excluded from Logs | Accepted |
-
 | ADR-041 | Application-Level Error Mapping | Accepted |
-
 | ADR-042 | Framework Password Hashing | Accepted |
-
 | ADR-043 | Framework CSRF Protection | Accepted |
-
 | ADR-044 | Parameterized Database Access | Accepted |
-
 | ADR-045 | Output Encoding | Accepted |
-
 | ADR-046 | REST-Oriented Application Endpoints | Accepted |
-
 | ADR-047 | No Repository Deletion Design | Accepted |
-
 | ADR-048 | No Repository Rename/Transfer Design | Accepted |
-
 | ADR-049 | Small Runtime Deployment Model | Accepted |
-
 | ADR-050 | Persistent Repository Storage | Accepted |
-
 | ADR-051 | Persistent PostgreSQL Storage | Accepted |
-
 | ADR-052 | Deployment-Provided Secrets | Accepted |
-
 | ADR-053 | Explicit Health Verification | Accepted |
-
 | ADR-054 | Dual-Authority Backup Model | Accepted |
-
 | ADR-055 | No Mandatory Distributed Cache | Accepted |
-
 | ADR-056 | No Mandatory Background Queue | Accepted |
-
 | ADR-057 | No Event-Driven Architecture Requirement | Accepted |
-
 | ADR-058 | Central Security-Critical Configuration | Accepted |
-
 | ADR-059 | Internal Physical Repository Mapping | Accepted |
-
 | ADR-060 | Database IDs as Internal Identity | Accepted |
-
 | ADR-061 | Database-Enforced Repository Namespace Uniqueness | Accepted |
-
 | ADR-062 | Explicit Visibility Representation | Accepted |
-
 | ADR-063 | Git Failure Separate from Authorization Failure | Accepted |
-
 | ADR-064 | Empty Repository Is Valid | Accepted |
-
 | ADR-065 | Missing Storage Is Consistency Failure | Accepted |
-
 | ADR-066 | No Implicit Repair During Requests | Accepted |
-
 | ADR-067 | Repository Browser Is Read-Only | Accepted |
-
 | ADR-068 | Server-Oriented API-Compatible UI | Accepted |
-
 | ADR-069 | No Separate Identity Service | Accepted |
-
 | ADR-070 | No Separate Git Storage Service | Accepted |
 
 ---

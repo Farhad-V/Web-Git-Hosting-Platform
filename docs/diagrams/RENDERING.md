@@ -26,3 +26,9 @@ Rendering uses the installed Java runtime, UTF-8, a headless local process, and 
 The renderer refreshes manifest hashes only after successful rendering. Verification checks coverage, safe paths, source boundaries, SVG XML, known error-image markers, recorded hashes, and document references. Review diagrams visually as well; syntax and hashes do not prove the model is correct.
 
 Historical diagram syntax was repaired for Markdown-escaped characters, HTML whitespace entities, mixed sequence participant shapes, trust-zone declarations, and wireframe brace labels. Historical feature plans remain historical; rendering them does not declare those features implemented.
+
+## Documentation typography
+
+Markdown is stored as UTF-8. GitHub and local Markdown viewers choose the body font; document formatting should use headings, paragraphs, consecutive table rows, and fenced code rather than embedded font styles. Do not paste HTML whitespace entities or encoding-corrupted punctuation into code examples.
+
+UML diagrams use Arial with a 16-point base font, 20-point titles, 14-point annotations, and dark text on a white canvas. SALT wireframes use 1.25 scaling. SVG previews preserve vector text; open the SVG separately and zoom when a wide diagram becomes small inside the Markdown column. Regenerate the previews and catalog hashes after editing typography.

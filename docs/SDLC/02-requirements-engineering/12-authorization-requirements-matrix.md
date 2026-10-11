@@ -85,9 +85,9 @@ The authorization model uses these actor classes.
 | Visitor                              | Unauthenticated human user                                                |
 | Authenticated User                   | User authenticated through a valid web session                            |
 | Repository Owner                     | Authenticated user who owns the target repository                         |
-| Git Client â€” Anonymous               | Git client without valid authenticated identity                           |
-| Git Client â€” Authenticated Owner     | Git client authenticated as repository owner                              |
-| Git Client â€” Authenticated Non-Owner | Git client authenticated as a user who does not own the target repository |
+| Git Client — Anonymous               | Git client without valid authenticated identity                           |
+| Git Client — Authenticated Owner     | Git client authenticated as repository owner                              |
+| Git Client — Authenticated Non-Owner | Git client authenticated as a user who does not own the target repository |
 | System Operator                      | Infrastructure/operator role outside normal repository ownership          |
 
 ---
@@ -107,31 +107,31 @@ The matrices use the following values:
 
 # 7. General Authorization Requirements
 
-## AR-001 â€” Server-Side Authorization
+## AR-001 — Server-Side Authorization
 
 GitForge shall evaluate protected authorization decisions on the server before executing the protected operation.
 
 ---
 
-## AR-002 â€” Authentication Does Not Imply Global Access
+## AR-002 — Authentication Does Not Imply Global Access
 
 An authenticated user shall not automatically gain access to every repository or protected resource.
 
 ---
 
-## AR-003 â€” Ownership Is Repository-Specific
+## AR-003 — Ownership Is Repository-Specific
 
 Repository ownership shall be evaluated against the specific target repository.
 
 ---
 
-## AR-004 â€” UI Independence
+## AR-004 — UI Independence
 
 Authorization shall remain effective even when a protected endpoint is invoked directly without using the normal web interface.
 
 ---
 
-## AR-005 â€” Unauthorized Operation Denial
+## AR-005 — Unauthorized Operation Denial
 
 When authorization conditions are not satisfied, GitForge shall deny the protected operation.
 
@@ -139,25 +139,25 @@ When authorization conditions are not satisfied, GitForge shall deny the protect
 
 # 8. User Account Authorization
 
-## AR-006 â€” Registration Access
+## AR-006 — Registration Access
 
 A Visitor shall be permitted to access the account registration workflow.
 
 ---
 
-## AR-007 â€” Login Access
+## AR-007 — Login Access
 
 A Visitor shall be permitted to access the login workflow.
 
 ---
 
-## AR-008 â€” Logout Access
+## AR-008 — Logout Access
 
 Only an authenticated session shall meaningfully perform logout.
 
 ---
 
-## AR-009 â€” Current User Context
+## AR-009 — Current User Context
 
 Authenticated user-specific functionality shall operate against the current authenticated user identity unless an approved requirement explicitly permits another target.
 
@@ -165,19 +165,19 @@ Authenticated user-specific functionality shall operate against the current auth
 
 # 9. Repository Creation Authorization
 
-## AR-010 â€” Repository Creation Requires Authentication
+## AR-010 — Repository Creation Requires Authentication
 
 Only an authenticated user shall be permitted to create a repository.
 
 ---
 
-## AR-011 â€” Creator Ownership
+## AR-011 — Creator Ownership
 
 The authenticated user creating a repository shall become the repository owner.
 
 ---
 
-## AR-012 â€” Ownership Assignment Protection
+## AR-012 — Ownership Assignment Protection
 
 A normal repository creation request shall not permit the client to arbitrarily assign another user as repository owner.
 
@@ -185,37 +185,37 @@ A normal repository creation request shall not permit the client to arbitrarily 
 
 # 10. Repository Read Authorization
 
-## AR-013 â€” Public Repository Read
+## AR-013 — Public Repository Read
 
 A public repository may permit unauthenticated read access only for operations explicitly classified as public-readable.
 
 ---
 
-## AR-014 â€” Public Repository Authenticated Read
+## AR-014 — Public Repository Authenticated Read
 
 An authenticated user shall be permitted to read public repository information that is classified as publicly accessible.
 
 ---
 
-## AR-015 â€” Private Repository Owner Read
+## AR-015 — Private Repository Owner Read
 
 A repository owner shall be permitted to read the owner's private repository after successful authentication.
 
 ---
 
-## AR-016 â€” Private Repository Visitor Denial
+## AR-016 — Private Repository Visitor Denial
 
 A Visitor shall not be permitted to access protected private repository information.
 
 ---
 
-## AR-017 â€” Private Repository Non-Owner Denial
+## AR-017 — Private Repository Non-Owner Denial
 
 Under the default V1.0.0 ownership model, an authenticated non-owner shall not be permitted to access a private repository unless a later approved requirement explicitly grants such access.
 
 ---
 
-## AR-018 â€” Repository Identifier Insufficient
+## AR-018 — Repository Identifier Insufficient
 
 Knowledge of a repository URL, identifier, owner name, or repository name shall not itself grant private repository access.
 
@@ -223,37 +223,37 @@ Knowledge of a repository URL, identifier, owner name, or repository name shall 
 
 # 11. Repository Write Authorization
 
-## AR-019 â€” Write Requires Authentication
+## AR-019 — Write Requires Authentication
 
 Every repository write operation shall require valid authentication.
 
 ---
 
-## AR-020 â€” Owner Write Permission
+## AR-020 — Owner Write Permission
 
 The repository owner shall be permitted to perform supported write operations against the owned repository when using a valid supported credential.
 
 ---
 
-## AR-021 â€” Anonymous Write Denial
+## AR-021 — Anonymous Write Denial
 
 An unauthenticated actor shall never be permitted to modify a hosted Git repository.
 
 ---
 
-## AR-022 â€” Non-Owner Write Denial
+## AR-022 — Non-Owner Write Denial
 
 Under the default V1.0.0 model, an authenticated non-owner shall not be permitted to modify another user's repository.
 
 ---
 
-## AR-023 â€” Public Visibility Does Not Grant Write
+## AR-023 — Public Visibility Does Not Grant Write
 
 A public repository shall remain protected from unauthorized write operations.
 
 ---
 
-## AR-024 â€” Write Authorization Before Git Execution
+## AR-024 — Write Authorization Before Git Execution
 
 GitForge shall complete write authorization before executing `git-receive-pack`.
 
@@ -261,25 +261,25 @@ GitForge shall complete write authorization before executing `git-receive-pack`.
 
 # 12. Repository Settings Authorization
 
-## AR-025 â€” Owner Repository Settings
+## AR-025 — Owner Repository Settings
 
 Only the repository owner shall be permitted to modify owner-controlled repository settings.
 
 ---
 
-## AR-026 â€” Visibility Change
+## AR-026 — Visibility Change
 
 Only the repository owner shall be permitted to change repository visibility.
 
 ---
 
-## AR-027 â€” Repository Deletion
+## AR-027 — Repository Deletion
 
 If repository deletion is included in V1.0.0, only the repository owner shall be permitted to initiate ordinary repository deletion.
 
 ---
 
-## AR-028 â€” Repository Rename
+## AR-028 — Repository Rename
 
 If repository rename is included in V1.0.0, only the repository owner shall be permitted to rename the repository.
 
@@ -287,37 +287,37 @@ If repository rename is included in V1.0.0, only the repository owner shall be p
 
 # 13. Repository Browser Authorization
 
-## AR-029 â€” Repository Browser Read Policy
+## AR-029 — Repository Browser Read Policy
 
 Repository browser access shall follow repository read authorization.
 
 ---
 
-## AR-030 â€” Branch Listing Authorization
+## AR-030 — Branch Listing Authorization
 
 A branch list shall be returned only when the requesting actor has repository read permission.
 
 ---
 
-## AR-031 â€” Commit History Authorization
+## AR-031 — Commit History Authorization
 
 Commit history shall be returned only when the requesting actor has repository read permission.
 
 ---
 
-## AR-032 â€” Commit Detail Authorization
+## AR-032 — Commit Detail Authorization
 
 Commit information shall be returned only when the requesting actor has repository read permission.
 
 ---
 
-## AR-033 â€” Tree Browsing Authorization
+## AR-033 — Tree Browsing Authorization
 
 Repository tree data shall be returned only when the requesting actor has repository read permission.
 
 ---
 
-## AR-034 â€” File Content Authorization
+## AR-034 — File Content Authorization
 
 Repository file content shall be returned only when the requesting actor has repository read permission.
 
@@ -325,31 +325,31 @@ Repository file content shall be returned only when the requesting actor has rep
 
 # 14. Personal Access Token Management Authorization
 
-## AR-035 â€” Token Creation Requires Authentication
+## AR-035 — Token Creation Requires Authentication
 
 Only an authenticated user shall be permitted to create a Personal Access Token.
 
 ---
 
-## AR-036 â€” Token Ownership
+## AR-036 — Token Ownership
 
 A newly created Personal Access Token shall belong to the authenticated user who created it.
 
 ---
 
-## AR-037 â€” Token Listing
+## AR-037 — Token Listing
 
 A user shall be permitted to view only Personal Access Token metadata that belongs to that user.
 
 ---
 
-## AR-038 â€” Token Revocation
+## AR-038 — Token Revocation
 
 A user shall be permitted to revoke only Personal Access Tokens owned by that user.
 
 ---
 
-## AR-039 â€” Other User Token Denial
+## AR-039 — Other User Token Denial
 
 A user shall not be permitted to view sensitive token-management information for or manage another user's Personal Access Tokens.
 
@@ -357,31 +357,31 @@ A user shall not be permitted to view sensitive token-management information for
 
 # 15. Personal Access Token Authentication Authorization
 
-## AR-040 â€” Valid Token Identity Resolution
+## AR-040 — Valid Token Identity Resolution
 
 A valid active Personal Access Token shall resolve to its owning GitForge user.
 
 ---
 
-## AR-041 â€” Invalid Token Denial
+## AR-041 — Invalid Token Denial
 
 An invalid Personal Access Token shall establish no authenticated identity.
 
 ---
 
-## AR-042 â€” Revoked Token Denial
+## AR-042 — Revoked Token Denial
 
 A revoked Personal Access Token shall establish no authenticated identity.
 
 ---
 
-## AR-043 â€” Token Scope Restriction
+## AR-043 — Token Scope Restriction
 
 If token scopes are implemented, the token scope may restrict the operations available to the authenticated user.
 
 ---
 
-## AR-044 â€” Token Scope Cannot Elevate User Authority
+## AR-044 — Token Scope Cannot Elevate User Authority
 
 A Personal Access Token shall not grant repository access that its owning user does not otherwise possess.
 
@@ -389,31 +389,31 @@ A Personal Access Token shall not grant repository access that its owning user d
 
 # 16. Git Smart HTTP Read Authorization
 
-## AR-045 â€” Public Anonymous Clone
+## AR-045 — Public Anonymous Clone
 
 If anonymous public Git access is enabled, an anonymous Git Client shall be permitted to perform supported read operations against a public repository.
 
 ---
 
-## AR-046 â€” Private Clone Authentication
+## AR-046 — Private Clone Authentication
 
 A private repository clone or fetch shall require valid authentication.
 
 ---
 
-## AR-047 â€” Private Clone Owner Authorization
+## AR-047 — Private Clone Owner Authorization
 
 A Git Client authenticated as the repository owner shall be permitted to clone or fetch the owner's private repository.
 
 ---
 
-## AR-048 â€” Private Clone Non-Owner Denial
+## AR-048 — Private Clone Non-Owner Denial
 
 Under the default V1.0.0 model, a Git Client authenticated as a non-owner shall not be permitted to clone or fetch another user's private repository.
 
 ---
 
-## AR-049 â€” Upload-Pack Authorization
+## AR-049 — Upload-Pack Authorization
 
 `git-upload-pack` shall execute only after repository read authorization succeeds.
 
@@ -421,37 +421,37 @@ Under the default V1.0.0 model, a Git Client authenticated as a non-owner shall 
 
 # 17. Git Smart HTTP Write Authorization
 
-## AR-050 â€” Receive-Pack Authentication
+## AR-050 — Receive-Pack Authentication
 
 A request for `git-receive-pack` shall require valid authentication.
 
 ---
 
-## AR-051 â€” Owner Push
+## AR-051 — Owner Push
 
 A Git Client authenticated as the repository owner shall be permitted to push to the owned repository when all applicable credential conditions are satisfied.
 
 ---
 
-## AR-052 â€” Anonymous Push Denial
+## AR-052 — Anonymous Push Denial
 
 An anonymous Git Client shall not be permitted to push.
 
 ---
 
-## AR-053 â€” Non-Owner Push Denial
+## AR-053 — Non-Owner Push Denial
 
 Under the default V1.0.0 model, a Git Client authenticated as a non-owner shall not be permitted to push to another user's repository.
 
 ---
 
-## AR-054 â€” Public Repository Push Protection
+## AR-054 — Public Repository Push Protection
 
 Public repository visibility shall not alter write authorization.
 
 ---
 
-## AR-055 â€” Receive-Pack Authorization
+## AR-055 — Receive-Pack Authorization
 
 `git-receive-pack` shall execute only after repository write authorization succeeds.
 
@@ -459,7 +459,7 @@ Public repository visibility shall not alter write authorization.
 
 # 18. Web Authorization Matrix
 
-| Operation                        |           Visitor | Authenticated User â€” Non-Owner |  Repository Owner |
+| Operation                        |           Visitor | Authenticated User — Non-Owner |  Repository Owner |
 | -------------------------------- | ----------------: | -----------------------------: | ----------------: |
 | Register account                 |             Allow |                            N/A |               N/A |
 | Login                            |             Allow |                            N/A |               N/A |
@@ -470,12 +470,12 @@ Public repository visibility shall not alter write authorization.
 | View private repository metadata |              Deny |                           Deny |             Allow |
 | Browse public repository         | Conditional Allow |                          Allow |             Allow |
 | Browse private repository        |              Deny |                           Deny |             Allow |
-| List branches â€” public           | Conditional Allow |                          Allow |             Allow |
-| List branches â€” private          |              Deny |                           Deny |             Allow |
-| View commits â€” public            | Conditional Allow |                          Allow |             Allow |
-| View commits â€” private           |              Deny |                           Deny |             Allow |
-| View files â€” public              | Conditional Allow |                          Allow |             Allow |
-| View files â€” private             |              Deny |                           Deny |             Allow |
+| List branches — public           | Conditional Allow |                          Allow |             Allow |
+| List branches — private          |              Deny |                           Deny |             Allow |
+| View commits — public            | Conditional Allow |                          Allow |             Allow |
+| View commits — private           |              Deny |                           Deny |             Allow |
+| View files — public              | Conditional Allow |                          Allow |             Allow |
+| View files — private             |              Deny |                           Deny |             Allow |
 | Change repository visibility     |              Deny |                           Deny |             Allow |
 | Delete repository                |              Deny |                           Deny | Conditional Allow |
 | Rename repository                |              Deny |                           Deny | Conditional Allow |
@@ -538,29 +538,29 @@ The general protected-operation decision is:
 
 ```text
 Request
-&#x20;  â†“
+   ↓
 Identify target resource
-&#x20;  â†“
+   ↓
 Classify requested operation
-&#x20;  â†“
+   ↓
 Is authentication required?
-&#x20;  |
-&#x20;  +-- Yes --> Authenticate identity
-&#x20;  |              â†“
-&#x20;  |          Authentication valid?
-&#x20;  |              |
-&#x20;  |              +-- No --> DENY
-&#x20;  |
-&#x20;  â†“
+   |
+   +-- Yes --> Authenticate identity
+   |              ↓
+   |          Authentication valid?
+   |              |
+   |              +-- No --> DENY
+   |
+   ↓
 Evaluate resource visibility / ownership / permission
-&#x20;  â†“
+   ↓
 Evaluate token scope if applicable
-&#x20;  â†“
+   ↓
 Authorization satisfied?
-&#x20;  |
-&#x20;  +-- No --> DENY
-&#x20;  |
-&#x20;  +-- Yes --> ALLOW
+   |
+   +-- No --> DENY
+   |
+   +-- Yes --> ALLOW
 ```
 
 ---
@@ -569,32 +569,32 @@ Authorization satisfied?
 
 ```text
 Repository read requested
-&#x20;       â†“
+        ↓
 Repository exists?
-&#x20;       |
-&#x20;       +-- No --> Not Found / Deny
-&#x20;       |
-&#x20;       v
+        |
+        +-- No --> Not Found / Deny
+        |
+        v
 Repository public?
-&#x20;       |
-&#x20;       +-- Yes --> Is anonymous read enabled for this interface?
-&#x20;       |                |
-&#x20;       |                +-- Yes --> ALLOW
-&#x20;       |                |
-&#x20;       |                +-- No --> Require authenticated policy
-&#x20;       |
-&#x20;       +-- No --> Private repository
-&#x20;                        â†“
-&#x20;                 Authenticated?
-&#x20;                        |
-&#x20;                        +-- No --> DENY
-&#x20;                        |
-&#x20;                        v
-&#x20;                 Authorized owner?
-&#x20;                        |
-&#x20;                        +-- Yes --> ALLOW
-&#x20;                        |
-&#x20;                        +-- No --> DENY
+        |
+        +-- Yes --> Is anonymous read enabled for this interface?
+        |                |
+        |                +-- Yes --> ALLOW
+        |                |
+        |                +-- No --> Require authenticated policy
+        |
+        +-- No --> Private repository
+                         ↓
+                  Authenticated?
+                         |
+                         +-- No --> DENY
+                         |
+                         v
+                  Authorized owner?
+                         |
+                         +-- Yes --> ALLOW
+                         |
+                         +-- No --> DENY
 ```
 
 ---
@@ -603,32 +603,32 @@ Repository public?
 
 ```text
 Repository write requested
-&#x20;       â†“
+        ↓
 Repository exists?
-&#x20;       |
-&#x20;       +-- No --> DENY
-&#x20;       |
-&#x20;       v
+        |
+        +-- No --> DENY
+        |
+        v
 Authenticated?
-&#x20;       |
-&#x20;       +-- No --> DENY
-&#x20;       |
-&#x20;       v
+        |
+        +-- No --> DENY
+        |
+        v
 Credential valid and active?
-&#x20;       |
-&#x20;       +-- No --> DENY
-&#x20;       |
-&#x20;       v
+        |
+        +-- No --> DENY
+        |
+        v
 Authenticated user owns repository?
-&#x20;       |
-&#x20;       +-- No --> DENY
-&#x20;       |
-&#x20;       v
+        |
+        +-- No --> DENY
+        |
+        v
 Token scope permits write, if scopes exist?
-&#x20;       |
-&#x20;       +-- No --> DENY
-&#x20;       |
-&#x20;       v
+        |
+        +-- No --> DENY
+        |
+        v
 ALLOW
 ```
 
@@ -668,41 +668,41 @@ Authorization must be completed before executing a Git service against the targe
 
 # 26. Authentication Versus Authorization Examples
 
-## Example 1 â€” Authenticated Non-Owner
+## Example 1 — Authenticated Non-Owner
 
 ```text
 User authenticated successfully
-&#x20;       â†“
+        ↓
 Target = another user's private repository
-&#x20;       â†“
+        ↓
 Authentication = SUCCESS
 Authorization = DENY
 ```
 
 ---
 
-## Example 2 â€” Repository Owner
+## Example 2 — Repository Owner
 
 ```text
 User authenticated successfully
-&#x20;       â†“
+        ↓
 Target = user's own private repository
-&#x20;       â†“
+        ↓
 Authentication = SUCCESS
 Authorization = ALLOW
 ```
 
 ---
 
-## Example 3 â€” Public Repository Anonymous Read
+## Example 3 — Public Repository Anonymous Read
 
 ```text
 No authenticated identity
-&#x20;       â†“
+        ↓
 Target = public repository
-&#x20;       â†“
+        ↓
 Operation = permitted anonymous read
-&#x20;       â†“
+        ↓
 Authentication = NOT REQUIRED
 Authorization = ALLOW
 ```
@@ -711,17 +711,17 @@ if anonymous public read is enabled.
 
 ---
 
-## Example 4 â€” Public Repository Anonymous Push
+## Example 4 — Public Repository Anonymous Push
 
 ```text
 No authenticated identity
-&#x20;       â†“
+        ↓
 Target = public repository
-&#x20;       â†“
+        ↓
 Operation = write
-&#x20;       â†“
+        ↓
 Authentication required
-&#x20;       â†“
+        ↓
 Authorization = DENY
 ```
 
@@ -729,31 +729,31 @@ Authorization = DENY
 
 # 27. Authorization Failure Requirements
 
-## AR-056 â€” No Protected Side Effects
+## AR-056 — No Protected Side Effects
 
 A denied authorization decision shall not execute the protected state-changing operation.
 
 ---
 
-## AR-057 â€” No Git Write Process on Denial
+## AR-057 — No Git Write Process on Denial
 
 When write authorization fails, GitForge shall not execute authorized `git-receive-pack` processing against the repository.
 
 ---
 
-## AR-058 â€” No Private Data Exposure
+## AR-058 — No Private Data Exposure
 
 When private repository read authorization fails, protected repository content shall not be returned.
 
 ---
 
-## AR-059 â€” Safe Failure Response
+## AR-059 — Safe Failure Response
 
 Authorization failure responses shall avoid exposing reusable credentials or sensitive internal implementation details.
 
 ---
 
-## AR-060 â€” Authorization Logging
+## AR-060 — Authorization Logging
 
 Security-relevant authorization failures may be logged using non-secret contextual information.
 
@@ -767,15 +767,15 @@ The intended sequence is:
 
 ```text
 Validate repository identifier
-&#x20;       â†“
+        ↓
 Resolve application repository
-&#x20;       â†“
+        ↓
 Authenticate if required
-&#x20;       â†“
+        ↓
 Authorize operation
-&#x20;       â†“
+        ↓
 Resolve controlled physical path
-&#x20;       â†“
+        ↓
 Perform permitted repository operation
 ```
 
@@ -789,15 +789,15 @@ A Personal Access Token participates in authorization as follows:
 
 ```text
 PAT credential
-&#x20;   â†“
+    ↓
 Validate token
-&#x20;   â†“
+    ↓
 Resolve token owner
-&#x20;   â†“
+    ↓
 Establish user identity
-&#x20;   â†“
+    ↓
 Check token scope if applicable
-&#x20;   â†“
+    ↓
 Evaluate repository authorization
 ```
 
@@ -813,7 +813,7 @@ Examples:
 
 ```text
 AR-015 Private Repository Owner Read
-&#x20;       â†“
+        ↓
 FR-028 Owner Access to Private Repository
 BR-020 Owner Private Access
 UC-023 Authorize Repository Read
@@ -822,7 +822,7 @@ US-022 Protect Private Repository Reads
 
 ```text
 AR-022 Non-Owner Write Denial
-&#x20;       â†“
+        ↓
 FR-046 Push Authorization
 FR-048 Unauthorized Push Rejection
 BR-029 Non-Owner Write Prohibited by Default
@@ -832,7 +832,7 @@ US-023 Protect Repository Writes
 
 ```text
 AR-038 Token Revocation
-&#x20;       â†“
+        ↓
 FR-058 Token Revocation
 BR-049 Token Management Is Owner-Only
 UC-022 Revoke Personal Access Token
@@ -845,18 +845,18 @@ US-021 Revoke Personal Access Token
 
 | Range           | Area                           |
 | --------------- | ------------------------------ |
-| AR-001 â€“ AR-005 | General authorization          |
-| AR-006 â€“ AR-009 | User account                   |
-| AR-010 â€“ AR-012 | Repository creation            |
-| AR-013 â€“ AR-018 | Repository reads               |
-| AR-019 â€“ AR-024 | Repository writes              |
-| AR-025 â€“ AR-028 | Repository settings            |
-| AR-029 â€“ AR-034 | Repository browser             |
-| AR-035 â€“ AR-039 | PAT management                 |
-| AR-040 â€“ AR-044 | PAT authentication and scope   |
-| AR-045 â€“ AR-049 | Git read authorization         |
-| AR-050 â€“ AR-055 | Git write authorization        |
-| AR-056 â€“ AR-060 | Authorization failure behavior |
+| AR-001 – AR-005 | General authorization          |
+| AR-006 – AR-009 | User account                   |
+| AR-010 – AR-012 | Repository creation            |
+| AR-013 – AR-018 | Repository reads               |
+| AR-019 – AR-024 | Repository writes              |
+| AR-025 – AR-028 | Repository settings            |
+| AR-029 – AR-034 | Repository browser             |
+| AR-035 – AR-039 | PAT management                 |
+| AR-040 – AR-044 | PAT authentication and scope   |
+| AR-045 – AR-049 | Git read authorization         |
+| AR-050 – AR-055 | Git write authorization        |
+| AR-056 – AR-060 | Authorization failure behavior |
 
 Total authorization requirements:
 

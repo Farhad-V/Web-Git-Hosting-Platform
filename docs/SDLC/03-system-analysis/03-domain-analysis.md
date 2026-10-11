@@ -174,9 +174,9 @@ Conceptually:
 
 ```text
 Credential
-&#x20;   â†“
+    ↓
 Authentication
-&#x20;   â†“
+    ↓
 User Identity
 ```
 
@@ -196,11 +196,11 @@ Conceptually:
 
 ```text
 User
-&#x20; 1
-&#x20; |
-&#x20; | establishes
-&#x20; |
-&#x20; 0..*
+  1
+  |
+  | establishes
+  |
+  0..*
 Authentication Session
 ```
 
@@ -237,11 +237,11 @@ Conceptually:
 
 ```text
 User
-&#x20; 1
-&#x20; |
-&#x20; | owns
-&#x20; |
-&#x20; 0..*
+  1
+  |
+  | owns
+  |
+  0..*
 Repository
 ```
 
@@ -273,7 +273,7 @@ A User becomes Repository Owner only relative to a specific Repository when:
 
 ```text
 Authenticated User ID
-&#x20;       =
+        =
 Repository Owner ID
 ```
 
@@ -424,8 +424,8 @@ V1.0.0 supports changing Repository Visibility.
 Valid logical transitions are:
 
 ```text
-Public  â†’ Private
-Private â†’ Public
+Public  → Private
+Private → Public
 ```
 
 The Repository remains the same logical repository after a visibility change.
@@ -453,11 +453,11 @@ Conceptually:
 
 ```text
 Repository Metadata
-&#x20;       1
-&#x20;       |
-&#x20;       | corresponds to
-&#x20;       |
-&#x20;       1
+        1
+        |
+        | corresponds to
+        |
+        1
 Physical Git Repository
 ```
 
@@ -526,13 +526,13 @@ Conceptually:
 
 ```text
 Logical Namespace
-&#x20;     â†“
+      ↓
 Validate
-&#x20;     â†“
+      ↓
 Resolve Repository
-&#x20;     â†“
+      ↓
 Internal Storage Identity
-&#x20;     â†“
+      ↓
 Physical Repository
 ```
 
@@ -548,7 +548,7 @@ Domain rule:
 
 ```text
 External logical identifier
-&#x20;       â‰
+        ≠
 Trusted physical path
 ```
 
@@ -566,11 +566,11 @@ Conceptually:
 
 ```text
 User
-&#x20; 1
-&#x20; |
-&#x20; | owns
-&#x20; |
-&#x20; 0..*
+  1
+  |
+  | owns
+  |
+  0..*
 Personal Access Token
 ```
 
@@ -600,11 +600,11 @@ The intended lifecycle is:
 
 ```text
 Generate
-&#x20;  â†“
+   ↓
 Display plaintext during creation
-&#x20;  â†“
+   ↓
 Persist non-recoverable verification representation
-&#x20;  â†“
+   ↓
 Do not expose plaintext again
 ```
 
@@ -639,11 +639,11 @@ Conceptually:
 
 ```text
 PAT Credential
-&#x20;   â†“
+    ↓
 Validate
-&#x20;   â†“
+    ↓
 Resolve PAT Owner
-&#x20;   â†“
+    ↓
 Git Client Identity
 ```
 
@@ -707,9 +707,9 @@ Repository
 Visibility
 Ownership
 Operation
-&#x20;   â†“
+    ↓
 Authorization Evaluation
-&#x20;   â†“
+    ↓
 Allow / Deny
 ```
 
@@ -722,17 +722,17 @@ Repository read policy is:
 ### Public Repository
 
 ```text
-Visitor                 â†’ Allow
-Authenticated Non-Owner â†’ Allow
-Owner                   â†’ Allow
+Visitor                 → Allow
+Authenticated Non-Owner → Allow
+Owner                   → Allow
 ```
 
 ### Private Repository
 
 ```text
-Visitor                 â†’ Deny
-Authenticated Non-Owner â†’ Deny
-Owner                   â†’ Allow
+Visitor                 → Deny
+Authenticated Non-Owner → Deny
+Owner                   → Allow
 ```
 
 ---
@@ -742,9 +742,9 @@ Owner                   â†’ Allow
 Repository write policy is:
 
 ```text
-Anonymous               â†’ Deny
-Authenticated Non-Owner â†’ Deny
-Owner                   â†’ Allow
+Anonymous               → Deny
+Authenticated Non-Owner → Deny
+Owner                   → Allow
 ```
 
 Repository visibility does not change this write rule in V1.0.0.
@@ -806,10 +806,10 @@ Conceptually:
 
 ```text
 Git Operation
-&#x20;   |
-&#x20;   +-- Git Read Operation
-&#x20;   |
-&#x20;   +-- Git Write Operation
+    |
+    +-- Git Read Operation
+    |
+    +-- Git Write Operation
 ```
 
 Only explicitly supported Git operations are part of V1.0.0.
@@ -840,9 +840,9 @@ Conceptually:
 
 ```text
 Branch
-&#x20;  â†“
+   ↓
 Reference
-&#x20;  â†“
+   ↓
 Commit
 ```
 
@@ -920,15 +920,15 @@ Conceptually:
 
 ```text
 Requested Repository
-&#x20;       â†“
+        ↓
 Resolve Metadata
-&#x20;       â†“
+        ↓
 Authorize Read
-&#x20;       â†“
+        ↓
 Resolve Physical Repository
-&#x20;       â†“
+        ↓
 Inspect Git State
-&#x20;       â†“
+        ↓
 Return Repository View
 ```
 
@@ -951,15 +951,15 @@ Conceptually:
 
 ```text
 Validate Request
-&#x20;     â†“
+      ↓
 Validate Namespace
-&#x20;     â†“
+      ↓
 Establish Metadata
-&#x20;     â†“
+      ↓
 Initialize Git Repository
-&#x20;     â†“
+      ↓
 Confirm Consistency
-&#x20;     â†“
+      ↓
 Repository Available
 ```
 
@@ -1067,15 +1067,15 @@ Revocation
 
 The following invariants apply to V1.0.0.
 
-### DI-001 â€” Repository Ownership
+### DI-001 — Repository Ownership
 
 Every Repository has exactly one owner.
 
-### DI-002 â€” Repository Name Uniqueness
+### DI-002 — Repository Name Uniqueness
 
 A Repository name is unique within its owner's namespace.
 
-### DI-003 â€” Visibility Domain
+### DI-003 — Visibility Domain
 
 Repository Visibility is exactly one of:
 
@@ -1084,47 +1084,47 @@ Public
 Private
 ```
 
-### DI-004 â€” Private Read
+### DI-004 — Private Read
 
 A private Repository may be read only by its owner.
 
-### DI-005 â€” Repository Write
+### DI-005 — Repository Write
 
 Only the Repository owner may perform supported writes.
 
-### DI-006 â€” Anonymous Write
+### DI-006 — Anonymous Write
 
 Anonymous repository writes are prohibited.
 
-### DI-007 â€” PAT Ownership
+### DI-007 — PAT Ownership
 
 Each PAT belongs to exactly one User.
 
-### DI-008 â€” Revoked PAT
+### DI-008 — Revoked PAT
 
 A revoked PAT cannot establish authenticated identity.
 
-### DI-009 â€” Plaintext PAT Persistence
+### DI-009 — Plaintext PAT Persistence
 
 Reusable plaintext PAT values shall not be recoverably persisted.
 
-### DI-010 â€” Physical Path Control
+### DI-010 — Physical Path Control
 
 Physical repository paths are internally derived.
 
-### DI-011 â€” Git Authority
+### DI-011 — Git Authority
 
 Git-native data is authoritative in the physical Git repository.
 
-### DI-012 â€” Metadata Authority
+### DI-012 — Metadata Authority
 
 Application metadata is authoritative in PostgreSQL.
 
-### DI-013 â€” Authorization Before Protected Access
+### DI-013 — Authorization Before Protected Access
 
 Protected repository access requires successful authorization before content exposure or mutation.
 
-### DI-014 â€” Authentication Is Not Authorization
+### DI-014 — Authentication Is Not Authorization
 
 Successful authentication does not independently grant repository permission.
 
@@ -1134,29 +1134,29 @@ Successful authentication does not independently grant repository permission.
 
 ```text
 User
-&#x20;â”œâ”€â”€ establishes â†’ Authentication Session
-&#x20;â”œâ”€â”€ owns â†’ Repository
-&#x20;â””â”€â”€ owns â†’ Personal Access Token
+ ├── establishes → Authentication Session
+ ├── owns → Repository
+ └── owns → Personal Access Token
 
 Repository
-&#x20;â”œâ”€â”€ has â†’ Repository Visibility
-&#x20;â”œâ”€â”€ belongs to â†’ Repository Namespace
-&#x20;â”œâ”€â”€ corresponds to â†’ Physical Git Repository
-&#x20;â””â”€â”€ is subject to â†’ Authorization Decision
+ ├── has → Repository Visibility
+ ├── belongs to → Repository Namespace
+ ├── corresponds to → Physical Git Repository
+ └── is subject to → Authorization Decision
 
 Physical Git Repository
-&#x20;â”œâ”€â”€ contains â†’ Git References
-&#x20;â”œâ”€â”€ contains â†’ Commits
-&#x20;â”œâ”€â”€ contains â†’ Trees
-&#x20;â””â”€â”€ contains â†’ Blobs
+ ├── contains → Git References
+ ├── contains → Commits
+ ├── contains → Trees
+ └── contains → Blobs
 
 Git Client
-&#x20;â”œâ”€â”€ authenticates using â†’ Personal Access Token
-&#x20;â””â”€â”€ requests â†’ Git Operation
+ ├── authenticates using → Personal Access Token
+ └── requests → Git Operation
 
 Git Operation
-&#x20;â”œâ”€â”€ may be â†’ Git Read Operation
-&#x20;â””â”€â”€ may be â†’ Git Write Operation
+ ├── may be → Git Read Operation
+ └── may be → Git Write Operation
 ```
 
 ---
@@ -1239,7 +1239,7 @@ This classification is analytical and does not prescribe final implementation cl
 
 ---
 
-## 60. Domain Boundary â€” Application Versus Git
+## 60. Domain Boundary — Application Versus Git
 
 The application domain controls:
 
@@ -1270,7 +1270,7 @@ GitForge coordinates these two domains without replacing Git semantics.
 
 ---
 
-## 61. Domain Boundary â€” Identity Versus Authorization
+## 61. Domain Boundary — Identity Versus Authorization
 
 Identity answers:
 
@@ -1288,21 +1288,21 @@ For Git Smart HTTP:
 
 ```text
 PAT
-&#x20;â†“
+ ↓
 Authentication
-&#x20;â†“
+ ↓
 User Identity
-&#x20;â†“
+ ↓
 Repository + Operation
-&#x20;â†“
+ ↓
 Authorization
-&#x20;â†“
+ ↓
 Allow / Deny
 ```
 
 ---
 
-## 62. Domain Boundary â€” Logical Namespace Versus Physical Storage
+## 62. Domain Boundary — Logical Namespace Versus Physical Storage
 
 External callers identify repositories logically:
 
@@ -1429,7 +1429,7 @@ Detailed requirement-to-analysis mapping will be consolidated in:
 
 ## 67. Domain Analysis Findings
 
-### DA-001 â€” Repository Owner Is Contextual
+### DA-001 — Repository Owner Is Contextual
 
 Repository Owner is not a separate account type.
 
@@ -1441,7 +1441,7 @@ Status:
 Confirmed
 ```
 
-### DA-002 â€” Repository Has Dual Representation
+### DA-002 — Repository Has Dual Representation
 
 A repository has:
 
@@ -1458,7 +1458,7 @@ Status:
 Confirmed
 ```
 
-### DA-003 â€” Git-Native Data Remains External to Application Metadata
+### DA-003 — Git-Native Data Remains External to Application Metadata
 
 Branches, commits, trees, blobs, and refs are not required to become authoritative application records.
 
@@ -1468,7 +1468,7 @@ Status:
 Confirmed
 ```
 
-### DA-004 â€” Visibility Controls Read, Not Write Ownership
+### DA-004 — Visibility Controls Read, Not Write Ownership
 
 Public visibility allows broader read access but does not grant non-owner write permission.
 
@@ -1478,7 +1478,7 @@ Status:
 Confirmed
 ```
 
-### DA-005 â€” PAT Resolves Identity
+### DA-005 — PAT Resolves Identity
 
 A PAT establishes User identity for Git authentication.
 
@@ -1490,7 +1490,7 @@ Status:
 Confirmed
 ```
 
-### DA-006 â€” Namespace and Filesystem Path Are Distinct
+### DA-006 — Namespace and Filesystem Path Are Distinct
 
 The public repository namespace is a logical identifier, not a trusted physical path.
 

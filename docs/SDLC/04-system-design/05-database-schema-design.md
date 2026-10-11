@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Database Schema Design |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -217,23 +208,14 @@ The `users` table stores application user identity and authentication metadata.
 ## 9. users Columns
 
 | Column | Type | Null | Purpose |
-
 |---|---|---:|---|
-
 | id | bigint | No | Internal primary key |
-
 | name | varchar(255) | No | User display/name value |
-
 | email | varchar(255) | No | Login/contact identifier |
-
 | email_verified_at | timestamp | Yes | Optional Laravel-compatible verification timestamp |
-
 | password | varchar(255) | No | Secure password hash |
-
 | remember_token | varchar(100) | Yes | Laravel remember-token support |
-
 | created_at | timestamp | No | Creation timestamp |
-
 | updated_at | timestamp | No | Last update timestamp |
 
 ---
@@ -299,19 +281,12 @@ It does not store Git object data.
 ## 15. repositories Columns
 
 | Column | Type | Null | Purpose |
-
 |---|---|---:|---|
-
 | id | bigint | No | Internal repository identity |
-
 | owner_id | bigint | No | Repository owner |
-
 | name | varchar(100) | No | Owner-scoped repository name |
-
 | visibility | varchar(16) | No | Public/private visibility |
-
 | created_at | timestamp | No | Creation timestamp |
-
 | updated_at | timestamp | No | Last metadata update timestamp |
 
 ---
@@ -585,23 +560,14 @@ Plaintext token is not recoverably persisted
 ## 31. personal_access_tokens Columns
 
 | Column | Type | Null | Purpose |
-
 |---|---|---:|---|
-
 | id | bigint | No | PAT primary key |
-
 | user_id | bigint | No | PAT owner |
-
 | name | varchar(255) | No | Human-readable token label |
-
 | token_identifier | varchar(64) | No | Non-secret lookup identifier |
-
 | token_hash | varchar(255) | No | Secure verification representation |
-
 | revoked_at | timestamp | Yes | Revocation timestamp |
-
 | created_at | timestamp | No | Creation timestamp |
-
 | updated_at | timestamp | No | Last update timestamp |
 
 ---
@@ -1334,7 +1300,7 @@ Schema::create('repositories', function (Blueprint $table) {
 
      $table->timestamps();
 
-     $table->unique(\['owner_id', 'name']);
+     $table->unique(['owner_id', 'name']);
 
 });
 
@@ -2283,27 +2249,16 @@ PAT expiration
 ## 113. Requirements Mapping
 
 | Requirement Area | Schema Element |
-
 |---|---|
-
 | User identity | users |
-
 | User authentication | users.password |
-
 | Repository ownership | repositories.owner_id |
-
 | Repository naming | repositories.name |
-
 | Namespace uniqueness | UNIQUE(owner_id, name) |
-
 | Public/private visibility | repositories.visibility |
-
 | PAT ownership | personal_access_tokens.user_id |
-
 | PAT verification | token_identifier + token_hash |
-
 | PAT revocation | revoked_at |
-
 | Git-native repository state | Not stored in PostgreSQL |
 
 ---

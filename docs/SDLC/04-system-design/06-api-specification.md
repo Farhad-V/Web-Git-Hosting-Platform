@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | API Specification |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -488,7 +479,7 @@ Example:
 
      "fields": {
 
-       "name": \[
+       "name": [
 
          "The repository name is invalid."
 
@@ -912,7 +903,7 @@ Example:
 
 {
 
-   "repositories": \[
+   "repositories": [
 
      {
 
@@ -1202,7 +1193,7 @@ Example:
 
 {
 
-   "branches": \[
+   "branches": [
 
      {
 
@@ -1228,7 +1219,7 @@ For a valid empty repository:
 
 {
 
-   "branches": \[]
+   "branches": []
 
 }
 
@@ -1274,7 +1265,7 @@ Example:
 
 {
 
-   "commits": \[
+   "commits": [
 
      {
 
@@ -1366,7 +1357,7 @@ Example:
 
      "tree": "abcdef0123456789",
 
-     "parents": \[],
+     "parents": [],
 
      "author_name": "Example User",
 
@@ -1430,7 +1421,7 @@ Example:
 
    "path": "src",
 
-   "entries": \[
+   "entries": [
 
      {
 
@@ -1692,7 +1683,7 @@ Example:
 
 {
 
-   "tokens": \[
+   "tokens": [
 
      {
 
@@ -2133,33 +2124,19 @@ Pack/protocol failure
 ## 63. Application Endpoint Authorization
 
 | Operation | Visitor | Authenticated Non-Owner | Owner |
-
 |---|---:|---:|---:|
-
 | Register | Allow | Allow/Not needed | Allow/Not needed |
-
 | Login | Allow | Allow/Not needed | Allow/Not needed |
-
 | Logout | Deny | Allow | Allow |
-
 | Create repository | Deny | Allow own namespace | Allow own namespace |
-
 | List own repositories | Deny | Allow own | Allow own |
-
 | View public repository | Allow | Allow | Allow |
-
 | View private repository | Deny | Deny | Allow |
-
 | Change visibility | Deny | Deny | Allow |
-
 | Browse public repository | Allow | Allow | Allow |
-
 | Browse private repository | Deny | Deny | Allow |
-
 | Create PAT | Deny | Allow own | Allow own |
-
 | List PATs | Deny | Allow own | Allow own |
-
 | Revoke PAT | Deny | Own tokens only | Own tokens only |
 
 ---
@@ -2167,19 +2144,12 @@ Pack/protocol failure
 ## 64. Git Endpoint Authorization
 
 | Operation | Visitor | Authenticated Non-Owner | Owner |
-
 |---|---:|---:|---:|
-
 | Public upload-pack discovery | Allow | Allow | Allow |
-
 | Public clone/fetch | Allow | Allow | Allow |
-
 | Private upload-pack discovery | Deny | Deny | Allow |
-
 | Private clone/fetch | Deny | Deny | Allow |
-
 | receive-pack discovery | Deny | Deny | Allow |
-
 | Push | Deny | Deny | Allow |
 
 ---
@@ -2639,21 +2609,13 @@ depending on whether the condition is internal or availability-related.
 ## 90. Mapping
 
 | Endpoint Area | Primary Component |
-
 |---|---|
-
 | Registration/Login/Logout | Authentication Service |
-
 | Repository create/list/view | Repository Service |
-
 | Visibility update | Repository Service + Authorization Policy |
-
 | Branches/commits/tree/blob | Repository Browser Service |
-
 | PAT create/list/revoke | PAT Service |
-
 | Git upload-pack | Git Read Service |
-
 | Git receive-pack | Git Write Service |
 
 ---

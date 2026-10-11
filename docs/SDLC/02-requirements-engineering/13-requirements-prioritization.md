@@ -157,9 +157,9 @@ Individual requirements may override these defaults.
 
 | Requirement Range | Area                       | Priority |
 | ----------------- | -------------------------- | -------- |
-| FR-001 â€“ FR-004   | Registration               | Must     |
-| FR-005 â€“ FR-009   | Authentication             | Must     |
-| FR-010 â€“ FR-012   | User identity associations | Must     |
+| FR-001 – FR-004   | Registration               | Must     |
+| FR-005 – FR-009   | Authentication             | Must     |
+| FR-010 – FR-012   | User identity associations | Must     |
 
 Rationale:
 
@@ -171,9 +171,9 @@ Authentication is foundational to repository ownership, protected repository acc
 
 | Requirement Range | Area                         | Priority |
 | ----------------- | ---------------------------- | -------- |
-| FR-013 â€“ FR-020   | Repository creation          | Must     |
-| FR-021 â€“ FR-024   | Repository listing/retrieval | Must     |
-| FR-025 â€“ FR-028   | Visibility/access            | Must     |
+| FR-013 – FR-020   | Repository creation          | Must     |
+| FR-021 – FR-024   | Repository listing/retrieval | Must     |
+| FR-025 – FR-028   | Visibility/access            | Must     |
 
 Rationale:
 
@@ -201,7 +201,7 @@ Commit details are important, but could theoretically be deferred without preven
 
 | Requirement Range | Area                      | Priority |
 | ----------------- | ------------------------- | -------- |
-| FR-036 â€“ FR-042   | Clone/fetch/read behavior | Must     |
+| FR-036 – FR-042   | Clone/fetch/read behavior | Must     |
 
 Rationale:
 
@@ -213,7 +213,7 @@ Real Git interoperability is a defining project objective.
 
 | Requirement Range | Area                | Priority |
 | ----------------- | ------------------- | -------- |
-| FR-043 â€“ FR-049   | Push/write behavior | Must     |
+| FR-043 – FR-049   | Push/write behavior | Must     |
 
 Rationale:
 
@@ -225,7 +225,7 @@ Repository hosting without push capability would provide incomplete core Git hos
 
 | Requirement Range | Area          | Priority |
 | ----------------- | ------------- | -------- |
-| FR-050 â€“ FR-060   | PAT lifecycle | Must     |
+| FR-050 – FR-060   | PAT lifecycle | Must     |
 
 Rationale:
 
@@ -237,7 +237,7 @@ A supported non-session credential mechanism is required for authenticated Git C
 
 | Requirement Range | Area          | Priority |
 | ----------------- | ------------- | -------- |
-| FR-061 â€“ FR-066   | Authorization | Must     |
+| FR-061 – FR-066   | Authorization | Must     |
 
 All requirements in this group are release-critical.
 
@@ -247,7 +247,7 @@ All requirements in this group are release-critical.
 
 | Requirement Range | Area                    | Priority |
 | ----------------- | ----------------------- | -------- |
-| FR-067 â€“ FR-070   | Repository path/storage | Must     |
+| FR-067 – FR-070   | Repository path/storage | Must     |
 
 These requirements protect repository isolation and system integrity.
 
@@ -257,7 +257,7 @@ These requirements protect repository isolation and system integrity.
 
 | Requirement Range | Area          | Priority |
 | ----------------- | ------------- | -------- |
-| FR-071 â€“ FR-074   | Git execution | Must     |
+| FR-071 – FR-074   | Git execution | Must     |
 
 Safe Git process execution is security-critical.
 
@@ -267,7 +267,7 @@ Safe Git process execution is security-critical.
 
 | Requirement Range | Area       | Priority |
 | ----------------- | ---------- | -------- |
-| FR-075 â€“ FR-078   | Validation | Must     |
+| FR-075 – FR-078   | Validation | Must     |
 
 ---
 
@@ -301,7 +301,7 @@ Repository deletion remains optional for V1.0.0.
 
 | Requirement Range | Area                | Priority |
 | ----------------- | ------------------- | -------- |
-| FR-089 â€“ FR-095   | Core web interfaces | Must     |
+| FR-089 – FR-095   | Core web interfaces | Must     |
 
 ---
 
@@ -321,7 +321,7 @@ Repository deletion remains optional for V1.0.0.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-001 â€“ NFR-018 | Must     |
+| NFR-001 – NFR-018 | Must     |
 
 Security requirements are release-critical.
 
@@ -331,7 +331,7 @@ Security requirements are release-critical.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-019 â€“ NFR-022 | Must     |
+| NFR-019 – NFR-022 | Must     |
 
 ---
 
@@ -351,7 +351,7 @@ Security requirements are release-critical.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-028 â€“ NFR-033 | Must     |
+| NFR-028 – NFR-033 | Must     |
 
 ---
 
@@ -359,7 +359,7 @@ Security requirements are release-critical.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-034 â€“ NFR-038 | Must     |
+| NFR-034 – NFR-038 | Must     |
 
 ---
 
@@ -391,7 +391,7 @@ Security requirements are release-critical.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-049 â€“ NFR-053 | Must     |
+| NFR-049 – NFR-053 | Must     |
 
 ---
 
@@ -399,7 +399,7 @@ Security requirements are release-critical.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-054 â€“ NFR-058 | Should   |
+| NFR-054 – NFR-058 | Should   |
 
 ---
 
@@ -407,7 +407,7 @@ Security requirements are release-critical.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-059 â€“ NFR-062 | Should   |
+| NFR-059 – NFR-062 | Should   |
 
 ---
 
@@ -415,7 +415,7 @@ Security requirements are release-critical.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-063 â€“ NFR-067 | Must     |
+| NFR-063 – NFR-067 | Must     |
 
 ---
 
@@ -433,7 +433,7 @@ Security requirements are release-critical.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-071 â€“ NFR-074 | Should   |
+| NFR-071 – NFR-074 | Should   |
 
 Credential protection remains mandatory regardless of logging priority.
 
@@ -454,7 +454,7 @@ Credential protection remains mandatory regardless of logging priority.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-079 â€“ NFR-082 | Must     |
+| NFR-079 – NFR-082 | Must     |
 
 ---
 
@@ -462,7 +462,7 @@ Credential protection remains mandatory regardless of logging priority.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-083 â€“ NFR-085 | Should   |
+| NFR-083 – NFR-085 | Should   |
 
 ---
 
@@ -470,7 +470,7 @@ Credential protection remains mandatory regardless of logging priority.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-086 â€“ NFR-088 | Must     |
+| NFR-086 – NFR-088 | Must     |
 
 ---
 
@@ -478,7 +478,7 @@ Credential protection remains mandatory regardless of logging priority.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-089 â€“ NFR-091 | Must     |
+| NFR-089 – NFR-091 | Must     |
 
 ---
 
@@ -486,7 +486,7 @@ Credential protection remains mandatory regardless of logging priority.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-092 â€“ NFR-094 | Must     |
+| NFR-092 – NFR-094 | Must     |
 
 ---
 
@@ -494,7 +494,7 @@ Credential protection remains mandatory regardless of logging priority.
 
 | Requirement Range | Priority |
 | ----------------- | -------- |
-| NFR-095 â€“ NFR-098 | Must     |
+| NFR-095 – NFR-098 | Must     |
 
 ---
 
@@ -504,23 +504,23 @@ Core data requirements are prioritized as follows.
 
 | Data Area               | Range           | Priority           |
 | ----------------------- | --------------- | ------------------ |
-| User Data               | DR-001 â€“ DR-007 | Must               |
-| Repository Metadata     | DR-008 â€“ DR-016 | Must               |
-| Physical Repositories   | DR-017 â€“ DR-023 | Must               |
-| Git-Native Data         | DR-024 â€“ DR-029 | Must               |
-| Personal Access Tokens  | DR-030 â€“ DR-039 | Must               |
-| Session Data            | DR-040 â€“ DR-043 | Must               |
-| Repository Browser Data | DR-044 â€“ DR-048 | Must               |
-| Relationships           | DR-049 â€“ DR-054 | Must               |
-| Data Integrity          | DR-055 â€“ DR-060 | Must               |
-| Validation              | DR-061 â€“ DR-065 | Must               |
-| Data Security           | DR-066 â€“ DR-070 | Must               |
-| Privacy                 | DR-071 â€“ DR-073 | Must               |
-| Lifecycle               | DR-074 â€“ DR-077 | Must / Conditional |
-| Retention               | DR-078 â€“ DR-081 | Should             |
-| Recovery                | DR-082 â€“ DR-085 | Should             |
-| Derived Data            | DR-086 â€“ DR-090 | Must               |
-| Operational Data        | DR-091 â€“ DR-094 | Should             |
+| User Data               | DR-001 – DR-007 | Must               |
+| Repository Metadata     | DR-008 – DR-016 | Must               |
+| Physical Repositories   | DR-017 – DR-023 | Must               |
+| Git-Native Data         | DR-024 – DR-029 | Must               |
+| Personal Access Tokens  | DR-030 – DR-039 | Must               |
+| Session Data            | DR-040 – DR-043 | Must               |
+| Repository Browser Data | DR-044 – DR-048 | Must               |
+| Relationships           | DR-049 – DR-054 | Must               |
+| Data Integrity          | DR-055 – DR-060 | Must               |
+| Validation              | DR-061 – DR-065 | Must               |
+| Data Security           | DR-066 – DR-070 | Must               |
+| Privacy                 | DR-071 – DR-073 | Must               |
+| Lifecycle               | DR-074 – DR-077 | Must / Conditional |
+| Retention               | DR-078 – DR-081 | Should             |
+| Recovery                | DR-082 – DR-085 | Should             |
+| Derived Data            | DR-086 – DR-090 | Must               |
+| Operational Data        | DR-091 – DR-094 | Should             |
 
 Repository deletion-related lifecycle rules become mandatory only if repository deletion is included.
 
@@ -530,20 +530,20 @@ Repository deletion-related lifecycle rules become mandatory only if repository 
 
 | Interface Area         | Range           | Priority                                     |
 | ---------------------- | --------------- | -------------------------------------------- |
-| Web UI                 | IR-001 â€“ IR-013 | Must                                         |
-| Web Usability          | IR-014 â€“ IR-018 | Should                                       |
-| Application HTTP       | IR-019 â€“ IR-025 | Must                                         |
-| Git Smart HTTP         | IR-026 â€“ IR-040 | Must                                         |
-| Git Client Interaction | IR-041 â€“ IR-044 | Must                                         |
-| PostgreSQL             | IR-045 â€“ IR-050 | Must                                         |
-| Filesystem             | IR-051 â€“ IR-060 | Must                                         |
-| Git Executable         | IR-061 â€“ IR-069 | Must                                         |
-| Runtime Configuration  | IR-070 â€“ IR-075 | Must                                         |
-| Logging                | IR-076 â€“ IR-081 | Should, except credential protection is Must |
-| Authentication         | IR-082 â€“ IR-085 | Must                                         |
-| Authorization          | IR-086 â€“ IR-090 | Must                                         |
-| Validation             | IR-091 â€“ IR-094 | Must                                         |
-| Error Handling         | IR-095 â€“ IR-100 | Must                                         |
+| Web UI                 | IR-001 – IR-013 | Must                                         |
+| Web Usability          | IR-014 – IR-018 | Should                                       |
+| Application HTTP       | IR-019 – IR-025 | Must                                         |
+| Git Smart HTTP         | IR-026 – IR-040 | Must                                         |
+| Git Client Interaction | IR-041 – IR-044 | Must                                         |
+| PostgreSQL             | IR-045 – IR-050 | Must                                         |
+| Filesystem             | IR-051 – IR-060 | Must                                         |
+| Git Executable         | IR-061 – IR-069 | Must                                         |
+| Runtime Configuration  | IR-070 – IR-075 | Must                                         |
+| Logging                | IR-076 – IR-081 | Should, except credential protection is Must |
+| Authentication         | IR-082 – IR-085 | Must                                         |
+| Authorization          | IR-086 – IR-090 | Must                                         |
+| Validation             | IR-091 – IR-094 | Must                                         |
+| Error Handling         | IR-095 – IR-100 | Must                                         |
 
 ---
 
@@ -563,14 +563,14 @@ Examples:
 
 | Rule                                        | Priority                         |
 | ------------------------------------------- | -------------------------------- |
-| BR-001 â€“ BR-075                             | Must                             |
+| BR-001 – BR-075                             | Must                             |
 | BR-076 Owner Controls Settings              | Must                             |
 | BR-077 Visibility Change Owner-Controlled   | Must if visibility updates exist |
 | BR-078 Repository Deletion Owner-Controlled | Must if deletion exists          |
 | BR-079 Deletion Confirmation                | Must if deletion exists          |
 | BR-080 Deletion Consistency                 | Must if deletion exists          |
-| BR-081 â€“ BR-090                             | Must                             |
-| BR-091 â€“ BR-096 Scope Control               | Must                             |
+| BR-081 – BR-090                             | Must                             |
+| BR-091 – BR-096 Scope Control               | Must                             |
 
 ---
 
@@ -588,10 +588,10 @@ Examples:
 
 | Requirement                              | Priority                |
 | ---------------------------------------- | ----------------------- |
-| AR-001 â€“ AR-026                          | Must                    |
+| AR-001 – AR-026                          | Must                    |
 | AR-027 Repository Deletion Authorization | Must if deletion exists |
 | AR-028 Repository Rename Authorization   | Must if rename exists   |
-| AR-029 â€“ AR-060                          | Must                    |
+| AR-029 – AR-060                          | Must                    |
 
 Authorization failures in implemented features are release-blocking defects.
 
@@ -731,23 +731,23 @@ The minimum acceptable release must support the following user journey:
 
 ```text
 Register
-&#x20;  â†“
+   ↓
 Authenticate
-&#x20;  â†“
+   ↓
 Create Repository
-&#x20;  â†“
+   ↓
 View Repository
-&#x20;  â†“
+   ↓
 Browse Repository
-&#x20;  â†“
+   ↓
 Create Personal Access Token
-&#x20;  â†“
+   ↓
 Clone
-&#x20;  â†“
+   ↓
 Fetch
-&#x20;  â†“
+   ↓
 Push
-&#x20;  â†“
+   ↓
 Revoke Token
 ```
 
@@ -957,27 +957,27 @@ However, a practical dependency-aware sequence is:
 
 ```text
 Identity
-&#x20;  â†“
+   ↓
 Authentication
-&#x20;  â†“
+   ↓
 Repository Metadata
-&#x20;  â†“
+   ↓
 Repository Creation
-&#x20;  â†“
+   ↓
 Ownership / Visibility
-&#x20;  â†“
+   ↓
 Authorization
-&#x20;  â†“
+   ↓
 Repository Storage
-&#x20;  â†“
+   ↓
 PAT Authentication
-&#x20;  â†“
+   ↓
 Git Read
-&#x20;  â†“
+   ↓
 Git Write
-&#x20;  â†“
+   ↓
 Repository Browser
-&#x20;  â†“
+   ↓
 Operational Hardening
 ```
 
@@ -1024,7 +1024,7 @@ A priority change should consider:
 Promotion example:
 
 ```text
-Could â†’ Must
+Could → Must
 ```
 
 may increase release scope.
@@ -1032,7 +1032,7 @@ may increase release scope.
 Demotion example:
 
 ```text
-Must â†’ Should
+Must → Should
 ```
 
 requires justification because it may alter the agreed minimum product.
@@ -1047,13 +1047,13 @@ Conceptually:
 
 ```text
 Requirement
-&#x20;   â†“
+    ↓
 Priority
-&#x20;   â†“
+    ↓
 Implementation Artifact
-&#x20;   â†“
+    ↓
 Verification
-&#x20;   â†“
+    ↓
 Release Decision
 ```
 

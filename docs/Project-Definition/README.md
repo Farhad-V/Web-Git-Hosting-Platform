@@ -570,7 +570,7 @@ The problem is considered solved for V1.0.0 when:
 ### 11. Validation Questions
 
 The problem statement is valid when the following questions can be answered
-with â€œyesâ€:
+with “yes”:
 
 1. Does it identify the need for self-hosted Git infrastructure?
 2. Does it explain why Git alone is insufficient?
@@ -841,7 +841,7 @@ V1.0.0 should produce these outcomes:
 - Automated tests detect regressions in critical behavior.
 - The application can be deployed reproducibly.
 - Technical reviewers can trace the project from definition through
-&#x20; implementation and verification.
+  implementation and verification.
 - Future development has a controlled foundation after V1.0.0.
 
 ---
@@ -877,7 +877,7 @@ These exclusions protect product quality and release feasibility.
 The product vision is being realized when:
 
 - Users can complete the defined repository workflow without manual server
-&#x20; administration.
+  administration.
 - Private and public access behavior is predictable and tested.
 - Git operations use scoped credentials rather than account passwords.
 - Repository content becomes browsable after successful pushes.
@@ -907,7 +907,7 @@ No V2.0.0 feature is automatically approved by this vision document.
 
 ### 13. Vision Validation Questions
 
-The vision is valid when the following questions can be answered with â€œyesâ€:
+The vision is valid when the following questions can be answered with “yes”:
 
 1. Is the target user clear?
 2. Is the primary user need clear?

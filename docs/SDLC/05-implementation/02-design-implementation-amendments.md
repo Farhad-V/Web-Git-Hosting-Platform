@@ -7,23 +7,14 @@
 
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Design-to-Implementation Amendments |
-
 | SDLC phase | Implementation |
-
 | Milestone | M4 - Implementation |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 
@@ -439,9 +430,7 @@ The `username` field is the public owner namespace identifier.
 
 
 | ID | Subject | Classification | Status |
-
 |---|---|---|---|
-
 | AMD-001 | Stable owner namespace identifier | Design clarification | Approved |
 
 

@@ -653,15 +653,15 @@ Traceability will support mappings such as:
 
 ```text
 Project Goal
-&#x20;   â†“
+    ↓
 Requirement
-&#x20;   â†“
+    ↓
 Use Case / Analysis Model
-&#x20;   â†“
+    ↓
 Design Component
-&#x20;   â†“
+    ↓
 Implementation
-&#x20;   â†“
+    ↓
 Test Case
 ```
 
@@ -813,19 +813,19 @@ The relationship is:
 
 ```text
 Project Definition
-&#x20;       â†“
+        ↓
 Requirements Engineering
-&#x20;       â†“
+        ↓
 System Analysis
-&#x20;       â†“
+        ↓
 System Design
-&#x20;       â†“
+        ↓
 Implementation
-&#x20;       â†“
+        ↓
 Testing
-&#x20;       â†“
+        ↓
 Deployment
-&#x20;       â†“
+        ↓
 Maintenance
 ```
 

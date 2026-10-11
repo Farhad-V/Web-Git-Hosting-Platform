@@ -754,15 +754,15 @@ Representative configuration:
 
 git.binary = git
 
-git.timeout\_seconds = 10
+git.timeout_seconds = 10
 
-git.max\_request\_bytes = 104857600
+git.max_request_bytes = 104857600
 
-git.storage\_root = temporary test directory
+git.storage_root = temporary test directory
 
-git.repositories\_directory = repositories
+git.repositories_directory = repositories
 
-git.initial\_branch = main
+git.initial_branch = main
 
 ```
 
@@ -1088,7 +1088,7 @@ The existing automated test:
 
 ```text
 
-test\_non\_owner\_cannot\_execute\_receive\_pack\_rpc
+test_non_owner_cannot_execute_receive_pack_rpc
 
 ```
 
@@ -1126,7 +1126,7 @@ Targeted execution command:
 
 ```powershell
 
-php artisan test --filter=test\_non\_owner\_cannot\_execute\_receive\_pack\_rpc
+php artisan test --filter=test_non_owner_cannot_execute_receive_pack_rpc
 
 ```
 
@@ -1288,7 +1288,7 @@ Pint reported one formatting correction:
 
 ```text
 
-single\_blank\_line\_at\_eof
+single_blank_line_at_eof
 
 ```
 
@@ -2962,7 +2962,7 @@ Changes:
 
 Added GitCommandRunner test dependency
 
-Strengthened test\_non\_owner\_cannot\_execute\_receive\_pack\_rpc()
+Strengthened test_non_owner_cannot_execute_receive_pack_rpc()
 
 Added seedMainRef()
 
@@ -3014,7 +3014,7 @@ The targeted execution of:
 
 ```text
 
-test\_non\_owner\_cannot\_execute\_receive\_pack\_rpc
+test_non_owner_cannot_execute_receive_pack_rpc
 
 ```
 
@@ -3089,23 +3089,23 @@ Authorization behavior is traced through the following chain:
 
 Approved V1.0.0 Requirements
 
-&#x20;       ↓
+        ↓
 
 System Analysis Authorization Model
 
-&#x20;       ↓
+        ↓
 
 M5 Test Case Specification
 
-&#x20;       ↓
+        ↓
 
 TC-AUTHZ-001 – TC-AUTHZ-008
 
-&#x20;       ↓
+        ↓
 
 Automated Feature / Security / Git / Observability Tests
 
-&#x20;       ↓
+        ↓
 
 WP-06 Execution Evidence
 

@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Authorization Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -198,11 +189,11 @@ It is derived from:
 
 Authenticated User
 
-&#x20;       +
+        +
 
 Target Repository
 
-&#x20;       +
+        +
 
 Ownership Relationship
 
@@ -332,11 +323,11 @@ Repository
 
 Operation
 
-&#x20;   ↓
+    ↓
 
 Authorization Evaluation
 
-&#x20;   ↓
+    ↓
 
 Allow / Deny
 
@@ -398,11 +389,11 @@ For caller User X and Repository R:
 
 Owner
 
-&#x20;   if X = R.owner
+    if X = R.owner
 
 Non-Owner
 
-&#x20;   if X != R.owner
+    if X != R.owner
 
 ```
 
@@ -469,13 +460,9 @@ Repository Owner
 Decision matrix:
 
 | Caller | Public Repository Read |
-
 |---|---|
-
 | Visitor | Allow |
-
 | Authenticated Non-Owner | Allow |
-
 | Owner | Allow |
 
 ---
@@ -487,13 +474,9 @@ A Private Repository may be read only by its owner.
 Decision matrix:
 
 | Caller | Private Repository Read |
-
 |---|---|
-
 | Visitor | Deny |
-
 | Authenticated Non-Owner | Deny |
-
 | Owner | Allow |
 
 ---
@@ -505,13 +488,9 @@ Repository writes are owner-only.
 Decision matrix:
 
 | Caller | Repository Write |
-
 |---|---|
-
 | Anonymous | Deny |
-
 | Authenticated Non-Owner | Deny |
-
 | Owner | Allow |
 
 This rule applies to both:
@@ -541,13 +520,9 @@ Change Repository Visibility
 Decision matrix:
 
 | Caller | Change Visibility |
-
 |---|---|
-
 | Visitor | Deny |
-
 | Authenticated Non-Owner | Deny |
-
 | Owner | Allow |
 
 ---
@@ -572,11 +547,11 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Create Repository
 
-&#x20;     ↓
+      ↓
 
 Repository.owner = Authenticated User
 
@@ -594,7 +569,7 @@ Conceptually:
 
 Authenticated User X
 
-&#x20;     ↓
+      ↓
 
 Return repositories where owner = X
 
@@ -614,19 +589,19 @@ Logical flow:
 
 Repository Request
 
-&#x20;     ↓
+      ↓
 
 Resolve Repository
 
-&#x20;     ↓
+      ↓
 
 Visibility = Public?
 
-&#x20;     ↓ Yes
+      ↓ Yes
 
 Authorize Read
 
-&#x20;     ↓
+      ↓
 
 Allow
 
@@ -646,33 +621,33 @@ Logical flow:
 
 Repository Request
 
-&#x20;     ↓
+      ↓
 
 Resolve Repository
 
-&#x20;     ↓
+      ↓
 
 Visibility = Private
 
-&#x20;     ↓
+      ↓
 
 Authenticated?
 
-&#x20;  /          \\
+   /          \\
 
-&#x20;No            Yes
+ No            Yes
 
-&#x20;|              |
+ |              |
 
 Deny        Owner?
 
-&#x20;          /    \\
+           /    \\
 
-&#x20;        No      Yes
+         No      Yes
 
-&#x20;        |        |
+         |        |
 
-&#x20;       Deny     Allow
+        Deny     Allow
 
 ```
 
@@ -942,11 +917,11 @@ Conceptually:
 
 Authenticated User X
 
-&#x20;     ↓
+      ↓
 
 Create PAT
 
-&#x20;     ↓
+      ↓
 
 PAT.owner = X
 
@@ -966,7 +941,7 @@ Conceptually:
 
 Authenticated User X
 
-&#x20;     ↓
+      ↓
 
 Return PATs where owner = X
 
@@ -983,11 +958,8 @@ A User may revoke only a PAT they own.
 Decision matrix:
 
 | Caller | Own PAT | Other User's PAT |
-
 |---|---|---|
-
 | Visitor | Deny | Deny |
-
 | Authenticated User | Allow | Deny |
 
 ---
@@ -1000,19 +972,19 @@ For protected operations requiring identity:
 
 Receive Request
 
-&#x20;     ↓
+      ↓
 
 Authenticate
 
-&#x20;     ↓
+      ↓
 
 Resolve User Identity
 
-&#x20;     ↓
+      ↓
 
 Authorize
 
-&#x20;     ↓
+      ↓
 
 Perform Operation
 
@@ -1030,19 +1002,19 @@ For approved public reads:
 
 Receive Request
 
-&#x20;     ↓
+      ↓
 
 Resolve Repository
 
-&#x20;     ↓
+      ↓
 
 Evaluate Visibility
 
-&#x20;     ↓
+      ↓
 
 Authorize Anonymous Read
 
-&#x20;     ↓
+      ↓
 
 Perform Read
 
@@ -1084,15 +1056,15 @@ Conceptually:
 
 Resolve Metadata
 
-&#x20;     ↓
+      ↓
 
 Authorize
 
-&#x20;     ↓
+      ↓
 
 Resolve Physical Repository
 
-&#x20;     ↓
+      ↓
 
 Read / Write Git Data
 
@@ -1112,23 +1084,23 @@ Conceptually:
 
 Authenticate
 
-&#x20;     ↓
+      ↓
 
 Resolve Repository
 
-&#x20;     ↓
+      ↓
 
 Authorize Write
 
-&#x20;     ↓
+      ↓
 
 Allow?
 
-&#x20;  /      \\
+   /      \\
 
-&#x20;No        Yes
+ No        Yes
 
-&#x20;|          |
+ |          |
 
 Stop      Mutate
 
@@ -1170,13 +1142,13 @@ Conceptually:
 
 Public
 
-&#x20; ↓
+  ↓
 
 Read available to all supported callers
 
 Private
 
-&#x20; ↓
+  ↓
 
 Read limited to owner
 
@@ -1196,7 +1168,7 @@ Conceptually:
 
 Caller User ID
 
-&#x20;     =
+      =
 
 Repository Owner ID
 
@@ -1240,7 +1212,7 @@ Therefore:
 
 Valid PAT
 
-&#x20;   ≠
+    ≠
 
 Automatic repository access
 
@@ -1380,7 +1352,7 @@ Where authorization is required:
 
 Authorization uncertainty
 
-&#x20;       ↓
+        ↓
 
 Deny
 
@@ -1414,11 +1386,11 @@ Conceptually:
 
 Internal Authorization Reason
 
-&#x20;       ↓
+        ↓
 
 Safe External Response
 
-&#x20;       +
+        +
 
 Diagnostic Event
 
@@ -1482,23 +1454,23 @@ The critical authorization boundary is:
 
 Untrusted Caller Request
 
-&#x20;     ↓
+      ↓
 
 Authenticated or Anonymous Identity Context
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Authorization Evaluation
 
-&#x20;     ↓
+      ↓
 
 Trusted Allow / Deny Decision
 
-&#x20;     ↓
+      ↓
 
 Controlled Operation
 
@@ -1613,19 +1585,12 @@ Write authorization therefore remains owner-only before and after the visibility
 ## 57. Repository Authorization Decision Table
 
 | Visibility | Caller | Read | Write | Manage |
-
 |---|---|---:|---:|---:|
-
 | Public | Visitor / Anonymous | Allow | Deny | Deny |
-
 | Public | Authenticated Non-Owner | Allow | Deny | Deny |
-
 | Public | Owner | Allow | Allow | Allow |
-
 | Private | Visitor / Anonymous | Deny | Deny | Deny |
-
 | Private | Authenticated Non-Owner | Deny | Deny | Deny |
-
 | Private | Owner | Allow | Allow | Allow |
 
 ---
@@ -1633,17 +1598,11 @@ Write authorization therefore remains owner-only before and after the visibility
 ## 58. Git Authorization Decision Table
 
 | Operation | Public Anonymous | Public Non-Owner | Public Owner | Private Anonymous | Private Non-Owner | Private Owner |
-
 |---|---:|---:|---:|---:|---:|---:|
-
 | Read-service discovery | Allow | Allow | Allow | Deny | Deny | Allow |
-
 | Clone | Allow | Allow | Allow | Deny | Deny | Allow |
-
 | Fetch | Allow | Allow | Allow | Deny | Deny | Allow |
-
 | Write-service discovery | Deny | Deny | Allow | Deny | Deny | Allow |
-
 | Push | Deny | Deny | Allow | Deny | Deny | Allow |
 
 ---
@@ -1651,21 +1610,13 @@ Write authorization therefore remains owner-only before and after the visibility
 ## 59. Web Authorization Decision Table
 
 | Operation | Visitor | Authenticated Non-Owner | Owner |
-
 |---|---:|---:|---:|
-
 | View public repository | Allow | Allow | Allow |
-
 | View private repository | Deny | Deny | Allow |
-
 | Browse public repository | Allow | Allow | Allow |
-
 | Browse private repository | Deny | Deny | Allow |
-
 | Change visibility | Deny | Deny | Allow |
-
 | Create repository | Deny | Allow | Allow |
-
 | List own repositories | Deny | Allow | Allow |
 
 For create/list operations, `Owner` means the authenticated User context and not ownership of a pre-existing target repository.
@@ -1675,15 +1626,10 @@ For create/list operations, `Owner` means the authenticated User context and not
 ## 60. PAT Authorization Decision Table
 
 | Operation | Visitor | Authenticated User | Other User's Resource |
-
 |---|---:|---:|---:|
-
 | Create own PAT | Deny | Allow | Not applicable |
-
 | List own PAT metadata | Deny | Allow | Deny |
-
 | Revoke own PAT | Deny | Allow | Deny |
-
 | Recover plaintext PAT | Deny | Deny | Deny |
 
 ---
@@ -1811,29 +1757,17 @@ A User shall not manage another User's PAT.
 ## 69. Authorization Responsibility Matrix
 
 | Responsibility | Logical Owner |
-
 |---|---|
-
 | Establish caller identity | Authentication |
-
 | Resolve target repository | Repository Resolution |
-
 | Resolve ownership | Repository Management / Persistence |
-
 | Resolve visibility | Repository Management / Persistence |
-
 | Evaluate repository read | Repository Authorization |
-
 | Evaluate repository write | Repository Authorization |
-
 | Evaluate management permission | Repository Authorization |
-
 | Enforce browser permission | Web interaction responsibilities |
-
 | Enforce Git read permission | Git Read Coordination |
-
 | Enforce Git write permission | Git Write Coordination |
-
 | Record authorization failure | Diagnostics / Failure Handling |
 
 ---
@@ -1898,7 +1832,7 @@ If repository ownership or visibility cannot be reliably loaded:
 
 Authorization cannot be reliably evaluated
 
-&#x20;       ↓
+        ↓
 
 Protected operation denied
 
@@ -1916,11 +1850,11 @@ For protected repository access, if PostgreSQL metadata required for authorizati
 
 Owner / visibility cannot be trusted
 
-&#x20;       ↓
+        ↓
 
 Authorization cannot complete
 
-&#x20;       ↓
+        ↓
 
 Deny protected operation
 
@@ -1966,11 +1900,11 @@ Conceptually:
 
 Authorization = Allow
 
-&#x20;       ↓
+        ↓
 
 Git operation attempted
 
-&#x20;       ↓
+        ↓
 
 Git operation fails
 
@@ -2034,15 +1968,15 @@ For example:
 
 Public Repository
 
-&#x20;   → anonymous web read allowed
+    → anonymous web read allowed
 
-&#x20;   → anonymous Git read allowed
+    → anonymous Git read allowed
 
 Private Repository
 
-&#x20;   → non-owner web read denied
+    → non-owner web read denied
 
-&#x20;   → non-owner Git read denied
+    → non-owner Git read denied
 
 ```
 

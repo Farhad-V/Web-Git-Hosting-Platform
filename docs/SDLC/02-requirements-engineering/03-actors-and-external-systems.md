@@ -240,13 +240,13 @@ The principal human actor relationship is:
 
 ```text
 Visitor
-&#x20;  |
-&#x20;  | successful authentication
-&#x20;  v
+   |
+   | successful authentication
+   v
 Authenticated User
-&#x20;  |
-&#x20;  | owns a specific repository
-&#x20;  v
+   |
+   | owns a specific repository
+   v
 Repository Owner
 ```
 
@@ -287,11 +287,11 @@ Example:
 
 ```text
 Authenticated User
-&#x20;       +
+        +
 Repository Owner
-&#x20;       +
+        +
 Valid write-capable credential
-&#x20;       =
+        =
 Authorized repository push
 ```
 
@@ -418,11 +418,11 @@ GitForge depends on the operating system but does not control the operating syst
 
 ```text
 Visitor
-&#x20;  |
-&#x20;  v
+   |
+   v
 Web Browser
-&#x20;  |
-&#x20;  v
+   |
+   v
 GitForge Web Interface
 ```
 
@@ -432,16 +432,16 @@ GitForge Web Interface
 
 ```text
 Authenticated User
-&#x20;  |
-&#x20;  v
+   |
+   v
 Web Browser
-&#x20;  |
-&#x20;  v
+   |
+   v
 GitForge
-&#x20;  |
-&#x20;  +--> PostgreSQL
-&#x20;  |
-&#x20;  +--> Repository Storage
+   |
+   +--> PostgreSQL
+   |
+   +--> Repository Storage
 ```
 
 ---
@@ -450,21 +450,21 @@ GitForge
 
 ```text
 Human User
-&#x20;  |
-&#x20;  v
+   |
+   v
 Git Client
-&#x20;  |
-&#x20;  v
+   |
+   v
 Git Smart HTTP
-&#x20;  |
-&#x20;  v
+   |
+   v
 GitForge
-&#x20;  |
-&#x20;  +--> Authentication / Authorization
-&#x20;  |
-&#x20;  +--> Git Executable
-&#x20;  |
-&#x20;  +--> Repository Storage
+   |
+   +--> Authentication / Authorization
+   |
+   +--> Git Executable
+   |
+   +--> Repository Storage
 ```
 
 ---

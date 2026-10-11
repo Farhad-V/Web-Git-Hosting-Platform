@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | UI Information Architecture |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -1701,35 +1692,20 @@ Create Token
 ## 96. Page Access Matrix
 
 | Page | Visitor | Authenticated Non-Owner | Owner |
-
 |---|---:|---:|---:|
-
 | Home | Allow | Allow | Allow |
-
 | Register | Allow | Allow/redirect | Allow/redirect |
-
 | Login | Allow | Allow/redirect | Allow/redirect |
-
 | My Repositories | Deny | Allow own | Allow own |
-
 | Create Repository | Deny | Allow | Allow |
-
 | Public Repository Overview | Allow | Allow | Allow |
-
 | Private Repository Overview | Deny | Deny | Allow |
-
 | Public Files | Allow | Allow | Allow |
-
 | Private Files | Deny | Deny | Allow |
-
 | Public Commits | Allow | Allow | Allow |
-
 | Private Commits | Deny | Deny | Allow |
-
 | Repository Settings | Deny | Deny | Allow |
-
 | PAT List | Deny | Allow own | Allow own |
-
 | Create PAT | Deny | Allow own | Allow own |
 
 ---
@@ -1739,23 +1715,14 @@ Create Token
 ## 97. Primary Actions
 
 | Context | Primary Action |
-
 |---|---|
-
 | Home anonymous | Register / Login |
-
 | Dashboard | Create Repository |
-
 | Repository overview empty | Clone / Initial Push Guidance |
-
 | Repository files | Navigate Tree |
-
 | Commit history | Open Commit |
-
 | Repository settings | Save Visibility |
-
 | PAT list | Create Token |
-
 | PAT creation success | Copy Token |
 
 ---
@@ -1806,7 +1773,7 @@ Repository
 
 ├── Branches
 
-└── Settings \[Owner only]
+└── Settings [Owner only]
 
 ```
 
@@ -2057,21 +2024,13 @@ Blob text
 ## 115. UI-to-Component Mapping
 
 | UI Area | Primary Backend Component |
-
 |---|---|
-
 | Registration/Login/Logout | Authentication Service |
-
 | Dashboard | Repository Service |
-
 | Create Repository | Repository Service |
-
 | Repository Overview | Repository Service |
-
 | Files/Branches/Commits | Repository Browser Service |
-
 | Repository Settings | Repository Service + Authorization Policy |
-
 | PAT List/Create/Revoke | PAT Service |
 
 ---
@@ -2081,37 +2040,21 @@ Blob text
 ## 116. UI-to-API Mapping
 
 | UI Action | Interface |
-
 |---|---|
-
 | Register | `POST /register` |
-
 | Login | `POST /login` |
-
 | Logout | `POST /logout` |
-
 | Create repository | `POST /repositories` |
-
 | List repositories | `GET /repositories` |
-
 | View repository | `GET /{owner}/{repository}` |
-
 | Change visibility | `PATCH /{owner}/{repository}/visibility` |
-
 | List branches | `GET /{owner}/{repository}/branches` |
-
 | Commit history | `GET /{owner}/{repository}/commits` |
-
 | Commit detail | `GET /{owner}/{repository}/commits/{commit}` |
-
 | Tree | `GET /{owner}/{repository}/tree/{ref}` |
-
 | Blob | `GET /{owner}/{repository}/blob/{ref}` |
-
 | List PATs | `GET /settings/tokens` |
-
 | Create PAT | `POST /settings/tokens` |
-
 | Revoke PAT | `POST /settings/tokens/{token}/revoke` |
 
 ---

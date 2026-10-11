@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Git Smart HTTP Read Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -228,19 +219,19 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Discover git-upload-pack
 
-&#x20;   ↓
+    ↓
 
 Negotiate / Request Read
 
-&#x20;   ↓
+    ↓
 
 Execute git-upload-pack
 
-&#x20;   ↓
+    ↓
 
 Receive Git Data
 
@@ -258,27 +249,27 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Read-Service Discovery Request
 
-&#x20;   ↓
+    ↓
 
 GitForge
 
-&#x20;   ↓
+    ↓
 
 Repository Resolution
 
-&#x20;   ↓
+    ↓
 
 Authorization
 
-&#x20;   ↓
+    ↓
 
 git-upload-pack Discovery
 
-&#x20;   ↓
+    ↓
 
 Discovery Response
 
@@ -296,23 +287,23 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Discover Read Service
 
-&#x20;   ↓
+    ↓
 
 Negotiate Repository State
 
-&#x20;   ↓
+    ↓
 
 Request Required Objects
 
-&#x20;   ↓
+    ↓
 
 Receive Git Objects
 
-&#x20;   ↓
+    ↓
 
 Construct Local Repository
 
@@ -332,19 +323,19 @@ Conceptually:
 
 Existing Git Client Repository
 
-&#x20;       ↓
+        ↓
 
 Discover Remote State
 
-&#x20;       ↓
+        ↓
 
 Negotiate Missing Objects
 
-&#x20;       ↓
+        ↓
 
 Receive Required Git Data
 
-&#x20;       ↓
+        ↓
 
 Update Local Remote State
 
@@ -412,23 +403,23 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Read Request
 
-&#x20;   ↓
+    ↓
 
 Resolve Repository
 
-&#x20;   ↓
+    ↓
 
 Repository Public
 
-&#x20;   ↓
+    ↓
 
 Authorize Anonymous Read
 
-&#x20;   ↓
+    ↓
 
 Execute Read Service
 
@@ -448,15 +439,15 @@ Conceptually:
 
 Valid PAT
 
-&#x20;   ↓
+    ↓
 
 User Identity
 
-&#x20;   ↓
+    ↓
 
 Public Repository
 
-&#x20;   ↓
+    ↓
 
 Read Allowed
 
@@ -486,23 +477,23 @@ Conceptually:
 
 Private Repository
 
-&#x20;     ↓
+      ↓
 
 Authenticate PAT
 
-&#x20;     ↓
+      ↓
 
 Resolve User
 
-&#x20;     ↓
+      ↓
 
 Owner?
 
-&#x20;  /      \\
+   /      \\
 
-&#x20;No        Yes
+ No        Yes
 
-&#x20;|          |
+ |          |
 
 Deny       Allow
 
@@ -534,7 +525,7 @@ Therefore:
 
 Valid PAT
 
-&#x20;   ≠
+    ≠
 
 Automatic repository read permission
 
@@ -552,15 +543,15 @@ Conceptually:
 
 <owner>/<repository>
 
-&#x20;       ↓
+        ↓
 
 Validate
 
-&#x20;       ↓
+        ↓
 
 Resolve Repository Metadata
 
-&#x20;       ↓
+        ↓
 
 Obtain Owner + Visibility
 
@@ -594,11 +585,11 @@ After repository read authorization succeeds:
 
 Logical Repository
 
-&#x20;     ↓
+      ↓
 
 Repository Storage Coordination
 
-&#x20;     ↓
+      ↓
 
 Safe Physical Repository Target
 
@@ -616,19 +607,19 @@ For protected repositories:
 
 Resolve Metadata
 
-&#x20;     ↓
+      ↓
 
 Authenticate if required
 
-&#x20;     ↓
+      ↓
 
 Authorize Read
 
-&#x20;     ↓
+      ↓
 
 Resolve Physical Repository
 
-&#x20;     ↓
+      ↓
 
 Execute git-upload-pack
 
@@ -646,27 +637,27 @@ Logical flow:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Discovery Request
 
-&#x20;   ↓
+    ↓
 
 Resolve Repository
 
-&#x20;   ↓
+    ↓
 
 Visibility = Public
 
-&#x20;   ↓
+    ↓
 
 Authorize Anonymous Read
 
-&#x20;   ↓
+    ↓
 
 Invoke Approved Discovery Behavior
 
-&#x20;   ↓
+    ↓
 
 Return Refs / Capabilities
 
@@ -682,31 +673,31 @@ Logical flow:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Discovery Request
 
-&#x20;   ↓
+    ↓
 
 Resolve Repository
 
-&#x20;   ↓
+    ↓
 
 Visibility = Private
 
-&#x20;   ↓
+    ↓
 
 Authenticate PAT
 
-&#x20;   ↓
+    ↓
 
 Resolve User
 
-&#x20;   ↓
+    ↓
 
 Authorize Owner Read
 
-&#x20;   ↓
+    ↓
 
 Invoke Approved Discovery Behavior
 
@@ -722,23 +713,23 @@ After authorized discovery/negotiation, the read-service execution logically per
 
 Receive Git Protocol Input
 
-&#x20;     ↓
+      ↓
 
 Associate with Authorized Repository
 
-&#x20;     ↓
+      ↓
 
 Invoke Controlled git-upload-pack
 
-&#x20;     ↓
+      ↓
 
 Forward Controlled Input
 
-&#x20;     ↓
+      ↓
 
 Capture/Stream Git Output
 
-&#x20;     ↓
+      ↓
 
 Return Protocol-Compatible Response
 
@@ -776,15 +767,15 @@ Conceptually:
 
 GitForge
 
-&#x20;  ↓
+   ↓
 
 Approved git-upload-pack Invocation
 
-&#x20;  ↓
+   ↓
 
 Git Executable
 
-&#x20;  ↓
+   ↓
 
 Physical Git Repository
 
@@ -824,15 +815,15 @@ The target repository for `git-upload-pack` must be derived from:
 
 Validated logical repository
 
-&#x20;       ↓
+        ↓
 
 Resolved application repository
 
-&#x20;       ↓
+        ↓
 
 Authorized repository context
 
-&#x20;       ↓
+        ↓
 
 Safe physical repository resolution
 
@@ -920,11 +911,11 @@ If metadata exists but the physical repository is missing:
 
 Authorization may succeed
 
-&#x20;       ↓
+        ↓
 
 Storage resolution fails
 
-&#x20;       ↓
+        ↓
 
 Read operation fails
 
@@ -942,11 +933,11 @@ If the physical repository exists but `git-upload-pack` cannot operate correctly
 
 Read authorization succeeds
 
-&#x20;       ↓
+        ↓
 
 Git execution fails
 
-&#x20;       ↓
+        ↓
 
 Operational failure
 
@@ -1012,7 +1003,7 @@ Private Repository
 
 No Valid PAT
 
-&#x20;   ↓
+    ↓
 
 Authentication Failure
 
@@ -1026,7 +1017,7 @@ Private Repository
 
 Valid PAT for Non-Owner
 
-&#x20;   ↓
+    ↓
 
 Authorization Failure
 
@@ -1086,7 +1077,7 @@ or
 
 Repository identity uncertainty
 
-&#x20;       ↓
+        ↓
 
 Do not expose Git repository data
 
@@ -1102,15 +1093,15 @@ Conceptually:
 
 Internal Git Read Failure
 
-&#x20;       ↓
+        ↓
 
 Classify
 
-&#x20;       ↓
+        ↓
 
 Diagnostic Event
 
-&#x20;       +
+        +
 
 Safe Protocol Response
 
@@ -1154,19 +1145,19 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Untrusted HTTP + Git Protocol Input
 
-&#x20;   ↓
+    ↓
 
 GitForge
 
-&#x20;   ↓
+    ↓
 
 Validation / Authentication / Authorization
 
-&#x20;   ↓
+    ↓
 
 Controlled Read Execution
 
@@ -1182,15 +1173,15 @@ For private reads:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 PAT Credential
 
-&#x20;   ↓
+    ↓
 
 Git Authentication
 
-&#x20;   ↓
+    ↓
 
 Verified User Identity
 
@@ -1210,15 +1201,15 @@ Conceptually:
 
 Client Repository Identifier
 
-&#x20;       ↓
+        ↓
 
 Validate
 
-&#x20;       ↓
+        ↓
 
 Application Repository Resolution
 
-&#x20;       ↓
+        ↓
 
 Internal Storage Resolution
 
@@ -1291,31 +1282,18 @@ Controlled process environment
 ## 51. Git Read Responsibility Matrix
 
 | Responsibility | Logical Owner |
-
 |---|---|
-
 | Receive Git HTTP read request | Git Smart HTTP Interface |
-
 | Determine requested read service | Git Smart HTTP Interface |
-
 | Resolve repository metadata | Repository Resolution |
-
 | Authenticate PAT when required | Git Authentication |
-
 | Resolve authenticated User | Git Authentication |
-
 | Evaluate read permission | Repository Authorization |
-
 | Resolve physical repository | Repository Storage Coordination |
-
 | Select approved read operation | Git Read Coordination |
-
 | Invoke `git-upload-pack` | Git Process Coordination |
-
 | Handle Git protocol I/O | Git Read / Process Coordination |
-
 | Classify failures | Failure Handling |
-
 | Record diagnostics | Diagnostics |
 
 ---
@@ -1323,19 +1301,12 @@ Controlled process environment
 ## 52. Git Read Decision Table
 
 | Visibility | Caller | Authentication Required | Read Decision |
-
 |---|---|---:|---:|
-
 | Public | Anonymous | No | Allow |
-
 | Public | Authenticated Non-Owner | Optional | Allow |
-
 | Public | Owner | Optional | Allow |
-
 | Private | Anonymous | Yes | Deny without authentication |
-
 | Private | Authenticated Non-Owner | Yes | Deny |
-
 | Private | Owner | Yes | Allow |
 
 ---
@@ -1343,15 +1314,10 @@ Controlled process environment
 ## 53. Git Read Service Decision Table
 
 | Operation | Public Anonymous | Public Authenticated | Private Non-Owner | Private Owner |
-
 |---|---:|---:|---:|---:|
-
 | `git-upload-pack` discovery | Allow | Allow | Deny | Allow |
-
 | Clone | Allow | Allow | Deny | Allow |
-
 | Fetch | Allow | Allow | Deny | Allow |
-
 | `git-upload-pack` execution | Allow | Allow | Deny | Allow |
 
 ---
@@ -1416,47 +1382,47 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 HTTP Request
 
-&#x20;   ↓
+    ↓
 
 Git Smart HTTP Interface
 
-&#x20;   ↓
+    ↓
 
 Repository Metadata
 
-&#x20;   ↓
+    ↓
 
 Authentication if required
 
-&#x20;   ↓
+    ↓
 
 Authorization
 
-&#x20;   ↓
+    ↓
 
 Safe Repository Resolution
 
-&#x20;   ↓
+    ↓
 
 git-upload-pack
 
-&#x20;   ↓
+    ↓
 
 Physical Git Repository
 
-&#x20;   ↓
+    ↓
 
 Git Protocol Output
 
-&#x20;   ↓
+    ↓
 
 HTTP Response
 
-&#x20;   ↓
+    ↓
 
 Git Client
 
@@ -1518,7 +1484,7 @@ For private reads:
 
 PAT Active + Valid
 
-&#x20;       ↓
+        ↓
 
 May establish User identity
 
@@ -1530,11 +1496,11 @@ For revoked PAT:
 
 PAT Revoked
 
-&#x20;       ↓
+        ↓
 
 Authentication denied
 
-&#x20;       ↓
+        ↓
 
 Private read denied
 
@@ -1552,13 +1518,13 @@ Example:
 
 Repository Public
 
-&#x20;   ↓
+    ↓
 
 Anonymous read allowed
 
 Owner changes to Private
 
-&#x20;   ↓
+    ↓
 
 Next anonymous read denied
 
@@ -1614,11 +1580,11 @@ If metadata points to a missing or invalid physical repository:
 
 Authorization can succeed
 
-&#x20;       ↓
+        ↓
 
 Read cannot execute safely
 
-&#x20;       ↓
+        ↓
 
 Consistency failure
 
@@ -1716,11 +1682,11 @@ At analysis level:
 
 Client Protocol Input
 
-&#x20;     ↓
+      ↓
 
 Controlled Git Process
 
-&#x20;     ↓
+      ↓
 
 Git Protocol Output
 

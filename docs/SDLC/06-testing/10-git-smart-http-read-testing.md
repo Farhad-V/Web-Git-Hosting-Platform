@@ -518,15 +518,15 @@ Public repository read behavior:
 
 Public repository
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 No PAT required
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 upload-pack allowed
 
@@ -542,33 +542,33 @@ Private repository read behavior:
 
 Private repository
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 Git Basic authentication
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 PAT validation
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 Token owner identity
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 Repository owner check
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 upload-pack allowed or rejected
 
@@ -614,35 +614,35 @@ Relevant read-side test methods include:
 
 ```text
 
-test\_public\_repository\_advertises\_upload\_pack\_without\_authentication
+test_public_repository_advertises_upload_pack_without_authentication
 
-test\_private\_repository\_requires\_authentication\_for\_upload\_pack
+test_private_repository_requires_authentication_for_upload_pack
 
-test\_owner\_token\_can\_access\_private\_upload\_pack
+test_owner_token_can_access_private_upload_pack
 
-test\_public\_repository\_accepts\_upload\_pack\_rpc\_without\_authentication
+test_public_repository_accepts_upload_pack_rpc_without_authentication
 
-test\_private\_upload\_pack\_rpc\_requires\_authentication
+test_private_upload_pack_rpc_requires_authentication
 
-test\_owner\_token\_can\_execute\_private\_upload\_pack\_rpc
+test_owner_token_can_execute_private_upload_pack_rpc
 
-test\_oversized\_upload\_pack\_rpc\_is\_rejected
+test_oversized_upload_pack_rpc_is_rejected
 
-test\_corrupt\_repository\_storage\_fails\_closed\_for\_upload\_pack\_advertisement
+test_corrupt_repository_storage_fails_closed_for_upload_pack_advertisement
 
-test\_git\_transport\_failure\_does\_not\_expose\_git\_stderr
+test_git_transport_failure_does_not_expose_git_stderr
 
-test\_invalid\_token\_cannot\_access\_private\_repository
+test_invalid_token_cannot_access_private_repository
 
-test\_revoked\_token\_cannot\_access\_private\_repository
+test_revoked_token_cannot_access_private_repository
 
-test\_token\_username\_must\_match\_token\_owner\_namespace
+test_token_username_must_match_token_owner_namespace
 
-test\_upload\_pack\_rejects\_incorrect\_content\_type
+test_upload_pack_rejects_incorrect_content_type
 
-test\_unsupported\_git\_service\_is\_rejected
+test_unsupported_git_service_is_rejected
 
-test\_repository\_name\_with\_period\_and\_underscore\_is\_routable
+test_repository_name_with_period_and_underscore_is_routable
 
 ```
 
@@ -812,17 +812,17 @@ The E2E suite contains:
 
 ```text
 
-test\_real\_git\_client\_can\_clone\_public\_repository
+test_real_git_client_can_clone_public_repository
 
-test\_real\_git\_client\_can\_fetch\_new\_public\_commit
+test_real_git_client_can_fetch_new_public_commit
 
-test\_real\_git\_client\_can\_clone\_private\_repository\_with\_valid\_owner\_pat
+test_real_git_client_can_clone_private_repository_with_valid_owner_pat
 
-test\_real\_git\_client\_rejects\_private\_clone\_without\_credentials
+test_real_git_client_rejects_private_clone_without_credentials
 
-test\_real\_git\_client\_rejects\_private\_clone\_with\_invalid\_pat
+test_real_git_client_rejects_private_clone_with_invalid_pat
 
-test\_real\_git\_client\_rejects\_private\_clone\_with\_revoked\_pat
+test_real_git_client_rejects_private_clone_with_revoked_pat
 
 ```
 
@@ -868,49 +868,49 @@ The conceptual execution flow is:
 
 PHPUnit
 
-&#x20; |
+  |
 
-&#x20; +-- create temporary SQLite DB
+  +-- create temporary SQLite DB
 
-&#x20; |
+  |
 
-&#x20; +-- migrate database
+  +-- migrate database
 
-&#x20; |
+  |
 
-&#x20; +-- create user/repository/PAT metadata
+  +-- create user/repository/PAT metadata
 
-&#x20; |
+  |
 
-&#x20; +-- initialize bare repository
+  +-- initialize bare repository
 
-&#x20; |
+  |
 
-&#x20; +-- seed Git objects and refs
+  +-- seed Git objects and refs
 
-&#x20; |
+  |
 
-&#x20; +-- start temporary Laravel HTTP server
+  +-- start temporary Laravel HTTP server
 
-&#x20; |
+  |
 
-&#x20; +-- invoke real system Git client
+  +-- invoke real system Git client
 
-&#x20;         |
+          |
 
-&#x20;         +-- GET info/refs
+          +-- GET info/refs
 
-&#x20;         |
+          |
 
-&#x20;         +-- POST git-upload-pack
+          +-- POST git-upload-pack
 
-&#x20;         |
+          |
 
-&#x20;         +-- receive refs/objects
+          +-- receive refs/objects
 
-&#x20;         |
+          |
 
-&#x20;         +-- clone or fetch
+          +-- clone or fetch
 
 ```
 
@@ -930,9 +930,9 @@ The normal PHPUnit configuration uses:
 
 ```text
 
-DB\_CONNECTION=sqlite
+DB_CONNECTION=sqlite
 
-DB\_DATABASE=:memory:
+DB_DATABASE=:memory:
 
 ```
 
@@ -986,15 +986,15 @@ Environment configuration includes:
 
 ```text
 
-GITFORGE\_REPOSITORY\_ROOT=<temporary-path>
+GITFORGE_REPOSITORY_ROOT=<temporary-path>
 
-GIT\_INITIAL\_BRANCH=main
+GIT_INITIAL_BRANCH=main
 
-GITFORGE\_GIT\_BINARY=git
+GITFORGE_GIT_BINARY=git
 
-GIT\_PROCESS\_TIMEOUT\_SECONDS=30
+GIT_PROCESS_TIMEOUT_SECONDS=30
 
-GIT\_MAX\_REQUEST\_BYTES=104857600
+GIT_MAX_REQUEST_BYTES=104857600
 
 ```
 
@@ -1076,7 +1076,7 @@ Interactive credential prompting is disabled through:
 
 ```text
 
-GIT\_TERMINAL\_PROMPT=0
+GIT_TERMINAL_PROMPT=0
 
 ```
 
@@ -1238,7 +1238,7 @@ Primary feature test:
 
 ```text
 
-test\_public\_repository\_advertises\_upload\_pack\_without\_authentication
+test_public_repository_advertises_upload_pack_without_authentication
 
 ```
 
@@ -1294,7 +1294,7 @@ E2E test:
 
 ```text
 
-test\_real\_git\_client\_can\_clone\_public\_repository
+test_real_git_client_can_clone_public_repository
 
 ```
 
@@ -1364,7 +1364,7 @@ E2E test:
 
 ```text
 
-test\_real\_git\_client\_can\_fetch\_new\_public\_commit
+test_real_git_client_can_fetch_new_public_commit
 
 ```
 
@@ -1378,39 +1378,39 @@ Execution flow:
 
 seed initial commit
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 git clone
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 seed second commit
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 advance refs/heads/main
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 git fetch origin
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 verify origin/main
 
-&#x20;       |
+        |
 
-&#x20;       v
+        v
 
 verify fetched README.md object
 
@@ -1468,9 +1468,9 @@ HTTP-level tests:
 
 ```text
 
-test\_owner\_token\_can\_access\_private\_upload\_pack
+test_owner_token_can_access_private_upload_pack
 
-test\_owner\_token\_can\_execute\_private\_upload\_pack\_rpc
+test_owner_token_can_execute_private_upload_pack_rpc
 
 ```
 
@@ -1482,7 +1482,7 @@ Real-client E2E test:
 
 ```text
 
-test\_real\_git\_client\_can\_clone\_private\_repository\_with\_valid\_owner\_pat
+test_real_git_client_can_clone_private_repository_with_valid_owner_pat
 
 ```
 
@@ -1542,9 +1542,9 @@ HTTP-level tests:
 
 ```text
 
-test\_private\_repository\_requires\_authentication\_for\_upload\_pack
+test_private_repository_requires_authentication_for_upload_pack
 
-test\_private\_upload\_pack\_rpc\_requires\_authentication
+test_private_upload_pack_rpc_requires_authentication
 
 ```
 
@@ -1556,7 +1556,7 @@ Real-client E2E test:
 
 ```text
 
-test\_real\_git\_client\_rejects\_private\_clone\_without\_credentials
+test_real_git_client_rejects_private_clone_without_credentials
 
 ```
 
@@ -1610,7 +1610,7 @@ HTTP-level test:
 
 ```text
 
-test\_invalid\_token\_cannot\_access\_private\_repository
+test_invalid_token_cannot_access_private_repository
 
 ```
 
@@ -1622,7 +1622,7 @@ Real-client E2E test:
 
 ```text
 
-test\_real\_git\_client\_rejects\_private\_clone\_with\_invalid\_pat
+test_real_git_client_rejects_private_clone_with_invalid_pat
 
 ```
 
@@ -1672,7 +1672,7 @@ HTTP-level test:
 
 ```text
 
-test\_revoked\_token\_cannot\_access\_private\_repository
+test_revoked_token_cannot_access_private_repository
 
 ```
 
@@ -1684,7 +1684,7 @@ Real-client E2E test:
 
 ```text
 
-test\_real\_git\_client\_rejects\_private\_clone\_with\_revoked\_pat
+test_real_git_client_rejects_private_clone_with_revoked_pat
 
 ```
 
@@ -1696,7 +1696,7 @@ The PAT model is explicitly persisted with:
 
 ```text
 
-revoked\_at != null
+revoked_at != null
 
 ```
 
@@ -1750,11 +1750,11 @@ HTTP-level evidence includes:
 
 ```text
 
-test\_public\_repository\_advertises\_upload\_pack\_without\_authentication
+test_public_repository_advertises_upload_pack_without_authentication
 
-test\_public\_repository\_accepts\_upload\_pack\_rpc\_without\_authentication
+test_public_repository_accepts_upload_pack_rpc_without_authentication
 
-test\_owner\_token\_can\_execute\_private\_upload\_pack\_rpc
+test_owner_token_can_execute_private_upload_pack_rpc
 
 ```
 
@@ -1766,11 +1766,11 @@ Real-client evidence includes:
 
 ```text
 
-test\_real\_git\_client\_can\_clone\_public\_repository
+test_real_git_client_can_clone_public_repository
 
-test\_real\_git\_client\_can\_fetch\_new\_public\_commit
+test_real_git_client_can_fetch_new_public_commit
 
-test\_real\_git\_client\_can\_clone\_private\_repository\_with\_valid\_owner\_pat
+test_real_git_client_can_clone_private_repository_with_valid_owner_pat
 
 ```
 
@@ -1880,7 +1880,7 @@ Incorrect upload-pack request media type is rejected by:
 
 ```text
 
-test\_upload\_pack\_rejects\_incorrect\_content\_type
+test_upload_pack_rejects_incorrect_content_type
 
 ```
 
@@ -1912,13 +1912,13 @@ Evidence includes:
 
 ```text
 
-test\_public\_repository\_advertises\_upload\_pack\_without\_authentication
+test_public_repository_advertises_upload_pack_without_authentication
 
-test\_public\_repository\_accepts\_upload\_pack\_rpc\_without\_authentication
+test_public_repository_accepts_upload_pack_rpc_without_authentication
 
-test\_real\_git\_client\_can\_clone\_public\_repository
+test_real_git_client_can_clone_public_repository
 
-test\_real\_git\_client\_can\_fetch\_new\_public\_commit
+test_real_git_client_can_fetch_new_public_commit
 
 ```
 
@@ -1950,13 +1950,13 @@ Evidence includes:
 
 ```text
 
-test\_private\_repository\_requires\_authentication\_for\_upload\_pack
+test_private_repository_requires_authentication_for_upload_pack
 
-test\_private\_upload\_pack\_rpc\_requires\_authentication
+test_private_upload_pack_rpc_requires_authentication
 
-test\_owner\_token\_can\_access\_private\_upload\_pack
+test_owner_token_can_access_private_upload_pack
 
-test\_owner\_token\_can\_execute\_private\_upload\_pack\_rpc
+test_owner_token_can_execute_private_upload_pack_rpc
 
 ```
 
@@ -1988,7 +1988,7 @@ The feature suite includes:
 
 ```text
 
-test\_token\_username\_must\_match\_token\_owner\_namespace
+test_token_username_must_match_token_owner_namespace
 
 ```
 
@@ -2024,7 +2024,7 @@ The feature suite includes:
 
 ```text
 
-test\_oversized\_upload\_pack\_rpc\_is\_rejected
+test_oversized_upload_pack_rpc_is_rejected
 
 ```
 
@@ -2060,7 +2060,7 @@ The feature suite includes:
 
 ```text
 
-test\_corrupt\_repository\_storage\_fails\_closed\_for\_upload\_pack\_advertisement
+test_corrupt_repository_storage_fails_closed_for_upload_pack_advertisement
 
 ```
 
@@ -2092,7 +2092,7 @@ The feature suite includes:
 
 ```text
 
-test\_git\_transport\_failure\_does\_not\_expose\_git\_stderr
+test_git_transport_failure_does_not_expose_git_stderr
 
 ```
 
@@ -2128,7 +2128,7 @@ The feature suite includes:
 
 ```text
 
-test\_unsupported\_git\_service\_is\_rejected
+test_unsupported_git_service_is_rejected
 
 ```
 
@@ -2164,7 +2164,7 @@ The feature suite includes:
 
 ```text
 
-test\_repository\_name\_with\_period\_and\_underscore\_is\_routable
+test_repository_name_with_period_and_underscore_is_routable
 
 ```
 
@@ -2224,9 +2224,9 @@ The two failures were:
 
 ```text
 
-test\_real\_git\_client\_can\_clone\_public\_repository
+test_real_git_client_can_clone_public_repository
 
-test\_real\_git\_client\_can\_clone\_private\_repository\_with\_valid\_owner\_pat
+test_real_git_client_can_clone_private_repository_with_valid_owner_pat
 
 ```
 
@@ -2346,9 +2346,9 @@ Command executed:
 
 php artisan test `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpTest.php `
+    tests\\Feature\\Git\\GitSmartHttpTest.php `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpReadEndToEndTest.php
+    tests\\Feature\\Git\\GitSmartHttpReadEndToEndTest.php
 
 ```
 
@@ -2406,9 +2406,9 @@ Command executed:
 
 vendor\\bin\\pint --test `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpTest.php `
+    tests\\Feature\\Git\\GitSmartHttpTest.php `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpReadEndToEndTest.php
+    tests\\Feature\\Git\\GitSmartHttpReadEndToEndTest.php
 
 ```
 
@@ -2681,51 +2681,51 @@ This verifies actual interoperability across:
 
 Git client
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 HTTP
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Laravel routing
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 GitSmartHttpController
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 GitSmartHttpService
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 GitCommandRunner
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 git upload-pack
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Git protocol response
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Git client
 

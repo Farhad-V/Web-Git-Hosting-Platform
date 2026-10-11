@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Design Traceability |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -1669,25 +1660,15 @@ No secrets exposed externally
 Approved functional requirements are covered through these design areas:
 
 | Functional Area | Primary Design Artifacts |
-
 |---|---|
-
 | User registration/authentication | 04, 05, 06, 10, 11, 14 |
-
 | Repository creation | 04, 05, 06, 08, 09, 14 |
-
 | Repository listing/view | 04, 05, 06, 07, 10, 11 |
-
 | Visibility management | 05, 06, 07, 10, 11 |
-
 | Repository browsing | 04, 06, 07, 08, 09, 10, 11 |
-
 | Git clone/fetch | 03, 04, 06, 07, 08, 09, 12, 14 |
-
 | Git push | 03, 04, 06, 07, 08, 09, 12, 14 |
-
 | PAT lifecycle | 04, 05, 06, 07, 10, 11, 14 |
-
 | Failure diagnosis | 09, 12, 13, 14 |
 
 Artifact numbers refer to M3 design document numbers.
@@ -2053,23 +2034,14 @@ timestamps
 ## 53. Data Authority Matrix
 
 | Data | Authority |
-
 |---|---|
-
 | User metadata | PostgreSQL |
-
 | Repository identity/owner/visibility | PostgreSQL |
-
 | PAT metadata/hash/revocation | PostgreSQL |
-
 | Git refs | Physical Git repository |
-
 | Git commits | Physical Git repository |
-
 | Git trees | Physical Git repository |
-
 | Git blobs | Physical Git repository |
-
 | Git history | Physical Git repository |
 
 ---
@@ -3761,55 +3733,30 @@ TLS
 ## 124. Matrix
 
 | Capability | Requirement/Use Case | Primary Components | Data | Interface | Security | Verification |
-
 |---|---|---|---|---|---|---|
-
 | Register | UC-001 | Authentication Service | users | `/register` | Password hashing, CSRF | Feature + Security |
-
 | Login | UC-002 | Authentication Service | users | `/login` | Session regeneration, rate limit | Feature + Security |
-
 | Logout | UC-003 | Authentication Service | Session | `/logout` | CSRF/session invalidation | Feature |
-
 | Create repository | UC-004 | Repository Service, Storage, Git Executor | repositories + Git repo | `POST /repositories` | Validation, safe path | Feature + Storage |
-
 | List repositories | UC-005 | Repository Service | repositories | `GET /repositories` | Own-user filtering | Feature |
-
 | View repository | UC-006 | Repository Service, Authorization | repositories | `GET /{owner}/{repo}` | Public/private policy | Feature + Authz |
-
 | Change visibility | UC-007 | Repository Service, Authorization | repositories | PATCH visibility | Owner-only | Feature + Authz |
-
 | Browse | UC-009 | Browser Service | Git repo | Browser endpoints | AUTH-READ | Integration |
-
 | Branches | UC-010 | Browser Service, Git Executor | Git refs | branches endpoint | Safe ref handling | Integration |
-
 | Commit history | UC-011 | Browser Service, Git Executor | Git commits | commits endpoint | Bounded reads | Integration |
-
 | Commit details | UC-012 | Browser Service, Git Executor | Git commit | commit endpoint | Safe object handling | Integration |
-
 | Tree | UC-013 | Browser Service, Git Executor | Git trees | tree endpoint | Safe Git path | Integration |
-
 | File | UC-014 | Browser Service, Git Executor | Git blob | blob endpoint | XSS/binary safety | Integration + Security |
-
 | Read discovery | UC-015 | Git Read Service | Git refs | info/refs | AUTH-READ | Git protocol |
-
 | Clone | UC-016 | Git Read Service, Executor | Git objects | upload-pack | PAT for private | Git protocol |
-
 | Fetch | UC-017 | Git Read Service, Executor | Git objects | upload-pack | PAT for private | Git protocol |
-
 | Write discovery | UC-018 | Git Write Service | Git refs | info/refs | PAT + owner | Git protocol |
-
 | Push | UC-019 | Git Write Service, Executor | Git objects/refs | receive-pack | PAT + owner | Git protocol |
-
 | Create PAT | UC-020 | PAT Service | PAT table | token endpoint | One-time plaintext | Feature + Security |
-
 | Git PAT auth | UC-021 | PAT Auth | PAT table | HTTP auth | Hash verification | Security + Protocol |
-
 | Revoke PAT | UC-022 | PAT Service | revoked_at | revoke endpoint | Token owner only | Feature + Security |
-
 | Authorize read | UC-023 | Authorization | owner/visibility | Shared policy | Fail closed | Unit + Integration |
-
 | Authorize write | UC-024 | Authorization | owner | Shared policy | Owner only | Unit + Integration |
-
 | Diagnose failure | UC-025 | Observability | Logs/health | Internal diagnostics | Secret exclusion | Failure tests |
 
 ---

@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Repository Storage Design |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -2085,19 +2076,12 @@ Only validated Repository Storage output may be supplied to Git Process Executio
 ## 111. Metadata/Storage Matrix
 
 | Metadata | Physical Storage | Interpretation | Normal User Action |
-
 |---|---|---|---|
-
 | Present | Present and valid | Available | Continue |
-
 | Present | Missing | Inconsistent | Fail |
-
 | Present | Unavailable | Storage failure | Fail |
-
 | Present | Invalid/corrupt | Repository failure | Fail |
-
 | Absent | Present | Orphaned | Do not adopt |
-
 | Absent | Absent | Not existing | Normal absence |
 
 ---
@@ -2107,17 +2091,11 @@ Only validated Repository Storage output may be supplied to Git Process Executio
 ## 112. Creation Matrix
 
 | Metadata Creation | Storage Target | Git Init | Result |
-
 |---|---|---|---|
-
 | Fail | Not created | Not run | Fail |
-
 | Success | Unsafe | Not run | Compensate metadata |
-
 | Success | Unexpected existing | Not run | Compensate metadata / investigate |
-
 | Success | Safe | Fail | Compensate + cleanup |
-
 | Success | Safe | Success | Success |
 
 ---

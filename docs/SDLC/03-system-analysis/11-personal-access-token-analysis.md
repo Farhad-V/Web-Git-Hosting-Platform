@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Personal Access Token Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -112,23 +103,23 @@ Conceptually:
 
 User
 
-&#x20; ↓
+  ↓
 
 Creates PAT
 
-&#x20; ↓
+  ↓
 
 Receives plaintext token once
 
-&#x20; ↓
+  ↓
 
 Configures Git Client
 
-&#x20; ↓
+  ↓
 
 Git Client presents token
 
-&#x20; ↓
+  ↓
 
 GitForge authenticates User
 
@@ -184,15 +175,15 @@ Conceptually:
 
 User
 
-&#x20; 1
+  1
 
-&#x20; |
+  |
 
-&#x20; | owns
+  | owns
 
-&#x20; |
+  |
 
-&#x20; *
+  *
 
 PAT
 
@@ -210,7 +201,7 @@ For every PAT:
 
 PAT
 
-&#x20; ↓
+  ↓
 
 Exactly One User
 
@@ -230,7 +221,7 @@ Conceptually:
 
 Unauthenticated Visitor
 
-&#x20;     ↓
+      ↓
 
 Cannot Create PAT
 
@@ -242,7 +233,7 @@ versus:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 May Create PAT
 
@@ -258,27 +249,27 @@ Logical creation flow:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Request PAT Creation
 
-&#x20;     ↓
+      ↓
 
 Generate Strong Token
 
-&#x20;     ↓
+      ↓
 
 Derive Verification Representation
 
-&#x20;     ↓
+      ↓
 
 Persist Non-Recoverable Representation
 
-&#x20;     ↓
+      ↓
 
 Present Plaintext Token Once
 
-&#x20;     ↓
+      ↓
 
 PAT Available for Git Authentication
 
@@ -298,11 +289,11 @@ Conceptually:
 
 GitForge
 
-&#x20;  ↓
+   ↓
 
 Generate Credential
 
-&#x20;  ↓
+   ↓
 
 Return Credential Once
 
@@ -322,7 +313,7 @@ Conceptually:
 
 Plaintext PAT
 
-&#x20;     ↓
+      ↓
 
 Authentication Secret
 
@@ -342,19 +333,19 @@ Conceptually:
 
 Create PAT
 
-&#x20;   ↓
+    ↓
 
 Plaintext Available
 
-&#x20;   ↓
+    ↓
 
 Present to User
 
-&#x20;   ↓
+    ↓
 
 Creation Workflow Ends
 
-&#x20;   ↓
+    ↓
 
 Plaintext No Longer Recoverable
 
@@ -374,7 +365,7 @@ Conceptually:
 
 Stored PAT Record
 
-&#x20;     ↓
+      ↓
 
 Cannot Recover Original Token
 
@@ -386,7 +377,7 @@ If the User loses the plaintext token:
 
 Revoke Existing PAT
 
-&#x20;     +
+      +
 
 Create New PAT
 
@@ -426,11 +417,11 @@ Conceptually:
 
 Plaintext PAT
 
-&#x20;     ↓
+      ↓
 
 Verification Transformation
 
-&#x20;     ↓
+      ↓
 
 Stored Verification Representation
 
@@ -442,11 +433,11 @@ During authentication:
 
 Presented PAT
 
-&#x20;     ↓
+      ↓
 
 Verification Process
 
-&#x20;     ↓
+      ↓
 
 Match / No Match
 
@@ -554,31 +545,31 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Present PAT
 
-&#x20;   ↓
+    ↓
 
 GitForge Receives Credential
 
-&#x20;   ↓
+    ↓
 
 Locate Candidate PAT Record
 
-&#x20;   ↓
+    ↓
 
 Verify Credential
 
-&#x20;   ↓
+    ↓
 
 Check Revocation
 
-&#x20;   ↓
+    ↓
 
 Resolve Owner User
 
-&#x20;   ↓
+    ↓
 
 Authenticated User Identity
 
@@ -634,7 +625,7 @@ Therefore:
 
 Valid PAT
 
-&#x20;   ≠
+    ≠
 
 Repository Authorization
 
@@ -668,11 +659,11 @@ Private repository read requires:
 
 Valid PAT
 
-&#x20;     +
+      +
 
 Authenticated User
 
-&#x20;     +
+      +
 
 Owner Authorization
 
@@ -684,15 +675,15 @@ Conceptually:
 
 PAT Valid?
 
-&#x20;  ↓
+   ↓
 
 User Resolved?
 
-&#x20;  ↓
+   ↓
 
 Repository Owner?
 
-&#x20;  ↓
+   ↓
 
 Allow Read
 
@@ -710,15 +701,15 @@ Conceptually:
 
 PAT Valid?
 
-&#x20;  ↓
+   ↓
 
 User Resolved?
 
-&#x20;  ↓
+   ↓
 
 Repository Owner?
 
-&#x20;  ↓
+   ↓
 
 Allow Write
 
@@ -772,11 +763,11 @@ Conceptually:
 
 Valid Historical PAT
 
-&#x20;     ↓
+      ↓
 
 Revoked
 
-&#x20;     ↓
+      ↓
 
 Future Authentication Denied
 
@@ -794,23 +785,23 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Select Owned PAT
 
-&#x20;     ↓
+      ↓
 
 Request Revocation
 
-&#x20;     ↓
+      ↓
 
 Verify Ownership
 
-&#x20;     ↓
+      ↓
 
 Mark PAT Revoked
 
-&#x20;     ↓
+      ↓
 
 Future Authentication Denied
 
@@ -828,11 +819,11 @@ Conceptually:
 
 User A
 
-&#x20; ↓
+  ↓
 
 PAT owned by User B
 
-&#x20; ↓
+  ↓
 
 Revocation Denied
 
@@ -850,15 +841,15 @@ Conceptually:
 
 PAT active
 
-&#x20;   ↓
+    ↓
 
 Authentication Allowed
 
-&#x20;   ↓
+    ↓
 
 PAT revoked
 
-&#x20;   ↓
+    ↓
 
 Subsequent Authentication Denied
 
@@ -876,7 +867,7 @@ Once revocation is committed as authoritative application state:
 
 Future uses of PAT
 
-&#x20;     ↓
+      ↓
 
 Must fail authentication
 
@@ -894,11 +885,11 @@ V1.0.0 PAT state may be analyzed as:
 
 Created
 
-&#x20;  ↓
+   ↓
 
 Active
 
-&#x20;  ↓
+   ↓
 
 Revoked
 
@@ -975,37 +966,21 @@ A revoked PAT does not return to Active.
 ## 42. PAT Responsibility Matrix
 
 | Responsibility | Logical Owner |
-
 |---|---|
-
 | Receive PAT creation request | Web/API Interface |
-
 | Require authenticated User for PAT management | Application Authentication |
-
 | Generate PAT plaintext | PAT Coordination / Credential Generation |
-
 | Derive verification representation | PAT Coordination |
-
 | Persist PAT metadata | PAT Persistence |
-
 | Associate PAT with User | PAT Persistence |
-
 | Present plaintext PAT once | PAT Coordination / Interface |
-
 | Receive Git PAT credential | Git Smart HTTP Interface |
-
 | Verify PAT | Git Authentication |
-
 | Resolve PAT owner | Git Authentication |
-
 | Check revocation | Git Authentication |
-
 | Establish authenticated identity | Git Authentication |
-
 | Evaluate repository access | Repository Authorization |
-
 | Revoke PAT | PAT Coordination |
-
 | Record safe diagnostics | Diagnostics |
 
 ---
@@ -1018,33 +993,33 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 PAT Creation Request
 
-&#x20;     ↓
+      ↓
 
 PAT Coordination
 
-&#x20;     ↓
+      ↓
 
 Strong Token Generation
 
-&#x20;     ↓
+      ↓
 
 Plaintext PAT
 
-&#x20;     ├────────────→ One-Time User Presentation
+      ├────────────→ One-Time User Presentation
 
-&#x20;     ↓
+      ↓
 
 Verification Transformation
 
-&#x20;     ↓
+      ↓
 
 Non-Recoverable Verification Representation
 
-&#x20;     ↓
+      ↓
 
 PostgreSQL
 
@@ -1060,31 +1035,31 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Presented PAT
 
-&#x20;   ↓
+    ↓
 
 Git Authentication
 
-&#x20;   ↓
+    ↓
 
 Verification
 
-&#x20;   ↓
+    ↓
 
 Revocation Check
 
-&#x20;   ↓
+    ↓
 
 PAT Owner Resolution
 
-&#x20;   ↓
+    ↓
 
 Authenticated User Identity
 
-&#x20;   ↓
+    ↓
 
 Repository Authorization
 
@@ -1100,27 +1075,27 @@ Conceptually:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Revocation Request
 
-&#x20;     ↓
+      ↓
 
 PAT Coordination
 
-&#x20;     ↓
+      ↓
 
 Resolve PAT
 
-&#x20;     ↓
+      ↓
 
 Verify PAT Ownership
 
-&#x20;     ↓
+      ↓
 
 Persist Revoked State
 
-&#x20;     ↓
+      ↓
 
 Future Authentication Denied
 
@@ -1160,7 +1135,7 @@ Conceptually:
 
 PostgreSQL
 
-&#x20;   ↓
+    ↓
 
 PAT Authority
 
@@ -1172,7 +1147,7 @@ versus:
 
 Physical Git Repository
 
-&#x20;   ↓
+    ↓
 
 Git Object / Ref Authority
 
@@ -1252,11 +1227,11 @@ A User may:
 
 Create Repository
 
-&#x20;     ↓
+      ↓
 
 Later Create PAT
 
-&#x20;     ↓
+      ↓
 
 Use PAT for Git operations
 
@@ -1276,7 +1251,7 @@ Conceptually:
 
 Web User Authentication
 
-&#x20;     ↓
+      ↓
 
 Interactive application identity
 
@@ -1288,7 +1263,7 @@ versus:
 
 PAT Authentication
 
-&#x20;     ↓
+      ↓
 
 Git Client identity
 
@@ -1308,11 +1283,11 @@ Conceptually:
 
 GitForge
 
-&#x20;   ↓
+    ↓
 
 Plaintext PAT
 
-&#x20;   ↓
+    ↓
 
 User-Controlled Environment
 
@@ -1334,15 +1309,15 @@ Conceptually:
 
 External Credential
 
-&#x20;     ↓
+      ↓
 
 Untrusted
 
-&#x20;     ↓
+      ↓
 
 Verification
 
-&#x20;     ↓
+      ↓
 
 Authenticated Identity
 
@@ -1622,7 +1597,7 @@ or
 
 Owner resolution uncertainty
 
-&#x20;       ↓
+        ↓
 
 Do Not Establish Authenticated Identity
 
@@ -1755,17 +1730,11 @@ PAT state does not determine repository visibility or ownership.
 ## 64. PAT Decision Table
 
 | PAT State | Credential Verification | User Resolved | Authentication Result |
-
 |---|---:|---:|---:|
-
 | Active | Success | Yes | Allow identity establishment |
-
 | Active | Failure | No | Deny |
-
 | Revoked | Success | Yes | Deny |
-
 | Unknown | Failure | No | Deny |
-
 | Inconsistent | Uncertain | Uncertain | Deny |
 
 ---
@@ -1773,19 +1742,12 @@ PAT state does not determine repository visibility or ownership.
 ## 65. PAT Repository Authorization Decision Table
 
 | PAT Authentication | Repository Relationship | Operation | Decision |
-
 |---|---|---|---:|
-
 | Failure | Any | Private read | Deny |
-
 | Failure | Any | Write | Deny |
-
 | Success | Non-Owner | Private read | Deny |
-
 | Success | Owner | Private read | Allow |
-
 | Success | Non-Owner | Write | Deny |
-
 | Success | Owner | Write | Allow |
 
 Public anonymous read remains governed by repository visibility policy and does not require PAT authentication.
@@ -1795,15 +1757,10 @@ Public anonymous read remains governed by repository visibility policy and does 
 ## 66. Revocation Decision Table
 
 | Caller | PAT Ownership | PAT State | Revocation Decision |
-
 |---|---|---|---:|
-
 | Unauthenticated | Any | Active | Deny |
-
 | Authenticated User | Not Owner | Active | Deny |
-
 | Owner | Owner | Active | Allow |
-
 | Owner | Owner | Revoked | No further activation; remain revoked |
 
 Exact idempotent response behavior for repeat revocation belongs to System Design.

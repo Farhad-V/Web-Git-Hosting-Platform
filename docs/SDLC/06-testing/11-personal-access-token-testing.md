@@ -344,23 +344,23 @@ The PAT feature suite contains:
 
 ```text
 
-test\_authenticated\_user\_can\_create\_personal\_access\_token
+test_authenticated_user_can_create_personal_access_token
 
-test\_plaintext\_token\_is\_not\_exposed\_when\_listing\_tokens
+test_plaintext_token_is_not_exposed_when_listing_tokens
 
-test\_user\_lists\_only\_their\_own\_tokens
+test_user_lists_only_their_own_tokens
 
-test\_token\_creation\_requires\_valid\_name
+test_token_creation_requires_valid_name
 
-test\_token\_name\_is\_trimmed
+test_token_name_is_trimmed
 
-test\_user\_can\_revoke\_owned\_token
+test_user_can_revoke_owned_token
 
-test\_revocation\_is\_idempotent
+test_revocation_is_idempotent
 
-test\_user\_cannot\_revoke\_another\_users\_token
+test_user_cannot_revoke_another_users_token
 
-test\_unauthenticated\_user\_cannot\_manage\_tokens
+test_unauthenticated_user_cannot_manage_tokens
 
 ```
 
@@ -384,19 +384,19 @@ The PAT service unit suite contains:
 
 ```text
 
-test\_it\_issues\_token\_using\_v1\_format\_and\_persists\_only\_hash
+test_it_issues_token_using_v1_format_and_persists_only_hash
 
-test\_it\_resolves\_valid\_active\_token
+test_it_resolves_valid_active_token
 
-test\_it\_rejects\_malformed\_token
+test_it_rejects_malformed_token
 
-test\_it\_rejects\_unknown\_token\_identifier
+test_it_rejects_unknown_token_identifier
 
-test\_it\_rejects\_token\_with\_wrong\_secret
+test_it_rejects_token_with_wrong_secret
 
-test\_it\_rejects\_revoked\_token
+test_it_rejects_revoked_token
 
-test\_issued\_tokens\_are\_unique
+test_issued_tokens_are_unique
 
 ```
 
@@ -470,31 +470,31 @@ The authorization sequence is:
 
 PAT presented
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 PAT validated
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 User identity resolved
 
-&#x20;   |
+    |
 
-&#x20;   v
+    v
 
 Repository authorization evaluated
 
-&#x20;   |
+    |
 
-&#x20;   +--> authorized -> operation allowed
+    +--> authorized -> operation allowed
 
-&#x20;   |
+    |
 
-&#x20;   +--> unauthorized -> operation rejected
+    +--> unauthorized -> operation rejected
 
 ```
 
@@ -530,7 +530,7 @@ Feature test:
 
 ```text
 
-test\_authenticated\_user\_can\_create\_personal\_access\_token
+test_authenticated_user_can_create_personal_access_token
 
 ```
 
@@ -542,7 +542,7 @@ Supporting service test:
 
 ```text
 
-test\_it\_issues\_token\_using\_v1\_format\_and\_persists\_only\_hash
+test_it_issues_token_using_v1_format_and_persists_only_hash
 
 ```
 
@@ -586,7 +586,7 @@ Feature test:
 
 ```text
 
-test\_unauthenticated\_user\_cannot\_manage\_tokens
+test_unauthenticated_user_cannot_manage_tokens
 
 ```
 
@@ -626,7 +626,7 @@ Service test:
 
 ```text
 
-test\_it\_issues\_token\_using\_v1\_format\_and\_persists\_only\_hash
+test_it_issues_token_using_v1_format_and_persists_only_hash
 
 ```
 
@@ -670,9 +670,9 @@ Feature tests:
 
 ```text
 
-test\_plaintext\_token\_is\_not\_exposed\_when\_listing\_tokens
+test_plaintext_token_is_not_exposed_when_listing_tokens
 
-test\_user\_lists\_only\_their\_own\_tokens
+test_user_lists_only_their_own_tokens
 
 ```
 
@@ -712,7 +712,7 @@ Feature test:
 
 ```text
 
-test\_user\_lists\_only\_their\_own\_tokens
+test_user_lists_only_their_own_tokens
 
 ```
 
@@ -756,7 +756,7 @@ Feature test:
 
 ```text
 
-test\_user\_can\_revoke\_owned\_token
+test_user_can_revoke_owned_token
 
 ```
 
@@ -768,9 +768,9 @@ Supporting tests:
 
 ```text
 
-test\_revocation\_is\_idempotent
+test_revocation_is_idempotent
 
-test\_it\_rejects\_revoked\_token
+test_it_rejects_revoked_token
 
 ```
 
@@ -814,7 +814,7 @@ Service test:
 
 ```text
 
-test\_it\_rejects\_malformed\_token
+test_it_rejects_malformed_token
 
 ```
 
@@ -826,9 +826,9 @@ Additional negative tests:
 
 ```text
 
-test\_it\_rejects\_unknown\_token\_identifier
+test_it_rejects_unknown_token_identifier
 
-test\_it\_rejects\_token\_with\_wrong\_secret
+test_it_rejects_token_with_wrong_secret
 
 ```
 
@@ -868,7 +868,7 @@ Service test:
 
 ```text
 
-test\_it\_resolves\_valid\_active\_token
+test_it_resolves_valid_active_token
 
 ```
 
@@ -912,9 +912,9 @@ Git feature tests:
 
 ```text
 
-test\_non\_owner\_cannot\_advertise\_receive\_pack
+test_non_owner_cannot_advertise_receive_pack
 
-test\_non\_owner\_cannot\_execute\_receive\_pack\_rpc
+test_non_owner_cannot_execute_receive_pack_rpc
 
 ```
 
@@ -986,7 +986,7 @@ Feature test:
 
 ```text
 
-test\_user\_cannot\_revoke\_another\_users\_token
+test_user_cannot_revoke_another_users_token
 
 ```
 
@@ -1022,7 +1022,7 @@ Feature test:
 
 ```text
 
-test\_token\_creation\_requires\_valid\_name
+test_token_creation_requires_valid_name
 
 ```
 
@@ -1054,7 +1054,7 @@ Feature test:
 
 ```text
 
-test\_token\_name\_is\_trimmed
+test_token_name_is_trimmed
 
 ```
 
@@ -1086,7 +1086,7 @@ Feature test:
 
 ```text
 
-test\_revocation\_is\_idempotent
+test_revocation_is_idempotent
 
 ```
 
@@ -1118,7 +1118,7 @@ Service test:
 
 ```text
 
-test\_it\_rejects\_unknown\_token\_identifier
+test_it_rejects_unknown_token_identifier
 
 ```
 
@@ -1150,7 +1150,7 @@ Service test:
 
 ```text
 
-test\_it\_rejects\_token\_with\_wrong\_secret
+test_it_rejects_token_with_wrong_secret
 
 ```
 
@@ -1182,7 +1182,7 @@ Service test:
 
 ```text
 
-test\_issued\_tokens\_are\_unique
+test_issued_tokens_are_unique
 
 ```
 
@@ -1216,9 +1216,9 @@ Command executed:
 
 php artisan test `
 
-&#x20;   tests\\Feature\\Api\\V1\\PersonalAccessTokenTest.php `
+    tests\\Feature\\Api\\V1\\PersonalAccessTokenTest.php `
 
-&#x20;   tests\\Unit\\Services\\Auth\\PersonalAccessTokenServiceTest.php
+    tests\\Unit\\Services\\Auth\\PersonalAccessTokenServiceTest.php
 
 ```
 
@@ -1276,9 +1276,9 @@ Command executed:
 
 php artisan test `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpTest.php `
+    tests\\Feature\\Git\\GitSmartHttpTest.php `
 
-&#x20;   --filter="non\_owner\_cannot\_(advertise|execute)\_receive\_pack"
+    --filter="non_owner_cannot_(advertise|execute)_receive_pack"
 
 ```
 
@@ -1340,11 +1340,11 @@ Command executed:
 
 vendor\\bin\\pint --test `
 
-&#x20;   tests\\Feature\\Api\\V1\\PersonalAccessTokenTest.php `
+    tests\\Feature\\Api\\V1\\PersonalAccessTokenTest.php `
 
-&#x20;   tests\\Unit\\Services\\Auth\\PersonalAccessTokenServiceTest.php `
+    tests\\Unit\\Services\\Auth\\PersonalAccessTokenServiceTest.php `
 
-&#x20;   tests\\Feature\\Git\\GitSmartHttpTest.php
+    tests\\Feature\\Git\\GitSmartHttpTest.php
 
 ```
 
@@ -1536,9 +1536,9 @@ Management evidence:
 
 ```text
 
-test\_user\_can\_revoke\_owned\_token
+test_user_can_revoke_owned_token
 
-test\_revocation\_is\_idempotent
+test_revocation_is_idempotent
 
 ```
 
@@ -1550,7 +1550,7 @@ Authentication evidence:
 
 ```text
 
-test\_it\_rejects\_revoked\_token
+test_it_rejects_revoked_token
 
 ```
 

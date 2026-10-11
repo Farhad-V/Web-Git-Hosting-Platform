@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | System Analysis Validation |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -235,45 +226,25 @@ Scope preservation
 ## 8. M2 Artifact Completeness
 
 | Artifact | Validation Result |
-
 |---|---|
-
 | 01 System Analysis Plan | Pass |
-
 | 02 System Context Analysis | Pass |
-
 | 03 Domain Analysis | Pass |
-
 | 04 Logical System Decomposition | Pass |
-
 | 05 Authentication Analysis | Pass |
-
 | 06 Authorization Analysis | Pass |
-
 | 07 Repository Lifecycle Analysis | Pass |
-
 | 08 Repository Browser Analysis | Pass |
-
 | 09 Git Smart HTTP Read Analysis | Pass |
-
 | 10 Git Smart HTTP Write Analysis | Pass |
-
 | 11 Personal Access Token Analysis | Pass |
-
 | 12 Repository Storage Analysis | Pass |
-
 | 13 Data Flow Analysis | Pass |
-
 | 14 State Analysis | Pass |
-
 | 15 Trust Boundary Analysis | Pass |
-
 | 16 Failure and Exception Analysis | Pass |
-
 | 17 Analysis Sequence Models | Pass |
-
 | 18 Analysis Activity Models | Pass |
-
 | 19 Analysis Traceability | Pass |
 
 Validation result:
@@ -289,49 +260,27 @@ PASS
 ## 9. Required Analysis Topic Completeness
 
 | Topic | Covered |
-
 |---|---|
-
 | System boundary | Yes |
-
 | External actors | Yes |
-
 | Domain concepts | Yes |
-
 | Logical responsibilities | Yes |
-
 | Interactive authentication | Yes |
-
 | PAT authentication | Yes |
-
 | Read authorization | Yes |
-
 | Write authorization | Yes |
-
 | Repository lifecycle | Yes |
-
 | Repository browser | Yes |
-
 | Git read | Yes |
-
 | Git write | Yes |
-
 | PAT lifecycle | Yes |
-
 | Repository storage | Yes |
-
 | Data flows | Yes |
-
 | States | Yes |
-
 | Trust boundaries | Yes |
-
 | Failures/exceptions | Yes |
-
 | Sequence interactions | Yes |
-
 | Activity decisions | Yes |
-
 | Traceability | Yes |
 
 Result:
@@ -578,11 +527,11 @@ Approved rule:
 
 One Repository
 
-&#x20;     ↓
+      ↓
 
 One Owner
 
-&#x20;     ↓
+      ↓
 
 Authenticated User
 
@@ -640,23 +589,23 @@ Validated PAT authentication flow:
 
 Presented PAT
 
-&#x20;     ↓
+      ↓
 
 Candidate Resolution
 
-&#x20;     ↓
+      ↓
 
 Verification
 
-&#x20;     ↓
+      ↓
 
 Revocation Check
 
-&#x20;     ↓
+      ↓
 
 Owner Resolution
 
-&#x20;     ↓
+      ↓
 
 Authenticated User Identity
 
@@ -707,13 +656,9 @@ PASS
 Validated policy:
 
 | Caller | Public Read |
-
 |---|---|
-
 | Visitor | Allow |
-
 | Authenticated Non-Owner | Allow |
-
 | Owner | Allow |
 
 Result:
@@ -731,13 +676,9 @@ PASS
 Validated policy:
 
 | Caller | Private Read |
-
 |---|---|
-
 | Visitor | Deny |
-
 | Authenticated Non-Owner | Deny |
-
 | Owner | Allow |
 
 Result:
@@ -755,13 +696,9 @@ PASS
 Validated policy:
 
 | Caller | Write |
-
 |---|---|
-
 | Anonymous | Deny |
-
 | Authenticated Non-Owner | Deny |
-
 | Owner | Allow |
 
 Repository visibility does not alter write authorization.
@@ -964,19 +901,19 @@ Validated ordering:
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Read Authorization
 
-&#x20;     ↓
+      ↓
 
 Safe Storage Resolution
 
-&#x20;     ↓
+      ↓
 
 Git-Native Read
 
-&#x20;     ↓
+      ↓
 
 Safe Representation
 
@@ -1102,15 +1039,15 @@ Required ordering:
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Public Visibility Authorization
 
-&#x20;     ↓
+      ↓
 
 Safe Storage Resolution
 
-&#x20;     ↓
+      ↓
 
 Approved git-upload-pack Execution
 
@@ -1134,19 +1071,19 @@ Required ordering:
 
 PAT Authentication
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Owner Read Authorization
 
-&#x20;     ↓
+      ↓
 
 Safe Storage Resolution
 
-&#x20;     ↓
+      ↓
 
 git-upload-pack
 
@@ -1196,19 +1133,19 @@ Validated ordering:
 
 PAT Authentication
 
-&#x20;     ↓
+      ↓
 
 Repository Resolution
 
-&#x20;     ↓
+      ↓
 
 Owner Write Authorization
 
-&#x20;     ↓
+      ↓
 
 Safe Storage Resolution
 
-&#x20;     ↓
+      ↓
 
 git-receive-pack
 
@@ -1234,7 +1171,7 @@ Approved behavior:
 
 Anonymous Push
 
-&#x20;     ↓
+      ↓
 
 Deny
 
@@ -1258,7 +1195,7 @@ Approved behavior:
 
 Authenticated Non-Owner Push
 
-&#x20;     ↓
+      ↓
 
 Deny
 
@@ -1284,7 +1221,7 @@ Repository History:
 
 Empty
 
-&#x20; ↓
+  ↓
 
 Has History
 
@@ -1332,15 +1269,15 @@ Validated behavior:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Generate PAT
 
-&#x20;     ↓
+      ↓
 
 Persist verification representation
 
-&#x20;     ↓
+      ↓
 
 Present plaintext once
 
@@ -1388,7 +1325,7 @@ Validated state:
 
 Active
 
-&#x20; ↓
+  ↓
 
 Revoked
 
@@ -1480,19 +1417,19 @@ Validated rule:
 
 External Repository Identifier
 
-&#x20;     ↓
+      ↓
 
 Logical Resolution
 
-&#x20;     ↓
+      ↓
 
 Internal Physical Mapping
 
-&#x20;     ↓
+      ↓
 
 Root Containment Check
 
-&#x20;     ↓
+      ↓
 
 Safe Physical Target
 
@@ -1768,11 +1705,11 @@ Validated state progression:
 
 Created
 
-&#x20; ↓
+  ↓
 
 Active
 
-&#x20; ↓
+  ↓
 
 Revoked
 
@@ -1920,7 +1857,7 @@ Validated rule:
 
 Uncertain security-sensitive state
 
-&#x20;     ↓
+      ↓
 
 Deny / Reject / Fail
 
@@ -1976,25 +1913,25 @@ Examples:
 
 Authentication failure
 
-&#x20;     ↓
+      ↓
 
 No authorization
 
 Authorization denial
 
-&#x20;     ↓
+      ↓
 
 No protected storage access
 
 Unsafe physical target
 
-&#x20;     ↓
+      ↓
 
 No Git execution
 
 Git failure
 
-&#x20;     ↓
+      ↓
 
 No false success
 
@@ -2649,49 +2586,27 @@ None of these observations block System Design.
 ## 86. M2 Exit Criteria
 
 | ID | Exit Criterion | Result |
-
 |---|---|---|
-
 | EC-01 | Boundary/external interactions analyzed | Pass |
-
 | EC-02 | Domain concepts/relationships analyzed | Pass |
-
 | EC-03 | Logical responsibilities identified | Pass |
-
 | EC-04 | Authentication flows analyzed | Pass |
-
 | EC-05 | Authorization flows analyzed | Pass |
-
 | EC-06 | Repository lifecycle analyzed | Pass |
-
 | EC-07 | Repository browser analyzed | Pass |
-
 | EC-08 | Git Smart HTTP read analyzed | Pass |
-
 | EC-09 | Git Smart HTTP write analyzed | Pass |
-
 | EC-10 | PAT lifecycle/authentication analyzed | Pass |
-
 | EC-11 | Repository storage analyzed | Pass |
-
 | EC-12 | Major data flows analyzed | Pass |
-
 | EC-13 | Meaningful state transitions analyzed | Pass |
-
 | EC-14 | Trust boundaries analyzed | Pass |
-
 | EC-15 | Failure/exception behavior analyzed | Pass |
-
 | EC-16 | Critical sequence interactions modeled | Pass |
-
 | EC-17 | Critical activity flows modeled | Pass |
-
 | EC-18 | Analysis traceable to requirements | Pass |
-
 | EC-19 | Consistency/completeness validated | Pass |
-
 | EC-20 | No unresolved analysis defect blocks System Design | Pass |
-
 | EC-21 | Analysis sufficient for System Design | Pass |
 
 ---

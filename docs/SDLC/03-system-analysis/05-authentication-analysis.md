@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Authentication Analysis |
-
 | SDLC phase | System Analysis |
-
 | Milestone | M2 - System Analysis |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-17 |
 
 ---
@@ -180,21 +171,21 @@ Conceptually:
 
 Web Credentials
 
-&#x20;     ↓
+      ↓
 
 Web Authentication
 
-&#x20;     ↓
+      ↓
 
 User Identity
 
 PAT Credential
 
-&#x20;     ↓
+      ↓
 
 Git Authentication
 
-&#x20;     ↓
+      ↓
 
 User Identity
 
@@ -232,11 +223,11 @@ Conceptually:
 
 Browser Request
 
-&#x20;     ↓
+      ↓
 
 No Valid Session
 
-&#x20;     ↓
+      ↓
 
 Visitor
 
@@ -268,15 +259,15 @@ Conceptually:
 
 Browser Request
 
-&#x20;     ↓
+      ↓
 
 Valid Authentication Session
 
-&#x20;     ↓
+      ↓
 
 Resolve User
 
-&#x20;     ↓
+      ↓
 
 Authenticated User
 
@@ -300,7 +291,7 @@ Conceptually:
 
 Registration
 
-&#x20;   ↓
+    ↓
 
 Create User Identity Record
 
@@ -308,11 +299,11 @@ Later:
 
 Credentials
 
-&#x20;   ↓
+    ↓
 
 Authentication
 
-&#x20;   ↓
+    ↓
 
 Resolve Existing User Identity
 
@@ -334,23 +325,23 @@ Logical processing includes:
 
 Receive input
 
-&#x20;   ↓
+    ↓
 
 Validate
 
-&#x20;   ↓
+    ↓
 
 Check required uniqueness constraints
 
-&#x20;   ↓
+    ↓
 
 Protect credential representation
 
-&#x20;   ↓
+    ↓
 
 Create User
 
-&#x20;   ↓
+    ↓
 
 Return registration result
 
@@ -368,15 +359,15 @@ Conceptually:
 
 Plaintext Password
 
-&#x20;     ↓
+      ↓
 
 Credential Protection
 
-&#x20;     ↓
+      ↓
 
 Non-Recoverable Verification Representation
 
-&#x20;     ↓
+      ↓
 
 Persistent Storage
 
@@ -396,33 +387,33 @@ Logical flow:
 
 Visitor
 
-&#x20;  ↓
+   ↓
 
 Submit Credentials
 
-&#x20;  ↓
+   ↓
 
 Validate Input
 
-&#x20;  ↓
+   ↓
 
 Resolve Candidate User
 
-&#x20;  ↓
+   ↓
 
 Verify Credential
 
-&#x20;  ↓
+   ↓
 
 Authentication Success?
 
-&#x20;  /          \\
+   /          \\
 
-&#x20;Yes           No
+ Yes           No
 
-&#x20; |             |
+  |             |
 
-&#x20; v             v
+  v             v
 
 Establish      Reject
 
@@ -442,7 +433,7 @@ Logical result:
 
 Valid User Identity
 
-&#x20;       +
+        +
 
 Authenticated Session
 
@@ -508,21 +499,21 @@ For a protected browser request:
 
 Browser Request
 
-&#x20;     ↓
+      ↓
 
 Resolve Session
 
-&#x20;     ↓
+      ↓
 
 Session Valid?
 
-&#x20;  /          \\
+   /          \\
 
-&#x20;Yes           No
+ Yes           No
 
-&#x20; |             |
+  |             |
 
-&#x20; v             v
+  v             v
 
 Resolve User   Treat as
 
@@ -558,11 +549,11 @@ Conceptually:
 
 Unauthenticated
 
-&#x20;     ↓ Login Success
+      ↓ Login Success
 
 Authenticated
 
-&#x20;     ↓ Logout / Invalid Session
+      ↓ Logout / Invalid Session
 
 Unauthenticated
 
@@ -582,19 +573,19 @@ Logical flow:
 
 Authenticated User
 
-&#x20;     ↓
+      ↓
 
 Logout Request
 
-&#x20;     ↓
+      ↓
 
 Invalidate Authentication Session
 
-&#x20;     ↓
+      ↓
 
 Remove Authenticated Context
 
-&#x20;     ↓
+      ↓
 
 Visitor State
 
@@ -616,7 +607,7 @@ Conceptually:
 
 Client UI change
 
-&#x20;       ≠
+        ≠
 
 Session termination
 
@@ -662,19 +653,19 @@ Conceptually:
 
 Repository Request
 
-&#x20;     ↓
+      ↓
 
 Resolve Repository
 
-&#x20;     ↓
+      ↓
 
 Public?
 
-&#x20;  /       \\
+   /       \\
 
-&#x20;Yes        No
+ Yes        No
 
-&#x20; |          |
+  |          |
 
 Allow       Require identity
 
@@ -696,21 +687,21 @@ Conceptually:
 
 Private Repository Request
 
-&#x20;       ↓
+        ↓
 
 Authenticated?
 
-&#x20;   /          \\
+    /          \\
 
-&#x20; No            Yes
+  No            Yes
 
-&#x20; |              |
+  |              |
 
-&#x20;Deny      Resolve User Identity
+ Deny      Resolve User Identity
 
-&#x20;                ↓
+                 ↓
 
-&#x20;            Authorization
+             Authorization
 
 ```
 
@@ -730,15 +721,15 @@ Conceptually:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Credential
 
-&#x20;   ↓
+    ↓
 
 Git Authentication
 
-&#x20;   ↓
+    ↓
 
 User Identity
 
@@ -756,15 +747,15 @@ Its authentication purpose is:
 
 PAT
 
-&#x20;↓
+ ↓
 
 Validate
 
-&#x20;↓
+ ↓
 
 Resolve Token Owner
 
-&#x20;↓
+ ↓
 
 Authenticated User Identity
 
@@ -808,19 +799,19 @@ Conceptually:
 
 Presented PAT
 
-&#x20;     ↓
+      ↓
 
 Verify
 
-&#x20;     ↓
+      ↓
 
 Active?
 
-&#x20;     ↓ Yes
+      ↓ Yes
 
 Resolve Owner
 
-&#x20;     ↓
+      ↓
 
 Authenticated Identity
 
@@ -840,15 +831,15 @@ Conceptually:
 
 Presented PAT
 
-&#x20;     ↓
+      ↓
 
 Resolve Token Record
 
-&#x20;     ↓
+      ↓
 
 Revoked
 
-&#x20;     ↓
+      ↓
 
 Authentication Denied
 
@@ -868,15 +859,15 @@ Conceptually:
 
 Generate PAT
 
-&#x20;   ↓
+    ↓
 
 Display Plaintext Once
 
-&#x20;   ↓
+    ↓
 
 Persist Verification Representation
 
-&#x20;   ↓
+    ↓
 
 Later Authentication Uses Verification
 
@@ -960,11 +951,11 @@ Conceptually:
 
 Git Request
 
-&#x20;  ↓
+   ↓
 
 No Credential / No Required Identity
 
-&#x20;  ↓
+   ↓
 
 Anonymous Caller
 
@@ -982,23 +973,23 @@ Logical flow:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Public Repository Read Request
 
-&#x20;   ↓
+    ↓
 
 No Authentication Required
 
-&#x20;   ↓
+    ↓
 
 Anonymous Identity Context
 
-&#x20;   ↓
+    ↓
 
 Authorize Public Read
 
-&#x20;   ↓
+    ↓
 
 Proceed
 
@@ -1014,23 +1005,23 @@ Logical flow:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Private Repository Read Request
 
-&#x20;   ↓
+    ↓
 
 Authentication Required
 
-&#x20;   ↓
+    ↓
 
 No Valid Credential
 
-&#x20;   ↓
+    ↓
 
 Authentication Failure
 
-&#x20;   ↓
+    ↓
 
 Request Denied
 
@@ -1046,27 +1037,27 @@ Logical flow:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Private Read Request
 
-&#x20;   ↓
+    ↓
 
 Present PAT
 
-&#x20;   ↓
+    ↓
 
 Validate PAT
 
-&#x20;   ↓
+    ↓
 
 Resolve User
 
-&#x20;   ↓
+    ↓
 
 Authentication Success
 
-&#x20;   ↓
+    ↓
 
 Repository Authorization
 
@@ -1086,27 +1077,27 @@ Logical flow:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Push Request
 
-&#x20;   ↓
+    ↓
 
 Present PAT
 
-&#x20;   ↓
+    ↓
 
 Validate PAT
 
-&#x20;   ↓
+    ↓
 
 Resolve User
 
-&#x20;   ↓
+    ↓
 
 Authentication Success
 
-&#x20;   ↓
+    ↓
 
 Authorize Owner Write
 
@@ -1124,19 +1115,19 @@ For operations requiring identity:
 
 Receive Request
 
-&#x20;     ↓
+      ↓
 
 Authenticate
 
-&#x20;     ↓
+      ↓
 
 Identity Established
 
-&#x20;     ↓
+      ↓
 
 Authorize
 
-&#x20;     ↓
+      ↓
 
 Perform Protected Operation
 
@@ -1148,19 +1139,19 @@ For public anonymous reads:
 
 Receive Request
 
-&#x20;     ↓
+      ↓
 
 Resolve Resource
 
-&#x20;     ↓
+      ↓
 
 Determine Public Read Eligibility
 
-&#x20;     ↓
+      ↓
 
 Authorize Anonymous Read
 
-&#x20;     ↓
+      ↓
 
 Perform Read
 
@@ -1270,15 +1261,15 @@ Conceptually:
 
 Internal Failure Detail
 
-&#x20;       ↓
+        ↓
 
 Authentication Failure Classification
 
-&#x20;       ↓
+        ↓
 
 Safe Client Response
 
-&#x20;       +
+        +
 
 Diagnostic Event
 
@@ -1374,15 +1365,15 @@ Conceptually:
 
 External Client
 
-&#x20;    ↓
+     ↓
 
 Credential
 
-&#x20;    ↓
+     ↓
 
 GitForge Boundary
 
-&#x20;    ↓
+     ↓
 
 Authentication Processing
 
@@ -1402,23 +1393,23 @@ For browser authentication:
 
 Browser
 
-&#x20;  ↓
+   ↓
 
 Untrusted Credential Input
 
-&#x20;  ↓
+   ↓
 
 GitForge
 
-&#x20;  ↓
+   ↓
 
 Validation
 
-&#x20;  ↓
+   ↓
 
 Credential Verification
 
-&#x20;  ↓
+   ↓
 
 User Identity
 
@@ -1436,23 +1427,23 @@ For Git authentication:
 
 Git Client
 
-&#x20;   ↓
+    ↓
 
 Untrusted PAT Credential
 
-&#x20;   ↓
+    ↓
 
 GitForge
 
-&#x20;   ↓
+    ↓
 
 PAT Verification
 
-&#x20;   ↓
+    ↓
 
 Token State Check
 
-&#x20;   ↓
+    ↓
 
 Resolve User
 
@@ -1472,7 +1463,7 @@ Conceptually:
 
 Client-supplied username/identity claim
 
-&#x20;           ≠
+            ≠
 
 Trusted User Identity
 
@@ -1500,19 +1491,19 @@ Transitions:
 
 Unauthenticated
 
-&#x20;   ↓ Successful Login
+    ↓ Successful Login
 
 Authenticated
 
 Authenticated
 
-&#x20;   ↓ Logout
+    ↓ Logout
 
 Unauthenticated
 
 Authenticated
 
-&#x20;   ↓ Session Becomes Invalid
+    ↓ Session Becomes Invalid
 
 Unauthenticated
 
@@ -1538,11 +1529,11 @@ Transitions:
 
 Create
 
-&#x20; ↓
+  ↓
 
 Active
 
-&#x20; ↓ Revoke
+  ↓ Revoke
 
 Revoked
 
@@ -1619,19 +1610,12 @@ A Revoked PAT has no transition back to Active in V1.0.0.
 ## 60. Authentication Decision Table — Web
 
 | Condition | Result |
-
 |---|---|
-
 | No session on public operation | Continue as Visitor |
-
 | No session on protected operation | Authentication required |
-
 | Valid session | Resolve authenticated User |
-
 | Invalid session | Treat as unauthenticated |
-
 | Valid login credentials | Establish authenticated session |
-
 | Invalid login credentials | Deny authentication |
 
 ---
@@ -1639,23 +1623,14 @@ A Revoked PAT has no transition back to Active in V1.0.0.
 ## 61. Authentication Decision Table — Git
 
 | Repository Operation | Repository Visibility | Valid PAT Required |
-
 |---|---|---|
-
 | Clone / Fetch | Public | No |
-
 | Clone / Fetch | Private | Yes |
-
 | Read-service discovery | Public | No |
-
 | Read-service discovery | Private | Yes |
-
 | Push | Public | Yes |
-
 | Push | Private | Yes |
-
 | Write-service discovery | Public | Yes |
-
 | Write-service discovery | Private | Yes |
 
 Authentication does not replace repository authorization.
@@ -1717,31 +1692,18 @@ Authentication failures shall not expose reusable credentials or unnecessary sen
 ## 63. Authentication Responsibility Matrix
 
 | Responsibility | Logical Owner |
-
 |---|---|
-
 | Receive browser login input | Web Interaction |
-
 | Validate login input | Validation |
-
 | Verify web credentials | Web Authentication |
-
 | Establish web session | Web Authentication |
-
 | Resolve session identity | Web Authentication |
-
 | Terminate session | Web Authentication |
-
 | Create PAT | PAT Management |
-
 | Persist PAT verification representation | PAT Management / Application Persistence |
-
 | Verify PAT | Git Authentication |
-
 | Check PAT revocation | Git Authentication |
-
 | Resolve PAT owner | Git Authentication |
-
 | Determine repository permission | Repository Authorization |
 
 ---
@@ -1840,11 +1802,11 @@ If the required persistence dependency is unavailable during login:
 
 Credentials cannot be reliably verified
 
-&#x20;       ↓
+        ↓
 
 Authentication cannot complete
 
-&#x20;       ↓
+        ↓
 
 Fail safely
 
@@ -1862,11 +1824,11 @@ If PAT verification data cannot be accessed:
 
 PAT cannot be verified
 
-&#x20;       ↓
+        ↓
 
 Authenticated identity cannot be established
 
-&#x20;       ↓
+        ↓
 
 Protected operation denied
 
@@ -1884,11 +1846,11 @@ Where authentication is mandatory:
 
 Authentication uncertainty
 
-&#x20;       ↓
+        ↓
 
 Do not establish identity
 
-&#x20;       ↓
+        ↓
 
 Do not perform protected operation
 
@@ -1964,15 +1926,15 @@ Conceptually:
 
 Authentication
 
-&#x20;     ↓
+      ↓
 
 User X
 
-&#x20;     ↓
+      ↓
 
 Authorization
 
-&#x20;     ↓
+      ↓
 
 Compare X with Repository Owner
 
@@ -1990,15 +1952,15 @@ Conceptually:
 
 PAT
 
-&#x20;↓
+ ↓
 
 Owned by User X
 
-&#x20;↓
+ ↓
 
 Successful PAT Authentication
 
-&#x20;↓
+ ↓
 
 Identity = User X
 

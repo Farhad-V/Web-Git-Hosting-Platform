@@ -837,25 +837,25 @@ The next authoritative activities are:
 
 ```text
 Actor Definition
-&#x20;       â†“
+        ↓
 Functional Requirements
-&#x20;       â†“
+        ↓
 Non-Functional Requirements
-&#x20;       â†“
+        ↓
 Data and Interface Requirements
-&#x20;       â†“
+        ↓
 Business Rules
-&#x20;       â†“
+        ↓
 Use Cases
-&#x20;       â†“
+        ↓
 Acceptance Criteria
-&#x20;       â†“
+        ↓
 Authorization
-&#x20;       â†“
+        ↓
 Prioritization
-&#x20;       â†“
+        ↓
 Traceability
-&#x20;       â†“
+        ↓
 Validation
 ```
 

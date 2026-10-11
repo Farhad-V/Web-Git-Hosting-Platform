@@ -3,23 +3,14 @@
 ## 1. Document Information
 
 | Field | Value |
-
 |---|---|
-
 | Project | GitForge - Web Git Hosting Platform |
-
 | Target release | V1.0.0 |
-
 | Document | Authorization Design Matrix |
-
 | SDLC phase | System Design |
-
 | Milestone | M3 - System Design |
-
 | Project owner | Farhad Valizadegan |
-
 | Status | Approved |
-
 | Last updated | 2026-08-18 |
 
 ---
@@ -271,11 +262,8 @@ Users may manage only their own PATs.
 ## 11. Read Authorization Matrix
 
 | Repository Visibility | Anonymous | Authenticated Non-Owner | Owner |
-
 |---|---:|---:|---:|
-
 | Public | Allow | Allow | Allow |
-
 | Private | Deny | Deny | Allow |
 
 ---
@@ -283,11 +271,8 @@ Users may manage only their own PATs.
 ## 12. Write Authorization Matrix
 
 | Repository Visibility | Anonymous | Authenticated Non-Owner | Owner |
-
 |---|---:|---:|---:|
-
 | Public | Deny | Deny | Allow |
-
 | Private | Deny | Deny | Allow |
 
 Visibility does not affect write authorization.
@@ -297,19 +282,12 @@ Visibility does not affect write authorization.
 ## 13. Repository Management Matrix
 
 | Operation | Anonymous | Authenticated Non-Owner | Owner |
-
 |---|---:|---:|---:|
-
 | View public repository metadata | Allow | Allow | Allow |
-
 | View private repository metadata | Deny | Deny | Allow |
-
 | Change visibility | Deny | Deny | Allow |
-
 | Delete repository | Deferred | Deferred | Deferred |
-
 | Rename repository | Deferred | Deferred | Deferred |
-
 | Transfer repository | Deferred | Deferred | Deferred |
 
 ---
@@ -1071,33 +1049,19 @@ However protocol-independent service logic must remain reusable by Git Smart HTT
 ## 52. Web/Application Matrix
 
 | Operation | Authentication | Authorization | Result |
-
 |---|---|---|---|
-
 | Register | None | None | Allow |
-
 | Login | None | None | Allow |
-
 | Logout | Session | Authenticated self | Allow |
-
 | Create repository | Session | Own namespace | Allow |
-
 | List owned repositories | Session | Own metadata only | Allow |
-
 | View public repository | None optional | AUTH-READ | Allow |
-
 | View private repository | Session required | AUTH-READ | Owner only |
-
 | Change visibility | Session | AUTH-MANAGE | Owner only |
-
 | Browse public repository | None optional | AUTH-READ | Allow |
-
 | Browse private repository | Session required | AUTH-READ | Owner only |
-
 | Create PAT | Session | Own PAT only | Allow |
-
 | List PATs | Session | AUTH-PAT-MANAGE | Own only |
-
 | Revoke PAT | Session | AUTH-PAT-MANAGE | Own only |
 
 ---
@@ -1105,19 +1069,12 @@ However protocol-independent service logic must remain reusable by Git Smart HTT
 ## 53. Repository Browser Matrix
 
 | Browser Operation | Public Anonymous | Public Non-Owner | Private Non-Owner | Owner |
-
 |---|---:|---:|---:|---:|
-
 | Repository summary | Allow | Allow | Deny | Allow |
-
 | Branch listing | Allow | Allow | Deny | Allow |
-
 | Commit history | Allow | Allow | Deny | Allow |
-
 | Commit details | Allow | Allow | Deny | Allow |
-
 | Tree listing | Allow | Allow | Deny | Allow |
-
 | Blob/file view | Allow | Allow | Deny | Allow |
 
 ---
@@ -1125,17 +1082,11 @@ However protocol-independent service logic must remain reusable by Git Smart HTT
 ## 54. Git Smart HTTP Matrix
 
 | Git Operation | Anonymous Public | Auth Non-Owner Public | Anonymous Private | Auth Non-Owner Private | Owner |
-
 |---|---:|---:|---:|---:|---:|
-
 | upload-pack discovery | Allow | Allow | Deny | Deny | Allow |
-
 | clone | Allow | Allow | Deny | Deny | Allow |
-
 | fetch | Allow | Allow | Deny | Deny | Allow |
-
 | receive-pack discovery | Deny | Deny | Deny | Deny | Allow |
-
 | push | Deny | Deny | Deny | Deny | Allow |
 
 ---

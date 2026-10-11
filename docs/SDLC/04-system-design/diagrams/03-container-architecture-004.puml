@@ -1,4 +1,11 @@
 @startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
 title GitForge - Git Smart HTTP Write Container Flow
 actor "Git Client" as Client
 participant "Web Server" as Web

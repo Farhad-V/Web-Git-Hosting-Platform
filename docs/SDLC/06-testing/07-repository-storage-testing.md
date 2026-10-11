@@ -228,11 +228,11 @@ The physical repository path follows the model:
 
 ```text
 
-<git.storage\_root>
+<git.storage_root>
 
-&#x20;   /<git.repositories\_directory>
+    /<git.repositories_directory>
 
-&#x20;       /<repository-database-id>.git
+        /<repository-database-id>.git
 
 ```
 
@@ -664,11 +664,11 @@ The configured test storage values include:
 
 ```text
 
-git.storage\_root = temporary storage directory
+git.storage_root = temporary storage directory
 
-git.repositories\_directory = repositories
+git.repositories_directory = repositories
 
-git.initial\_branch = main
+git.initial_branch = main
 
 ```
 
@@ -784,9 +784,9 @@ Two dedicated tests were added:
 
 ```text
 
-test\_traversal\_repository\_directory\_is\_rejected
+test_traversal_repository_directory_is_rejected
 
-test\_absolute\_repository\_directory\_is\_rejected
+test_absolute_repository_directory_is_rejected
 
 ```
 
@@ -1700,9 +1700,9 @@ Expected behavior includes:
 
 RepositoryStorageException
 
-repository\_storage\_missing event
+repository_storage_missing event
 
-repository\_storage\_resolution\_failed event
+repository_storage_resolution_failed event
 
 ```
 
@@ -1916,7 +1916,7 @@ The test attempts to construct:
 
 <storage-root>/repositories
 
-&#x20;   -> <outside-root>
+    -> <outside-root>
 
 ```
 
@@ -1972,7 +1972,7 @@ The production implementation includes both:
 
 ```text
 
-is\_link()
+is_link()
 
 realpath()
 
@@ -2552,13 +2552,13 @@ Verified events include:
 
 ```text
 
-repository\_storage\_missing
+repository_storage_missing
 
-repository\_storage\_unsafe\_path
+repository_storage_unsafe_path
 
-repository\_storage\_unexpected\_existing\_target
+repository_storage_unexpected_existing_target
 
-repository\_storage\_resolution\_failed
+repository_storage_resolution_failed
 
 ```
 
@@ -2694,9 +2694,9 @@ Added:
 
 ```text
 
-test\_traversal\_repository\_directory\_is\_rejected
+test_traversal_repository_directory_is_rejected
 
-test\_absolute\_repository\_directory\_is\_rejected
+test_absolute_repository_directory_is_rejected
 
 ```
 
@@ -2861,23 +2861,23 @@ Repository-storage behavior is traced through:
 
 Approved V1.0.0 Requirements
 
-&#x20;       ↓
+        ↓
 
 Repository Storage Design
 
-&#x20;       ↓
+        ↓
 
 M5 Test Case Specification
 
-&#x20;       ↓
+        ↓
 
 TC-STORE-001 – TC-STORE-007
 
-&#x20;       ↓
+        ↓
 
 Storage / Security / Observability Automated Tests
 
-&#x20;       ↓
+        ↓
 
 WP-07 Execution Evidence
 

@@ -1,4 +1,11 @@
 @startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
 title GitForge V1.0.0 - SM-044 Storage Root Escape Prevention
 participant "Repository Resolution" as Resolution
 participant "Repository Storage Coordination" as Storage

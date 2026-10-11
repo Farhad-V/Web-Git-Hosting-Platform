@@ -536,13 +536,13 @@ Analysis shall preserve these semantics.
 PAT-based Git authentication shall follow:
 ```text
 Credential received
-        â†“
+        ↓
 Token validated
-        â†“
+        ↓
 Token owner resolved
-        â†“
+        ↓
 Identity established
-        â†“
+        ↓
 Repository authorization evaluated
 ```
 Authentication shall not be treated as authorization.
@@ -575,13 +575,13 @@ US
 The intended chain is:
 ```text
 Requirement
-    â†“
+    ↓
 Analysis Element
-    â†“
+    ↓
 Design Element
-    â†“
+    ↓
 Implementation
-    â†“
+    ↓
 Test
 ```
 ---
@@ -599,17 +599,17 @@ Analysis elements may use the following lifecycle terms:
 Each M2 deliverable shall follow this workflow:
 ```text
 Create
-   â†“
+   ↓
 Repair Markdown
-   â†“
+   ↓
 Inspect
-   â†“
+   ↓
 Check malformed escapes
-   â†“
+   ↓
 git diff --check
-   â†“
+   ↓
 Review
-   â†“
+   ↓
 Approve
 ```
 M2 documents shall not be committed individually unless a deliberate workflow decision changes.
@@ -625,7 +625,7 @@ Then:
 ```powershell
 Select-String `
     -Path docs\03-system-analysis\<file>.md `
-    -Pattern '\[#*._>|-]'
+    -Pattern '[#*._>|-]'
 ```
 and:
 ```powershell

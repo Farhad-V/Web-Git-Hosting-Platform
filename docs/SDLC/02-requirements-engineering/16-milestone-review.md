@@ -142,14 +142,14 @@ After this document is approved:
 The final M1 requirements inventory is:
 
 ```text
-Functional Requirements      FR-001 â€“ FR-098
-Non-Functional Requirements  NFR-001 â€“ NFR-098
-Data Requirements            DR-001 â€“ DR-094
-Interface Requirements       IR-001 â€“ IR-100
-Business Rules               BR-001 â€“ BR-096
-Authorization Requirements   AR-001 â€“ AR-060
-Use Cases                    UC-001 â€“ UC-025
-User Stories                 US-001 â€“ US-029
+Functional Requirements      FR-001 – FR-098
+Non-Functional Requirements  NFR-001 – NFR-098
+Data Requirements            DR-001 – DR-094
+Interface Requirements       IR-001 – IR-100
+Business Rules               BR-001 – BR-096
+Authorization Requirements   AR-001 – AR-060
+Use Cases                    UC-001 – UC-025
+User Stories                 US-001 – US-029
 ```
 
 The requirements set covers all major GitForge V1.0.0 product areas.
@@ -391,13 +391,13 @@ PASS
 The major system interfaces are explicitly defined at requirements level:
 
 ```text
-Browser â†” GitForge
-Git Client â†” GitForge
-GitForge â†” PostgreSQL
-GitForge â†” Filesystem
-GitForge â†” Git Executable
-GitForge â†” Runtime Configuration
-GitForge â†” Logging
+Browser ↔ GitForge
+Git Client ↔ GitForge
+GitForge ↔ PostgreSQL
+GitForge ↔ Filesystem
+GitForge ↔ Git Executable
+GitForge ↔ Runtime Configuration
+GitForge ↔ Logging
 ```
 
 Detailed route structures, APIs, component contracts, and protocol implementation details remain appropriately deferred to System Design.
@@ -607,7 +607,7 @@ The approved logical namespace is:
 
 Repository names:
 
-* contain 1â€“100 characters;
+* contain 1–100 characters;
 * use normalized lowercase ASCII;
 * may use digits;
 * may use hyphens;
@@ -808,11 +808,11 @@ PASS
 The following requirements remain documented but deferred from V1.0.0:
 
 ```text
-FR-086 â€“ FR-088
+FR-086 – FR-088
 UC-008
 US-008
 AR-027
-BR-078 â€“ BR-080
+BR-078 – BR-080
 ```
 
 These relate primarily to repository deletion.

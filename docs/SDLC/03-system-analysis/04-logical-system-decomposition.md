@@ -112,44 +112,44 @@ Conceptually:
 
 ```text
 External Clients
-&#x20;     |
-&#x20;     +-----------------------+
-&#x20;     |                       |
-&#x20;     v                       v
+      |
+      +-----------------------+
+      |                       |
+      v                       v
 Web Interaction       Git Smart HTTP Interface
-&#x20;     |                       |
-&#x20;     v                       v
+      |                       |
+      v                       v
 Identity / Auth       Git Authentication
-&#x20;     |                       |
-&#x20;     +-----------+-----------+
-&#x20;                 |
-&#x20;                 v
-&#x20;        Repository Authorization
-&#x20;                 |
-&#x20;         +-------+--------+
-&#x20;         |                |
-&#x20;         v                v
-&#x20;Repository Management   Git Operations
-&#x20;         |                |
-&#x20;         |          +-----+------+
-&#x20;         |          |            |
-&#x20;         v          v            v
+      |                       |
+      +-----------+-----------+
+                  |
+                  v
+         Repository Authorization
+                  |
+          +-------+--------+
+          |                |
+          v                v
+ Repository Management   Git Operations
+          |                |
+          |          +-----+------+
+          |          |            |
+          v          v            v
 Application Data   Git Read     Git Write
 Persistence       Coordination  Coordination
-&#x20;                      |            |
-&#x20;                      +-----+------+
-&#x20;                            |
-&#x20;                            v
-&#x20;                 Repository Storage
-&#x20;                      Coordination
-&#x20;                            |
-&#x20;                            v
-&#x20;                   Git Process Coordination
-&#x20;                            |
-&#x20;                    +-------+-------+
-&#x20;                    |               |
-&#x20;                    v               v
-&#x20;             Git Executable   Repository Filesystem
+                       |            |
+                       +-----+------+
+                             |
+                             v
+                  Repository Storage
+                       Coordination
+                             |
+                             v
+                    Git Process Coordination
+                             |
+                     +-------+-------+
+                     |               |
+                     v               v
+              Git Executable   Repository Filesystem
 ```
 
 Cross-cutting responsibilities include:
@@ -247,13 +247,13 @@ Conceptually:
 
 ```text
 Credentials
-&#x20;   Ã¢â€ â€œ
+    ↓
 Authentication
-&#x20;   Ã¢â€ â€œ
+    ↓
 User Identity
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Authorization
-&#x20;   Ã¢â€ â€œ
+    ↓
 Allow / Deny
 ```
 
@@ -303,17 +303,17 @@ Conceptually:
 
 ```text
 Create Request
-&#x20;    Ã¢â€ â€œ
+     ↓
 Validate
-&#x20;    Ã¢â€ â€œ
+     ↓
 Resolve User
-&#x20;    Ã¢â€ â€œ
+     ↓
 Check Namespace
-&#x20;    Ã¢â€ â€œ
+     ↓
 Create Logical Repository
-&#x20;    Ã¢â€ â€œ
+     ↓
 Initialize Physical Repository
-&#x20;    Ã¢â€ â€œ
+     ↓
 Confirm Consistent Result
 ```
 
@@ -335,11 +335,11 @@ Conceptually:
 
 ```text
 Logical Namespace
-&#x20;     Ã¢â€ â€œ
+      ↓
 Validate
-&#x20;     Ã¢â€ â€œ
+      ↓
 Resolve Application Repository
-&#x20;     Ã¢â€ â€œ
+      ↓
 Obtain Ownership / Visibility
 ```
 
@@ -448,11 +448,11 @@ For example:
 
 ```text
 Change Visibility
-&#x20;   Ã¢â€ â€œ
+    ↓
 Authenticated?
-&#x20;   Ã¢â€ â€œ
+    ↓
 Owns Repository?
-&#x20;   Ã¢â€ â€œ
+    ↓
 Allow / Deny
 ```
 
@@ -483,17 +483,17 @@ Conceptually:
 
 ```text
 Browser Request
-&#x20;     Ã¢â€ â€œ
+      ↓
 Resolve Repository
-&#x20;     Ã¢â€ â€œ
+      ↓
 Authorize Read
-&#x20;     Ã¢â€ â€œ
+      ↓
 Resolve Physical Repository
-&#x20;     Ã¢â€ â€œ
+      ↓
 Perform Controlled Git Inspection
-&#x20;     Ã¢â€ â€œ
+      ↓
 Interpret Result
-&#x20;     Ã¢â€ â€œ
+      ↓
 Return Browser Representation
 ```
 
@@ -548,13 +548,13 @@ Conceptually:
 
 ```text
 Authenticated User
-&#x20;     Ã¢â€ â€œ
+      ↓
 Request PAT Creation
-&#x20;     Ã¢â€ â€œ
+      ↓
 Generate Credential
-&#x20;     Ã¢â€ â€œ
+      ↓
 Persist Verification Representation
-&#x20;     Ã¢â€ â€œ
+      ↓
 Return Plaintext Once
 ```
 
@@ -568,13 +568,13 @@ Conceptually:
 
 ```text
 Authenticated User
-&#x20;     Ã¢â€ â€œ
+      ↓
 Select Owned PAT
-&#x20;     Ã¢â€ â€œ
+      ↓
 Verify Ownership
-&#x20;     Ã¢â€ â€œ
+      ↓
 Revoke
-&#x20;     Ã¢â€ â€œ
+      ↓
 Future Authentication Denied
 ```
 
@@ -630,13 +630,13 @@ Conceptually:
 
 ```text
 Presented Credential
-&#x20;       Ã¢â€ â€œ
+        ↓
 Validate PAT
-&#x20;       Ã¢â€ â€œ
+        ↓
 Active?
-&#x20;       Ã¢â€ â€œ
+        ↓
 Resolve PAT Owner
-&#x20;       Ã¢â€ â€œ
+        ↓
 Authenticated User Identity
 ```
 
@@ -670,11 +670,11 @@ Conceptually:
 
 ```text
 Requested Repository
-&#x20;      Ã¢â€ â€œ
+       ↓
 Public?
-&#x20;  /       \\
-&#x20;Yes        No
-&#x20; |          |
+   /       \\
+ Yes        No
+  |          |
 Anonymous   Authenticate
 Read Path    PAT
 ```
@@ -711,21 +711,21 @@ Responsibilities include:
 
 ```text
 Git Client
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Smart HTTP Interface
-&#x20;   Ã¢â€ â€œ
+    ↓
 Resolve Repository
-&#x20;   Ã¢â€ â€œ
+    ↓
 Determine Authentication Need
-&#x20;   Ã¢â€ â€œ
+    ↓
 Authenticate if Required
-&#x20;   Ã¢â€ â€œ
+    ↓
 Authorize Read
-&#x20;   Ã¢â€ â€œ
+    ↓
 Resolve Physical Repository
-&#x20;   Ã¢â€ â€œ
+    ↓
 Invoke Approved Read Service
-&#x20;   Ã¢â€ â€œ
+    ↓
 Return Git Response
 ```
 
@@ -757,23 +757,23 @@ Responsibilities include:
 
 ```text
 Git Client
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Smart HTTP Interface
-&#x20;   Ã¢â€ â€œ
+    ↓
 Authenticate PAT
-&#x20;   Ã¢â€ â€œ
+    ↓
 Resolve User
-&#x20;   Ã¢â€ â€œ
+    ↓
 Resolve Repository
-&#x20;   Ã¢â€ â€œ
+    ↓
 Authorize Owner Write
-&#x20;   Ã¢â€ â€œ
+    ↓
 Resolve Physical Repository
-&#x20;   Ã¢â€ â€œ
+    ↓
 Invoke git-receive-pack
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Mutation
-&#x20;   Ã¢â€ â€œ
+    ↓
 Return Git Response
 ```
 
@@ -810,13 +810,13 @@ Conceptually:
 
 ```text
 External Namespace
-&#x20;      Ã¢â€ â€œ
+       ↓
 Repository Resolution
-&#x20;      Ã¢â€ â€œ
+       ↓
 Internal Repository Identity
-&#x20;      Ã¢â€ â€œ
+       ↓
 Safe Storage Resolution
-&#x20;      Ã¢â€ â€œ
+       ↓
 Physical Repository
 ```
 
@@ -937,7 +937,7 @@ Request parameters
 Repository-name validation must enforce approved rules including:
 
 ```text
-Length 1Ã¢â‚¬â€œ100
+Length 1–100
 Lowercase ASCII letters
 Digits
 Hyphen
@@ -986,11 +986,11 @@ Conceptually:
 
 ```text
 Internal Failure
-&#x20;     Ã¢â€ â€œ
+      ↓
 Classify
-&#x20;     Ã¢â€ â€œ
+      ↓
 Record Diagnostic Context
-&#x20;     Ã¢â€ â€œ
+      ↓
 Return Safe External Error
 ```
 
@@ -1057,15 +1057,15 @@ Major dependency direction is:
 
 ```text
 Client Interface
-&#x20;     Ã¢â€ â€œ
+      ↓
 Identity / Authentication
-&#x20;     Ã¢â€ â€œ
+      ↓
 Repository Resolution
-&#x20;     Ã¢â€ â€œ
+      ↓
 Authorization
-&#x20;     Ã¢â€ â€œ
+      ↓
 Business Operation
-&#x20;     Ã¢â€ â€œ
+      ↓
 Persistence / Storage / Git Execution
 ```
 
@@ -1079,17 +1079,17 @@ Logical collaboration:
 
 ```text
 Web Interaction
-&#x20;      Ã¢â€ â€œ
+       ↓
 Repository Management / Resolution
-&#x20;      Ã¢â€ â€œ
+       ↓
 Repository Authorization
-&#x20;      Ã¢â€ â€œ
+       ↓
 Repository Browser
-&#x20;      Ã¢â€ â€œ
+       ↓
 Repository Storage Coordination
-&#x20;      Ã¢â€ â€œ
+       ↓
 Git Process Coordination
-&#x20;      Ã¢â€ â€œ
+       ↓
 Git Repository
 ```
 
@@ -1101,19 +1101,19 @@ Logical collaboration:
 
 ```text
 Web Interaction
-&#x20;      Ã¢â€ â€œ
+       ↓
 Identity / Web Authentication
-&#x20;      Ã¢â€ â€œ
+       ↓
 Validation
-&#x20;      Ã¢â€ â€œ
+       ↓
 Repository Management
-&#x20;     / \\
-&#x20;    /   \\
-&#x20;   v     v
+      / \\
+     /   \\
+    v     v
 Application Data Persistence
 Repository Storage Coordination
-&#x20;             Ã¢â€ â€œ
-&#x20;     Git Process Coordination
+              ↓
+      Git Process Coordination
 ```
 
 Consistency must be preserved across the two persistence domains.
@@ -1124,11 +1124,11 @@ Consistency must be preserved across the two persistence domains.
 
 ```text
 Web Interaction
-&#x20;      Ã¢â€ â€œ
+       ↓
 Identity / Web Authentication
-&#x20;      Ã¢â€ â€œ
+       ↓
 PAT Management
-&#x20;      Ã¢â€ â€œ
+       ↓
 Application Data Persistence
 ```
 
@@ -1140,19 +1140,19 @@ Plaintext token output returns only through the creation interaction.
 
 ```text
 Git Client
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Smart HTTP Interface
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Resolution
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Authorization
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Read Coordination
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Storage Coordination
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Process Coordination
-&#x20;   Ã¢â€ â€œ
+    ↓
 git-upload-pack
 ```
 
@@ -1164,19 +1164,19 @@ Git Authentication may be omitted when anonymous public read is permitted.
 
 ```text
 Git Client
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Smart HTTP Interface
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Authentication
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Resolution
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Authorization
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Read Coordination
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Storage Coordination
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Process Coordination
 ```
 
@@ -1186,21 +1186,21 @@ Git Process Coordination
 
 ```text
 Git Client
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Smart HTTP Interface
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Authentication
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Resolution
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Authorization
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Write Coordination
-&#x20;   Ã¢â€ â€œ
+    ↓
 Repository Storage Coordination
-&#x20;   Ã¢â€ â€œ
+    ↓
 Git Process Coordination
-&#x20;   Ã¢â€ â€œ
+    ↓
 git-receive-pack
 ```
 
@@ -1316,29 +1316,29 @@ PAT Management shall not expose previously stored plaintext PAT secrets.
 ### Authentication Versus Authorization
 
 ```text
-Authentication Ã¢â€ â€™ identity
-Authorization  Ã¢â€ â€™ permission
+Authentication → identity
+Authorization  → permission
 ```
 
 ### Metadata Versus Git Content
 
 ```text
-PostgreSQL Ã¢â€ â€™ application metadata
-Git repository Ã¢â€ â€™ Git-native content
+PostgreSQL → application metadata
+Git repository → Git-native content
 ```
 
 ### Namespace Versus Filesystem Path
 
 ```text
-Namespace Ã¢â€ â€™ external logical identity
-Path Ã¢â€ â€™ internally resolved storage location
+Namespace → external logical identity
+Path → internally resolved storage location
 ```
 
 ### Protocol Versus Process Execution
 
 ```text
-Git Smart HTTP Ã¢â€ â€™ protocol interaction
-Git Process Coordination Ã¢â€ â€™ controlled executable invocation
+Git Smart HTTP → protocol interaction
+Git Process Coordination → controlled executable invocation
 ```
 
 ---
@@ -1351,15 +1351,15 @@ Example:
 
 ```text
 Git Executable Failure
-&#x20;       Ã¢â€ â€œ
+        ↓
 Git Process Coordination
-&#x20;       Ã¢â€ â€œ
+        ↓
 Git Read / Write Coordination
-&#x20;       Ã¢â€ â€œ
+        ↓
 Failure Classification
-&#x20;       Ã¢â€ â€œ
+        ↓
 Safe Git HTTP Response
-&#x20;       +
+        +
 Diagnostic Record
 ```
 
@@ -1369,15 +1369,15 @@ Diagnostic Record
 
 ```text
 Repository Initialization Failure
-&#x20;       Ã¢â€ â€œ
+        ↓
 Repository Storage Coordination
-&#x20;       Ã¢â€ â€œ
+        ↓
 Repository Management
-&#x20;       Ã¢â€ â€œ
+        ↓
 Consistency Handling
-&#x20;       Ã¢â€ â€œ
+        ↓
 Failure and Exception Handling
-&#x20;       Ã¢â€ â€œ
+        ↓
 Safe Application Response
 ```
 
@@ -1390,15 +1390,15 @@ The exact compensation strategy is deferred to later analysis/design.
 The most security-sensitive logical boundaries are:
 
 ```text
-External Client Ã¢â€ â€™ Web Interaction
-External Git Client Ã¢â€ â€™ Git Smart HTTP Interface
-Credentials Ã¢â€ â€™ Authentication
-Authenticated Identity Ã¢â€ â€™ Authorization
-Logical Namespace Ã¢â€ â€™ Storage Resolution
-Application Ã¢â€ â€™ Git Process Execution
-Application Ã¢â€ â€™ Filesystem
-Application Ã¢â€ â€™ PostgreSQL
-Internal Failure Ã¢â€ â€™ External Error Response
+External Client → Web Interaction
+External Git Client → Git Smart HTTP Interface
+Credentials → Authentication
+Authenticated Identity → Authorization
+Logical Namespace → Storage Resolution
+Application → Git Process Execution
+Application → Filesystem
+Application → PostgreSQL
+Internal Failure → External Error Response
 ```
 
 ---
@@ -1537,7 +1537,7 @@ Detailed traceability will be consolidated in:
 
 ## 70. Logical Analysis Findings
 
-### LD-001 Ã¢â‚¬â€ Authorization Is a Shared Responsibility Boundary
+### LD-001 — Authorization Is a Shared Responsibility Boundary
 
 Both Web repository operations and Git Smart HTTP operations require the same repository policy semantics.
 
@@ -1547,7 +1547,7 @@ Status:
 Confirmed
 ```
 
-### LD-002 Ã¢â‚¬â€ Git Authentication Is Distinct From Web Authentication
+### LD-002 — Git Authentication Is Distinct From Web Authentication
 
 Both establish User identity, but they operate through different client interaction contexts.
 
@@ -1557,7 +1557,7 @@ Status:
 Confirmed
 ```
 
-### LD-003 Ã¢â‚¬â€ Git Read and Git Write Require Separate Behavioral Analysis
+### LD-003 — Git Read and Git Write Require Separate Behavioral Analysis
 
 Read and write operations differ materially in:
 
@@ -1574,7 +1574,7 @@ Status:
 Confirmed
 ```
 
-### LD-004 Ã¢â‚¬â€ Repository Storage Requires a Dedicated Logical Responsibility
+### LD-004 — Repository Storage Requires a Dedicated Logical Responsibility
 
 Safe conversion from logical repository identity to physical storage must not be distributed implicitly across client-facing responsibilities.
 
@@ -1584,7 +1584,7 @@ Status:
 Confirmed
 ```
 
-### LD-005 Ã¢â‚¬â€ Controlled Git Process Execution Is a Dedicated Responsibility
+### LD-005 — Controlled Git Process Execution Is a Dedicated Responsibility
 
 The system must isolate protocol/business decisions from executable invocation.
 
@@ -1594,7 +1594,7 @@ Status:
 Confirmed
 ```
 
-### LD-006 Ã¢â‚¬â€ Validation, Failure Handling, and Diagnostics Are Cross-Cutting
+### LD-006 — Validation, Failure Handling, and Diagnostics Are Cross-Cutting
 
 These responsibilities apply to multiple logical subsystems and should not be analyzed as isolated user features.
 

@@ -533,11 +533,11 @@ The repository feature suite configures a temporary storage root:
 
 ```text
 
-git.storage\_root = temporary test directory
+git.storage_root = temporary test directory
 
-git.repositories\_directory = repositories
+git.repositories_directory = repositories
 
-git.initial\_branch = main
+git.initial_branch = main
 
 ```
 
@@ -1722,7 +1722,7 @@ Representative request:
 
 ```text
 
-My.Project\_Name
+My.Project_Name
 
 ```
 
@@ -1734,7 +1734,7 @@ Expected persisted value:
 
 ```text
 
-my.project\_name
+my.project_name
 
 ```
 
@@ -1830,13 +1830,13 @@ description
 
 status
 
-storage\_uuid
+storage_uuid
 
-default\_branch
+default_branch
 
-archived\_at
+archived_at
 
-deleted\_at
+deleted_at
 
 ```
 
