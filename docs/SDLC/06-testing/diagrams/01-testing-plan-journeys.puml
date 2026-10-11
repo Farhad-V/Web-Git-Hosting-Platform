@@ -1,0 +1,30 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Identity and Git acceptance journeys
+actor "Repository owner" as Owner
+actor "Non-owner or visitor" as Other
+participant "Browser / API" as API
+participant "Git client" as Client
+participant "GitForge transport and policies" as Transport
+database "Test metadata and bare repository" as State
+Owner -> API : Register / sign in / create repository
+API -> State : Create test identity and metadata
+Owner -> API : Issue disposable PAT
+API --> Owner : Show new secret once
+Owner -> Client : Clone, commit, push, fetch
+Client -> Transport : PAT-authenticated Smart HTTP
+Transport -> State : Authorized Git operations
+Owner -> API : Verify branch, commit and file content
+Other -> API : Attempt private access or owner-only mutation
+API --> Other : Reject or conceal according to policy
+Owner -> API : Revoke test PAT
+Client -> Transport : Retry revoked credentials
+Transport --> Client : Reject authentication
+@enduml

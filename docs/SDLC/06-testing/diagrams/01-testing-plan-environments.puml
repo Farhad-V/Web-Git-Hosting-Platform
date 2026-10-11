@@ -1,0 +1,30 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Isolated test environments
+artifact "Selected candidate and lockfiles" as Candidate
+node "Backend test environment" {
+ component "PHP / Laravel tests" as Backend
+ database "Dedicated PostgreSQL test database" as DB
+ folder "Temporary Git fixtures" as Git
+}
+node "Frontend test environment" {
+ component "Vitest / jsdom / component tests" as Frontend
+}
+node "Manual acceptance environment" {
+ component "Browser + backend + real Git client" as Manual
+}
+Candidate --> Backend
+Candidate --> Frontend
+Candidate --> Manual
+Backend --> DB : migrations and isolated data
+Backend --> Git : disposable repositories
+note bottom of DB : Never use development or production data for destructive tests
+note bottom of Frontend : Component tests do not replace real-browser acceptance
+@enduml

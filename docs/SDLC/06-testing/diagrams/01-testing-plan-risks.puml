@@ -1,0 +1,31 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Risk and boundary verification
+rectangle "Critical security and data risks" {
+ component "Authentication / CSRF / PAT revocation" as Identity
+ component "Owner policy / private concealment" as Policy
+ component "Storage containment / orphan handling" as Storage
+ component "Git argument injection / process limits" as Process
+}
+rectangle "Stateful feature risks" {
+ component "Branch refs / rename / bounded previews" as Browse
+ component "Pull request stale refs / conflicts / recovery" as PR
+ component "Actions queue / cancellation / result access" as Actions
+}
+artifact "Positive and negative cases\nExpected result + fresh evidence" as Evidence
+Identity --> Evidence
+Policy --> Evidence
+Storage --> Evidence
+Process --> Evidence
+Browse --> Evidence
+PR --> Evidence
+Actions --> Evidence
+note bottom of Evidence : Required security and data-integrity gaps block acceptance
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Automated workflow boundaries
+artifact "Candidate push or pull request" as Change
+component "Backend CI\nPHP 8.4 / PostgreSQL 18" as Backend
+component "Frontend CI\nNode 24; path-filtered" as Frontend
+component "Release Readiness" as Release
+component "Deployment Validation\nDeployment/runtime path-filtered" as Deployment
+component "Documentation Diagrams\nDocumentation path-filtered" as Docs
+artifact "Workflow results + manual acceptance record" as Evidence
+Change --> Backend
+Change --> Frontend : relevant paths
+Change --> Release
+Change --> Deployment : relevant paths
+Change --> Docs : relevant paths
+Backend --> Evidence
+Frontend --> Evidence
+Release --> Evidence
+Deployment --> Evidence
+Docs --> Evidence
+note bottom of Evidence : A skipped workflow is not a newly executed passing check
+@enduml

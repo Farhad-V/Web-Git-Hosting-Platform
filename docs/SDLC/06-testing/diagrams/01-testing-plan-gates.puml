@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Testing closure and deployment handoff
+start
+:Confirm test basis, candidate and environment;
+:Review required functional and security evidence;
+:Review Git transport, state and newer feature checks;
+:Review manual UI and accessibility observations;
+:Review defect retests and regression outcomes;
+if (Required evidence complete and no blocking defects?) then (yes)
+ :Record acceptance and explicit non-blocking observations;
+ :Hand off commit, results and recovery risks to deployment;
+else (no)
+ :Do not approve release readiness;
+ :Assign remaining checks or defect corrections;
+endif
+stop
+@enduml

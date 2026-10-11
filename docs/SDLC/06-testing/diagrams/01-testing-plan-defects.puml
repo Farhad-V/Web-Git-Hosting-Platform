@@ -1,0 +1,34 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Defect retest and regression workflow
+start
+:Capture reproducible failure and candidate/environment;
+:Compare actual behavior with approved expectation;
+if (Product defect confirmed?) then (yes)
+ :Classify severity and release impact;
+ :Record requirement, affected state and reproduction;
+ :Implement scoped correction;
+ :Retest original failing case;
+ if (Retest passes?) then (yes)
+  :Run affected regression checks;
+  if (Regression passes?) then (yes)
+   :Close with fresh evidence;
+  else (no)
+   :Reopen and investigate regression;
+  endif
+ else (no)
+  :Reopen unresolved defect;
+ endif
+else (environment / expectation issue)
+ :Record blocked status or clarify test basis;
+ :Repair environment and resume affected checks;
+endif
+stop
+@enduml

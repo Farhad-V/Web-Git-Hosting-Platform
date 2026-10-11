@@ -1,0 +1,26 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Candidate testing strategy
+start
+:Select exact candidate commit and requirement scope;
+:Assess changed behavior and material risks;
+:Prepare isolated test data and runtime;
+:Run focused unit and component checks;
+:Run PostgreSQL, API, filesystem and Git integration checks;
+:Verify end-to-end journeys and manual UI acceptance;
+:Retest defects and affected regression scope;
+if (Required evidence passes and blockers resolved?) then (yes)
+ :Record candidate acceptance decision;
+else (no)
+ :Record failed, blocked or unexecuted checks;
+ :Resolve gaps before release acceptance;
+endif
+stop
+@enduml

@@ -13,6 +13,10 @@
 
 ---
 
+## Version context
+
+Sections 1–49 preserve the historical V1.0.0 M5 testing plan and its planning-time snapshot. The approved [M5 milestone review](21-m5-milestone-review.md) records later historical closure. Neither that approval nor the snapshot below is fresh evidence for current development candidates. Section 50 provides the current execution supplement and diagrams based on the repository test configuration.
+
 ## 1. Purpose
 
 This document defines the formal testing plan for GitForge V1.0.0.
@@ -1515,7 +1519,7 @@ Deployment must not be used to compensate for unresolved M5 release-blocking def
 
 ---
 
-## 48. Current M5 Status
+## 48. Historical M5 Planning Status
 
 ```text
 M5 — Testing
@@ -1559,3 +1563,151 @@ Current WP-01 status:
 ```text
 APPROVED
 ```
+
+---
+
+## 50. Current candidate testing supplement
+
+### Candidate testing strategy
+
+![Candidate testing strategy](diagrams/01-testing-plan-strategy.svg)
+
+[PlantUML source](diagrams/01-testing-plan-strategy.puml) · [Full-size SVG](diagrams/01-testing-plan-strategy.svg)
+
+
+Record the exact commit under test, changed scope, affected requirements and environment before execution. Use the [current acceptance criteria](../02-requirements-engineering/acceptance-criteria.md), [feature contracts](../05-implementation/Features/repository-collaboration.md), [visual system](../05-implementation/Features/visual-system.md) and [unreleased scope](../../Releases/v1/UNRELEASED.md). Historical feature plans do not establish that deferred capabilities exist.
+
+Start with focused checks for changed behavior and material risks. Then execute the required integration, regression and acceptance checks. This document is a plan; updating it does not execute product tests, certify coverage or approve a release.
+
+### Isolated test environments
+
+![Isolated test environments](diagrams/01-testing-plan-environments.svg)
+
+[PlantUML source](diagrams/01-testing-plan-environments.puml) · [Full-size SVG](diagrams/01-testing-plan-environments.svg)
+
+
+| Layer | Actual repository configuration | Required interpretation |
+| --- | --- | --- |
+| Backend | [PHPUnit configuration](../../../backend/phpunit.xml) defines Unit and Feature suites | Local defaults use SQLite in memory; this is not PostgreSQL compatibility evidence |
+| Backend CI | [Backend workflow](../../../.github/workflows/backend-ci.yml) uses PHP 8.4 and PostgreSQL 18 | Run migrations and tests against a dedicated test database |
+| Frontend | [Package scripts](../../../frontend/package.json) provide Vitest, ESLint and build checks | jsdom/component checks do not establish complete browser journeys |
+| Frontend CI | [Frontend workflow](../../../.github/workflows/frontend-ci.yml) uses Node 24 | Path filters determine whether a change triggers execution |
+| Git and filesystem | Backend suites use real Git and disposable storage fixtures where configured | Record OS differences and unsupported symlink checks explicitly |
+| Manual acceptance | Browser, API, database, Git client and worker as needed | Use test accounts and designated disposable repositories |
+
+Never configure a destructive suite against the development or production database. Confirm the effective test database, isolated storage root, Git executable and runtime before starting. PHPUnit uses synchronous queues by default; that alone does not verify a deployed background worker's consumption, restart or recovery behavior. Record skipped and environment-blocked checks with reasons and an alternative environment where required.
+
+### Executable verification commands
+
+From `backend`, with dependencies and the isolated test environment prepared:
+
+```bash
+composer validate --strict --no-check-publish
+vendor/bin/pint --test
+php artisan test --testsuite=Unit
+php artisan test
+composer audit --locked --no-interaction
+```
+
+The full backend suite must also have PostgreSQL evidence for a candidate that needs release-level acceptance. CI supplies an isolated PostgreSQL environment; a local default SQLite run must be labeled as such. Do not copy CI credentials into real hosts or write production secrets to evidence.
+
+From `frontend`:
+
+```bash
+npm ci
+npm run lint
+npm run test
+npm run build
+npm audit --omit=dev --audit-level=high
+```
+
+For documentation changes, verify the catalog from the repository root:
+
+```bash
+python scripts/docs/diagrams.py --verify
+```
+
+Document the commands actually run, exit status and output relevant to the result. Do not invent fixed passing test counts; counts can change as tests evolve. Dependency audits describe findings at execution time and do not replace behavioral security checks.
+
+### Identity and Git acceptance journeys
+
+![Identity and Git acceptance journeys](diagrams/01-testing-plan-journeys.svg)
+
+[PlantUML source](diagrams/01-testing-plan-journeys.puml) · [Full-size SVG](diagrams/01-testing-plan-journeys.svg)
+
+
+Use a test owner, signed-in non-owner and visitor. Verify registration, login, logout and CSRF behavior; create private/public test repositories; issue a disposable PAT, clone/fetch/push through actual Git Smart HTTP, and confirm the expected commit and branch in the browser. Revoke the PAT and verify that reused credentials are rejected. Check private concealment and owner-only mutations independently of successful owner flows.
+
+The [system suite](../../../backend/tests/Feature/System/SystemEndToEndTest.php) and [Git read](../../../backend/tests/Feature/Git/GitSmartHttpReadEndToEndTest.php)/[write](../../../backend/tests/Feature/Git/GitSmartHttpWriteEndToEndTest.php) suites provide implementation evidence at their configured boundaries. Record an actual browser/client acceptance run separately when it is required; an in-process API test is not a screenshot or public-host test.
+
+### Risk and boundary verification
+
+![Risk and boundary verification](diagrams/01-testing-plan-risks.svg)
+
+[PlantUML source](diagrams/01-testing-plan-risks.puml) · [Full-size SVG](diagrams/01-testing-plan-risks.svg)
+
+
+| Area | Required positive and negative checks |
+| --- | --- |
+| Identity and policy | Valid session/PAT; revoked credentials; CSRF rejection; private concealment; non-owner mutation rejection |
+| Storage and Git process | Validated paths; traversal/injection rejection; missing and orphaned storage; timeout and bounded request failures |
+| Rename and branch behavior | Stable repository identity/storage after rename; updated clone URL; branch creation and default selection; forbidden writes |
+| Tags, commits and previews | Correct ref/object resolution; file navigation; text/PDF bounds; invalid and unauthorized access |
+| Pull requests | Permitted proposal/discussion; author/owner state changes; owner-only merge; stale refs, conflicts and prepared-merge recovery |
+| Actions | Owner queue/cancel; permitted result access; completion/failure; worker availability and candidate restart |
+| UI | Light/dark persistence; keyboard navigation; focus visibility; readable contrast; narrow layouts; loading/empty/error feedback |
+| Operational state | Database/storage failure; sanitized logs; backup consistency guards; recovery compatibility |
+
+Required security, data integrity or authorization gaps block acceptance. Accessibility and readability require recorded manual checks where automated coverage cannot establish behavior. Representative performance checks do not certify a production SLA, a maximum concurrency or unlimited file upload capacity.
+
+### Defect retest and regression workflow
+
+![Defect retest and regression workflow](diagrams/01-testing-plan-defects.svg)
+
+[PlantUML source](diagrams/01-testing-plan-defects.puml) · [Full-size SVG](diagrams/01-testing-plan-defects.svg)
+
+
+Record a reproducible failure with candidate, environment, expected behavior, actual result and affected requirement. Classify product defects separately from incorrect fixtures or unavailable environment capabilities. Define severity and release impact using the historical defect classification rather than an arbitrary pass percentage.
+
+A correction requires the original case to pass and affected regression checks to remain green. Reopen a defect when either fails. Preserve sanitized evidence of failures and retests; never include passwords, PATs, cookies or Authorization headers. An unavailable dependency or skipped required check remains blocked/unverified until suitable evidence exists.
+
+### Automated workflow boundaries
+
+![Automated workflow boundaries](diagrams/01-testing-plan-ci.svg)
+
+[PlantUML source](diagrams/01-testing-plan-ci.puml) · [Full-size SVG](diagrams/01-testing-plan-ci.svg)
+
+
+Backend CI validates dependencies, migrations, formatting, dependency audit and backend tests. Frontend CI validates lint, Vitest, production build and production dependency audit when its paths trigger. [Release Readiness](../../../.github/workflows/release-readiness.yml) provides the broader candidate gate. [Deployment Validation](../../../.github/workflows/deployment-validation.yml) tests the production-like package for relevant paths. [Documentation Diagrams](../../../.github/workflows/documentation-diagrams.yml) verifies catalog consistency.
+
+Read the current workflow definitions when executing this plan. Capture run URL, commit and conclusion; a skipped workflow is not a fresh pass. Green CI does not replace manual acceptance, a real production-host check or required coverage missing from automated suites. This documentation update does not claim those product workflows have completed successfully.
+
+### Requirement to evidence traceability
+
+![Requirement to evidence traceability](diagrams/01-testing-plan-traceability.svg)
+
+[PlantUML source](diagrams/01-testing-plan-traceability.puml) · [Full-size SVG](diagrams/01-testing-plan-traceability.svg)
+
+
+| Evidence field | Record |
+| --- | --- |
+| Candidate | Exact commit and feature scope |
+| Test basis | Requirement, acceptance criterion or feature contract |
+| Environment | OS, runtime versions, database driver and isolated fixtures |
+| Execution | Command or manual steps, expected result and actual result |
+| Outcome | PASS, FAIL, BLOCKED or NOT EXECUTED; record skips explicitly |
+| Defect | Severity, reproduction, correction and retest/regression evidence |
+| Review | Responsible reviewer, acceptance decision and remaining observations |
+
+Use the [test case specification](02-test-case-specification.md), [test traceability](19-test-traceability.md), [testing validation](20-testing-validation.md) and [current requirements matrix](../02-requirements-engineering/requirements-traceability-matrix.md). A requirement is verified only when its required evidence is complete; one passing test does not verify every related scenario. Do not fabricate coverage percentages, reviewer approvals or execution dates.
+
+### Testing closure and deployment handoff
+
+![Testing closure and deployment handoff](diagrams/01-testing-plan-gates.svg)
+
+[PlantUML source](diagrams/01-testing-plan-gates.puml) · [Full-size SVG](diagrams/01-testing-plan-gates.svg)
+
+
+Accept a candidate only when required functional, integration, security, regression and acceptance evidence is complete and no release-blocking defect remains. Record non-blocking observations and their explicit disposition. Hand off the exact commit, results, environment constraints, migration/recovery risks and outstanding observations to the [deployment plan](../07-deployment/01-deployment-plan.md).
+
+Historical M5 approval remains historical. Current release decisions need candidate-specific evidence and the [release checklist](../../Releases/v1/RELEASE-CHECKLIST.md); documentation completion alone does not authorize production deployment or create a new release tag.

@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Requirement to evidence traceability
+artifact "Requirement or acceptance criterion" as Requirement
+artifact "Risk and implemented feature contract" as Risk
+artifact "Test case\nPreconditions / input / expected result" as Case
+artifact "Execution evidence\nCandidate / environment / actual result" as Run
+artifact "Defect and retest record if applicable" as Defect
+artifact "Candidate acceptance decision" as Decision
+Requirement --> Case
+Risk --> Case
+Case --> Run
+Run --> Defect : failure
+Defect --> Run : retest
+Run --> Decision : required evidence reviewed
+note bottom of Decision : Missing, blocked or skipped evidence is not VERIFIED
+@enduml

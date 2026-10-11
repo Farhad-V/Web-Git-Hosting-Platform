@@ -2662,5 +2662,77 @@
     "original_format": "plantuml",
     "source_sha256": "d3a3394c99fb4e13bb2fa60bba8e3bec53494cd17ce5f0b20716035a4e90b305",
     "image_sha256": "1e48be9067aff0f61c2f3bfe93792d352e00e7cc3f0ce73f5cdcfd9483a636af"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-strategy.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-strategy.svg",
+    "title": "Candidate testing strategy",
+    "original_format": "plantuml",
+    "source_sha256": "1b62126587603f559fa1914bcf10465422b87bfd815d264bcc95a2b5b7e0b55e",
+    "image_sha256": "5f47f445cfc1e8512058dbbea4d3fd020f00815d913bc4764b6cee5f21028edf"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-environments.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-environments.svg",
+    "title": "Isolated test environments",
+    "original_format": "plantuml",
+    "source_sha256": "4d239282e7b78f1a8e69e352bd17f77b486ed77f5d845a3fc8f49a76e5a5a7f0",
+    "image_sha256": "ce635c440fc80fa04f200e71d6f1be7a8c8ccc9adda7757af8313a7aa2ae161a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-journeys.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-journeys.svg",
+    "title": "Identity and Git acceptance journeys",
+    "original_format": "plantuml",
+    "source_sha256": "c97a72c1d6a05623e16c0a30356c7feee7962c93ff3ea1c2df0e31ce4fe7f4c0",
+    "image_sha256": "6de2e073f7fb298be01a90adbf447be713fe95d8d8de7f0b5478912ab2292f03"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-risks.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-risks.svg",
+    "title": "Risk and boundary verification",
+    "original_format": "plantuml",
+    "source_sha256": "2ff86aa7dde855016ced9be166376ed3067ab912ae3d3ad8c15b0c25e80a04ae",
+    "image_sha256": "c83902b7d801073ae042717bd9f628f833a6edd1168a71593e86ec748e41f94d"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-defects.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-defects.svg",
+    "title": "Defect retest and regression workflow",
+    "original_format": "plantuml",
+    "source_sha256": "8bfc361c2f6e9cda9f462474040b26a939a627ca56945c16ac709321c4b6479a",
+    "image_sha256": "f98b306e674863b256099f98f147b6debf8dda7a375360a443d2ec5dd606e688"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-ci.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-ci.svg",
+    "title": "Automated workflow boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "1def8c1d5acc16291d751d1afeb8e91850c8041b52ace303bfd7b861bee7ac07",
+    "image_sha256": "1795e98b5d5a4c93200528d886c41e0a5d4298d371266587b54dcd69de4a2a4a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-traceability.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-traceability.svg",
+    "title": "Requirement to evidence traceability",
+    "original_format": "plantuml",
+    "source_sha256": "ad6e30d78ae4582ffe6f05ddc2c5027c0fc2006849cb13238aef5a0a7e8a6266",
+    "image_sha256": "741e0db5f21efb96d7b95f6ce2b5ebf0abbc6082478d41baa63bb2bfa21c04cc"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-gates.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-gates.svg",
+    "title": "Testing closure and deployment handoff",
+    "original_format": "plantuml",
+    "source_sha256": "c0bebf4e5cafa30d4628696a8c4bdbbdadf9444b29fc3a69a9c7b93b541e21e5",
+    "image_sha256": "9eec9e106c9180780e4a1d2790025f8b390fbe59afda23583e6f916c445ab194"
   }
 ]
