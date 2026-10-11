@@ -100,7 +100,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173`.
+Open `http://127.0.0.1:5173`. Vite uses this fixed port and reports an error if it is already occupied, instead of silently switching to another address.
 
 The Vite development server proxies `/api` to `http://127.0.0.1:8000`, so the default local frontend/backend configuration works without a separate API base URL.
 
