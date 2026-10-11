@@ -1,0 +1,32 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Visibility and ownership verification
+start
+:Resolve caller identity and target repository;
+if (Read operation?) then (yes)
+ if (Public read permitted?) then (yes)
+  :Verify allowed public read;
+ else (private)
+  if (Caller is owner?) then (yes)
+   :Verify authorized private read;
+  else (no)
+   :Verify rejection or private concealment;
+  endif
+ endif
+else (owner-only mutation)
+ if (Authenticated owner?) then (yes)
+  :Verify authorized mutation;
+ else (no)
+  :Verify rejection and unchanged state;
+ endif
+endif
+:Check payload, side effects and persistence;
+stop
+@enduml

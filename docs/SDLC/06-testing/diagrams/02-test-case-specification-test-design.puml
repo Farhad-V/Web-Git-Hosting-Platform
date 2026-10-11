@@ -1,0 +1,20 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title From test basis to executable case
+start
+:Select approved requirement and implemented scope;
+:Review use case, analysis and design constraints;
+:Identify normal, negative and security scenarios;
+:Assign unique TC-area-number identifier and priority;
+:Specify preconditions, action and expected result;
+:Review reproducibility and requirement coverage;
+:Record execution separately from specification;
+stop
+@enduml

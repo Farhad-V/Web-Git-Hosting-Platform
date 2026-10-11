@@ -13,6 +13,10 @@
 | Branch | `testing/m5` |
 
 ---
+## Document and diagram context
+
+This is the historical V1.0.0 WP-02 specification. Its approval, initial zero-execution snapshot and planned work-package handoff are historical records, not current test results. Ten diagrams clarify major workflows and boundaries; individual case tables remain authoritative for exact preconditions, actions and expected results. For current candidates, also use the [testing-plan supplement](01-testing-plan.md#50-current-candidate-testing-supplement) and [current acceptance criteria](../02-requirements-engineering/acceptance-criteria.md). Diagrams neither execute cases nor certify product behavior.
+
 ## 1. Purpose
 
 This document defines the formal test-case specification for GitForge V1.0.0.
@@ -41,6 +45,10 @@ The objectives of this specification are to:
 
 ---
 ## 3. Test Basis
+
+![From test basis to executable case](diagrams/02-test-case-specification-test-design.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-test-design.puml) · [Full-size SVG](diagrams/02-test-case-specification-test-design.svg)
 
 The formal test basis includes approved artifacts from:
 
@@ -124,6 +132,10 @@ Area codes:
 
 ---
 ## 5. Test Result States
+
+![Execution outcomes and blocked prerequisites](diagrams/02-test-case-specification-result-states.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-result-states.puml) · [Full-size SVG](diagrams/02-test-case-specification-result-states.svg)
 
 Each test execution must use one of:
 
@@ -434,6 +446,10 @@ UC-004 – UC-006
 ---
 ## 10. Authorization Test Cases
 
+![Visibility and ownership verification](diagrams/02-test-case-specification-authorization.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-authorization.puml) · [Full-size SVG](diagrams/02-test-case-specification-authorization.svg)
+
 Requirement basis:
 
 ```text
@@ -532,6 +548,10 @@ NFR-001 – NFR-018
 
 ---
 ## 11. Repository Storage Test Cases
+
+![Storage and Git execution test boundaries](diagrams/02-test-case-specification-storage-process.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-storage-process.puml) · [Full-size SVG](diagrams/02-test-case-specification-storage-process.svg)
 
 Requirement basis:
 
@@ -901,6 +921,10 @@ NFR-026 – NFR-027
 
 ---
 ## 15. Personal Access Token Test Cases
+
+![PAT lifecycle and authority checks](diagrams/02-test-case-specification-pat-lifecycle.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-pat-lifecycle.puml) · [Full-size SVG](diagrams/02-test-case-specification-pat-lifecycle.svg)
 
 Requirement basis:
 
@@ -1547,6 +1571,10 @@ NFR-028 – NFR-041 as applicable
 ---
 ## 22. System and End-to-End Test Cases
 
+![Representative end-to-end verification](diagrams/02-test-case-specification-system-flow.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-system-flow.puml) · [Full-size SVG](diagrams/02-test-case-specification-system-flow.svg)
+
 ---
 ### TC-E2E-001 — Registration to Repository Creation Flow
 
@@ -1823,6 +1851,10 @@ Detailed acceptance evidence will be recorded in WP-18.
 ---
 ## 26. Test Data Requirements
 
+![Controlled identities and repository fixtures](diagrams/02-test-case-specification-fixture-matrix.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-fixture-matrix.puml) · [Full-size SVG](diagrams/02-test-case-specification-fixture-matrix.svg)
+
 Formal execution requires controlled test identities.
 
 At minimum:
@@ -1903,6 +1935,10 @@ For each executed test, evidence should record as applicable:
 
 ---
 ## 29. Defect Handling Rule
+
+![Failure triage, retest and regression](diagrams/02-test-case-specification-defect-handling.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-defect-handling.puml) · [Full-size SVG](diagrams/02-test-case-specification-defect-handling.svg)
 
 When a test fails:
 
@@ -2018,6 +2054,10 @@ Updated UI state
 
 ---
 ## 35. Requirements Coverage Strategy
+
+![Requirement families to execution evidence](diagrams/02-test-case-specification-coverage.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-coverage.puml) · [Full-size SVG](diagrams/02-test-case-specification-coverage.svg)
 
 Coverage is organized as follows:
 
@@ -2147,6 +2187,10 @@ WP-02 defines tests; it does not pre-mark unexecuted tests as successful.
 
 ---
 ## 41. WP-02 Quality Review Checklist
+
+![Specification review and execution handoff](diagrams/02-test-case-specification-quality-gate.svg)
+
+[PlantUML source](diagrams/02-test-case-specification-quality-gate.puml) · [Full-size SVG](diagrams/02-test-case-specification-quality-gate.svg)
 
 WP-02 review must verify:
 

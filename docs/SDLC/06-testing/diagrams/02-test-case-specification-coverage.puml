@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Requirement families to execution evidence
+artifact "Approved FR / NFR and acceptance criteria" as Requirements
+artifact "Implemented, required or explicitly deferred scope" as Scope
+artifact "Test families\nAUTH / REPO / AUTHZ / STORE / GEXEC\nBROWSE / GITR / PAT / GITW / DB / UI\nSEC / OBS / FAIL / E2E / PERF / REG / ACC" as Cases
+artifact "Individual test case and expected result" as Case
+artifact "Recorded execution and actual result" as Run
+artifact "WP-19 row-level traceability" as Mapping
+Requirements --> Cases
+Scope --> Cases : confirm applicability
+Cases --> Case
+Case --> Run
+Run --> Mapping
+Requirements --> Mapping
+note bottom of Mapping : Coverage is not established by implementation alone
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Failure triage, retest and regression
+start
+:Observe failed expectation or execution obstacle;
+if (Environment prerequisite unavailable?) then (yes)
+ :Record BLOCKED and environment limitation;
+ :Restore prerequisite and rerun case;
+else (no)
+ :Record FAIL and reproduce deviation;
+ :Classify defect and apply correction if required;
+ :Retest original failing case;
+ if (Retest and affected regression pass?) then (yes)
+  :Close defect with fresh verification evidence;
+ else (no)
+  :Keep defect open and investigate;
+ endif
+endif
+stop
+@enduml

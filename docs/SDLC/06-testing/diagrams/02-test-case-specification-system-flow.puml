@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Representative end-to-end verification
+actor "Owner / browser" as Owner
+participant "Web UI and API" as API
+participant "Real Git client" as Client
+participant "Git Smart HTTP" as HTTP
+database "Test metadata and bare repository" as State
+Owner -> API : Register and create test repository
+API -> State : Persist identity, metadata and storage
+Owner -> API : Issue disposable PAT
+Owner -> Client : Commit and push test content
+Client -> HTTP : Authorized receive-pack
+HTTP -> State : Update Git objects and refs
+Owner -> API : Browse pushed branch, commit and file
+API -> State : Read authorized content
+API --> Owner : Expected content
+Client -> HTTP : Clone / fetch
+HTTP --> Client : Expected repository history
+Owner -> API : Revoke PAT and logout
+note over Owner,State : Independently test non-owner private denial and session termination
+@enduml

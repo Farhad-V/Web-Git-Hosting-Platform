@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Controlled identities and repository fixtures
+rectangle "Owner A" as Owner
+rectangle "Signed-in non-owner B" as Other
+rectangle "Anonymous visitor" as Visitor
+folder "Public test repository" as Public
+folder "Private test repository" as Private
+artifact "Branches, nested tree, text files and multiple commits" as Content
+artifact "Owner / non-owner active PATs\nRevoked, invalid and malformed credentials" as Tokens
+Owner --> Public : owns
+Owner --> Private : owns
+Other --> Public : permitted read; no owner write
+Visitor --> Public : permitted public read
+Other --> Private : denial/concealment case
+Visitor --> Private : denial/concealment case
+Public --> Content
+Private --> Content
+Owner --> Tokens
+Other --> Tokens
+note bottom of Tokens : Disposable secrets never committed or included in evidence
+@enduml

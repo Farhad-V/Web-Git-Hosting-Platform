@@ -3175,5 +3175,95 @@
     "original_format": "plantuml",
     "source_sha256": "3c4a7439713f51e6c12549d4c6675618853f0ab25bfaccb2826aab7bd469959c",
     "image_sha256": "20812b62a6ed8bfda8460ca962ead37ef6f911322c95d306d46b4d46f6c4a03d"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-test-design.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-test-design.svg",
+    "title": "From test basis to executable case",
+    "original_format": "plantuml",
+    "source_sha256": "a07fd8ffd6f2cf5bb09253b71cbeb4cbbdd4f11582a9521cd315f357f1c1298d",
+    "image_sha256": "8ceca0bd3d1448407dab6b6ccab2f1c7a46b649052dbc6aaecdeb609b1723b8f"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-result-states.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-result-states.svg",
+    "title": "Execution outcomes and blocked prerequisites",
+    "original_format": "plantuml",
+    "source_sha256": "c66b601080b0703b0dbbd6fc050d1d0b354bad261cd7000e5171b47cdb663c16",
+    "image_sha256": "0f147498e2f5feae547e8301be26e88dade864336abd7b1c10b5d67f30217e45"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-authorization.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-authorization.svg",
+    "title": "Visibility and ownership verification",
+    "original_format": "plantuml",
+    "source_sha256": "03ce0516555d243bb9335d514b89e548c889f5d7b34bbe625a168bbc016cf71b",
+    "image_sha256": "1f9ae9d37c4e120355d5eac09da1cd7a3cf3efa12aeab51e82faf1050b785eb0"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-storage-process.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-storage-process.svg",
+    "title": "Storage and Git execution test boundaries",
+    "original_format": "plantuml",
+    "source_sha256": "620237516620e72ae0cafbe9900fb42979b4f4bf1bbb3bebcc389f5332e64c00",
+    "image_sha256": "f1c67198146a97edae7d63e03c6a60ca694205482249158bb2d565f3bc0871c3"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-pat-lifecycle.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-pat-lifecycle.svg",
+    "title": "PAT lifecycle and authority checks",
+    "original_format": "plantuml",
+    "source_sha256": "36f99bda8813e52140a4aab16f7469c8987bb177846f70bbcdcd4b87b8ce0a69",
+    "image_sha256": "f1c1a0b55cb884356233a5db19847efd9502440a6474e2f5c89affbf6d179db7"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-system-flow.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-system-flow.svg",
+    "title": "Representative end-to-end verification",
+    "original_format": "plantuml",
+    "source_sha256": "90da161f2b1ce95b7587aafd55f22eb8e797a0743ab62865215c2cc6b5404147",
+    "image_sha256": "0bd53d4134d8d4a446e5a378c431a0f2b2226815166680071a0b4ed03fb74dca"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-fixture-matrix.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-fixture-matrix.svg",
+    "title": "Controlled identities and repository fixtures",
+    "original_format": "plantuml",
+    "source_sha256": "fc1aecb0b254cd93ae144e9312ce9e43b387ef8d7a93aa4b79979e4859c4d496",
+    "image_sha256": "63b378a7e1ca49ef5d5b22d7975307964e3a36d28a1cab518b0cbeb9825fa2f1"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-defect-handling.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-defect-handling.svg",
+    "title": "Failure triage, retest and regression",
+    "original_format": "plantuml",
+    "source_sha256": "5b1dd318089fe06ebc188112c10171b16e558993b70de617730305e01f3206cd",
+    "image_sha256": "623e5e0a892a48a56f5f5af226a9124d2ed5eb126657e0b76076afdcd928349c"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-coverage.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-coverage.svg",
+    "title": "Requirement families to execution evidence",
+    "original_format": "plantuml",
+    "source_sha256": "044e6f868e698d4baf907186ab359c591eed900c9745ed4b186f909aae1728b3",
+    "image_sha256": "b0aa148a13f8891652640105f494e5d88e2f747e92210178bf1dd0ce73072fc0"
+  },
+  {
+    "document": "docs/SDLC/06-testing/02-test-case-specification.md",
+    "source": "docs/SDLC/06-testing/diagrams/02-test-case-specification-quality-gate.puml",
+    "image": "docs/SDLC/06-testing/diagrams/02-test-case-specification-quality-gate.svg",
+    "title": "Specification review and execution handoff",
+    "original_format": "plantuml",
+    "source_sha256": "adaac55d64b46670ae61e2d4024a56201cb15d602c305abe7d7da959e7c71640",
+    "image_sha256": "af09245c11d3537900c1601680a5550d29bc0b3d89a0e6a1f33d955950880572"
   }
 ]

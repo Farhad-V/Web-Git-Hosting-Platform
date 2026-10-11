@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Storage and Git execution test boundaries
+component "Repository identifier and browser path" as Input
+component "Validated logical identity" as Identity
+component "Canonical path containment" as Path
+folder "Isolated bare Git repository" as Storage
+component "Configured Git executable\nStructured arguments; no shell" as Git
+artifact "Exit status, bounded output and timeout evidence" as Evidence
+Input --> Identity
+Identity --> Path
+Path --> Storage
+Git --> Storage : permitted operation
+Git --> Evidence : result or controlled failure
+note bottom of Path : Traversal, absolute paths and symlink escape cases
+note bottom of Storage : Missing/orphaned storage must not cause unsafe adoption
+note bottom of Git : Injection, unsupported commands and timeout cases
+@enduml

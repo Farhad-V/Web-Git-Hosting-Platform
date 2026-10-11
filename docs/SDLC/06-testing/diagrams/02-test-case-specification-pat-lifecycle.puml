@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title PAT lifecycle and authority checks
+actor "Test user" as User
+participant "PAT API" as API
+database "Token metadata and protected credential storage" as DB
+participant "Git authentication and repository policy" as Git
+User -> API : Create disposable PAT while authenticated
+API -> DB : Persist protected credential and owner
+API --> User : Return raw token at creation only
+User -> API : List owned token metadata
+API --> User : Metadata without raw token
+User -> Git : Present valid active PAT
+Git -> DB : Resolve credential owner
+Git --> User : Authorize by repository ownership and visibility
+User -> API : Revoke owned PAT
+API -> DB : Revoke credential
+User -> Git : Retry revoked token
+Git --> User : Reject authentication
+note over Git : Invalid or malformed tokens also rejected
+note over API : Separate read/write PAT scopes are deferred in V1.0.0
+@enduml

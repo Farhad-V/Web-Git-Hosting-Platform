@@ -1,0 +1,22 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Execution outcomes and blocked prerequisites
+state "NOT EXECUTED" as Pending
+state "BLOCKED" as Blocked
+state "PASS" as Pass
+state "FAIL" as Fail
+[*] --> Pending
+Pending --> Blocked : required prerequisite unavailable
+Blocked --> Pending : prerequisite restored
+Pending --> Pass : expected behavior observed
+Pending --> Fail : expected behavior violated
+Fail --> Pass : correction and fresh retest pass
+note bottom of Pass : Specification or code change alone does not establish PASS
+@enduml

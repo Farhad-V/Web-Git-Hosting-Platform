@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title Specification review and execution handoff
+start
+:Review unique IDs, priorities and expected results;
+:Review positive, negative and critical security coverage;
+:Review owner, non-owner, public and private scenarios;
+:Review Git, storage, UI and database cases;
+:Check fixtures, blocked handling and evidence rules;
+:Confirm deferred scope is not mandatory;
+if (WP-02 specification criteria satisfied?) then (yes)
+ :Record specification review decision;
+ :Hand off to WP-03 environment validation and execution;
+else (no)
+ :Revise missing or ambiguous cases;
+endif
+stop
+@enduml
