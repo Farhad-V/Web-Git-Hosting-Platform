@@ -24,7 +24,7 @@ Organization/team collaboration, SSH Git transport, distributed repository stora
 
 ## Current development and licensing boundary
 
-Current development is **Unreleased — planned v2.0.0**, with frontend package metadata `2.0.0-dev`. The last published baseline remains v1.0.1. The major version boundary is an explicit project policy for the permission-only licensing change and accumulated development scope; licensing changes are not themselves proof of a public API or schema incompatibility under Semantic Versioning.
+The current version snapshot is **v2.0.0**, with frontend package metadata `2.0.0`. The prior published baseline is v1.0.1. Git tags and GitHub Release pages are separate publication artifacts. The major version boundary is an explicit project policy for the permission-only licensing change and accumulated development scope; licensing changes are not themselves proof of a public API or schema incompatibility under Semantic Versioning.
 
 Do not move or replace existing release tags. Historical snapshots retain their contents and applicable licensing terms. Permission requirements for new original materials do not revoke earlier grants or override third-party licenses.
 

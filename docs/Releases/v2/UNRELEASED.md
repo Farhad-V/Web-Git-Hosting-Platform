@@ -1,6 +1,6 @@
-# Unreleased — planned v2.0.0
+# Version 2 scope overview
 
-This document describes current development scope, not a published release. Package metadata uses `2.0.0-dev`; final publication and candidate-specific validation remain pending.
+This scope is included in the v2.0.0 version snapshot. Package metadata uses `2.0.0`. See [release notes](v2.0.0.md) and the [checklist](RELEASE-CHECKLIST.md) for automated evidence and outstanding manual acceptance. GitHub Release-page publication is separate from the Git tag.
 
 ## Licensing policy
 

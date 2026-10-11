@@ -6,7 +6,9 @@ The project follows Semantic Versioning.
 
 ## [Unreleased]
 
-**Planned release: v2.0.0.** Development package version: `2.0.0-dev`. No v2 tag or published release exists as part of this update. See [draft notes](docs/Releases/v2/v2.0.0.md) and [candidate checklist](docs/Releases/v2/RELEASE-CHECKLIST.md).
+## [2.0.0] - 2026-10-11
+
+Version metadata: `2.0.0`. See [release notes](docs/Releases/v2/v2.0.0.md) and [validation checklist](docs/Releases/v2/RELEASE-CHECKLIST.md). The annotated Git tag and a published GitHub Release are separate publication steps.
 
 ### Licensing
 
@@ -36,7 +38,7 @@ The project follows Semantic Versioning.
 
 ### Validation status
 
-Candidate-specific release validation and publication remain pending. Historical test checkpoints do not certify a v2 release. No publication date or immutable v2 candidate commit is assigned yet.
+All five automated workflows passed on preparation commit `deb3447`: Backend CI, Frontend CI, Deployment Validation, Release Readiness and Documentation Diagrams. The stable-metadata commit must pass its triggered checks before tagging. Manual acceptance and isolated recovery rehearsal not recorded as completed remain explicit in the checklist. A tag does not certify a live deployment or every manual acceptance item.
 
 ## [1.0.1] - 2026-10-10
 

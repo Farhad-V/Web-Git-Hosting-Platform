@@ -4,11 +4,11 @@ GitForge is a self-hosted Git hosting platform built as a full-stack software-en
 
 ## Release Status
 
-**Stable release:** V1.0.1
+**Current version:** V2.0.0 (annotated Git tag; GitHub Release publication is separate)
 
-**Git tag:** `v1.0.1`
+**Git tag:** `v2.0.0`
 
-**Current development:** Unreleased — planned **v2.0.0** (`2.0.0-dev`). See [draft release notes](docs/Releases/v2/v2.0.0.md), [unreleased scope](docs/Releases/v2/UNRELEASED.md) and [validation checklist](docs/Releases/v2/RELEASE-CHECKLIST.md). No v2 release tag has been created.
+**Package version:** `2.0.0`. See [release notes](docs/Releases/v2/v2.0.0.md), [version scope](docs/Releases/v2/UNRELEASED.md) and [validation checklist](docs/Releases/v2/RELEASE-CHECKLIST.md). Outstanding manual checks are explicitly documented; no public deployment is certified.
 
 Current original materials require prior written permission under [LICENSE](LICENSE). Existing release tags retain their historical contents and applicable terms.
 
