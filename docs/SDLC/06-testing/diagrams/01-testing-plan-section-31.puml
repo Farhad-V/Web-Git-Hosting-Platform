@@ -1,0 +1,17 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 31 - Blocked Test Criteria
+start
+:Identify missing prerequisite or execution obstacle;
+:Explain why expected behavior cannot be verified;
+:Record BLOCKED rather than PASS;
+:Resolve obstacle and rerun affected case;
+stop
+@enduml

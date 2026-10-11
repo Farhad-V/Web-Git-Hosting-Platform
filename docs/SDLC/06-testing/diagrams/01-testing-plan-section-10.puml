@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 10 - API Testing
+start
+:Select endpoint and HTTP method;
+:Prepare valid and invalid requests;
+:Apply authentication and authorization scenarios;
+:Check status, payload and error consistency;
+:Verify state change or private concealment;
+stop
+@enduml

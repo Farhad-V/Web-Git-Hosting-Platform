@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 35 - Change Control During Testing
+start
+:Link source change to reproduced defect;
+:Confirm approved scope and design intent;
+:Apply focused correction or formal amendment;
+:Retest and run affected regression;
+:Commit correction with clear verification evidence;
+stop
+@enduml

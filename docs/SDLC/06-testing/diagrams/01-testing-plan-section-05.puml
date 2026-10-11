@@ -1,0 +1,19 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 05 - Test Basis
+start
+:Project definition and stakeholder goals;
+:Approved requirements and acceptance criteria;
+:System analysis and risk boundaries;
+:System design and interface contracts;
+:Implementation artifacts and amendments;
+:Derived test cases and expected results;
+stop
+@enduml

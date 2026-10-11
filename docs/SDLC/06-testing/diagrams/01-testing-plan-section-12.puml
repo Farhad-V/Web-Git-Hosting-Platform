@@ -1,0 +1,28 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 12 - Security Testing
+top to bottom direction
+rectangle "Security Testing" as Topic
+rectangle "Authentication, session and CSRF controls" as N0
+Topic --> N0
+rectangle "Owner/non-owner access and private\nconcealment" as N1
+Topic --> N1
+rectangle "SQL, command and Git argument injection" as N2
+Topic --> N2
+rectangle "Traversal and symlink containment where\nsupported" as N3
+Topic --> N3
+rectangle "Production templates and sensitive-file\nexposure" as N4
+Topic --> N4
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+N3 -[hidden]down-> N4
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 25 - Work-Package Execution Order
+start
+:WP-01 Plan;
+:WP-02 Cases;
+:WP-03 Environment;
+fork
+ :WP-04 Authentication;
+fork again
+ :WP-05 Metadata;
+end fork
+:WP-06 Authorization;
+:WP-07 Storage;
+:WP-08 Git process;
+:WP-09 Browser;
+:WP-10 Read transport;
+:WP-11 PAT;
+:WP-12 Write transport;
+:WP-13 UI;
+:WP-14 Security;
+:WP-15 Failure and observability;
+:WP-16 System workflows;
+:WP-17 Regression;
+:WP-18 Acceptance;
+:WP-19 Traceability;
+:WP-20 Validation;
+:WP-21 Milestone review;
+stop
+@enduml

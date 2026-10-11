@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 20 - Defect Classification
+top to bottom direction
+rectangle "Defect Classification" as Topic
+rectangle "Severity 1: critical; release blocking" as N0
+Topic --> N0
+rectangle "Severity 2: high; blocking unless resolved" as N1
+Topic --> N1
+rectangle "Severity 3: medium; evaluate individually" as N2
+Topic --> N2
+rectangle "Severity 4: low; normally non-blocking" as N3
+Topic --> N3
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+@enduml

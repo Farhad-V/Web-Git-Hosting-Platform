@@ -1,0 +1,28 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 37 - CI Role During M5
+top to bottom direction
+rectangle "CI Role During M5" as Topic
+rectangle "CI: backend and frontend automation" as N0
+Topic --> N0
+rectangle "CI: code quality and build integrity" as N1
+Topic --> N1
+rectangle "M5: requirements and security verification" as N2
+Topic --> N2
+rectangle "M5: cross-component and system acceptance" as N3
+Topic --> N3
+rectangle "M5: traceable evidence and milestone\nreview" as N4
+Topic --> N4
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+N3 -[hidden]down-> N4
+@enduml

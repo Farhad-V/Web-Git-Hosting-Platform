@@ -1,0 +1,28 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 27 - Suspension Criteria
+top to bottom direction
+rectangle "Suspension Criteria" as Topic
+rectangle "Unreliable environment or infrastructure" as N0
+Topic --> N0
+rectangle "Required prerequisites unavailable" as N1
+Topic --> N1
+rectangle "Blocking product failure prevents valid\nexecution" as N2
+Topic --> N2
+rectangle "Untrustworthy test data or evidence" as N3
+Topic --> N3
+rectangle "Suspend affected tests and record reason" as N4
+Topic --> N4
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+N3 -[hidden]down-> N4
+@enduml

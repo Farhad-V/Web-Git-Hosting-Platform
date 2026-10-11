@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 42 - Requirement Verification States
+state "NOT TESTED" as Untested
+state "PARTIALLY VERIFIED" as Partial
+state "VERIFIED" as Verified
+state "FAILED" as Failed
+state "BLOCKED" as Blocked
+[*] --> Untested
+Untested --> Partial : some evidence passes
+Untested --> Blocked : required verification unavailable
+Partial --> Verified : all required evidence passes
+Partial --> Failed : required evidence fails
+Failed --> Partial : correction and retesting
+Blocked --> Partial : resume verification
+note bottom of Verified : Implementation alone is insufficient
+@enduml

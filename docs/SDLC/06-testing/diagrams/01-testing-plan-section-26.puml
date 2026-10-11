@@ -1,0 +1,19 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 26 - Entry Criteria
+start
+:Confirm M4 completion and approval;
+:Confirm required CI and main integration;
+:Create testing branch from completed M4;
+:Confirm implementation artifacts;
+:Validate test environment in WP-03;
+:Begin eligible M5 testing work;
+stop
+@enduml

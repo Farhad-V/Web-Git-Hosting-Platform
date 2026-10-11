@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 16 - Manual Testing
+start
+:Prepare isolated browser and Git test data;
+:Execute user-facing journeys;
+:Exercise keyboard, loading and error behavior;
+:Inspect actual Git operations and configuration;
+:Record expected and actual results;
+stop
+@enduml

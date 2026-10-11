@@ -1,0 +1,31 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 04 - Out of Scope
+top to bottom direction
+rectangle "Out of Scope" as Topic
+rectangle "New or deferred product features" as N0
+Topic --> N0
+rectangle "Production deployment and provisioning" as N1
+Topic --> N1
+rectangle "Long-term maintenance activities" as N2
+Topic --> N2
+rectangle "Large-scale performance engineering" as N3
+Topic --> N3
+rectangle "Unsupported protocols and distributed\nstorage" as N4
+Topic --> N4
+rectangle "High availability and multi-region\ninfrastructure" as N5
+Topic --> N5
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+N3 -[hidden]down-> N4
+N4 -[hidden]down-> N5
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 09 - Functional Test Areas
+top to bottom direction
+rectangle "Functional Test Areas" as Topic
+rectangle "Authentication and session behavior" as N0
+Topic --> N0
+rectangle "Repository metadata and validation" as N1
+Topic --> N1
+rectangle "Owner, non-owner and visibility policy" as N2
+Topic --> N2
+rectangle "Storage containment and Git process safety" as N3
+Topic --> N3
+rectangle "Refs, trees, files and commits" as N4
+Topic --> N4
+rectangle "PAT lifecycle and Smart HTTP read/write" as N5
+Topic --> N5
+rectangle "Web UI loading, empty, error and success\nstates" as N6
+Topic --> N6
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+N3 -[hidden]down-> N4
+N4 -[hidden]down-> N5
+N5 -[hidden]down-> N6
+@enduml

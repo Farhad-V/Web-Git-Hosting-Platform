@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 47 - Transition to Deployment
+start
+:Complete M5 evidence and formal review;
+:Integrate approved M5 into main;
+:Hand off testing artifacts as verification basis;
+:Begin Phase 7 Deployment;
+:Keep unresolved release blockers out of deployment;
+stop
+@enduml

@@ -2734,5 +2734,446 @@
     "original_format": "plantuml",
     "source_sha256": "c0bebf4e5cafa30d4628696a8c4bdbbdadf9444b29fc3a69a9c7b93b541e21e5",
     "image_sha256": "9eec9e106c9180780e4a1d2790025f8b390fbe59afda23583e6f916c445ab194"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-01.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-01.svg",
+    "title": "01 - Purpose",
+    "original_format": "plantuml",
+    "source_sha256": "5ea1686589117469536101a8e94b7f514efe719bd3c9f62510821243c8848fd1",
+    "image_sha256": "980d85334b336e912bebb3c37def30a0488933e8a46bbbbe2dee5ea1fabea7eb"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-02.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-02.svg",
+    "title": "02 - Testing Objective",
+    "original_format": "plantuml",
+    "source_sha256": "7e352bf502ba2e61db318dce0357bce57144b6aaa64b7a62d1d40552f4cf4958",
+    "image_sha256": "4a40f874dbbcd7a7a1f6c61e3901fabf7af31adbf0b3016edfb7dee6b835f7c8"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-03.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-03.svg",
+    "title": "03 - Testing Scope",
+    "original_format": "plantuml",
+    "source_sha256": "7ed0660ad2eb047e48552000500d850b4b5a370dd75c7eff5cfae65fb9ce3c31",
+    "image_sha256": "481a1bcf0a2d7960e0a95d3602d7d9babade04c2f2307899c8dd66aa93a13c61"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-04.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-04.svg",
+    "title": "04 - Out of Scope",
+    "original_format": "plantuml",
+    "source_sha256": "a788356523c1a0a4dbc312549c8db9fd56d23a10f066692aba86dad177e9d1db",
+    "image_sha256": "4f4bb9dc6733a6771d14590d2c485b5e3337f36862ee19d4caecfa573fa841d7"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-05.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-05.svg",
+    "title": "05 - Test Basis",
+    "original_format": "plantuml",
+    "source_sha256": "c6c5519fdb6322112dded9f0b3da270e0639306d74cee09c00e69366804bf72b",
+    "image_sha256": "3926a596ff694258621b336098e6ff109a35c3c6cf27d3552ff1908f7199c237"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-06.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-06.svg",
+    "title": "06 - System Under Test",
+    "original_format": "plantuml",
+    "source_sha256": "48e7611f431d9aa076a5bbed366385e23d1ed1eae7cb6abc10d50b53726719c4",
+    "image_sha256": "7fac90f7211482bc1e8d9d4516a480a6f92a5ab447978450775733aa5c84061e"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-07.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-07.svg",
+    "title": "07 - Testing Principles",
+    "original_format": "plantuml",
+    "source_sha256": "1a6aefae06bf7a751a1eb3c6657e5c19d72f063d258edc6a286c26729ff4fc9f",
+    "image_sha256": "9c90cea89f2bf88d8b8adae56cbca606918df197e715485694fac88b7f8cd96a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-08.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-08.svg",
+    "title": "08 - Test Levels",
+    "original_format": "plantuml",
+    "source_sha256": "2e1a415e30b3659119939e215eff5279265726703f7174e11af8daafa38624d8",
+    "image_sha256": "6126a6e55f8f571f7e629268fd45c7fe7bc72e404c144b6a04bd6a61df7c0930"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-09.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-09.svg",
+    "title": "09 - Functional Test Areas",
+    "original_format": "plantuml",
+    "source_sha256": "5711a8b671f8655901539a0901d655039f91c23bc8bb829280f79ba3d65da5e6",
+    "image_sha256": "5401c53c78db606f16d9b8fd7c39a65fea40be5121679daed66799580462a8a7"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-10.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-10.svg",
+    "title": "10 - API Testing",
+    "original_format": "plantuml",
+    "source_sha256": "3ba36982491bd48e5b116f2d84340eaf4db561bdabb2fe533cdb91d86b04626b",
+    "image_sha256": "5494cab801cc80cbbdb2c22885001da36c97d75182076454b92a91e235940660"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-11.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-11.svg",
+    "title": "11 - Database Testing",
+    "original_format": "plantuml",
+    "source_sha256": "fe1aa8246f8c02c57e19651d6d95e0ac8ce61414aaed57b4fdece05d3bc754d1",
+    "image_sha256": "5c1a42bd0eb7983b9168e046213a3994f5c75e098bc53e463ca16cda09ede4c9"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-12.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-12.svg",
+    "title": "12 - Security Testing",
+    "original_format": "plantuml",
+    "source_sha256": "f14f1f8d190e6cfc43e597c1bb411df23d22f2d3a0fa8e13d8bfaf0a41546b51",
+    "image_sha256": "e5e6f4251a96efe5317c7fe511cfbf59102c35ef600b130c0e4d46cd9fb5b125"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-13.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-13.svg",
+    "title": "13 - Observability Testing",
+    "original_format": "plantuml",
+    "source_sha256": "dd451a16a196cf3935a6da46671bc799dc3759f3d4b71e1acd8785b1cabde46a",
+    "image_sha256": "bbe65dfcf93911fd6e3dfed3fb12a5f4b320ccaed18f40381a9e1f8db7de4c4f"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-14.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-14.svg",
+    "title": "14 - Failure and Exception Testing",
+    "original_format": "plantuml",
+    "source_sha256": "b467060e617ca4940b5f701c560acb6529e59fad8d20c853d998fd5d4fe39598",
+    "image_sha256": "b8d395fee37e0f11a697c18e2771d1b278ecfe5920dfbae561c1432164c056b4"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-15.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-15.svg",
+    "title": "15 - Regression Testing",
+    "original_format": "plantuml",
+    "source_sha256": "93f3b2a91f5c66b43f0f93322666c053e71a7465459eaf6ec24b115973220104",
+    "image_sha256": "d52f0206277a4291f9c6d47722027c9d60ad4912cae8627ea0ac273c0da5c028"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-16.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-16.svg",
+    "title": "16 - Manual Testing",
+    "original_format": "plantuml",
+    "source_sha256": "4f168b8b5b8a29ba55c6881d17d1fb30c752f56655db58aac34d21a9cff9b7b5",
+    "image_sha256": "eca4bd97830688fb2e0f3905ea409a167487a6bdc924c8537fa08ccca5b02d9f"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-17.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-17.svg",
+    "title": "17 - Automated Testing",
+    "original_format": "plantuml",
+    "source_sha256": "0a2f1da76923d4a9ef431cb8b2a5af31319feba5a558317136ba9a1896c0ded4",
+    "image_sha256": "f8b6a98aee908edd774481c912b27f5212f40d51961d7d68669851d19536db9a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-18.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-18.svg",
+    "title": "18 - Test Environment",
+    "original_format": "plantuml",
+    "source_sha256": "ece7f4346992ab4293377cda51f432e08af2e84df9bde636b242aaca77222a89",
+    "image_sha256": "cfb0ed77c03f3a5d0d430d7632a437fc430543015b05144c661695a8d3aa398a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-19.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-19.svg",
+    "title": "19 - Test Data",
+    "original_format": "plantuml",
+    "source_sha256": "235226d1dd7744e4f7a318e83e03b95c4dcb9510e8de2828b5e5cf95c84ec656",
+    "image_sha256": "0e0002fc9c3689f7aadee42c08a62ccaa49871c3b80e5da1fb32ee6871cd2848"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-20.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-20.svg",
+    "title": "20 - Defect Classification",
+    "original_format": "plantuml",
+    "source_sha256": "5e051599c7f8d8fe61bf477372557a39a5f7f28a75bd0c7dfb4d44a9636634d2",
+    "image_sha256": "433751b9a8b3bffe984c4588576da16cbcbc5a951cddd5f72bb74d663642114b"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-21.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-21.svg",
+    "title": "21 - Defect Lifecycle",
+    "original_format": "plantuml",
+    "source_sha256": "5e93832cd92e58b18365c91b5622181b43e66248af511dcd29917440031e8699",
+    "image_sha256": "0eaf6d8ca340bdae0c621882a424602c7d272494de5776fb8fb0561d3281422c"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-22.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-22.svg",
+    "title": "22 - Test Evidence",
+    "original_format": "plantuml",
+    "source_sha256": "f3f6682a62fac3624f9d4607415cd9ba19bb032c39670b0ee40b0ded78f87bed",
+    "image_sha256": "2eb3a6fc7d0157f70a7582fe3fec6f7d384ec87bb89c627be83013d039ba1ecd"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-23.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-23.svg",
+    "title": "23 - Requirements Traceability",
+    "original_format": "plantuml",
+    "source_sha256": "637c06626584d13551cd1466d85984290984e21e71dfabef3159b51145ddc254",
+    "image_sha256": "532e75ff4c5e1657f2086425237a235bf64e66305e27026afbe83df2a4a69429"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-24.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-24.svg",
+    "title": "24 - M5 Work Packages",
+    "original_format": "plantuml",
+    "source_sha256": "a8b42cf4a01502b9730ea84f359600c9f36b14b578f0d30db7e7dfb08b67ce09",
+    "image_sha256": "cf10b0f492f35a9d6b98e894cfc9de1dc5a1c43d16838732ce31a59307fdaa1a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-25.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-25.svg",
+    "title": "25 - Work-Package Execution Order",
+    "original_format": "plantuml",
+    "source_sha256": "72f61d67b62606ef95726784f642acf01711590641c34acdf31ef6aa07ef663d",
+    "image_sha256": "fcd34215fade4fb6c6635bacccd85a6d9c63de5a170d99dea4fd154e35728877"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-26.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-26.svg",
+    "title": "26 - Entry Criteria",
+    "original_format": "plantuml",
+    "source_sha256": "e08995aab7b7dac497ccf7ac73cde1dcb6919e8eeaac34d2bd8293742f929d7f",
+    "image_sha256": "cfe4d9764ee3a69a29fdcf307eca5f48654d4f189c098e93cfadb4635d20f8ce"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-27.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-27.svg",
+    "title": "27 - Suspension Criteria",
+    "original_format": "plantuml",
+    "source_sha256": "62a9048e41a309686462ed520788e5a513a01064673fcfd7e72ee70c0751ff03",
+    "image_sha256": "c542847517621ca072f5899cbb811825e3f356e03663c615d734732a33f197d1"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-28.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-28.svg",
+    "title": "28 - Resumption Criteria",
+    "original_format": "plantuml",
+    "source_sha256": "09c1e410bc2f8897157ad0ce065794a4135d52b24ebbb4eedcdc5c436eb56b38",
+    "image_sha256": "0ca356b95d46db3cc3b86e0f74e549694dfcff8b57ee6a99ee8d93aa01edbd73"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-29.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-29.svg",
+    "title": "29 - Pass Criteria",
+    "original_format": "plantuml",
+    "source_sha256": "4f6f5ea9a3bc9dbd97238993451ecc5abd36fe9643772571788edcb061f4b5f6",
+    "image_sha256": "8fc37907836fb189bbb6088b00bd877ec08979bbbcd5b409f4aefa09f09c715b"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-30.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-30.svg",
+    "title": "30 - Fail Criteria",
+    "original_format": "plantuml",
+    "source_sha256": "3cad922a6b9b551b53afff8f89c23d39130ac59e896420ab7f1b5120d161cc54",
+    "image_sha256": "a6557e89cedfdafcf6458a7f95701377511f2148714c0281c7cf18d31901bef4"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-31.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-31.svg",
+    "title": "31 - Blocked Test Criteria",
+    "original_format": "plantuml",
+    "source_sha256": "9f95f39be9791ee2cee1fd5ef7b3428708463edb05ea88031d9b759f50c4a1b9",
+    "image_sha256": "3b322ef2fe27488d197a38780a0ab789cc72b8683d599a909cf513e57dd62521"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-32.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-32.svg",
+    "title": "32 - M5 Exit Criteria",
+    "original_format": "plantuml",
+    "source_sha256": "e0b9a98af4d365870498a701fe308c7fc980673755025412939362bc7235432e",
+    "image_sha256": "2f72eadde38d145d27471cf575b5a5992a490f9f83422765aa981ad40d70f623"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-33.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-33.svg",
+    "title": "33 - Testing Completion Definition",
+    "original_format": "plantuml",
+    "source_sha256": "00aa9fd6d73fef3f079797ea6af5798cf55012636f9c5f3dca097b44935cf942",
+    "image_sha256": "f8530d2faa5185fc81f136e7f82a2e8c12f8768d8086d3f634058f44159e11e4"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-34.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-34.svg",
+    "title": "34 - Testing Deliverables",
+    "original_format": "plantuml",
+    "source_sha256": "92a3da714264c2c6d55d14da0c388c14f0514ece6ef7b3328ce0fd3acc3d04a8",
+    "image_sha256": "a666c3bf8c531c27d8031917b76cc77f3fb9063e6997d5f29d8747d7327b724c"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-35.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-35.svg",
+    "title": "35 - Change Control During Testing",
+    "original_format": "plantuml",
+    "source_sha256": "4cbe3ea22ee93b96725e1e29b725ffe377ca8b3a7f747bdfbc192d7ed76ad7f4",
+    "image_sha256": "d072889cf2a2387715c98eceb795fe6637ee8359bc9d3d00d612d21d012e958e"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-36.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-36.svg",
+    "title": "36 - Branch Strategy",
+    "original_format": "plantuml",
+    "source_sha256": "d8df809573a70e2f507a6ab5b041562d2f70cdd0cdb8310a82d27846e261a3bc",
+    "image_sha256": "5b6467c464611219ab82cbb88cdba47c9cc46ca8c925079123dcf42399e12fb5"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-37.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-37.svg",
+    "title": "37 - CI Role During M5",
+    "original_format": "plantuml",
+    "source_sha256": "21b85bb6d52fa0282f191221acebc73271e7ae21903132db7f468e8b59c99b9d",
+    "image_sha256": "6810a9aa781c4fa4929c5f590493f807cf6648508ae5167493449f1db6599c52"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-38.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-38.svg",
+    "title": "38 - Risk-Based Testing Priorities",
+    "original_format": "plantuml",
+    "source_sha256": "dd07119d8d93c2ba87c76d78972573cdd6ed33b8b64b2ae6abff2b3d353448fc",
+    "image_sha256": "869c52f9b961319c6b5617a036724c71171b560b3a0731c70260e833dace716a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-39.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-39.svg",
+    "title": "39 - Test Reporting",
+    "original_format": "plantuml",
+    "source_sha256": "a443955b05ec1c6548aeeb8d9870c1eeef7b3ffb8a79eea6ec427773605c9016",
+    "image_sha256": "f43f7359bf74f8679e66240c813ccd5833b970152eecb78e3b0d928820ca2bae"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-40.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-40.svg",
+    "title": "40 - Testing Metrics",
+    "original_format": "plantuml",
+    "source_sha256": "9ba1ba26dbb299820cb8413dae30330f63ff412d77f8ca0cf7200a08711d5b33",
+    "image_sha256": "90c01c4192822c458abdf4cb48390a5269bb1431a6600e7410dda27281714f5a"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-41.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-41.svg",
+    "title": "41 - Test Result States",
+    "original_format": "plantuml",
+    "source_sha256": "59f22bf19b72228027f39389364b03ecb0f511e5b693013156d291037c6b7136",
+    "image_sha256": "0f0a65b647a84054be9e1d89c69b8be2e095cdca67384ce2bce391901a3d0ab4"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-42.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-42.svg",
+    "title": "42 - Requirement Verification States",
+    "original_format": "plantuml",
+    "source_sha256": "8a50e20780425c33ca14c9e9db51c48ba880337ac50b67fe71f17fbaa65591ae",
+    "image_sha256": "fdc1462a51aeba5e9d9b3b32cf14112d4118a15483290da9358a08b9502799f1"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-43.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-43.svg",
+    "title": "43 - Testing Quality Gates",
+    "original_format": "plantuml",
+    "source_sha256": "8331663e112272ce9bd8ddbb67bc372960dc90c82cecf3faff0f5d8f056a0add",
+    "image_sha256": "ee066664650c7173c17417acb3fd89a8aac0feb1e04f2a63bc5ba93443ca7da6"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-44.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-44.svg",
+    "title": "44 - Blocking Conditions",
+    "original_format": "plantuml",
+    "source_sha256": "5e2a1299fd9ddd696e0a87c35c6ed69fc9bee7e23647d8b0a5f6822bc25cac13",
+    "image_sha256": "154c8677092e4e4329a6a0083cd70ee4d52e97d00fb0801d5b4f2aad5d6a3451"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-45.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-45.svg",
+    "title": "45 - Non-Blocking Observations",
+    "original_format": "plantuml",
+    "source_sha256": "258d2c571c91f90446b8556be68d1fcf7f4a63cad82d1599c7a550b6b005c2f4",
+    "image_sha256": "e32f589af47b1e5015b21c3245d0c72a914a0d2fa6699a6644a469a683ccca6e"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-46.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-46.svg",
+    "title": "46 - M5 Completion Authority",
+    "original_format": "plantuml",
+    "source_sha256": "38f2f2f9ea72676ad1fc9e786cc86c004a48168a789dcd61bd701b52f4419de6",
+    "image_sha256": "f495f5b1c66eab0842c144a3559607837543003b449e09f5db06d5d9a0931cfd"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-47.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-47.svg",
+    "title": "47 - Transition to Deployment",
+    "original_format": "plantuml",
+    "source_sha256": "a2143c143c55eba3d0848835f5b93119f533ad4ec78d9635d524a47615ff125e",
+    "image_sha256": "74a377e6dec80303fd6b21567df192588e1343c0f0ec0f64c34300c3f468b660"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-48.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-48.svg",
+    "title": "48 - Historical M5 Planning Status",
+    "original_format": "plantuml",
+    "source_sha256": "5e78c32e0fff88508813fee021432bb7d9b51be86a2809c3b4dba3370901b162",
+    "image_sha256": "bee24715965d904a4741e06829d8cd1728aaf1fadf156f7b863e560190a34b5b"
+  },
+  {
+    "document": "docs/SDLC/06-testing/01-testing-plan.md",
+    "source": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-49.puml",
+    "image": "docs/SDLC/06-testing/diagrams/01-testing-plan-section-49.svg",
+    "title": "49 - WP-01 Exit Condition",
+    "original_format": "plantuml",
+    "source_sha256": "3c4a7439713f51e6c12549d4c6675618853f0ab25bfaccb2826aab7bd469959c",
+    "image_sha256": "20812b62a6ed8bfda8460ca962ead37ef6f911322c95d306d46b4d46f6c4a03d"
   }
 ]

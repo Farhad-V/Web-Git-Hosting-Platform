@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 39 - Test Reporting
+start
+:Record purpose, basis, environment and prerequisites;
+:Record cases, expected and actual outcomes;
+:Record PASS / FAIL / BLOCKED and defects;
+:Record corrections, retests and regression impact;
+:Record observations and work-package conclusion;
+stop
+@enduml

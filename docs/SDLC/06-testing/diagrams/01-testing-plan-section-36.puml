@@ -1,0 +1,19 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 36 - Branch Strategy
+start
+:Completed M4 state on main;
+:Historical testing/m5 branch;
+:Testing documents and defect corrections;
+:M5 validation and review approval;
+:Required CI and mergeable reviewed PR;
+:Final historical integration into main;
+stop
+@enduml

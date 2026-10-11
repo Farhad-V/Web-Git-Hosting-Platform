@@ -1,0 +1,20 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 43 - Testing Quality Gates
+start
+:Gate 1: definition and traceability;
+:Gate 2: component and integration verification;
+:Gate 3: security verification;
+:Gate 4: system workflows;
+:Gate 5: regression verification;
+:Gate 6: acceptance verification;
+:Gate 7: milestone closure;
+stop
+@enduml

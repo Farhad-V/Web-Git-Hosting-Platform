@@ -1,0 +1,28 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 14 - Failure and Exception Testing
+top to bottom direction
+rectangle "Failure and Exception Testing" as Topic
+rectangle "Invalid input and missing resources" as N0
+Topic --> N0
+rectangle "Unavailable database or storage" as N1
+Topic --> N1
+rectangle "Git failure and timeout behavior" as N2
+Topic --> N2
+rectangle "Unauthorized and invalid-token requests" as N3
+Topic --> N3
+rectangle "Consistent safe errors and preserved state" as N4
+Topic --> N4
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+N3 -[hidden]down-> N4
+@enduml

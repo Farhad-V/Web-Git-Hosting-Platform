@@ -1,0 +1,17 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 30 - Fail Criteria
+start
+:Execute defined test case;
+:Identify deviation from required behavior;
+:Preserve reproducible failure evidence;
+:Record FAIL and defect or investigation;
+stop
+@enduml

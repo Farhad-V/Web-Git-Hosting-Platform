@@ -1,0 +1,34 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 44 - Blocking Conditions
+top to bottom direction
+rectangle "Blocking Conditions" as Topic
+rectangle "Critical or high-severity release blocker" as N0
+Topic --> N0
+rectangle "Authentication or authorization bypass" as N1
+Topic --> N1
+rectangle "Private disclosure or storage-root escape" as N2
+Topic --> N2
+rectangle "Unsafe Git execution" as N3
+Topic --> N3
+rectangle "Required clone, fetch or push unavailable" as N4
+Topic --> N4
+rectangle "Failed acceptance or incomplete\ntraceability" as N5
+Topic --> N5
+rectangle "Unreliable final regression evidence" as N6
+Topic --> N6
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+N3 -[hidden]down-> N4
+N4 -[hidden]down-> N5
+N5 -[hidden]down-> N6
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 28 - Resumption Criteria
+start
+:Resolve recorded suspension cause;
+:Verify environment and prerequisites again;
+:Restore reliable fixtures and expectations;
+:Resume affected tests;
+:Record resumed execution and results;
+stop
+@enduml

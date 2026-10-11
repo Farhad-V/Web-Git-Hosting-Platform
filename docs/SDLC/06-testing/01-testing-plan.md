@@ -15,9 +15,13 @@
 
 ## Version context
 
-Sections 1–49 preserve the historical V1.0.0 M5 testing plan and its planning-time snapshot. The approved [M5 milestone review](21-m5-milestone-review.md) records later historical closure. Neither that approval nor the snapshot below is fresh evidence for current development candidates. Section 50 provides the current execution supplement and diagrams based on the repository test configuration.
+Sections 1–49 preserve the historical V1.0.0 M5 testing plan and its planning-time snapshot. The approved [M5 milestone review](21-m5-milestone-review.md) records later historical closure. Neither that approval nor the snapshot below is fresh evidence for current development candidates. Each original section now includes a diagram illustrating its historical plan, rules or recorded snapshot; diagrams are not new test executions or approvals. Section 50 provides the current execution supplement and diagrams based on the repository test configuration.
 
 ## 1. Purpose
+
+![01 - Purpose](diagrams/01-testing-plan-section-01.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-01.puml) · [Full-size SVG](diagrams/01-testing-plan-section-01.svg)
 
 This document defines the formal testing plan for GitForge V1.0.0.
 
@@ -32,6 +36,10 @@ Any implementation changes required to correct confirmed defects must remain tra
 ---
 
 ## 2. Testing Objective
+
+![02 - Testing Objective](diagrams/01-testing-plan-section-02.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-02.puml) · [Full-size SVG](diagrams/01-testing-plan-section-02.svg)
 
 The primary objective of M5 is to establish sufficient evidence that GitForge V1.0.0:
 
@@ -54,6 +62,10 @@ The primary objective of M5 is to establish sufficient evidence that GitForge V1
 ---
 
 ## 3. Testing Scope
+
+![03 - Testing Scope](diagrams/01-testing-plan-section-03.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-03.puml) · [Full-size SVG](diagrams/01-testing-plan-section-03.svg)
 
 M5 covers verification and validation of the complete GitForge V1.0.0 implementation.
 
@@ -85,6 +97,10 @@ Testing includes:
 
 ## 4. Out of Scope
 
+![04 - Out of Scope](diagrams/01-testing-plan-section-04.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-04.puml) · [Full-size SVG](diagrams/01-testing-plan-section-04.svg)
+
 The following activities are outside the scope of M5 unless required to resolve a release-blocking defect:
 
 - new V1.0.0 features;
@@ -103,6 +119,10 @@ The following activities are outside the scope of M5 unless required to resolve 
 ---
 
 ## 5. Test Basis
+
+![05 - Test Basis](diagrams/01-testing-plan-section-05.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-05.puml) · [Full-size SVG](diagrams/01-testing-plan-section-05.svg)
 
 Testing must be derived from approved project artifacts.
 
@@ -202,6 +222,10 @@ Relevant sources include:
 
 ## 6. System Under Test
 
+![06 - System Under Test](diagrams/01-testing-plan-section-06.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-06.puml) · [Full-size SVG](diagrams/01-testing-plan-section-06.svg)
+
 The System Under Test is GitForge V1.0.0 as merged into the project `main` branch at completion of M4.
 
 The system consists primarily of:
@@ -249,6 +273,10 @@ The system consists primarily of:
 
 ## 7. Testing Principles
 
+![07 - Testing Principles](diagrams/01-testing-plan-section-07.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-07.puml) · [Full-size SVG](diagrams/01-testing-plan-section-07.svg)
+
 M5 follows these principles:
 
 1. Tests must be traceable to approved requirements or risk areas.
@@ -270,6 +298,10 @@ M5 follows these principles:
 ---
 
 ## 8. Test Levels
+
+![08 - Test Levels](diagrams/01-testing-plan-section-08.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-08.puml) · [Full-size SVG](diagrams/01-testing-plan-section-08.svg)
 
 ### 8.1 Unit Testing
 
@@ -349,6 +381,10 @@ Acceptance testing provides the final behavioral evidence required before M5 clo
 ---
 
 ## 9. Functional Test Areas
+
+![09 - Functional Test Areas](diagrams/01-testing-plan-section-09.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-09.puml) · [Full-size SVG](diagrams/01-testing-plan-section-09.svg)
 
 Functional testing must cover at least the following capability groups.
 
@@ -524,6 +560,10 @@ Verify:
 
 ## 10. API Testing
 
+![10 - API Testing](diagrams/01-testing-plan-section-10.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-10.puml) · [Full-size SVG](diagrams/01-testing-plan-section-10.svg)
+
 API testing must validate:
 
 - endpoint availability;
@@ -546,6 +586,10 @@ Tests must be aligned with the approved API specification and implementation ame
 
 ## 11. Database Testing
 
+![11 - Database Testing](diagrams/01-testing-plan-section-11.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-11.puml) · [Full-size SVG](diagrams/01-testing-plan-section-11.svg)
+
 Database-related verification must include:
 
 - migration status;
@@ -565,6 +609,10 @@ No pending required migration may remain at M5 closure.
 ---
 
 ## 12. Security Testing
+
+![12 - Security Testing](diagrams/01-testing-plan-section-12.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-12.puml) · [Full-size SVG](diagrams/01-testing-plan-section-12.svg)
 
 Security testing is mandatory.
 
@@ -616,6 +664,10 @@ Verify relevant configuration expectations including:
 
 ## 13. Observability Testing
 
+![13 - Observability Testing](diagrams/01-testing-plan-section-13.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-13.puml) · [Full-size SVG](diagrams/01-testing-plan-section-13.svg)
+
 Verify:
 
 - application health endpoint;
@@ -634,6 +686,10 @@ Observability tests must not require logging sensitive credentials or raw access
 ---
 
 ## 14. Failure and Exception Testing
+
+![14 - Failure and Exception Testing](diagrams/01-testing-plan-section-14.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-14.puml) · [Full-size SVG](diagrams/01-testing-plan-section-14.svg)
 
 Testing must include expected failure paths.
 
@@ -662,6 +718,10 @@ The expected response must be compared against the approved analysis and design 
 
 ## 15. Regression Testing
 
+![15 - Regression Testing](diagrams/01-testing-plan-section-15.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-15.puml) · [Full-size SVG](diagrams/01-testing-plan-section-15.svg)
+
 Regression testing must occur:
 
 - after defect correction;
@@ -678,6 +738,10 @@ The final regression run must include the complete automated backend and fronten
 ---
 
 ## 16. Manual Testing
+
+![16 - Manual Testing](diagrams/01-testing-plan-section-16.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-16.puml) · [Full-size SVG](diagrams/01-testing-plan-section-16.svg)
 
 Manual testing is required where automated tests alone do not provide sufficient evidence.
 
@@ -700,6 +764,10 @@ Manual test procedures and results must be recorded.
 ---
 
 ## 17. Automated Testing
+
+![17 - Automated Testing](diagrams/01-testing-plan-section-17.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-17.puml) · [Full-size SVG](diagrams/01-testing-plan-section-17.svg)
 
 Existing automated tests from M4 remain part of the M5 test evidence.
 
@@ -747,6 +815,10 @@ Additional test commands may be introduced during M5 when required by the approv
 
 ## 18. Test Environment
 
+![18 - Test Environment](diagrams/01-testing-plan-section-18.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-18.puml) · [Full-size SVG](diagrams/01-testing-plan-section-18.svg)
+
 Primary M5 development/test environment:
 
 | Component | Environment |
@@ -769,6 +841,10 @@ Environment-specific limitations must be recorded separately from product defect
 
 ## 19. Test Data
 
+![19 - Test Data](diagrams/01-testing-plan-section-19.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-19.puml) · [Full-size SVG](diagrams/01-testing-plan-section-19.svg)
+
 Test data must:
 
 - use non-production identities;
@@ -788,6 +864,10 @@ Temporary Git repositories may be created during tests and removed afterward.
 ---
 
 ## 20. Defect Classification
+
+![20 - Defect Classification](diagrams/01-testing-plan-section-20.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-20.puml) · [Full-size SVG](diagrams/01-testing-plan-section-20.svg)
 
 Defects found during M5 are classified by severity.
 
@@ -857,6 +937,10 @@ Normally non-blocking.
 
 ## 21. Defect Lifecycle
 
+![21 - Defect Lifecycle](diagrams/01-testing-plan-section-21.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-21.puml) · [Full-size SVG](diagrams/01-testing-plan-section-21.svg)
+
 Each confirmed defect should follow:
 
 ```text
@@ -892,6 +976,10 @@ Retest evidence is required.
 
 ## 22. Test Evidence
 
+![22 - Test Evidence](diagrams/01-testing-plan-section-22.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-22.puml) · [Full-size SVG](diagrams/01-testing-plan-section-22.svg)
+
 M5 evidence may include:
 
 - automated test output;
@@ -911,6 +999,10 @@ Evidence should remain reproducible and traceable.
 ---
 
 ## 23. Requirements Traceability
+
+![23 - Requirements Traceability](diagrams/01-testing-plan-section-23.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-23.puml) · [Full-size SVG](diagrams/01-testing-plan-section-23.svg)
 
 Every V1.0.0 requirement relevant to implemented scope must ultimately be associated with a testing outcome.
 
@@ -944,6 +1036,10 @@ No requirement may be considered verified solely because implementation exists.
 
 ## 24. M5 Work Packages
 
+![24 - M5 Work Packages](diagrams/01-testing-plan-section-24.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-24.puml) · [Full-size SVG](diagrams/01-testing-plan-section-24.svg)
+
 M5 is divided into the following work packages.
 
 | Work Package | Name | Purpose |
@@ -973,6 +1069,10 @@ M5 is divided into the following work packages.
 ---
 
 ## 25. Work-Package Execution Order
+
+![25 - Work-Package Execution Order](diagrams/01-testing-plan-section-25.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-25.puml) · [Full-size SVG](diagrams/01-testing-plan-section-25.svg)
 
 The planned sequence is:
 
@@ -1047,6 +1147,10 @@ Some test execution may overlap where independence permits, but closure dependen
 
 ## 26. Entry Criteria
 
+![26 - Entry Criteria](diagrams/01-testing-plan-section-26.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-26.puml) · [Full-size SVG](diagrams/01-testing-plan-section-26.svg)
+
 M5 may begin only when:
 
 - M4 implementation is complete;
@@ -1075,6 +1179,10 @@ M5 entry is therefore permitted.
 
 ## 27. Suspension Criteria
 
+![27 - Suspension Criteria](diagrams/01-testing-plan-section-27.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-27.puml) · [Full-size SVG](diagrams/01-testing-plan-section-27.svg)
+
 Testing may be suspended for a work package when:
 
 - required test infrastructure is unavailable;
@@ -1090,6 +1198,10 @@ Suspension must be recorded together with the reason.
 
 ## 28. Resumption Criteria
 
+![28 - Resumption Criteria](diagrams/01-testing-plan-section-28.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-28.puml) · [Full-size SVG](diagrams/01-testing-plan-section-28.svg)
+
 Testing may resume when:
 
 - the blocking environment issue is corrected;
@@ -1102,6 +1214,10 @@ Testing may resume when:
 
 ## 29. Pass Criteria
 
+![29 - Pass Criteria](diagrams/01-testing-plan-section-29.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-29.puml) · [Full-size SVG](diagrams/01-testing-plan-section-29.svg)
+
 A test case passes when:
 
 - all preconditions are satisfied;
@@ -1113,6 +1229,10 @@ A test case passes when:
 ---
 
 ## 30. Fail Criteria
+
+![30 - Fail Criteria](diagrams/01-testing-plan-section-30.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-30.puml) · [Full-size SVG](diagrams/01-testing-plan-section-30.svg)
 
 A test case fails when:
 
@@ -1128,6 +1248,10 @@ A test case fails when:
 
 ## 31. Blocked Test Criteria
 
+![31 - Blocked Test Criteria](diagrams/01-testing-plan-section-31.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-31.puml) · [Full-size SVG](diagrams/01-testing-plan-section-31.svg)
+
 A test is blocked when it cannot be executed because of an external prerequisite or environment limitation that prevents a valid result.
 
 Blocked tests must not be counted as passed.
@@ -1135,6 +1259,10 @@ Blocked tests must not be counted as passed.
 ---
 
 ## 32. M5 Exit Criteria
+
+![32 - M5 Exit Criteria](diagrams/01-testing-plan-section-32.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-32.puml) · [Full-size SVG](diagrams/01-testing-plan-section-32.svg)
 
 M5 is complete only when all of the following are satisfied:
 
@@ -1168,6 +1296,10 @@ M5 is complete only when all of the following are satisfied:
 
 ## 33. Testing Completion Definition
 
+![33 - Testing Completion Definition](diagrams/01-testing-plan-section-33.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-33.puml) · [Full-size SVG](diagrams/01-testing-plan-section-33.svg)
+
 Testing is considered complete when:
 
 - required V1.0.0 behavior has been verified;
@@ -1184,6 +1316,10 @@ Testing is considered complete when:
 ---
 
 ## 34. Testing Deliverables
+
+![34 - Testing Deliverables](diagrams/01-testing-plan-section-34.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-34.puml) · [Full-size SVG](diagrams/01-testing-plan-section-34.svg)
 
 Expected M5 documentation deliverables are:
 
@@ -1218,6 +1354,10 @@ Additional evidence files may be introduced when justified.
 
 ## 35. Change Control During Testing
 
+![35 - Change Control During Testing](diagrams/01-testing-plan-section-35.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-35.puml) · [Full-size SVG](diagrams/01-testing-plan-section-35.svg)
+
 M5 may reveal implementation defects requiring source-code changes.
 
 Such changes must:
@@ -1235,6 +1375,10 @@ Testing must not become an uncontrolled second implementation phase.
 ---
 
 ## 36. Branch Strategy
+
+![36 - Branch Strategy](diagrams/01-testing-plan-section-36.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-36.puml) · [Full-size SVG](diagrams/01-testing-plan-section-36.svg)
 
 Primary M5 branch:
 
@@ -1256,6 +1400,10 @@ Final M5 integration into `main` occurs only after:
 ---
 
 ## 37. CI Role During M5
+
+![37 - CI Role During M5](diagrams/01-testing-plan-section-37.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-37.puml) · [Full-size SVG](diagrams/01-testing-plan-section-37.svg)
 
 Continuous Integration provides important regression evidence but does not replace M5 testing.
 
@@ -1279,6 +1427,10 @@ M5 additionally provides:
 ---
 
 ## 38. Risk-Based Testing Priorities
+
+![38 - Risk-Based Testing Priorities](diagrams/01-testing-plan-section-38.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-38.puml) · [Full-size SVG](diagrams/01-testing-plan-section-38.svg)
 
 Highest testing priority is assigned to:
 
@@ -1315,6 +1467,10 @@ Priority does not remove any required test from scope.
 
 ## 39. Test Reporting
 
+![39 - Test Reporting](diagrams/01-testing-plan-section-39.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-39.puml) · [Full-size SVG](diagrams/01-testing-plan-section-39.svg)
+
 Each testing work package should record:
 
 - purpose;
@@ -1335,6 +1491,10 @@ Each testing work package should record:
 ---
 
 ## 40. Testing Metrics
+
+![40 - Testing Metrics](diagrams/01-testing-plan-section-40.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-40.puml) · [Full-size SVG](diagrams/01-testing-plan-section-40.svg)
 
 M5 should track at least:
 
@@ -1359,6 +1519,10 @@ Critical requirement and security coverage must be complete.
 
 ## 41. Test Result States
 
+![41 - Test Result States](diagrams/01-testing-plan-section-41.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-41.puml) · [Full-size SVG](diagrams/01-testing-plan-section-41.svg)
+
 Allowed formal test-result states:
 
 ```text
@@ -1373,6 +1537,10 @@ Defect states are tracked separately.
 ---
 
 ## 42. Requirement Verification States
+
+![42 - Requirement Verification States](diagrams/01-testing-plan-section-42.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-42.puml) · [Full-size SVG](diagrams/01-testing-plan-section-42.svg)
 
 Requirement testing status may be represented as:
 
@@ -1389,6 +1557,10 @@ A requirement becomes `VERIFIED` only when all required associated test evidence
 ---
 
 ## 43. Testing Quality Gates
+
+![43 - Testing Quality Gates](diagrams/01-testing-plan-section-43.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-43.puml) · [Full-size SVG](diagrams/01-testing-plan-section-43.svg)
 
 The following quality gates apply.
 
@@ -1451,6 +1623,10 @@ Pass when:
 
 ## 44. Blocking Conditions
 
+![44 - Blocking Conditions](diagrams/01-testing-plan-section-44.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-44.puml) · [Full-size SVG](diagrams/01-testing-plan-section-44.svg)
+
 M5 cannot close while any of the following remains unresolved:
 
 - critical defect;
@@ -1470,6 +1646,10 @@ M5 cannot close while any of the following remains unresolved:
 ---
 
 ## 45. Non-Blocking Observations
+
+![45 - Non-Blocking Observations](diagrams/01-testing-plan-section-45.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-45.puml) · [Full-size SVG](diagrams/01-testing-plan-section-45.svg)
 
 A non-blocking observation may remain when:
 
@@ -1491,6 +1671,10 @@ Examples may include:
 
 ## 46. M5 Completion Authority
 
+![46 - M5 Completion Authority](diagrams/01-testing-plan-section-46.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-46.puml) · [Full-size SVG](diagrams/01-testing-plan-section-46.svg)
+
 The M5 Milestone Review determines whether Testing is formally complete.
 
 Possible decisions are:
@@ -1507,6 +1691,10 @@ Only `PASS` or an explicitly justified `PASS WITH NON-BLOCKING OBSERVATIONS` may
 
 ## 47. Transition to Deployment
 
+![47 - Transition to Deployment](diagrams/01-testing-plan-section-47.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-47.puml) · [Full-size SVG](diagrams/01-testing-plan-section-47.svg)
+
 After M5 is complete and formally merged into `main`, the project may begin:
 
 ```text
@@ -1520,6 +1708,10 @@ Deployment must not be used to compensate for unresolved M5 release-blocking def
 ---
 
 ## 48. Historical M5 Planning Status
+
+![48 - Historical M5 Planning Status](diagrams/01-testing-plan-section-48.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-48.puml) · [Full-size SVG](diagrams/01-testing-plan-section-48.svg)
 
 ```text
 M5 — Testing
@@ -1540,6 +1732,10 @@ Next:
 ---
 
 ## 49. WP-01 Exit Condition
+
+![49 - WP-01 Exit Condition](diagrams/01-testing-plan-section-49.svg)
+
+[PlantUML source](diagrams/01-testing-plan-section-49.puml) · [Full-size SVG](diagrams/01-testing-plan-section-49.svg)
 
 WP-01 — Testing Plan is complete when:
 

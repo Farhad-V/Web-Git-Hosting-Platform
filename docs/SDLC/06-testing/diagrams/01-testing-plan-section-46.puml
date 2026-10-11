@@ -1,0 +1,26 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 46 - M5 Completion Authority
+start
+:Review M5 validation and required evidence;
+if (Blocking gap or failure remains?) then (yes)
+ :Decision FAIL;
+ :Resolve gaps before Deployment;
+else (no)
+ if (Non-blocking observations remain?) then (yes)
+  :Decision PASS WITH NON-BLOCKING OBSERVATIONS;
+  :Record explicit justification;
+ else (no)
+  :Decision PASS;
+ endif
+ :Authorize historical phase transition for reviewed scope;
+endif
+stop
+@enduml

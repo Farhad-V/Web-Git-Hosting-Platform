@@ -1,0 +1,17 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 29 - Pass Criteria
+start
+:Execute defined test case;
+:Compare actual and expected results;
+:Confirm required evidence and conditions;
+:Record PASS only when expectations are satisfied;
+stop
+@enduml

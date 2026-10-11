@@ -1,0 +1,21 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 21 - Defect Lifecycle
+start
+:Detected;
+:Reproduced;
+:Classified;
+:Assigned;
+:Corrected;
+:Retested;
+:Regression tested;
+:Closed with evidence;
+stop
+@enduml

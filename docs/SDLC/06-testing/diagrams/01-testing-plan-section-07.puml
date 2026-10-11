@@ -1,0 +1,31 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 07 - Testing Principles
+top to bottom direction
+rectangle "Testing Principles" as Topic
+rectangle "Trace tests to approved requirements" as N0
+Topic --> N0
+rectangle "Exercise positive and negative scenarios" as N1
+Topic --> N1
+rectangle "Verify private access and containment\nexplicitly" as N2
+Topic --> N2
+rectangle "Reproduce defects before classification" as N3
+Topic --> N3
+rectangle "Retest fixes and run affected regression" as N4
+Topic --> N4
+rectangle "Record evidence and environment\nlimitations" as N5
+Topic --> N5
+
+N0 -[hidden]down-> N1
+N1 -[hidden]down-> N2
+N2 -[hidden]down-> N3
+N3 -[hidden]down-> N4
+N4 -[hidden]down-> N5
+@enduml

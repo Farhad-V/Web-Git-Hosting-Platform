@@ -1,0 +1,22 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 41 - Test Result States
+state "NOT EXECUTED" as Pending
+state "PASS" as Pass
+state "FAIL" as Fail
+state "BLOCKED" as Blocked
+[*] --> Pending
+Pending --> Blocked : prerequisite unavailable
+Pending --> Pass : executed; expectations satisfied
+Pending --> Fail : executed; expectations violated
+Blocked --> Pending : obstacle resolved; ready to execute
+Fail --> Pass : correction and fresh retest pass
+note bottom of Fail : Defect lifecycle is recorded separately
+@enduml

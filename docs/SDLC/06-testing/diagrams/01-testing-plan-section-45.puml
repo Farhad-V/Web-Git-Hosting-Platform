@@ -1,0 +1,18 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 45 - Non-Blocking Observations
+start
+:Identify remaining observation;
+:Verify no requirement or acceptance violation;
+:Assess security and required-usage impact;
+:Record explicit non-blocking disposition;
+:Retain observation in final review;
+stop
+@enduml

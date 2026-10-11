@@ -1,0 +1,20 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 16
+skinparam defaultFontColor #172033
+skinparam backgroundColor #FFFFFF
+skinparam titleFontSize 20
+skinparam ArrowFontSize 14
+skinparam noteFontSize 14
+skinparam shadowing false
+title 23 - Requirements Traceability
+start
+:Requirement;
+:Use case / acceptance criterion;
+:Analysis;
+:Design;
+:Implementation;
+:Test case;
+:Executed test result;
+stop
+@enduml
