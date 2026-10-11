@@ -12,4 +12,4 @@ Acceptance criteria:
 - Verify restart behavior, failure visibility, and cleanup without terminating unrelated processes.
 - Document startup/restart steps and avoid silently installing persistent system changes.
 
-Reference: [Actions worker contracts](../../SDLC/Implementation/Features/repository-collaboration.md). Queue-running behavior is already implemented; this item concerns reliable startup and supervision.
+Reference: [Actions worker contracts](../../SDLC/05-implementation/Features/repository-collaboration.md). Queue-running behavior is already implemented; this item concerns reliable startup and supervision.

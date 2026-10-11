@@ -138,4 +138,4 @@ The web repository page provides Code, Commits, Tags, and owner-only Settings na
 
 ## Repository collaboration
 
-Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](../docs/SDLC/Implementation/Features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.
+Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](../docs/SDLC/05-implementation/Features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.

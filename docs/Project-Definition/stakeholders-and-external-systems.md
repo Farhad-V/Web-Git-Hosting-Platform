@@ -27,4 +27,4 @@ The historical ST-01 to ST-09 register is preserved in the [combined definition]
 | GitHub | Hosts this project's source, pull requests, and CI; hosted GitForge repositories are separate |
 | Production web/runtime stack | Nginx/PHP-FPM profiles and deployment tooling; separate from local Vite |
 
-See [stakeholder diagram](stakeholder-ecosystem-diagram.md), [context diagram](project-context-diagram.md), and [trust-boundary analysis](../SDLC/System-Analysis/15-trust-boundary-analysis.md).
+See [stakeholder diagram](stakeholder-ecosystem-diagram.md), [context diagram](project-context-diagram.md), and [trust-boundary analysis](../SDLC/03-system-analysis/15-trust-boundary-analysis.md).

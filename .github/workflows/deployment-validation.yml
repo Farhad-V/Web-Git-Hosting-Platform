@@ -7,7 +7,7 @@ on:
       - deployment/m6
     paths:
       - "deployment/**"
-      - "docs/SDLC/Deployment/**"
+      - "docs/SDLC/07-deployment/**"
       - ".github/workflows/deployment-validation.yml"
       - "backend/**"
       - "frontend/**"
@@ -16,7 +16,7 @@ on:
       - main
     paths:
       - "deployment/**"
-      - "docs/SDLC/Deployment/**"
+      - "docs/SDLC/07-deployment/**"
       - ".github/workflows/deployment-validation.yml"
       - "backend/**"
       - "frontend/**"

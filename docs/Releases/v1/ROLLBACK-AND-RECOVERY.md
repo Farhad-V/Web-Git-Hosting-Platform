@@ -1,6 +1,6 @@
 # Rollback and recovery
 
-Use the approved [deployment rollback runbook](../../SDLC/Deployment/08-rollback-and-recovery.md) and [backup/restore procedure](../../SDLC/Deployment/07-backup-and-restore.md). This document supplies release context, not an automatic recovery command.
+Use the approved [deployment rollback runbook](../../SDLC/07-deployment/08-rollback-and-recovery.md) and [backup/restore procedure](../../SDLC/07-deployment/07-backup-and-restore.md). This document supplies release context, not an automatic recovery command.
 
 ## Before changing versions
 

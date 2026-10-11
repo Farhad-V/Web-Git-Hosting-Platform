@@ -11,4 +11,4 @@ Acceptance criteria:
 - Reduce initial-load code while preserving routing, authentication, themes, and repository workflows.
 - Pass frontend lint, tests, type checking, and build; record before/after sizes and affected browser journeys.
 
-Do not declare improvement by raising the warning threshold alone. See [visual contracts](../../SDLC/Implementation/Features/visual-system.md).
+Do not declare improvement by raising the warning threshold alone. See [visual contracts](../../SDLC/05-implementation/Features/visual-system.md).

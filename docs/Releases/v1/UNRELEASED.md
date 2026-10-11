@@ -22,4 +22,4 @@ After renaming a repository, update existing local Git remotes to its new clone 
 
 At commit `22ee75b`, GitHub Backend CI passed 227 tests with 1,153 assertions, and frontend, deployment, and release gates passed. The 2026-10-11 local QA pass passed 57 frontend tests and 65 backend unit tests; one Windows symlink test was skipped. The startup fix at `64cc788` passed lint/build, service readiness, and an occupied-port regression check. These are recorded checkpoints, not a claim that later commits have identical results.
 
-Feature details: [collaboration](../../SDLC/Implementation/Features/repository-collaboration.md) and [visual system](../../SDLC/Implementation/Features/visual-system.md).
+Feature details: [collaboration](../../SDLC/05-implementation/Features/repository-collaboration.md) and [visual system](../../SDLC/05-implementation/Features/visual-system.md).

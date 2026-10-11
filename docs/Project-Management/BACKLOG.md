@@ -22,4 +22,4 @@ Recorded on **2026-10-11**. This is a planning list, not a promise of scheduled 
 - PDF preview depends on browser support and configured size limits; download remains the fallback.
 - Passing tests does not prove every visual state or all combinations of user data are correct. Record the actual scenarios and platform limitations.
 
-Use the [incident procedure](../SDLC/Maintenance/05-incident-and-defect-handling.md) for confirmed defects and the [release checklist](../Releases/v1/RELEASE-CHECKLIST.md) before publication.
+Use the [incident procedure](../SDLC/08-maintenance/05-incident-and-defect-handling.md) for confirmed defects and the [release checklist](../Releases/v1/RELEASE-CHECKLIST.md) before publication.

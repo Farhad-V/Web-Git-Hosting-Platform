@@ -20,4 +20,4 @@ The detailed engineering files now live inside their related subject folders. Hi
 
 ## Operational guidance
 
-Start with the [project setup instructions](../README.md), [collaboration and Actions worker guide](SDLC/Implementation/Features/repository-collaboration.md), [visual system](SDLC/Implementation/Features/visual-system.md), and [deployment runbook](SDLC/Deployment/04-deployment-runbook.md). Never store account passwords, personal access tokens, or environment secrets in documentation.
+Start with the [project setup instructions](../README.md), [collaboration and Actions worker guide](SDLC/05-implementation/Features/repository-collaboration.md), [visual system](SDLC/05-implementation/Features/visual-system.md), and [deployment runbook](SDLC/07-deployment/04-deployment-runbook.md). Never store account passwords, personal access tokens, or environment secrets in documentation.

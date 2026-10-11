@@ -20,4 +20,4 @@ flowchart LR
   Runner --> Bare[(Managed bare Git repositories)]
 ```
 
-[Editable Mermaid source](diagrams/project-context.mmd). For deployment detail, see the [architecture design](../SDLC/System-Design/03-container-architecture.md).
+[Editable Mermaid source](diagrams/project-context.mmd). For deployment detail, see the [architecture design](../SDLC/04-system-design/03-container-architecture.md).

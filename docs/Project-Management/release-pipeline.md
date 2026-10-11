@@ -22,4 +22,4 @@ flowchart LR
 
 Passing checks alone does not assign a version or authorize publication. Existing v1.0.0 publication automation is version-specific; review it before using it as a template for another version. Historical tags must not be moved to represent new work.
 
-[Editable source](diagrams/release-pipeline.mmd), [release checklist](../Releases/v1/RELEASE-CHECKLIST.md), [versioning policy](../SDLC/Maintenance/02-versioning-policy.md), and [release history](../Releases/v1/README.md).
+[Editable source](diagrams/release-pipeline.mmd), [release checklist](../Releases/v1/RELEASE-CHECKLIST.md), [versioning policy](../SDLC/08-maintenance/02-versioning-policy.md), and [release history](../Releases/v1/README.md).

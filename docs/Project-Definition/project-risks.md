@@ -15,4 +15,4 @@ This register records qualitative risks and controls; it does not claim measured
 | R-09 | Planned or merged features are mistaken for released capabilities | Scope exclusions and explicit release status | Project owner |
 | R-10 | Historical QA evidence becomes stale | Record commit identity and rerun affected checks after changes | Reviewer |
 
-Open operational and delivery items belong in the [backlog](../Project-Management/BACKLOG.md). Confirmed defects follow the [incident procedure](../SDLC/Maintenance/05-incident-and-defect-handling.md). This register assigns roles, not unconfirmed individuals or deadlines.
+Open operational and delivery items belong in the [backlog](../Project-Management/BACKLOG.md). Confirmed defects follow the [incident procedure](../SDLC/08-maintenance/05-incident-and-defect-handling.md). This register assigns roles, not unconfirmed individuals or deadlines.

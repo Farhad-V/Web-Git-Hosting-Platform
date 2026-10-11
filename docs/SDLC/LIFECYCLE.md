@@ -11,13 +11,13 @@
 | Phase | Milestone | Status | Evidence |
 |---|---|---|---|
 | 1. Project Definition | M0 | Complete | `docs/Project-Definition/` |
-| 2. Requirements Engineering | M1 | Complete | `docs/SDLC/Requirements-Engineering/` |
-| 3. System Analysis | M2 | Complete | `docs/SDLC/System-Analysis/` |
-| 4. System Design | M3 | Complete | `docs/SDLC/System-Design/` |
-| 5. Implementation | M4 | Complete | `docs/SDLC/Implementation/` + source |
-| 6. Testing | M5 | Complete | `docs/SDLC/Testing/` + automated suites |
-| 7. Deployment | M6 | Complete | `docs/SDLC/Deployment/` + Deployment Validation |
-| 8. Maintenance | M7 | Complete | `docs/SDLC/Maintenance/` + Release Readiness + V1.0.0 publication |
+| 2. Requirements Engineering | M1 | Complete | `docs/SDLC/02-requirements-engineering/` |
+| 3. System Analysis | M2 | Complete | `docs/SDLC/03-system-analysis/` |
+| 4. System Design | M3 | Complete | `docs/SDLC/04-system-design/` |
+| 5. Implementation | M4 | Complete | `docs/SDLC/05-implementation/` + source |
+| 6. Testing | M5 | Complete | `docs/SDLC/06-testing/` + automated suites |
+| 7. Deployment | M6 | Complete | `docs/SDLC/07-deployment/` + Deployment Validation |
+| 8. Maintenance | M7 | Complete | `docs/SDLC/08-maintenance/` + Release Readiness + V1.0.0 publication |
 
 ## Phase 8 — Maintenance and Release Readiness
 

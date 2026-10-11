@@ -181,4 +181,4 @@ Normal application rollback changes application code only. It must not casually 
 
 GitForge V1.0.0 is validated as a reproducible production-ready repository package. A paid VPS, public DNS name and public certificate are optional demonstration infrastructure; they are not required for M6 completion. The same package is ready to be attached to a real Linux host later.
 
-Formal M6 evidence is maintained in `docs/SDLC/Deployment/`.
+Formal M6 evidence is maintained in `docs/SDLC/07-deployment/`.

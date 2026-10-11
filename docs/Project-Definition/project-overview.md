@@ -15,4 +15,4 @@ React and TypeScript provide the web interface. Laravel provides versioned APIs,
 5. Propose and discuss a same-repository pull request; an owner reviews and merges it.
 6. Run built-in repository checks and inspect their results in Actions.
 
-Local development uses frontend port 5173 and backend port 8000. Actions requires a dedicated queue worker. See [setup](../../README.md), [collaboration contracts](../SDLC/Implementation/Features/repository-collaboration.md), and [context diagram](project-context-diagram.md).
+Local development uses frontend port 5173 and backend port 8000. Actions requires a dedicated queue worker. See [setup](../../README.md), [collaboration contracts](../SDLC/05-implementation/Features/repository-collaboration.md), and [context diagram](project-context-diagram.md).

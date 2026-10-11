@@ -24,4 +24,4 @@ Published status was checked against GitHub releases on 2026-10-11. See [release
 - [Release note template](v1/RELEASE-NOTES-TEMPLATE.md)
 - [Historical release evidence](v1/History/README.md)
 
-The [root changelog](../../CHANGELOG.md) is the canonical chronological change log. [Versioning policy](../SDLC/Maintenance/02-versioning-policy.md) defines version selection; [management release pipeline](../Project-Management/release-pipeline.md) describes delivery gates.
+The [root changelog](../../CHANGELOG.md) is the canonical chronological change log. [Versioning policy](../SDLC/08-maintenance/02-versioning-policy.md) defines version selection; [management release pipeline](../Project-Management/release-pipeline.md) describes delivery gates.

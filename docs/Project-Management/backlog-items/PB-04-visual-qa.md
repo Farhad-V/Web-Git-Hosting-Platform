@@ -12,4 +12,4 @@ Acceptance criteria:
 - Use isolated test data and preserve user repositories.
 - Record confirmed defects and blocked scenarios with evidence.
 
-Dependencies: accessible supported browser tooling and an isolated demo environment. See [visual system](../../SDLC/Implementation/Features/visual-system.md).
+Dependencies: accessible supported browser tooling and an isolated demo environment. See [visual system](../../SDLC/05-implementation/Features/visual-system.md).

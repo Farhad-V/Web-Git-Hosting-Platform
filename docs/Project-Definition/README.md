@@ -15,7 +15,7 @@ See the [focused definition documents and diagrams](project-definition-overview.
 - [Historical v1.0.0 project goals](#project-goals)
 - [Historical v1.0.0 stakeholder register](#stakeholders)
 
-See the [requirements and acceptance criteria](../SDLC/Requirements-Engineering/11-user-stories-and-acceptance-criteria.md), [delivery process](../Project-Management/DELIVERY.md), and [documentation index](../README.md).
+See the [requirements and acceptance criteria](../SDLC/02-requirements-engineering/11-user-stories-and-acceptance-criteria.md), [delivery process](../Project-Management/DELIVERY.md), and [documentation index](../README.md).
 
 
 <a id="product-scope"></a>
@@ -40,7 +40,7 @@ Actions checks validate repository data. They do not execute arbitrary repositor
 
 This project does not claim full GitHub parity. Fork collaboration, organization/team permissions, approval reviews, protected branches, required merge checks, SSH transport, distributed storage, and arbitrary CI runners are outside the implemented scope. Public hosting is not required for the portfolio release.
 
-See [collaboration contracts](../SDLC/Implementation/Features/repository-collaboration.md) and [version status](../Releases/v1/README.md) before treating a capability as released.
+See [collaboration contracts](../SDLC/05-implementation/Features/repository-collaboration.md) and [version status](../Releases/v1/README.md) before treating a capability as released.
 
 
 <a id="project-charter"></a>

@@ -19,4 +19,4 @@ Repository renaming; Code, Branches, Commits, Tags, Pull requests, Actions, and 
 
 Actions checks verify commit existence, tree readability, and object connectivity. Private repositories remain owner-only. Renaming preserves storage but requires existing Git clients to update remote URLs. PDF preview is bounded and browser-dependent, with download fallback.
 
-See [scope diagram](scope-boundary-diagram.md), [release status](../Releases/v1/README.md), and [feature contracts](../SDLC/Implementation/Features/repository-collaboration.md).
+See [scope diagram](scope-boundary-diagram.md), [release status](../Releases/v1/README.md), and [feature contracts](../SDLC/05-implementation/Features/repository-collaboration.md).

@@ -6,8 +6,8 @@ Delivery is organized around documented requirements, incremental changes, revie
 - [Backlog and risks](BACKLOG.md)
 - [Historical milestone tracker](MILESTONES.md)
 - [Delivery increments](../Sprints/README.md)
-- [Versioning policy](../SDLC/Maintenance/02-versioning-policy.md)
-- [Incident and defect handling](../SDLC/Maintenance/05-incident-and-defect-handling.md)
+- [Versioning policy](../SDLC/08-maintenance/02-versioning-policy.md)
+- [Incident and defect handling](../SDLC/08-maintenance/05-incident-and-defect-handling.md)
 
 The M0-M7 tracker describes the completed v1.0.0 lifecycle. Subsequent changes belong to maintenance or a future release; they do not rewrite historical milestone evidence.
 

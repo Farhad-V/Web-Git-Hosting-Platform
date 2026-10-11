@@ -21,4 +21,4 @@ The local startup repair at `64cc788` pins Vite to port 5173 with `strictPort: t
 
 Merge/release review remains separate. Latest read-only visual verification was blocked by browser tooling. The existing main frontend bundle-size warning remains an optimization opportunity. Advanced GitHub parity is outside the implemented scope.
 
-See [feature contracts](../SDLC/Implementation/Features/repository-collaboration.md), [visual guidance](../SDLC/Implementation/Features/visual-system.md), and [unreleased notes](../Releases/v1/UNRELEASED.md).
+See [feature contracts](../SDLC/05-implementation/Features/repository-collaboration.md), [visual guidance](../SDLC/05-implementation/Features/visual-system.md), and [unreleased notes](../Releases/v1/UNRELEASED.md).

@@ -141,17 +141,17 @@ docs/Releases/v1/v1.0.0.md          V1.0.0 release overview
 Start with the [documentation index](docs/README.md) for Project Definition, Project Management, Releases, SDLC, and Sprint records.
 
 1. Project Definition — `docs/Project-Definition/`
-2. Requirements Engineering — `docs/SDLC/Requirements-Engineering/`
-3. System Analysis — `docs/SDLC/System-Analysis/`
-4. System Design — `docs/SDLC/System-Design/`
-5. Implementation — `docs/SDLC/Implementation/`
-6. Testing — `docs/SDLC/Testing/`
-7. Deployment — `docs/SDLC/Deployment/`
-8. Maintenance — `docs/SDLC/Maintenance/`
+2. Requirements Engineering — `docs/SDLC/02-requirements-engineering/`
+3. System Analysis — `docs/SDLC/03-system-analysis/`
+4. System Design — `docs/SDLC/04-system-design/`
+5. Implementation — `docs/SDLC/05-implementation/`
+6. Testing — `docs/SDLC/06-testing/`
+7. Deployment — `docs/SDLC/07-deployment/`
+8. Maintenance — `docs/SDLC/08-maintenance/`
 
 Lifecycle summary: `docs/SDLC/LIFECYCLE.md`
 
-Milestone tracker: `docs/Project-Management/MILESTONES.md`
+Milestone tracker: `docs/Project-Management/milestones.md`
 
 ## Deployment Position
 
@@ -161,7 +161,7 @@ The V1.0.0 portfolio release does not require a VPS, domain, or public live demo
 
 ## Maintenance and Versioning
 
-GitForge uses Semantic Versioning. Corrective, adaptive, preventive, security, incident, dependency, and recovery maintenance procedures are defined in `docs/SDLC/Maintenance/`.
+GitForge uses Semantic Versioning. Corrective, adaptive, preventive, security, incident, dependency, and recovery maintenance procedures are defined in `docs/SDLC/08-maintenance/`.
 
 ## Security Principles
 
@@ -180,4 +180,4 @@ The backend Composer package currently declares MIT. No repository-level `LICENS
 
 ## Repository collaboration
 
-Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](docs/SDLC/Implementation/Features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.
+Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](docs/SDLC/05-implementation/Features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.

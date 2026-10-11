@@ -14,4 +14,4 @@
 | Windows tests | Directory-symlink creation may be unavailable | Record skips; use a supporting environment for that coverage |
 | Release status | Main may contain changes newer than v1.0.1 | Distinguish merged development from tagged release behavior |
 
-Public hosting is optional for the portfolio. Production deployment requires its own configuration, TLS/network setup, least-privilege access, backups, and supervised workers. These documents contain no production credentials. See [deployment guidance](../SDLC/Deployment/04-deployment-runbook.md).
+Public hosting is optional for the portfolio. Production deployment requires its own configuration, TLS/network setup, least-privilege access, backups, and supervised workers. These documents contain no production credentials. See [deployment guidance](../SDLC/07-deployment/04-deployment-runbook.md).
