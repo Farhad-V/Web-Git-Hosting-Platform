@@ -1,0 +1,7 @@
+flowchart LR
+  Scope[Agreed scope] --> Candidate[Exact candidate commit]
+  Candidate --> Checks[CI and relevant manual checks]
+  Checks --> Ready[Release checklist and operational review]
+  Ready --> Approval[Authorized publication]
+  Approval --> Tag[Version tag and notes]
+  Tag --> Verify[Verify identities and handoff]

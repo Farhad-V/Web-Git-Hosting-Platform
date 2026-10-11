@@ -1,0 +1,7 @@
+flowchart LR
+  Baseline[Released baseline and merged main] --> Candidate[Reviewed next candidate]
+  Candidate --> Validate[CI and operational verification]
+  Validate --> Publish[Authorized version publication]
+  Baseline --> Reliability[Scoped reliability improvements]
+  Reliability --> Candidate
+  Future[Future options] -. requirements and approval .-> Candidate

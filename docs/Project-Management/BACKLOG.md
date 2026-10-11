@@ -6,7 +6,7 @@ Recorded on **2026-10-11**. This is a planning list, not a promise of scheduled 
 | --- | --- | --- |
 | Collaboration and refined glass UI | Merged into main; release pending | PR #27, feature documentation, relevant CI |
 | Documentation navigation folders | Added in this documentation increment | Link and structure validation |
-| Local frontend port stability | Fixed on feature branch | Duplicate launch refuses occupied port 5173 |
+| Local frontend port stability | Merged into main | Duplicate launch refuses occupied port 5173 |
 | Local Actions worker | Restarted during QA follow-up | Matching queue worker process verified |
 | Persistent worker supervision | Production guidance exists; local startup remains manual after reboot | Supervised service or explicitly approved startup integration |
 | Frontend bundle optimization | Improvement opportunity | Main bundle falls below agreed budget without regressions |
