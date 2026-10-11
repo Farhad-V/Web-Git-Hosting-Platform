@@ -13,7 +13,7 @@ The subject folders below contain the detailed lifecycle artifacts. This index p
 | Deployment | [Deployment runbook](Deployment/04-deployment-runbook.md), [backup and restore](Deployment/07-backup-and-restore.md) |
 | Maintenance | [Maintenance plan](Maintenance/01-maintenance-plan.md), [defect handling](Maintenance/05-incident-and-defect-handling.md) |
 
-The [original lifecycle summary](LIFECYCLE.md) and [milestone tracker](../Project-Management/MILESTONES.md) describe v1.0.0. For the current development scope, use [product scope](../Project-Definition/PRODUCT-SCOPE.md), [feature contracts](Implementation/Features/repository-collaboration.md), and [delivery process](../Project-Management/DELIVERY.md).
+The [original lifecycle summary](LIFECYCLE.md) and [milestone tracker](../Project-Management/MILESTONES.md) describe v1.0.0. For the current development scope, use [product scope](../Project-Definition/README.md#product-scope), [feature contracts](Implementation/Features/repository-collaboration.md), and [delivery process](../Project-Management/DELIVERY.md).
 
 ## Traceability for new work
 

@@ -165,11 +165,11 @@ The RTM derives from the following approved M0 and M1 artifacts:
 
 ```text
 01-project-definition/
-&#x20;   01-project-charter.md
-&#x20;   02-problem-statement.md
-&#x20;   03-product-vision.md
-&#x20;   04-project-goals.md
-&#x20;   05-stakeholders.md
+&#x20;   docs/Project-Definition/README.md#project-charter
+&#x20;   docs/Project-Definition/README.md#problem-statement
+&#x20;   docs/Project-Definition/README.md#product-vision
+&#x20;   docs/Project-Definition/README.md#project-goals
+&#x20;   docs/Project-Definition/README.md#stakeholders
 
 02-requirements-engineering/
 &#x20;   01-requirements-engineering-plan.md

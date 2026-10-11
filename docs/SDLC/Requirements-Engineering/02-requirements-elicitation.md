@@ -66,11 +66,11 @@ The following artifacts are the primary upstream sources for elicitation.
 
 | Source                    | Elicitation contribution                               |
 | ------------------------- | ------------------------------------------------------ |
-| `01-project-charter.md`   | Project purpose, authority, constraints, scope         |
-| `02-problem-statement.md` | Problems and deficiencies to address                   |
-| `03-product-vision.md`    | Product direction and target value                     |
-| `04-project-goals.md`     | Measurable project and release goals                   |
-| `05-stakeholders.md`      | Stakeholder expectations and influence                 |
+| `docs/Project-Definition/README.md#project-charter`   | Project purpose, authority, constraints, scope         |
+| `docs/Project-Definition/README.md#problem-statement` | Problems and deficiencies to address                   |
+| `docs/Project-Definition/README.md#product-vision`    | Product direction and target value                     |
+| `docs/Project-Definition/README.md#project-goals`     | Measurable project and release goals                   |
+| `docs/Project-Definition/README.md#stakeholders`      | Stakeholder expectations and influence                 |
 | Git domain behavior       | Expected repository and transport behavior             |
 | Security principles       | Authentication, authorization, credential protection   |
 | Technology constraints    | Laravel, PostgreSQL, filesystem, Git process execution |
