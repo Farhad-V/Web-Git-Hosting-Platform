@@ -222,25 +222,25 @@ Primary approved requirements sources include:
 
 ```text
 
-docs/02-requirements-engineering/04-functional-requirements.md
+docs/SDLC/Requirements-Engineering/04-functional-requirements.md
 
-docs/02-requirements-engineering/05-non-functional-requirements.md
+docs/SDLC/Requirements-Engineering/05-non-functional-requirements.md
 
-docs/02-requirements-engineering/06-data-requirements.md
+docs/SDLC/Requirements-Engineering/06-data-requirements.md
 
-docs/02-requirements-engineering/07-interface-requirements.md
+docs/SDLC/Requirements-Engineering/07-interface-requirements.md
 
-docs/02-requirements-engineering/08-business-rules.md
+docs/SDLC/Requirements-Engineering/08-business-rules.md
 
-docs/02-requirements-engineering/09-use-case-model.md
+docs/SDLC/Requirements-Engineering/09-use-case-model.md
 
-docs/02-requirements-engineering/10-detailed-use-case-specifications.md
+docs/SDLC/Requirements-Engineering/10-detailed-use-case-specifications.md
 
-docs/02-requirements-engineering/11-user-stories-and-acceptance-criteria.md
+docs/SDLC/Requirements-Engineering/11-user-stories-and-acceptance-criteria.md
 
-docs/02-requirements-engineering/12-authorization-requirements-matrix.md
+docs/SDLC/Requirements-Engineering/12-authorization-requirements-matrix.md
 
-docs/02-requirements-engineering/14-requirements-traceability-matrix.md
+docs/SDLC/Requirements-Engineering/14-requirements-traceability-matrix.md
 
 ```
 
@@ -286,31 +286,31 @@ Primary analysis sources include:
 
 ```text
 
-docs/03-system-analysis/03-domain-analysis.md
+docs/SDLC/System-Analysis/03-domain-analysis.md
 
-docs/03-system-analysis/04-logical-system-decomposition.md
+docs/SDLC/System-Analysis/04-logical-system-decomposition.md
 
-docs/03-system-analysis/05-authentication-analysis.md
+docs/SDLC/System-Analysis/05-authentication-analysis.md
 
-docs/03-system-analysis/06-authorization-analysis.md
+docs/SDLC/System-Analysis/06-authorization-analysis.md
 
-docs/03-system-analysis/07-repository-lifecycle-analysis.md
+docs/SDLC/System-Analysis/07-repository-lifecycle-analysis.md
 
-docs/03-system-analysis/08-repository-browser-analysis.md
+docs/SDLC/System-Analysis/08-repository-browser-analysis.md
 
-docs/03-system-analysis/09-git-smart-http-read-analysis.md
+docs/SDLC/System-Analysis/09-git-smart-http-read-analysis.md
 
-docs/03-system-analysis/10-git-smart-http-write-analysis.md
+docs/SDLC/System-Analysis/10-git-smart-http-write-analysis.md
 
-docs/03-system-analysis/11-personal-access-token-analysis.md
+docs/SDLC/System-Analysis/11-personal-access-token-analysis.md
 
-docs/03-system-analysis/12-repository-storage-analysis.md
+docs/SDLC/System-Analysis/12-repository-storage-analysis.md
 
-docs/03-system-analysis/15-trust-boundary-analysis.md
+docs/SDLC/System-Analysis/15-trust-boundary-analysis.md
 
-docs/03-system-analysis/16-failure-and-exception-analysis.md
+docs/SDLC/System-Analysis/16-failure-and-exception-analysis.md
 
-docs/03-system-analysis/19-analysis-traceability.md
+docs/SDLC/System-Analysis/19-analysis-traceability.md
 
 ```
 
@@ -330,33 +330,33 @@ Primary approved design sources include:
 
 ```text
 
-docs/04-system-design/02-architecture-decisions.md
+docs/SDLC/System-Design/02-architecture-decisions.md
 
-docs/04-system-design/03-container-architecture.md
+docs/SDLC/System-Design/03-container-architecture.md
 
-docs/04-system-design/04-component-design.md
+docs/SDLC/System-Design/04-component-design.md
 
-docs/04-system-design/05-database-schema-design.md
+docs/SDLC/System-Design/05-database-schema-design.md
 
-docs/04-system-design/06-api-specification.md
+docs/SDLC/System-Design/06-api-specification.md
 
-docs/04-system-design/07-authorization-design-matrix.md
+docs/SDLC/System-Design/07-authorization-design-matrix.md
 
-docs/04-system-design/08-repository-storage-design.md
+docs/SDLC/System-Design/08-repository-storage-design.md
 
-docs/04-system-design/09-git-process-execution-design.md
+docs/SDLC/System-Design/09-git-process-execution-design.md
 
-docs/04-system-design/10-ui-information-architecture.md
+docs/SDLC/System-Design/10-ui-information-architecture.md
 
-docs/04-system-design/11-wireframes.md
+docs/SDLC/System-Design/11-wireframes.md
 
-docs/04-system-design/12-deployment-design.md
+docs/SDLC/System-Design/12-deployment-design.md
 
-docs/04-system-design/13-observability-design.md
+docs/SDLC/System-Design/13-observability-design.md
 
-docs/04-system-design/14-security-design.md
+docs/SDLC/System-Design/14-security-design.md
 
-docs/04-system-design/15-design-traceability.md
+docs/SDLC/System-Design/15-design-traceability.md
 
 ```
 
@@ -390,7 +390,7 @@ Source:
 
 ```text
 
-docs/05-implementation/02-design-implementation-amendments.md
+docs/SDLC/Implementation/02-design-implementation-amendments.md
 
 ```
 

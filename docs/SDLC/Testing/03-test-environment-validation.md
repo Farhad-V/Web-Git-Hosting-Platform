@@ -1595,7 +1595,7 @@ Fresh validation is necessary because:
 WP-03 supports the execution of the test cases specified in:
 
 ```text
-docs/06-testing/02-test-case-specification.md
+docs/SDLC/Testing/02-test-case-specification.md
 ```
 
 Environment validation itself is primarily a test-process prerequisite rather than a substitute for requirement verification.

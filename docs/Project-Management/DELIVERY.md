@@ -23,6 +23,6 @@
 
 ## Operational handoff
 
-Local development uses frontend port 5173 and backend port 8000. Vite refuses an occupied frontend port instead of silently changing addresses. Repository Actions require the `gitforge-actions` worker; restart it after reboot and restart workers after code deployments. See the [worker guide](../features/repository-collaboration.md).
+Local development uses frontend port 5173 and backend port 8000. Vite refuses an occupied frontend port instead of silently changing addresses. Repository Actions require the `gitforge-actions` worker; restart it after reboot and restart workers after code deployments. See the [worker guide](../SDLC/Implementation/Features/repository-collaboration.md).
 
-Production operation requires coordinated database/Git-storage backups, recovery checks, and supervised workers. See the [deployment runbook](../07-deployment/04-deployment-runbook.md) and [backup procedure](../07-deployment/07-backup-and-restore.md).
+Production operation requires coordinated database/Git-storage backups, recovery checks, and supervised workers. See the [deployment runbook](../SDLC/Deployment/04-deployment-runbook.md) and [backup procedure](../SDLC/Deployment/07-backup-and-restore.md).

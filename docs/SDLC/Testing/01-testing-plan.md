@@ -106,7 +106,7 @@ Primary test-basis sources are:
 
 ### 5.1 Project Definition
 
-`docs/01-project-definition/`
+`docs/Project-Definition/`
 
 Relevant artifacts include:
 
@@ -118,7 +118,7 @@ Relevant artifacts include:
 
 ### 5.2 Requirements Engineering
 
-`docs/02-requirements-engineering/`
+`docs/SDLC/Requirements-Engineering/`
 
 Primary sources include:
 
@@ -137,7 +137,7 @@ Primary sources include:
 
 ### 5.3 System Analysis
 
-`docs/03-system-analysis/`
+`docs/SDLC/System-Analysis/`
 
 Relevant sources include:
 
@@ -162,7 +162,7 @@ Relevant sources include:
 
 ### 5.4 System Design
 
-`docs/04-system-design/`
+`docs/SDLC/System-Design/`
 
 Relevant sources include:
 
@@ -184,7 +184,7 @@ Relevant sources include:
 
 ### 5.5 Implementation
 
-`docs/05-implementation/`
+`docs/SDLC/Implementation/`
 
 Relevant sources include:
 
@@ -1184,7 +1184,7 @@ Testing is considered complete when:
 Expected M5 documentation deliverables are:
 
 ```text
-docs/06-testing/
+docs/SDLC/Testing/
 ├── 01-testing-plan.md
 ├── 02-test-case-specification.md
 ├── 03-test-environment-validation.md

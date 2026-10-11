@@ -106,11 +106,11 @@ System Design is based on approved artifacts from:
 
 ```text
 
-docs/01-project-definition/
+docs/Project-Definition/
 
-docs/02-requirements-engineering/
+docs/SDLC/Requirements-Engineering/
 
-docs/03-system-analysis/
+docs/SDLC/System-Analysis/
 
 ```
 

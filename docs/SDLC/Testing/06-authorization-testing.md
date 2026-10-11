@@ -62,7 +62,7 @@ The work package executes the authorization test family defined in:
 
 ```text
 
-docs/06-testing/02-test-case-specification.md
+docs/SDLC/Testing/02-test-case-specification.md
 
 ```
 
@@ -208,7 +208,7 @@ Authorization-specific analysis is defined by the approved System Analysis artif
 
 ```text
 
-docs/03-system-analysis/06-authorization-analysis.md
+docs/SDLC/System-Analysis/06-authorization-analysis.md
 
 ```
 

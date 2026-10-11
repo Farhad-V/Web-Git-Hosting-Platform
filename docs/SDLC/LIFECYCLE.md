@@ -10,14 +10,14 @@
 
 | Phase | Milestone | Status | Evidence |
 |---|---|---|---|
-| 1. Project Definition | M0 | Complete | `docs/01-project-definition/` |
-| 2. Requirements Engineering | M1 | Complete | `docs/02-requirements-engineering/` |
-| 3. System Analysis | M2 | Complete | `docs/03-system-analysis/` |
-| 4. System Design | M3 | Complete | `docs/04-system-design/` |
-| 5. Implementation | M4 | Complete | `docs/05-implementation/` + source |
-| 6. Testing | M5 | Complete | `docs/06-testing/` + automated suites |
-| 7. Deployment | M6 | Complete | `docs/07-deployment/` + Deployment Validation |
-| 8. Maintenance | M7 | Complete | `docs/08-maintenance/` + Release Readiness + V1.0.0 publication |
+| 1. Project Definition | M0 | Complete | `docs/Project-Definition/` |
+| 2. Requirements Engineering | M1 | Complete | `docs/SDLC/Requirements-Engineering/` |
+| 3. System Analysis | M2 | Complete | `docs/SDLC/System-Analysis/` |
+| 4. System Design | M3 | Complete | `docs/SDLC/System-Design/` |
+| 5. Implementation | M4 | Complete | `docs/SDLC/Implementation/` + source |
+| 6. Testing | M5 | Complete | `docs/SDLC/Testing/` + automated suites |
+| 7. Deployment | M6 | Complete | `docs/SDLC/Deployment/` + Deployment Validation |
+| 8. Maintenance | M7 | Complete | `docs/SDLC/Maintenance/` + Release Readiness + V1.0.0 publication |
 
 ## Phase 8 — Maintenance and Release Readiness
 
@@ -35,7 +35,7 @@ The final M7 release candidate passed Backend CI and the integrated Release Read
 
 ### Publication
 
-GitForge V1.0.0 was published under tag `v1.0.0`. The tag points to commit `c941302d32c5e1f494703437824efbd6feeaacca` and the release uses the approved `RELEASE_NOTES.md`.
+GitForge V1.0.0 was published under tag `v1.0.0`. The tag points to commit `c941302d32c5e1f494703437824efbd6feeaacca` and the release uses the approved `docs/Releases/v1/v1.0.0.md`.
 
 ### Hosting Boundary
 

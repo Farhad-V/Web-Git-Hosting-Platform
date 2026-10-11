@@ -144,7 +144,7 @@ The primary formal test basis is:
 
 ```text
 
-docs/06-testing/02-test-case-specification.md
+docs/SDLC/Testing/02-test-case-specification.md
 
 ```
 

@@ -76,7 +76,7 @@ The approved Requirements Engineering artifacts are:
 
 ```text
 
-docs/02-requirements-engineering/
+docs/SDLC/Requirements-Engineering/
 
 ```
 

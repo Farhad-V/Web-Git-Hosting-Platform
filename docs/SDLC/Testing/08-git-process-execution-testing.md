@@ -144,7 +144,7 @@ The primary formal test basis is:
 
 ```text
 
-docs/06-testing/02-test-case-specification.md
+docs/SDLC/Testing/02-test-case-specification.md
 
 ```
 
@@ -180,7 +180,7 @@ Primary design basis:
 
 ```text
 
-docs/04-system-design/09-git-process-execution-design.md
+docs/SDLC/System-Design/09-git-process-execution-design.md
 
 ```
 
@@ -192,13 +192,13 @@ Supporting design artifacts:
 
 ```text
 
-docs/04-system-design/08-repository-storage-design.md
+docs/SDLC/System-Design/08-repository-storage-design.md
 
-docs/04-system-design/14-security-design.md
+docs/SDLC/System-Design/14-security-design.md
 
-docs/04-system-design/13-observability-design.md
+docs/SDLC/System-Design/13-observability-design.md
 
-docs/04-system-design/16-system-design-validation.md
+docs/SDLC/System-Design/16-system-design-validation.md
 
 ```
 

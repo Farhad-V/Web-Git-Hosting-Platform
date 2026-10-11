@@ -4,7 +4,7 @@ Recorded on **2026-10-11**. This is a planning list, not a promise of scheduled 
 
 | Item | Status | Completion evidence |
 | --- | --- | --- |
-| Collaboration and refined glass UI | Implemented on feature branch; merge/release pending | PR #27, feature documentation, relevant CI |
+| Collaboration and refined glass UI | Merged into main; release pending | PR #27, feature documentation, relevant CI |
 | Documentation navigation folders | Added in this documentation increment | Link and structure validation |
 | Local frontend port stability | Fixed on feature branch | Duplicate launch refuses occupied port 5173 |
 | Local Actions worker | Restarted during QA follow-up | Matching queue worker process verified |
@@ -22,4 +22,4 @@ Recorded on **2026-10-11**. This is a planning list, not a promise of scheduled 
 - PDF preview depends on browser support and configured size limits; download remains the fallback.
 - Passing tests does not prove every visual state or all combinations of user data are correct. Record the actual scenarios and platform limitations.
 
-Use the [incident procedure](../08-maintenance/05-incident-and-defect-handling.md) for confirmed defects and the [release checklist](../Releases/v1/RELEASE-CHECKLIST.md) before publication.
+Use the [incident procedure](../SDLC/Maintenance/05-incident-and-defect-handling.md) for confirmed defects and the [release checklist](../Releases/v1/RELEASE-CHECKLIST.md) before publication.

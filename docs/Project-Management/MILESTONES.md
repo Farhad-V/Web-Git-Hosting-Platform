@@ -6,14 +6,14 @@ This file is the authoritative milestone summary for the GitForge V1.0.0 enginee
 
 | Milestone | SDLC phase | Status | Primary evidence |
 |---|---|---|---|
-| M0 | Project Definition | Complete | `docs/01-project-definition/` |
-| M1 | Requirements Engineering | Complete | `docs/02-requirements-engineering/` |
-| M2 | System Analysis | Complete | `docs/03-system-analysis/` |
-| M3 | System Design | Complete | `docs/04-system-design/` |
-| M4 | Implementation | Complete | `docs/05-implementation/` + source |
-| M5 | Testing | Complete | `docs/06-testing/` + CI |
-| M6 | Deployment | Complete | `docs/07-deployment/` + Deployment Validation |
-| M7 | Release and Maintenance Readiness | Complete | `docs/08-maintenance/` + Release Readiness + `v1.0.0` |
+| M0 | Project Definition | Complete | `docs/Project-Definition/` |
+| M1 | Requirements Engineering | Complete | `docs/SDLC/Requirements-Engineering/` |
+| M2 | System Analysis | Complete | `docs/SDLC/System-Analysis/` |
+| M3 | System Design | Complete | `docs/SDLC/System-Design/` |
+| M4 | Implementation | Complete | `docs/SDLC/Implementation/` + source |
+| M5 | Testing | Complete | `docs/SDLC/Testing/` + CI |
+| M6 | Deployment | Complete | `docs/SDLC/Deployment/` + Deployment Validation |
+| M7 | Release and Maintenance Readiness | Complete | `docs/SDLC/Maintenance/` + Release Readiness + `v1.0.0` |
 
 ## V1.0.0 Product Scope
 

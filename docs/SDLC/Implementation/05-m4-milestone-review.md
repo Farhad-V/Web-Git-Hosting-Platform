@@ -602,7 +602,7 @@ This does not mean production deployment has already occurred.
 
 WP-16 produced the implementation traceability artifact:
 
-`docs/05-implementation/03-implementation-traceability.md`
+`docs/SDLC/Implementation/03-implementation-traceability.md`
 
 WP-16 was formally approved.
 
@@ -635,7 +635,7 @@ Implementation remains traceable to approved V1.0.0 requirements and design.
 
 WP-17 produced:
 
-`docs/05-implementation/04-implementation-validation.md`
+`docs/SDLC/Implementation/04-implementation-validation.md`
 
 WP-17 status:
 

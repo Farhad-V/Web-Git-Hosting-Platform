@@ -38,5 +38,5 @@ Git controls repository reference updates. Backups must coordinate PostgreSQL me
 - `backend/app/Services/Git/GitCommandRunner.php`
 - `backend/tests/Feature/Git/GitSmartHttpWriteEndToEndTest.php`
 - `backend/tests/Feature/Api/V1/RepositoryTest.php`
-- `docs/06-testing/12-git-smart-http-write-testing.md`
-- `docs/07-deployment/07-backup-and-restore.md`
+- `docs/SDLC/Testing/12-git-smart-http-write-testing.md`
+- `docs/SDLC/Deployment/07-backup-and-restore.md`

@@ -2,10 +2,10 @@
 
 | Version | Status | Documentation |
 | --- | --- | --- |
-| v1.0.0 | Historical stable release | [Original release notes](../../../RELEASE_NOTES.md) |
-| v1.0.1 | Current released baseline | [Patch notes and upgrade guidance](../../Releases/v1.0.1.md) |
-| Next version | Unreleased feature-branch work | [Unreleased overview](UNRELEASED.md) |
+| v1.0.0 | Historical stable release | [Original release notes](v1.0.0.md) |
+| v1.0.1 | Current released baseline | [Patch notes and upgrade guidance](v1.0.1.md) |
+| Next version | Merged development work; unreleased | [Unreleased overview](UNRELEASED.md) |
 
-See the [changelog](../../../CHANGELOG.md), [release checklist](RELEASE-CHECKLIST.md), and [versioning policy](../../08-maintenance/02-versioning-policy.md).
+See the [changelog](../../../CHANGELOG.md), [release checklist](RELEASE-CHECKLIST.md), and [versioning policy](../../SDLC/Maintenance/02-versioning-policy.md).
 
-The release folder uses `Releases` consistently on Windows and GitHub. The v1.0.1 patch notes retain their filename; internal links use the updated folder capitalization. No new version number or tag is assigned by this documentation update.
+Version 1 notes and historical release-readiness evidence are grouped here. No new version number or tag is assigned by this documentation update.

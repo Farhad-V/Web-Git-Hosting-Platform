@@ -58,8 +58,8 @@ M1 - Requirements Engineering    Complete
 M2 uses the approved outputs from M0 and M1.
 Primary inputs include:
 ```text
-docs/01-project-definition/
-docs/02-requirements-engineering/
+docs/Project-Definition/
+docs/SDLC/Requirements-Engineering/
 ```
 The principal requirements inputs are:
 ```text

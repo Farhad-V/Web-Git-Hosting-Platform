@@ -15,4 +15,4 @@ Use this checklist for a future candidate; unchecked items are deliberately pend
 - [ ] Create the version tag and publish release notes through the authorized release process.
 - [ ] Verify local/remote commit and tag identities after publication.
 
-Historical evidence: [v1.0.0 checklist](../../08-maintenance/08-v1.0.0-release-checklist.md). Upgrade specifics: [v1.0.1 patch notes](../../Releases/v1.0.1.md).
+Historical evidence: [v1.0.0 checklist](History/08-v1.0.0-release-checklist.md). Upgrade specifics: [v1.0.1 patch notes](v1.0.1.md).

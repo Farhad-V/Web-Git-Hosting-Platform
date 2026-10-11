@@ -45,12 +45,12 @@ The objectives of this specification are to:
 The formal test basis includes approved artifacts from:
 
 ```text
-docs/01-project-definition/
-docs/02-requirements-engineering/
-docs/03-system-analysis/
-docs/04-system-design/
-docs/05-implementation/
-docs/06-testing/01-testing-plan.md
+docs/Project-Definition/
+docs/SDLC/Requirements-Engineering/
+docs/SDLC/System-Analysis/
+docs/SDLC/System-Design/
+docs/SDLC/Implementation/
+docs/SDLC/Testing/01-testing-plan.md
 ```
 
 Primary requirements groups include:

@@ -148,7 +148,7 @@ The primary formal test basis is:
 
 ```text
 
-docs/06-testing/02-test-case-specification.md
+docs/SDLC/Testing/02-test-case-specification.md
 
 ```
 
@@ -186,13 +186,13 @@ Supporting approved design artifacts include:
 
 ```text
 
-docs/04-system-design/09-git-process-execution-design.md
+docs/SDLC/System-Design/09-git-process-execution-design.md
 
-docs/04-system-design/10-git-smart-http-design.md
+docs/SDLC/System-Design/10-git-smart-http-design.md
 
-docs/04-system-design/14-security-design.md
+docs/SDLC/System-Design/14-security-design.md
 
-docs/04-system-design/13-observability-design.md
+docs/SDLC/System-Design/13-observability-design.md
 
 ```
 

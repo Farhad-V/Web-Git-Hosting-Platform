@@ -35,7 +35,7 @@ The work package executes the repository metadata test family defined in:
 
 ```text
 
-docs/06-testing/02-test-case-specification.md
+docs/SDLC/Testing/02-test-case-specification.md
 
 ```
 

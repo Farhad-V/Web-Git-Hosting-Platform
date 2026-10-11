@@ -12,7 +12,7 @@ GitForge is a self-hosted Git hosting platform built as a full-stack software-en
 
 GitForge V1.0.0 is released as a GitHub portfolio/local-use project. It is designed to be cloned, inspected, run locally, tested, and evaluated, and it **does not require public hosting**.
 
-V1.0.1 fixes repository-creation data loss, production clone URLs, and backup coordination, and updates vulnerable dependencies. See [V1.0.1 patch release notes](docs/Releases/v1.0.1.md) for validation, upgrade instructions, and the required backup-procedure changes.
+V1.0.1 fixes repository-creation data loss, production clone URLs, and backup coordination, and updates vulnerable dependencies. See [V1.0.1 patch release notes](docs/Releases/v1/v1.0.1.md) for validation, upgrade instructions, and the required backup-procedure changes.
 
 ## Core Capabilities
 
@@ -133,24 +133,25 @@ frontend/                React/TypeScript SPA
 deployment/              Production-oriented deployment package
 docs/                    Formal SDLC artifacts
 CHANGELOG.md              Version history
-RELEASE_NOTES.md          V1.0.0 release overview
+docs/Releases/v1/v1.0.0.md          V1.0.0 release overview
 ```
 
 ## SDLC Documentation
 
 Start with the [documentation index](docs/README.md) for Project Definition, Project Management, Releases, SDLC, and Sprint records.
 
-1. Project Definition — `docs/01-project-definition/`
-2. Requirements Engineering — `docs/02-requirements-engineering/`
-3. System Analysis — `docs/03-system-analysis/`
-4. System Design — `docs/04-system-design/`
-5. Implementation — `docs/05-implementation/`
-6. Testing — `docs/06-testing/`
-7. Deployment — `docs/07-deployment/`
-8. Maintenance — `docs/08-maintenance/`
+1. Project Definition — `docs/Project-Definition/`
+2. Requirements Engineering — `docs/SDLC/Requirements-Engineering/`
+3. System Analysis — `docs/SDLC/System-Analysis/`
+4. System Design — `docs/SDLC/System-Design/`
+5. Implementation — `docs/SDLC/Implementation/`
+6. Testing — `docs/SDLC/Testing/`
+7. Deployment — `docs/SDLC/Deployment/`
+8. Maintenance — `docs/SDLC/Maintenance/`
 
-Lifecycle summary: `docs/SDLC.md`  
-Milestone tracker: `docs/MILESTONES.md`
+Lifecycle summary: `docs/SDLC/LIFECYCLE.md`
+
+Milestone tracker: `docs/Project-Management/MILESTONES.md`
 
 ## Deployment Position
 
@@ -160,7 +161,7 @@ The V1.0.0 portfolio release does not require a VPS, domain, or public live demo
 
 ## Maintenance and Versioning
 
-GitForge uses Semantic Versioning. Corrective, adaptive, preventive, security, incident, dependency, and recovery maintenance procedures are defined in `docs/08-maintenance/`.
+GitForge uses Semantic Versioning. Corrective, adaptive, preventive, security, incident, dependency, and recovery maintenance procedures are defined in `docs/SDLC/Maintenance/`.
 
 ## Security Principles
 
@@ -169,9 +170,9 @@ GitForge uses server-side authorization, private repository concealment, CSRF pr
 ## Release Files
 
 - `CHANGELOG.md`
-- `RELEASE_NOTES.md`
-- `docs/08-maintenance/07-release-readiness-audit.md`
-- `docs/08-maintenance/08-v1.0.0-release-checklist.md`
+- `docs/Releases/v1/v1.0.0.md`
+- `docs/Releases/v1/History/07-release-readiness-audit.md`
+- `docs/Releases/v1/History/08-v1.0.0-release-checklist.md`
 
 ## License
 
@@ -179,4 +180,4 @@ The backend Composer package currently declares MIT. No repository-level `LICENS
 
 ## Repository collaboration
 
-Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](docs/features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.
+Branches, pull requests, discussions, merge comparisons, and built-in Actions checks are available in the repository navigation. See [Repository collaboration](docs/SDLC/Implementation/Features/repository-collaboration.md) for permissions, API contracts, migrations, and Actions worker setup.

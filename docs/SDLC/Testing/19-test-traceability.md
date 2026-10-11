@@ -31,28 +31,28 @@ The purpose of WP-19 is to verify that:
 
 The traceability review uses the following approved or completed artifacts:
 
-- `docs/02-requirements-engineering/`
-- `docs/03-system-analysis/`
-- `docs/04-system-design/`
-- `docs/05-implementation/`
-- `docs/06-testing/01-testing-plan.md`
-- `docs/06-testing/02-test-case-specification.md`
-- `docs/06-testing/03-test-environment-validation.md`
-- `docs/06-testing/04-authentication-testing.md`
-- `docs/06-testing/05-repository-metadata-testing.md`
-- `docs/06-testing/06-authorization-testing.md`
-- `docs/06-testing/07-repository-storage-testing.md`
-- `docs/06-testing/08-git-process-execution-testing.md`
-- `docs/06-testing/09-repository-browser-testing.md`
-- `docs/06-testing/10-git-smart-http-read-testing.md`
-- `docs/06-testing/11-personal-access-token-testing.md`
-- `docs/06-testing/12-git-smart-http-write-testing.md`
-- `docs/06-testing/13-web-ui-testing.md`
-- `docs/06-testing/14-security-testing.md`
-- `docs/06-testing/15-observability-and-failure-testing.md`
-- `docs/06-testing/16-system-and-end-to-end-testing.md`
-- `docs/06-testing/17-regression-testing.md`
-- `docs/06-testing/18-acceptance-testing.md`
+- `docs/SDLC/Requirements-Engineering/`
+- `docs/SDLC/System-Analysis/`
+- `docs/SDLC/System-Design/`
+- `docs/SDLC/Implementation/`
+- `docs/SDLC/Testing/01-testing-plan.md`
+- `docs/SDLC/Testing/02-test-case-specification.md`
+- `docs/SDLC/Testing/03-test-environment-validation.md`
+- `docs/SDLC/Testing/04-authentication-testing.md`
+- `docs/SDLC/Testing/05-repository-metadata-testing.md`
+- `docs/SDLC/Testing/06-authorization-testing.md`
+- `docs/SDLC/Testing/07-repository-storage-testing.md`
+- `docs/SDLC/Testing/08-git-process-execution-testing.md`
+- `docs/SDLC/Testing/09-repository-browser-testing.md`
+- `docs/SDLC/Testing/10-git-smart-http-read-testing.md`
+- `docs/SDLC/Testing/11-personal-access-token-testing.md`
+- `docs/SDLC/Testing/12-git-smart-http-write-testing.md`
+- `docs/SDLC/Testing/13-web-ui-testing.md`
+- `docs/SDLC/Testing/14-security-testing.md`
+- `docs/SDLC/Testing/15-observability-and-failure-testing.md`
+- `docs/SDLC/Testing/16-system-and-end-to-end-testing.md`
+- `docs/SDLC/Testing/17-regression-testing.md`
+- `docs/SDLC/Testing/18-acceptance-testing.md`
 - automated backend and frontend test suites
 - targeted real-Git Smart HTTP execution
 - database integrity execution

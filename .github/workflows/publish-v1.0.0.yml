@@ -31,9 +31,9 @@ jobs:
         run: |
           set -euo pipefail
           test -f CHANGELOG.md
-          test -f RELEASE_NOTES.md
+          test -f docs/Releases/v1/v1.0.0.md
           grep -Fq '## [1.0.0]' CHANGELOG.md
-          grep -Fq 'GitForge V1.0.0' RELEASE_NOTES.md
+          grep -Fq 'GitForge V1.0.0' docs/Releases/v1/v1.0.0.md
 
       - name: Publish tag and GitHub Release
         env:
@@ -53,14 +53,14 @@ jobs:
             gh release create v1.0.0 \
               --repo "$REPOSITORY" \
               --title 'GitForge V1.0.0' \
-              --notes-file RELEASE_NOTES.md \
+              --notes-file docs/Releases/v1/v1.0.0.md \
               --verify-tag
           else
             gh release create v1.0.0 \
               --repo "$REPOSITORY" \
               --target "$RELEASE_SHA" \
               --title 'GitForge V1.0.0' \
-              --notes-file RELEASE_NOTES.md
+              --notes-file docs/Releases/v1/v1.0.0.md
           fi
 
       - name: Verify published release
