@@ -81,7 +81,7 @@ jobs:
           test -f docs/08-maintenance/09-m7-milestone-review.md
           grep -Fq '## [1.0.0]' CHANGELOG.md
           version="$(node -p "require('./frontend/package.json').version")"
-          test -f "docs/releases/v${version}.md"
+          test -f "docs/Releases/v${version}.md"
           grep -Fq "## [${version}]" CHANGELOG.md
           node -e "const p = require('./frontend/package.json'); const l = require('./frontend/package-lock.json'); if (p.version !== l.version || p.version !== l.packages[''].version) process.exit(1)"
           grep -Fq 'GitForge V1.0.0' RELEASE_NOTES.md
