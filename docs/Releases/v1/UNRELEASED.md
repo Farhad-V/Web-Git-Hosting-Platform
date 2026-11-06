@@ -2,7 +2,7 @@
 
 **Planned version: v2.0.0 — unreleased.** This existing reference remains available for older links. The canonical current scope is [Version 2 unreleased notes](../v2/UNRELEASED.md), with [draft release notes](../v2/v2.0.0.md) and [candidate checklist](../v2/RELEASE-CHECKLIST.md).
 
-The following changes were merged into `main` through [PR #27](https://github.com/Farhad-Valizadegan/Web-Git-Hosting-Platform/pull/27). They remain unreleased; the planned version is v2.0.0, but no v2 release is published.
+The following changes were merged into `main` through [PR #27](https://github.com/Farhad-V/Web-Git-Hosting-Platform/pull/27). They remain unreleased; the planned version is v2.0.0, but no v2 release is published.
 
 ## Capabilities
 
