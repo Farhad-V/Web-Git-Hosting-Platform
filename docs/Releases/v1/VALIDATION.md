@@ -11,7 +11,7 @@ Validation belongs to an exact candidate commit and environment. A successful hi
 | Local QA 2026-10-11 | 57 frontend and 65 backend unit tests passed; one Windows symlink skip | Local checks, not a fresh full backend run |
 | Documentation checkpoint 9d5d496 | Backend CI, Deployment Validation, and Release Readiness passed | Reorganized documentation and workflow references |
 
-For later commits, consult their actual [GitHub Actions runs](https://github.com/Farhad-Valizadegan/Web-Git-Hosting-Platform/actions). These counts are recorded history, not a live dashboard.
+For later commits, consult their actual [GitHub Actions runs](https://github.com/Farhad-V/Web-Git-Hosting-Platform/actions). These counts are recorded history, not a live dashboard.
 
 ## Candidate evidence requirements
 
