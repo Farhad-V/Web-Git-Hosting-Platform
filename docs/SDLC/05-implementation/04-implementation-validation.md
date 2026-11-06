@@ -84,7 +84,7 @@ The implementation traceability review completed in WP-16 established the mappin
 
 | Item | Value |
 |---|---|
-| Repository | `Farhad-Valizadegan/Web-Git-Hosting-Platform` |
+| Repository | `Farhad-V/Web-Git-Hosting-Platform` |
 | Validation branch | `implementation/m4` |
 | Formatting correction commit | `b4af5fd` |
 
