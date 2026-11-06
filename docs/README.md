@@ -14,7 +14,7 @@ GitForge is the Web Git Hosting Platform: a Laravel API and React/TypeScript app
 
 ## Version context
 
-The released baseline is **v1.0.1**. Collaboration and refined UI work was merged into `main` through [PR #27](https://github.com/Farhad-Valizadegan/Web-Git-Hosting-Platform/pull/27). It remains unreleased until a new version is tagged and published. See [the unreleased overview](Releases/v1/UNRELEASED.md).
+The released baseline is **v1.0.1**. Collaboration and refined UI work was merged into `main` through [PR #27](https://github.com/Farhad-V/Web-Git-Hosting-Platform/pull/27). It remains unreleased until a new version is tagged and published. See [the unreleased overview](Releases/v1/UNRELEASED.md).
 
 The detailed engineering files now live inside their related subject folders. Historical test totals and milestone statements describe their recorded versions, rather than the current development branch.
 
